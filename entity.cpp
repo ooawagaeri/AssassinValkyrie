@@ -189,101 +189,77 @@ bool Entity::collideRotatedBox(Entity &ent, VECTOR2 &collisionVector)
     return false;
 }
 
+// Pixel Perfect collision, IN PROGRESS
 bool Entity::DetectPixelPerfect(Entity &ent, VECTOR2 &collisionVector)
 {
-	SpriteData sprite1 = spriteData;
-	SpriteData sprite2 = ent.spriteData;
+	SpriteData test1 = spriteData;
+	SpriteData test2 = ent.spriteData;
 
-	// Creation of the bounding rectangles from the SPRITE values
-	// Remember that coordinates start in the upper left corner of the screen
 	RECT rect1;
-	rect1.left = (long)sprite1.x;
-	rect1.top = (long)sprite1.y;
-	rect1.right = (long)sprite1.x + sprite1.width * sprite1.scale;
-	rect1.bottom = (long)sprite1.y + sprite1.height * sprite1.scale;
+	rect1.left = (long)getX();
+	rect1.top = (long)getY();
+	rect1.right = (long)getX() + getWidth() * getScale();
+	rect1.bottom = (long)getY() + getHeight() * getScale();
 	RECT rect2;
-	rect2.left = (long)sprite2.x;
-	rect2.top = (long)sprite2.y;
-	rect2.right = (long)sprite2.x + sprite2.width * sprite2.scale;
-	rect2.bottom = (long)sprite2.y + sprite2.height * sprite2.scale;
+	rect2.left = (long)ent.getX();
+	rect2.top = (long)ent.getY();
+	rect2.right = (long)ent.getX() + ent.getWidth() * ent.getScale();
+	rect2.bottom = (long)ent.getY() + ent.getHeight() * ent.getScale();
 
-
-	//VECTOR2 rotatedX(cos(sprite1.angle), sin(sprite1.angle));
-	//VECTOR2 rotatedY(-sin(sprite1.angle), cos(sprite1.angle));
-	//
- //   const VECTOR2 *center = getCenter();
-	//VECTOR2 corner = sprite + rotatedX * ((float)edge.left*getScale()) + rotatedY * ((float)edge.bottom*getScale());
-
-	//long X = sin(sprite1.angle) * sprite1.width * sprite1.scale;
-	//long Y = -cos(sprite1.angle) *  sprite1.height * sprite1.scale;
-
-	// Intersection of the bounding rectangles
-	// Up to here the code is just bounding box collision detection
 	RECT dest;
 	if (IntersectRect(&dest, &rect1, &rect2))
 	{
-		// Loking of the textures
-		// In this case the SPRITE object holds the texture to draw
-		// We will access it and invoke the LockRect method of LPDIRECT3DTEXTURE9
-		// The pixels will be saved in each D3DLOCKED_RECT object
+		// Locking of the textures
 		D3DLOCKED_RECT rectS1;
-		HRESULT hResult = sprite1.texture->LockRect(0, &rectS1, NULL, 0);
+		HRESULT hResult = getSpriteInfo().texture->LockRect(0, &rectS1, NULL, 0);
 		if (FAILED(hResult))
 		{
 			MessageBox(0, "Failed", "Info", 0);
 			return 0;
 		}
 		D3DLOCKED_RECT rectS2;
-		hResult = sprite2.texture->LockRect(0, &rectS2, NULL, NULL);
+
+		hResult = ent.getSpriteInfo().texture->LockRect(0, &rectS2, NULL, NULL);
 		if (FAILED(hResult))
 		{
 			MessageBox(0, "Failed", "Info", 0);
 			return 0;
 		}
 		// Get the pointer to the color values
-		// From now on, we will read that pointer as an array
-
-		BYTE *bytePointer1 = (BYTE*)rectS1.pBits;
-		BYTE *bytePointer2 = (BYTE*)rectS2.pBits;
+		//BYTE *bytePointer1 = (BYTE*)rectS1.pBits;
+		//BYTE *bytePointer2 = (BYTE*)rectS2.pBits;
 
 		D3DCOLOR* pixelsS1 = (D3DCOLOR*)rectS1.pBits;
 		D3DCOLOR* pixelsS2 = (D3DCOLOR*)rectS2.pBits;
-		// We will check the area of the intersected rect (dest)
-		// In this rectangle, we have to check that in the same spot:
+
 		// A pixel from each texture collide
 		for (int rx = dest.left; rx < dest.right; rx++)
 		{
 			for (int ry = dest.top; ry < dest.bottom; ry++)
 			{
-				// Translation from the "dest" rect to sprite1 coordinates
-				int s1x = rx - sprite1.x;
-				int s1y = ry - sprite1.y;
-				// Translation from the "dest" rect to sprite2 coordinates
-				int s2x = rx - sprite2.x;
-				int s2y = ry - sprite2.y;
+				int s1x = rx - getX();
+				int s1y = ry - getY();
+
+				int s2x = rx - ent.getX();
+				int s2y = ry - ent.getY();
+
+				#define ExtractAlpha(x) ((x>>24) & 255)
 				// Check the alpha value of each texture pixel
-				// The alpha value is the leftmost byte
-				BYTE a = (pixelsS1[s1y * 128 + s1x] & 0xFF000000) >> 24;
-				BYTE b = (pixelsS2[s2y * 480 + s2x] & 0xFF000000) >> 24;
+				BYTE a = ExtractAlpha(pixelsS1[s1y * 128 + s1x]);
+				BYTE b = ExtractAlpha(pixelsS2[s2y * 480 + s2x]);
+
 				// If both pixels are opaque, we found a collision
-				// We have to unlock the textures and return
-
-				//DWORD index1 = (s1x * 4 + (s1y*(rectS1.Pitch)));
-				//BYTE a = bytePointer1[index1 + 3];
-				//DWORD index2 = (s2x * 4 + (s2y*(rectS2.Pitch)));
-				//BYTE b = bytePointer2[index2 + 3];
-
 				if (a == 255 && b == 255)
 				{
-					sprite1.texture->UnlockRect(0);
-					sprite2.texture->UnlockRect(0);
+					getSpriteInfo().texture->UnlockRect(0);
+					ent.getSpriteInfo().texture->UnlockRect(0);
 					return 1;
 				}
 			}
 		}
 		// If we reached here, it means that we did not find a collision
-		sprite1.texture->UnlockRect(0);
-		sprite2.texture->UnlockRect(0);
+		getSpriteInfo().texture->UnlockRect(0);
+		ent.getSpriteInfo().texture->UnlockRect(0);
 		return 0;
 	}
 	return 0;

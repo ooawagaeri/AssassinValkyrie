@@ -11,6 +11,7 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
+#include "enemy.h"
 
 //Testing
 //=============================================================================
@@ -20,6 +21,8 @@ class AssassinValkyrie : public Game
 {
 private:
     // game items
+	TextureManager enemyTextures;
+	Enemy *trooper1;
 
 public:
     // Constructor
@@ -29,7 +32,7 @@ public:
     virtual ~AssassinValkyrie();
 
 	// Initialize the game
-	void initialize(HWND hwnd);
+	void initialize(Game &gamePtr);
     // Initialize the game
     void update();      // must override pure virtual from Game
     void ai();          // "
