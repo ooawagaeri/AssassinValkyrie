@@ -32,7 +32,8 @@ public:
     virtual ~AssassinValkyrie();
 
 	// Initialize the game
-	void initialize(Game &gamePtr);
+	void initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
+		LARGE_INTEGER *timerFreqM, float *frameTimeM);
     // Initialize the game
     void update();      // must override pure virtual from Game
     void ai();          // "

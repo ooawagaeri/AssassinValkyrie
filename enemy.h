@@ -26,7 +26,7 @@ namespace trooperNS
 	const int   TEXTURE_COLS = 6;
 	const int   START_FRAME = 0;
 	const int   END_FRAME = 5;
-	const float ANIMATION_DELAY = 0.2f;
+	const float ANIMATION_DELAY = 1.0f;
 }
 
 class Enemy : public Entity

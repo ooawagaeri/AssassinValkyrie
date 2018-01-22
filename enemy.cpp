@@ -20,7 +20,7 @@ Enemy::Enemy() : Entity()
 	startFrame = trooperNS::START_FRAME;     // first frame of ship animation
 	endFrame = trooperNS::END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
-	collisionType = entityNS::CIRCLE;
+	collisionType = entityNS::BOX;
 }
 
 bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)

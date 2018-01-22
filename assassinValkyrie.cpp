@@ -18,12 +18,19 @@ AssassinValkyrie::~AssassinValkyrie()
 }
 
 // Initializes the game
-void AssassinValkyrie::initialize(Game &gamePtr)
+void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
+	LARGE_INTEGER *timerFreqM, float *frameTimeM)
 {
 	graphics = gamePtr.getGraphics();
 	input = gamePtr.getInput();
 	audio = gamePtr.getAudio();
-
+	hwnd = *hwndM;
+	hr = *hrM;
+	timeStart = *timeStartM;
+	timeEnd = *timeEndM;
+	timerFreq = *timerFreqM;
+	frameTime = *frameTimeM;
+	
 	if (!enemyTextures.initialize(graphics, ENEMY_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
 	
