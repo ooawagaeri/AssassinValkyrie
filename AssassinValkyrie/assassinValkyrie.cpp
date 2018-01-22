@@ -11,6 +11,7 @@ AssassinValkyrie::AssassinValkyrie()
 	ShowCursor(false);
 	trooper1 = new Enemy();
 	mouse = new Cursor();
+	background = new Background();
 }
 
 // Destructor
@@ -47,12 +48,19 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!trooper1->initialize(this, trooperNS::WIDTH, trooperNS::HEIGHT, trooperNS::TEXTURE_COLS, &enemyTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
 
+	//Background
+	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
     return;
 }
 
 // Update all game items
 void AssassinValkyrie::update()
 {
+	background->update(frameTime);
 	trooper1->update(frameTime);
 	mouse->update();
 }
@@ -74,6 +82,7 @@ void AssassinValkyrie::collisions()
 // Render game items
 void AssassinValkyrie::render()
 {
+	background->draw();
 	trooper1->draw();
 	mouse->draw();
 }
@@ -83,8 +92,10 @@ void AssassinValkyrie::releaseAll()
 {
 	SAFE_DELETE(mouse);
 	SAFE_DELETE(trooper1);
+	SAFE_DELETE(background);
 	enemyTextures.onLostDevice();
 	mouseTextures.onLostDevice();
+	backgroundTexture.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -94,6 +105,7 @@ void AssassinValkyrie::resetAll()
 {
 	enemyTextures.onResetDevice();
 	mouseTextures.onLostDevice();
+	backgroundTexture.onResetDevice();
     Game::resetAll();
     return;
 }

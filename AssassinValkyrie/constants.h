@@ -47,6 +47,8 @@ const float GRAVITY = 9.81f;
 const char MMBACKGROUND_IMAGE[] = "pictures\\mainMenuBackground.png";
 const char MOUSE_IMAGE[] = "pictures\\mouse.png";
 const char ENEMY_IMAGE[] = "pictures\\enemyTexture.png";
+const char FLOOR_IMAGE[] = "pictures\\floor.png";
+const char BACKGROUND_IMAGE[] = "pictures\\tiledbackground.png";
 
 // WAVE_BANK must be location of .xwb file.
 const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
