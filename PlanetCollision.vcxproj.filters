@@ -37,6 +37,7 @@
     <ClCompile Include="mainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -87,6 +88,7 @@
     <ClInclude Include="AttackComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

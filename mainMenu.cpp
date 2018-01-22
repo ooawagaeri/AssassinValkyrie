@@ -13,6 +13,7 @@ MainMenu::MainMenu()
 
 MainMenu::~MainMenu()
 {
+	ShowCursor(FALSE);
 	releaseAll();
 }
 
@@ -31,6 +32,11 @@ void MainMenu::initialize(HWND hwnd)
 
 void MainMenu::update()
 {
+	if (input->isKeyDown(ENTER_KEY))
+	{
+		gameStart = true;
+		assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime);
+	}
 	if (gameStart)
 		assValk->update();
 }

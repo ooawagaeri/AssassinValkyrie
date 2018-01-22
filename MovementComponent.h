@@ -12,8 +12,26 @@ class MovementComponent
 private:
 	int velocityX;
 	int velocityY;
+	float *posX;
+	float *posY;
+
 public:
-	void update(float frameTime);
+	//MovementComponent(float *x, float *y, int speedX, int speedY);
+	//void update(float frameTime);
 };
+
+//MovementComponent::MovementComponent(float *x, float *y, int speedX, int speedY)
+//{
+//	velocityX = speedX;
+//	velocityY = speedY;
+//	posX = x;
+//	posY = y;
+//}
+
+//void MovementComponent::update(float frameTime)
+//{
+//	*posX = *posX + velocityX * frameTime;
+//	*posY = *posY + velocityY * frameTime;
+//}
 
 #endif
