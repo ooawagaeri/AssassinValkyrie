@@ -11,6 +11,7 @@
 #include "input.h"
 #include "game.h"
 
+//Testing
 namespace entityNS
 {
     enum COLLISION_TYPE {NONE, CIRCLE, BOX, ROTATED_BOX};
