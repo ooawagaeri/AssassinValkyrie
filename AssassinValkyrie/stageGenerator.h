@@ -8,12 +8,6 @@
 #include <string>
 #include <vector>
 
-struct stageElement {
-	std::string element;
-	int xStart;
-	int xEnd;
-	int y;
-};
 typedef std::vector<Floor *> FLOORS;
 
 //enum STAGEELEMENTS {FLOOR};
