@@ -211,7 +211,7 @@ bool Entity::DetectPixelPerfect(Entity &ent)
 		D3DLOCKED_RECT rectS1;
 		HRESULT hResult = getSpriteInfo().texture->LockRect(0, &rectS1, NULL, 0);
 		if (FAILED(hResult))
-		{
+		{	
 			MessageBox(0, "Failed", "Info", 0);
 			return 0;
 		}

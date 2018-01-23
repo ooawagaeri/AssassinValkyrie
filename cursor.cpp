@@ -29,13 +29,13 @@ void Cursor::update()
 {
 	spriteData.x = input->getMouseX() - spriteData.width / 2;
 	spriteData.y = input->getMouseY() - spriteData.height / 2;
-
-	if (getCenterX() > GAME_WIDTH)
-		spriteData.x = GAME_WIDTH;
-	if (getCenterY() > GAME_HEIGHT)
-		spriteData.y = GAME_HEIGHT;
-	if (getCenterX() < 0)
+	
+	if (spriteData.x < 0)
 		spriteData.x = 0;
-	if (getCenterY() < 0)
+	if (spriteData.x + spriteData.width > GAME_WIDTH)
+		spriteData.x = GAME_WIDTH;
+	if (spriteData.y > GAME_HEIGHT)
+		spriteData.y = GAME_HEIGHT;
+	if (spriteData.y + spriteData.height < 0)
 		spriteData.y = 0;
 }

@@ -10,28 +10,17 @@
 class MovementComponent
 {
 private:
-	int velocityX;
-	int velocityY;
-	float *posX;
-	float *posY;
+	Entity *object;
 
 public:
-	//MovementComponent(float *x, float *y, int speedX, int speedY);
-	//void update(float frameTime);
+	MovementComponent(Entity* ent)
+	{
+		object = ent;
+	}
+	void update(float frameTime)
+	{
+		object->setX(object->getX() + object->getVelocity().x *frameTime);
+		object->setY(object->getY() + object->getVelocity().y *frameTime);
+	}
 };
-
-//MovementComponent::MovementComponent(float *x, float *y, int speedX, int speedY)
-//{
-//	velocityX = speedX;
-//	velocityY = speedY;
-//	posX = x;
-//	posY = y;
-//}
-
-//void MovementComponent::update(float frameTime)
-//{
-//	*posX = *posX + velocityX * frameTime;
-//	*posY = *posY + velocityY * frameTime;
-//}
-
 #endif

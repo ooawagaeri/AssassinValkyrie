@@ -67,6 +67,7 @@ void MainMenu::render()
 
 void MainMenu::releaseAll()
 {
+	SAFE_DELETE(assValk);
 	if (gameStart)
 		assValk->releaseAll();
 	else

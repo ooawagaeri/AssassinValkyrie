@@ -37,9 +37,14 @@
     <ClCompile Include="mainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="cursor.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyState.cpp">
+      <Filter>State Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,9 +96,23 @@
     <ClInclude Include="AttackComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="enemy.h" />
     <ClInclude Include="cursor.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="patrolState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="alertState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="standState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +124,9 @@
     </Filter>
     <Filter Include="Component Files">
       <UniqueIdentifier>{5012e072-923a-4864-b4b4-074baaeda7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State Files">
+      <UniqueIdentifier>{2d3c2623-b539-456c-a906-adfb5012dc2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -9,8 +9,8 @@
 AssassinValkyrie::AssassinValkyrie()
 { 
 	ShowCursor(false);
-	trooper1 = new Enemy();
 	mouse = new Cursor();
+	trooper1 = new Enemy(mouse);
 }
 
 // Destructor
@@ -46,6 +46,8 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	
 	if (!trooper1->initialize(this, trooperNS::WIDTH, trooperNS::HEIGHT, trooperNS::TEXTURE_COLS, &enemyTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
+
+	//trooper1->handleInput(input);
 
     return;
 }
