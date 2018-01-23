@@ -12,6 +12,7 @@ AssassinValkyrie::AssassinValkyrie()
 	trooper1 = new Enemy();
 	mouse = new Cursor();
 	background = new Background();
+	totalStages = 1;
 }
 
 // Destructor
@@ -54,6 +55,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
     return;
 }
 
@@ -104,7 +106,7 @@ void AssassinValkyrie::releaseAll()
 void AssassinValkyrie::resetAll()
 {
 	enemyTextures.onResetDevice();
-	mouseTextures.onLostDevice();
+	mouseTextures.onResetDevice();
 	backgroundTexture.onResetDevice();
     Game::resetAll();
     return;

@@ -29,6 +29,7 @@ private:
 	Cursor *mouse;
 	Enemy *trooper1;
 	Background *background;
+	int	totalStages;
 
 public:
     // Constructor

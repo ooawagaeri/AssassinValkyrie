@@ -100,6 +100,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="stageLoader.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="winmain.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="assassinValkyrie.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="stageLoader.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
   </ItemGroup>

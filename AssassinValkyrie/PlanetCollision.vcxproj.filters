@@ -43,6 +43,7 @@
     </ClCompile>
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="stageLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -99,6 +100,7 @@
     </ClInclude>
     <ClInclude Include="floor.h" />
     <ClInclude Include="background.h" />
+    <ClInclude Include="stageLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
