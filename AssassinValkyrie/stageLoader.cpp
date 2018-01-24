@@ -15,23 +15,21 @@ StageLoader::StageLoader()
 
 bool StageLoader::initialize() {
 	clear();
-	currentStage = 0;
-	loadStage(1);
 	return true;
 }
 
-void StageLoader::loadStage(int i) {
+void StageLoader::loadStage(int *i) {
 	try {
-		string fileName = to_string(i);
+		string fileName = to_string(*i);
 		string line = "";
 		ifstream stageFile(fileName + ".txt");
 		if (stageFile.is_open()) {
 			while (getline(stageFile, line)) {
-				string a = line.substr(0, line.find('|'));
-				int b = atoi(line.substr(line.find('|')+1, line.find(',') - line.find('|')).c_str());
-				int c = atoi(line.substr(line.find(',') + 1, line.find('-') - line.find(',')).c_str());
-				int d = atoi(line.substr(line.find('-')+1, line.find('\n') - line.find('-')).c_str());
-				elementSpawn.push(stageElement{ a, b, c, d });
+				string type = line.substr(0, line.find('|'));
+				int xStart = atoi(line.substr(line.find('|')+1, line.find(',') - line.find('|')).c_str());
+				int xEnd = atoi(line.substr(line.find(',') + 1, line.find('-') - line.find(',')).c_str());
+				int y = atoi(line.substr(line.find('-')+1, line.find('\n') - line.find('-')).c_str());
+				elementSpawn.push(stageElement{ type, xStart, xEnd, y });
 			}
 		}
 	}

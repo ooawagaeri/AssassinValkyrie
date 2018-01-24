@@ -45,6 +45,7 @@
     <ClCompile Include="background.cpp" />
     <ClCompile Include="stageLoader.cpp" />
     <ClCompile Include="stageGenerator.cpp" />
+    <ClCompile Include="fill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -103,6 +104,7 @@
     <ClInclude Include="background.h" />
     <ClInclude Include="stageLoader.h" />
     <ClInclude Include="stageGenerator.h" />
+    <ClInclude Include="fill.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

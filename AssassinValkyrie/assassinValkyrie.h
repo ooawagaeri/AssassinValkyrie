@@ -30,7 +30,7 @@ private:
 	Cursor *mouse;
 	Enemy *trooper1;
 	Background *background;
-	int	totalStages;
+	int	currentStage;
 	StageGenerator *stageGenerator;
 
 	TextureManager floorTexture;

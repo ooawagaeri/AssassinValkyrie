@@ -2,8 +2,7 @@
 // Assignment2		: Assassin Valkyrie
 // Student Number	: Daniel Lee Min Qiang
 // Student Number	: S10162739H
-
-#include "floor.h"
+#include "gameError.h"
 #include <queue>
 #include <string>
 
@@ -25,7 +24,7 @@ public:
 	~StageLoader();
 
 	bool initialize();
-	void loadStage(int i);
+	void loadStage(int *i);
 	void clear();
 
 	int elementSize() { return elementSpawn.size(); }

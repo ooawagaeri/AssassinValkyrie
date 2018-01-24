@@ -4,12 +4,14 @@
 // Student Number	: S10162739H
 
 #include "stageLoader.h"
+#include "floor.h"
+#include "fill.h"
 #include <queue>
 #include <string>
 #include <vector>
 
 typedef std::vector<Floor *> FLOORS;
-
+typedef std::vector<Fill *> FILLS;
 //enum STAGEELEMENTS {FLOOR};
 
 class StageGenerator
@@ -18,6 +20,10 @@ private:
 	int currentStage;
 	FLOORS floorCollection;
 	FLOORS::iterator floor;
+
+	FILLS fillCollection;
+	FILLS::iterator fill;
+
 	StageLoader *stageLoad;
 	int totalElements;
 

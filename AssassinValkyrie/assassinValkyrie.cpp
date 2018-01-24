@@ -13,7 +13,7 @@ AssassinValkyrie::AssassinValkyrie()
 	mouse = new Cursor();
 	background = new Background();
 	stageGenerator = new StageGenerator();
-	totalStages = 1;
+	currentStage = 1;
 }
 
 // Destructor
@@ -60,7 +60,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
 
-	if (!stageGenerator->initialize(this, &floorTexture, &totalStages))
+	if (!stageGenerator->initialize(this, &floorTexture, &currentStage))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing floor generation"));
 
 
