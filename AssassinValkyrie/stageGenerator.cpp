@@ -7,7 +7,7 @@
 StageGenerator::StageGenerator() 
 {
 	stageLoad = new StageLoader();
-
+	edge = true;
 }
 
 bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo) 
@@ -25,10 +25,10 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 		{
 			positionElement = stageLoad->getElement();
 			if (positionElement.element == "FLOOR") {
-				int floorCount = (positionElement.xEnd - positionElement.xStart) / floorNS::WIDTH;
-				if (floorCount == 0)
-					floorCount = 1;
-				for (int j = 0; j < floorCount; j++) {
+				int count = (positionElement.xEnd - positionElement.xStart) / floorNS::WIDTH;
+				if (count == 0)
+					count = 1;
+				for (int j = 0; j < count; j++) {
 					floorCollection.emplace_back(new Floor());
 					success = floorCollection.back()->initialize(gamePtr, floorNS::WIDTH, floorNS::HEIGHT, 2, textureM);
 					floorCollection.back()->setCurrentFrame(0);
@@ -39,15 +39,29 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 					return success;
 			}
 			if (positionElement.element == "FILL") {
-				int fillCount = (positionElement.xEnd - positionElement.xStart) / fillNS::WIDTH;
-				if (fillCount == 0)
-					fillCount = 1;
-				for (int j = 0; j < fillCount; j++) {
+				int count = (positionElement.xEnd - positionElement.xStart) / fillNS::WIDTH;
+				if (count == 0)
+					count = 1;
+				for (int j = 0; j < count; j++) {
 					fillCollection.emplace_back(new Fill());
 					success = fillCollection.back()->initialize(gamePtr, fillNS::WIDTH, fillNS::HEIGHT, 2, textureM);
 					fillCollection.back()->setCurrentFrame(1);
 					fillCollection.back()->setX(positionElement.xStart + (fillNS::WIDTH * j));
 					fillCollection.back()->setY(GAME_HEIGHT - fillNS::HEIGHT - positionElement.y);
+				}
+				if (!success)
+					return success;
+			}
+			if (positionElement.element == "HIDEOUT") {
+				int count = (positionElement.xEnd - positionElement.xStart) / hideoutNS::WIDTH;
+				if (count == 0)
+					count = 1;
+				for (int j = 0; j < count; j++) {
+					hideoutCollection.emplace_back(new Hideout());
+					success = hideoutCollection.back()->initialize(gamePtr, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, textureM);
+					hideoutCollection.back()->setCurrentFrame(4);
+					hideoutCollection.back()->setX(positionElement.xStart + (hideoutNS::WIDTH * j));
+					hideoutCollection.back()->setY(GAME_HEIGHT - hideoutNS::HEIGHT - positionElement.y);
 				}
 				if (!success)
 					return success;
@@ -68,5 +82,24 @@ void StageGenerator::render()
 	}
 	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
 		(*fill)->draw();
+	}
+	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
+		(*hideout)->draw();
+	}
+}
+
+void StageGenerator::update(float frametime)
+{
+	/*
+	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
+		(*hideout)->update(frametime);
+	}
+	*/
+	for (floor = floorCollection.begin(); floor != floorCollection.end(); floor++)
+	{
+		(*floor)->update(frametime, true);
+	}
+	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
+		(*fill)->update(frametime, true);
 	}
 }

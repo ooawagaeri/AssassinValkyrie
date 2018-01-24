@@ -9,7 +9,7 @@
 
 #include "entity.h"
 #include "constants.h"
-
+#include"stageGenerator.h"
 namespace backgroundNS
 {
 	const int	WIDTH = 1440;
@@ -27,14 +27,16 @@ namespace backgroundNS
 
 class Background : public Entity
 {
-
+private:
+	int i;
+	bool centre;
 public:
 	// constructor
 	Background();
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime);
+	void update(float frameTime, Entity *player, StageGenerator *stageGen);
 	void draw();
 };
 #endif

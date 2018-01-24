@@ -2,6 +2,9 @@
 // Assignment2		: Assassin Valkyrie
 // Student Number	: Daniel Lee Min Qiang
 // Student Number	: S10162739H
+#ifndef _STAGELOADER_H 
+#define _STAGELOADER_H
+#define WIN32_LEAN_AND_MEAN
 #include "gameError.h"
 #include <queue>
 #include <string>
@@ -32,3 +35,4 @@ public:
 
 	stageElement getElement();
 };
+#endif

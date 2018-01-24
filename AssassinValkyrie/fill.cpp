@@ -5,13 +5,13 @@
 
 #include "fill.h"
 
-Fill::Fill() : Image()
+Fill::Fill() : Entity()
 {
 	spriteData.width = fillNS::WIDTH;           // size of Ship1
 	spriteData.height = fillNS::HEIGHT;
 	spriteData.rect.bottom = fillNS::HEIGHT;    // rectangle to select parts of an image
 	spriteData.rect.right = fillNS::WIDTH;
-
+	velocity.x = 100;
 	currentFrame = startFrame;
 	//edge = RECT{ (long)(-fillNS::WIDTH*fillNS::SCALE / 2), (long)(-fillNS::HEIGHT*fillNS::SCALE / 2), (long)(fillNS::WIDTH*fillNS::SCALE / 2), (long)(fillNS::HEIGHT*fillNS::SCALE / 2) };
 	//collisionType = entityNS::BOX;
@@ -21,13 +21,21 @@ bool Fill::initialize(Game *gamePtr, int width, int height, int ncols, TextureMa
 {
 	//health = new HealthComponent();
 	//move = new MovementComponent(&(spriteData.x), &(spriteData.y), trooperNS::SPEED, 0);
-	return(Image::initialize(gamePtr->getGraphics(), width, height, ncols, textureM));
+	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Fill::update(float frameTime)
+void Fill::update(float frameTime, bool moveOn)
 {
-	Image::update(frameTime);
+	Entity::update(frameTime);
+	if (input->isKeyDown(SHIP_LEFT_KEY) && moveOn)
+	{
+		spriteData.x += frameTime * velocity.x;         // move ship along X 
+	}
 
+	else if (input->isKeyDown(SHIP_RIGHT_KEY) && moveOn)
+	{
+		spriteData.x += frameTime * (-velocity.x);         // move ship along X 
+	}	
 	//move->update(frameTime);
 }
 

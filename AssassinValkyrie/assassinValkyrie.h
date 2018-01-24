@@ -13,8 +13,8 @@
 #include "image.h"
 #include "enemy.h"
 #include "cursor.h"
-#include "background.h"
 #include "stageGenerator.h"
+#include "background.h"
 
 //Testing
 //=============================================================================
@@ -34,6 +34,7 @@ private:
 	StageGenerator *stageGenerator;
 
 	TextureManager floorTexture;
+	Hideout *tempChar;
 
 public:
     // Constructor

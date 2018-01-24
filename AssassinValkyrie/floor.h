@@ -34,7 +34,7 @@ public:
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime);
+	void update(float frameTime, bool moveOn);
 	void draw();
 };
 #endif
