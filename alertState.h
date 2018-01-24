@@ -12,11 +12,11 @@
 class AlertedState : public EnemyState
 {
 private:
-	int maxTimeAlert = 10000;
+	int maxTimeAlert;
 	int alertedTime;
 	Entity lastSeen;
 public:
-	AlertedState() { alertedTime = GetTickCount(); }
+	AlertedState();
 	virtual EnemyState* handleInput(Entity& enemy, Input* input);
 	virtual void update(Entity *enemy, Entity *target);
 };//end of AlertedState class

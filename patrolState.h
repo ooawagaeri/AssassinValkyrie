@@ -12,11 +12,11 @@
 class PatrollingState : public EnemyState
 {
 private:
-	int maxTimeWalk = 8000;
+	int maxTimeWalk;
 	int walkingTime;
 
 public:
-	PatrollingState() { walkingTime = GetTickCount(); }
+	PatrollingState();
 	virtual EnemyState* handleInput(Entity& enemy, Input* input);
 	virtual void update(Entity *enemy, Entity *target);
 };//end of PatrollingState class

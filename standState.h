@@ -12,11 +12,11 @@
 class StandingState : public EnemyState
 {
 private:
-	int maxTimeStand = 4000;
+	int maxTimeStand;
 	int standTime;
 
 public:
-	StandingState() { standTime = GetTickCount(); }
+	StandingState();
 	virtual EnemyState* handleInput(Entity& enemy, Input* input);
 	virtual void update(Entity *enemy, Entity *target);
 };//end of StandingState class

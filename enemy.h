@@ -39,7 +39,7 @@ protected:
 	MovementComponent *move;
 	EnemyState *state_;
 
-	//temp
+	// player to track (temp for vision)
 	Cursor *mouseCursor;
 
 	bool	dyingOn;

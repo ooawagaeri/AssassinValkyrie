@@ -1,33 +1,14 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (AssTest.vcxproj, LetItRain.vcxproj, PlanetCollision.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  winmain.cpp
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  mainMenu.cpp
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  enemyState.cpp
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemystate.cpp(21): warning C4018: '>': signed/unsigned mismatch
-  enemy.cpp
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   assassinValkyrie.cpp
 d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\cursor.h(19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemy.h(26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Generating Code...
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemystate.cpp(35): warning C4715: 'AlertedState::handleInput': not all control paths return a value
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemystate.cpp(17): warning C4715: 'PatrollingState::handleInput': not all control paths return a value
-d:\1 - school\year 3.2\gpp\assignment 2\assassinvalkyrie\enemystate.cpp(53): warning C4715: 'StandingState::handleInput': not all control paths return a value
+  Skipping... (no relevant changes detected)
+  winmain.cpp
+  mainMenu.cpp
+  enemyState.cpp
+  enemy.cpp
   PlanetCollision.vcxproj -> D:\1 - School\Year 3.2\GPP\Assignment 2\AssassinValkyrie\Debug\AssassinValkyrie.exe
   PlanetCollision.vcxproj -> D:\1 - School\Year 3.2\GPP\Assignment 2\AssassinValkyrie\Debug\AssassinValkyrie.pdb (Full PDB)

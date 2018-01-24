@@ -41,10 +41,10 @@ void Enemy::handleInput(Input* input)
 
 void Enemy::update(float frameTime)
 {
-	handleInput(input);
-
 	state_->update(this, mouseCursor);
 	move->update(frameTime);
+
+	handleInput(input);
 
 	Entity::update(frameTime);
 }
