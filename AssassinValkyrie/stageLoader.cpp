@@ -11,11 +11,12 @@ using namespace std;
 
 StageLoader::StageLoader()
 {
-	clear();
-	currentStage = 0;
 }
 
 bool StageLoader::initialize() {
+	clear();
+	currentStage = 0;
+	loadStage(1);
 	return true;
 }
 
@@ -26,7 +27,11 @@ void StageLoader::loadStage(int i) {
 		ifstream stageFile(fileName + ".txt");
 		if (stageFile.is_open()) {
 			while (getline(stageFile, line)) {
-				elementSpawn.push(stageElement{ line.substr(0, line.find('|')), atoi(line.substr(line.find('|') + 1, line.find(',') - line.find('|')).c_str()), atoi(line.substr(line.find(', ' + 1), line.find('-') - line.find(',')).c_str()), atoi(line.substr(line.find('-' - 1), line.find('\n')-line.find('-')).c_str()) });
+				string a = line.substr(0, line.find('|'));
+				int b = atoi(line.substr(line.find('|')+1, line.find(',') - line.find('|')).c_str());
+				int c = atoi(line.substr(line.find(',') + 1, line.find('-') - line.find(',')).c_str());
+				int d = atoi(line.substr(line.find('-')+1, line.find('\n') - line.find('-')).c_str());
+				elementSpawn.push(stageElement{ a, b, c, d });
 			}
 		}
 	}

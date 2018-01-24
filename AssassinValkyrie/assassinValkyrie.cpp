@@ -12,6 +12,7 @@ AssassinValkyrie::AssassinValkyrie()
 	trooper1 = new Enemy();
 	mouse = new Cursor();
 	background = new Background();
+	stageGenerator = new StageGenerator();
 	totalStages = 1;
 }
 
@@ -56,6 +57,13 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
+	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
+
+	if (!stageGenerator->initialize(this, &floorTexture, &totalStages))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing floor generation"));
+
+
     return;
 }
 
@@ -87,6 +95,8 @@ void AssassinValkyrie::render()
 	background->draw();
 	trooper1->draw();
 	mouse->draw();
+	stageGenerator->render();
+
 }
 
 // Release all reserved video memory so graphics device may be reset.

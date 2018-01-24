@@ -115,4 +115,7 @@
       <UniqueIdentifier>{5012e072-923a-4864-b4b4-074baaeda7a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="1.txt" />
+  </ItemGroup>
 </Project>

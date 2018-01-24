@@ -26,6 +26,7 @@ public:
 	~StageGenerator();
 
 	bool initialize(Game *gamePtr, TextureManager *textureM, int *stageNo);
-	void loadStage(int i);
-	void clearField();
+	//void loadStage(int i);
+	//void clearField();
+	void render();
 };

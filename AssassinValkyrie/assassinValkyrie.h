@@ -14,6 +14,7 @@
 #include "enemy.h"
 #include "cursor.h"
 #include "background.h"
+#include "stageGenerator.h"
 
 //Testing
 //=============================================================================
@@ -30,6 +31,9 @@ private:
 	Enemy *trooper1;
 	Background *background;
 	int	totalStages;
+	StageGenerator *stageGenerator;
+
+	TextureManager floorTexture;
 
 public:
     // Constructor
