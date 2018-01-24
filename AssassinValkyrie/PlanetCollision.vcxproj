@@ -91,6 +91,7 @@
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="dashboard.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyState.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
@@ -103,10 +104,12 @@
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alertState.h" />
     <ClInclude Include="AttackComponent.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyState.h" />
     <ClInclude Include="HealthComponet.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="dashboard.h" />
@@ -119,6 +122,8 @@
     <ClInclude Include="assassinValkyrie.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="patrolState.h" />
+    <ClInclude Include="standState.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
   </ItemGroup>

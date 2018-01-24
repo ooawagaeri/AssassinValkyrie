@@ -20,7 +20,6 @@ MainMenu::~MainMenu()
 void MainMenu::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd);
-
 	if (!mmBackgroundTexture.initialize(graphics, MMBACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Main Menu Background"));
 
@@ -79,4 +78,5 @@ void MainMenu::resetAll()
 		assValk->resetAll();
 	else
 		mmBackgroundTexture.onResetDevice();
+	return;
 }
