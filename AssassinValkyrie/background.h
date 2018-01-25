@@ -23,6 +23,7 @@ namespace backgroundNS
 	const int   TEXTURE_COLS = 1;
 	const int   START_FRAME = 0;
 	const int   END_FRAME = 0;
+
 }
 
 class Background : public Entity
@@ -30,6 +31,8 @@ class Background : public Entity
 private:
 	int i;
 	bool centre;
+	int centreX;
+	int centreY;
 public:
 	// constructor
 	Background();

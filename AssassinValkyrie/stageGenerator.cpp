@@ -92,7 +92,7 @@ void StageGenerator::render()
 	}
 }
 
-void StageGenerator::update(float frametime, bool moveUp, int leftrightupdown, bool moveOn)
+void StageGenerator::update(float frametime, int direction, int leftrightupdown, bool moveOn)
 {
 	/*
 	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
@@ -107,7 +107,7 @@ void StageGenerator::update(float frametime, bool moveUp, int leftrightupdown, b
 			(*floor)->setX((*floor)->getStartX());
 
 		if (moveOn)
-			(*floor)->update(frametime, moveUp);
+			(*floor)->update(frametime, direction);
 	}
 	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
 		if (leftrightupdown == 1)
@@ -121,6 +121,6 @@ void StageGenerator::update(float frametime, bool moveUp, int leftrightupdown, b
 			(*fill)->setY((*fill)->getStartY());
 		*/
 		if (moveOn)
-			(*fill)->update(frametime, moveUp);
+			(*fill)->update(frametime, direction);
 	}
 }

@@ -27,21 +27,21 @@ bool Floor ::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Floor::update(float frameTime, bool moveOn)
+void Floor::update(float frameTime, int direction)
 {
 	Entity::update(frameTime);
-	if (input->isKeyDown(SHIP_LEFT_KEY) && moveOn)
+	if (input->isKeyDown(SHIP_LEFT_KEY) && direction == 1)
 	{
 		spriteData.x += frameTime * velocity.x;         // move ship along X 
 	}
 
-	else if (input->isKeyDown(SHIP_RIGHT_KEY) && moveOn)
+	else if (input->isKeyDown(SHIP_RIGHT_KEY) && direction == 2)
 	{
 		spriteData.x += frameTime * (-velocity.x);         // move ship along X 
 	}
-	else if (input->isKeyDown(SHIP_UP_KEY) && !moveOn)
+	else if (input->isKeyDown(SHIP_UP_KEY) && direction == 3)
 		spriteData.y += frameTime * velocity.y;
-	else if (input->isKeyDown(SHIP_DOWN_KEY) && !moveOn)
+	else if (input->isKeyDown(SHIP_DOWN_KEY) && direction == 4)
 		spriteData.y += frameTime * (-velocity.y);
 	//move->update(frameTime);
 }
