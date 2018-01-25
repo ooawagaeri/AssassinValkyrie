@@ -58,16 +58,17 @@ void Background::update(float frameTime, Entity *player, StageGenerator *stageGe
 		}
 		player->setX(centreX);
 	}
+
 	if ((player->getX() >= centreX) && !right) {
-		if (input->isKeyDown(SHIP_RIGHT_KEY)) {
-			velocity.x = 100;
-			spriteData.x += frameTime * (-velocity.x);         // move ship along X
-			stageGen->update(frameTime, 2, 0, true);
-		}
 		if (input->isKeyDown(SHIP_LEFT_KEY)) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (velocity.x);         // move ship along X
 			stageGen->update(frameTime, 1, 0, true);
+		}
+		if (input->isKeyDown(SHIP_RIGHT_KEY)) {
+			velocity.x = 100;
+			spriteData.x += frameTime * (-velocity.x);         // move ship along X
+			stageGen->update(frameTime, 2, 0, true);
 		}
 		player->setX(centreX);
 	}
