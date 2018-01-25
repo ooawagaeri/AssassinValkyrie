@@ -12,6 +12,7 @@ Fill::Fill() : Entity()
 	spriteData.rect.bottom = fillNS::HEIGHT;    // rectangle to select parts of an image
 	spriteData.rect.right = fillNS::WIDTH;
 	velocity.x = 100;
+	velocity.y = 100;
 	currentFrame = startFrame;
 	//edge = RECT{ (long)(-fillNS::WIDTH*fillNS::SCALE / 2), (long)(-fillNS::HEIGHT*fillNS::SCALE / 2), (long)(fillNS::WIDTH*fillNS::SCALE / 2), (long)(fillNS::HEIGHT*fillNS::SCALE / 2) };
 	//collisionType = entityNS::BOX;
@@ -36,6 +37,10 @@ void Fill::update(float frameTime, bool moveOn)
 	{
 		spriteData.x += frameTime * (-velocity.x);         // move ship along X 
 	}	
+	else if (input->isKeyDown(SHIP_UP_KEY) && !moveOn)
+		spriteData.y += frameTime * velocity.y;
+	else if (input->isKeyDown(SHIP_DOWN_KEY) && !moveOn)
+		spriteData.y += frameTime * (-velocity.y);
 	//move->update(frameTime);
 }
 

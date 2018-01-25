@@ -36,6 +36,10 @@ void Hideout::update(float frameTime)
 	{
 		spriteData.x += frameTime * (-velocity.x);         // move ship along X 
 	}
+	else if (input->isKeyDown(SHIP_DOWN_KEY))
+		spriteData.y += frameTime * velocity.y;
+	else if (input->isKeyDown(SHIP_UP_KEY))
+		spriteData.y += frameTime * (-velocity.y);
 	//move->update(frameTime);
 }
 
