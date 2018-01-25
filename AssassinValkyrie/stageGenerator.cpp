@@ -33,7 +33,9 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 					success = floorCollection.back()->initialize(gamePtr, floorNS::WIDTH, floorNS::HEIGHT, 2, textureM);
 					floorCollection.back()->setCurrentFrame(0);
 					floorCollection.back()->setX(positionElement.xStart + (floorNS::WIDTH * j));
+					floorCollection.back()->setStartX(positionElement.xStart + (floorNS::WIDTH * j));
 					floorCollection.back()->setY(GAME_HEIGHT - floorNS::HEIGHT - positionElement.y);
+					floorCollection.back()->setStartY(GAME_HEIGHT - floorNS::HEIGHT - positionElement.y);
 				}
 				if (!success)
 					return success;
@@ -47,7 +49,9 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 					success = fillCollection.back()->initialize(gamePtr, fillNS::WIDTH, fillNS::HEIGHT, 2, textureM);
 					fillCollection.back()->setCurrentFrame(1);
 					fillCollection.back()->setX(positionElement.xStart + (fillNS::WIDTH * j));
+					fillCollection.back()->setStartX(positionElement.xStart + (fillNS::WIDTH * j));
 					fillCollection.back()->setY(GAME_HEIGHT - fillNS::HEIGHT - positionElement.y);
+					fillCollection.back()->setStartY(GAME_HEIGHT - fillNS::HEIGHT - positionElement.y);
 				}
 				if (!success)
 					return success;
@@ -88,7 +92,7 @@ void StageGenerator::render()
 	}
 }
 
-void StageGenerator::update(float frametime, bool moveOn)
+void StageGenerator::update(float frametime, bool moveUp, int leftrightupdown, bool moveOn)
 {
 	/*
 	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
@@ -97,11 +101,26 @@ void StageGenerator::update(float frametime, bool moveOn)
 	*/
 	for (floor = floorCollection.begin(); floor != floorCollection.end(); floor++)
 	{
-		if((*floor)->getX() == 0)
+		if (leftrightupdown == 1)
+			(*floor)->setX((*floor)->getStartX() - 160);
+		else if (leftrightupdown == 2)
+			(*floor)->setX((*floor)->getStartX());
 
-		(*floor)->update(frametime, moveOn);
+		if (moveOn)
+			(*floor)->update(frametime, moveUp);
 	}
 	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
-		(*fill)->update(frametime, moveOn);
+		if (leftrightupdown == 1)
+			(*fill)->setX((*fill)->getStartX() -160);
+		else if (leftrightupdown == 2)
+			((*fill)->setX((*fill)->getStartX()));
+		/*
+		else if (leftrightupdown == 3)
+			(*fill)->setY((*fill)->getStartY() - 720);
+		else if (leftrightupdown == 4)
+			(*fill)->setY((*fill)->getStartY());
+		*/
+		if (moveOn)
+			(*fill)->update(frametime, moveUp);
 	}
 }

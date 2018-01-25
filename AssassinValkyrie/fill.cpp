@@ -49,3 +49,13 @@ void Fill::draw()
 {
 	Image::draw();              // draw ship
 }
+
+void Fill::setStartX(int i)
+{
+	startX = i;
+}
+
+void Fill::setStartY(int i)
+{
+	startY = i;
+}

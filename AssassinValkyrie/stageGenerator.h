@@ -42,6 +42,6 @@ public:
 	//void loadStage(int i);
 	//void clearField();
 	void render();
-	void update(float frametime, bool moveOn);
+	void update(float frametime, bool moveUp, int leftrightupdown, bool moveOn);
 };
 #endif

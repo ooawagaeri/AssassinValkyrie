@@ -27,7 +27,9 @@ namespace fillNS
 
 class Fill : public Entity
 {
-
+private:
+	int startX;
+	int startY;
 public:
 	// constructor
 	Fill();
@@ -36,5 +38,10 @@ public:
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
 	void update(float frameTime, bool moveOn);
 	void draw();
+
+	void setStartX(int i);
+	void setStartY(int i);
+	int getStartX() { return startX; }
+	int getStartY() { return startY; }
 };
 #endif
