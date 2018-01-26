@@ -36,6 +36,8 @@ private:
 	TextureManager floorTexture;
 	Hideout *tempChar;
 
+	TextureManager ladderTexture;
+
 public:
     // Constructor
     AssassinValkyrie();

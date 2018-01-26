@@ -12,10 +12,10 @@
 
 namespace ladderNS
 {
-	const int	WIDTH = 20;
-	const int	HEIGHT_MID = 8;
-	const int	HEIGHT_TOP = 6;
-	const int	HEIGHT_BTM = 9;
+	const int	WIDTH = 32;
+	const int	HEIGHT_MID = 13;
+	const int	HEIGHT_TOP = 10;
+	const int	HEIGHT_BTM = 14;
 	const int	FRAME_MID = 0;
 	const int	FRAME_TOP = 1;
 	const int	FRAME_BTM = 2;

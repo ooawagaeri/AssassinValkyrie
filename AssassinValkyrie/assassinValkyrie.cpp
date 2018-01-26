@@ -61,11 +61,16 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
 
-	if (!stageGenerator->initialize(this, &floorTexture, &currentStage))
+	if (!ladderTexture.initialize(graphics, LADDER_IMAGE))
+		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing ladder texture"));
+
+	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing floor generation"));
 
 	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
+
+
 	tempChar->setCurrentFrame(4);
 	tempChar->setY(576);
 	return;

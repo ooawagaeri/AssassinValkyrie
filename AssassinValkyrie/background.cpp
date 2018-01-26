@@ -37,13 +37,13 @@ void Background::update(float frameTime, Entity *player, StageGenerator *stageGe
 	if (spriteData.x >= 0) {
 		left = true;
 		spriteData.x = 0;
-		stageGen->update(frameTime, false, 2, false);
+		stageGen->update(frameTime, 0, 2, false);
 	}
 	if (spriteData.x <= -160)
 	{
 		right = true;
 		spriteData.x = -160;
-		stageGen->update(frameTime, false, 1, false);
+		stageGen->update(frameTime, 0, 1, false);
 	}
 	if ((player->getX() < centreX) && !left) {
 		if (input->isKeyDown(SHIP_LEFT_KEY)) {
@@ -78,12 +78,12 @@ void Background::update(float frameTime, Entity *player, StageGenerator *stageGe
 	if (spriteData.y >= 0) {
 		up = true;
 		spriteData.y = 0;
-		stageGen->update(frameTime, false, 4, false);
+		stageGen->update(frameTime, 0, 3, false);
 	}
 	if (spriteData.y <= -720) {
 		down = true;
 		spriteData.y = -720;
-		stageGen->update(frameTime, false, 3, false);
+		stageGen->update(frameTime, 0, 4, false);
 	}
 	if ((player->getY() > centreY) && !down) {
 		if (input->isKeyDown(SHIP_DOWN_KEY)) {

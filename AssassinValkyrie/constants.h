@@ -49,6 +49,7 @@ const char MOUSE_IMAGE[] = "pictures\\mouse.png";
 const char ENEMY_IMAGE[] = "pictures\\enemyTexture.png";
 const char FLOOR_IMAGE[] = "pictures\\testElement.png";
 const char BACKGROUND_IMAGE[] = "pictures\\tempbg.png";
+const char LADDER_IMAGE[] = "pictures\\ladderbig.png";
 
 // WAVE_BANK must be location of .xwb file.
 const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";

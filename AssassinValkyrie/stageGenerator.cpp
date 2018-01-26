@@ -7,6 +7,7 @@
 StageGenerator::StageGenerator() 
 {
 	stageHorizontalLoad = new HorizontalLoader();
+	stageVerticalLoad = new VerticalLoader();
 	edge = true;
 }
 
@@ -82,26 +83,30 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 		if (!stageVerticalLoad->elementEmpty()) 
 		{
 			verticalElement = stageVerticalLoad->getElement();
-			if (verticalElement.element == "Ladder") {
-				int count = (verticalElement.yEnd - verticalElement.yStart) / ladderNS::HEIGHT_MID;
+			if (verticalElement.element == "LADDER") {
+				int count = (verticalElement.yEnd - verticalElement.yStart) / ladderNS::HEIGHT_BTM;
 				if (count == 0)
 					count = 1;
 				for (int j = 0; j < count; j++) {
 					ladderCollection.emplace_back(new Ladder());
-					success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_TOP, 3, ladderTextures);
-					if (i == 0) {
-						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_TOP);
-					}
-					else if (i = (count - 1)) {
+					if (j == 0) {
+						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_BTM, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_BTM);
+						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM * (j+1)) - verticalElement.yStart);
+					}
+					else if (j == (count - 1)) {
+						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_TOP, 3, ladderTextures);
+						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_TOP);
+						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_TOP * (j+2)) - verticalElement.yStart);
 					}
 					else {
+						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_MID, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_MID);
+						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_MID * (j+1)) - verticalElement.yStart);
 					}
-					ladderCollection.back()->setX(verticalElement.x + (floorNS::WIDTH * j));
-					ladderCollection.back()->setStartX(verticalElement.x + (floorNS::WIDTH * j));
-					ladderCollection.back()->setY(GAME_HEIGHT - (floorNS::HEIGHT * j) - verticalElement.yStart);
-					ladderCollection.back()->setStartY(GAME_HEIGHT - (floorNS::HEIGHT * j) - verticalElement.yStart);
+					ladderCollection.back()->setX(verticalElement.x + (ladderNS::WIDTH));
+					//ladderCollection.back()->setStartX(verticalElement.x + (ladderNS::WIDTH * j));
+					//ladderCollection.back()->setStartY(GAME_HEIGHT - (floorNS::HEIGHT * j) - verticalElement.yStart);
 				}
 				if (!success)
 					return success;
@@ -124,6 +129,9 @@ void StageGenerator::render()
 	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
 		(*hideout)->draw();
 	}
+	for (ladder = ladderCollection.begin(); ladder != ladderCollection.end(); ladder++) {
+		(*ladder)->draw();
+	}
 }
 
 void StageGenerator::update(float frametime, int direction, int leftrightupdown, bool moveOn)
@@ -139,6 +147,10 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 			(*floor)->setX((*floor)->getStartX() - 160);
 		else if (leftrightupdown == 2)
 			(*floor)->setX((*floor)->getStartX());
+		else if (leftrightupdown == 3)
+			(*floor)->setY((*floor)->getStartY() + 720);
+		else if (leftrightupdown == 4)
+			(*floor)->setY((*floor)->getStartY());
 
 		if (moveOn)
 			(*floor)->update(frametime, direction);
@@ -148,12 +160,10 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 			(*fill)->setX((*fill)->getStartX() -160);
 		else if (leftrightupdown == 2)
 			((*fill)->setX((*fill)->getStartX()));
-		/*
 		else if (leftrightupdown == 3)
-			(*fill)->setY((*fill)->getStartY() - 720);
+			(*fill)->setY((*fill)->getStartY() + 720);
 		else if (leftrightupdown == 4)
 			(*fill)->setY((*fill)->getStartY());
-		*/
 		if (moveOn)
 			(*fill)->update(frametime, direction);
 	}
