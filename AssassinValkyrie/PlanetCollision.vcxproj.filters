@@ -47,6 +47,8 @@
     <ClCompile Include="stageGenerator.cpp" />
     <ClCompile Include="fill.cpp" />
     <ClCompile Include="hideout.cpp" />
+    <ClCompile Include="ladder.cpp" />
+    <ClCompile Include="verticalLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -107,6 +109,8 @@
     <ClInclude Include="stageGenerator.h" />
     <ClInclude Include="fill.h" />
     <ClInclude Include="hideout.h" />
+    <ClInclude Include="ladder.h" />
+    <ClInclude Include="verticalLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -120,6 +124,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="1.txt" />
+    <Text Include="1-horizontal.txt" />
+    <Text Include="1-vertical.txt" />
   </ItemGroup>
 </Project>

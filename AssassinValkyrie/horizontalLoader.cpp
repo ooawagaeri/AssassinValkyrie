@@ -22,7 +22,7 @@ void StageLoader::loadStage(int *i) {
 	try {
 		string fileName = to_string(*i);
 		string line = "";
-		ifstream stageFile(fileName + ".txt");
+		ifstream stageFile(fileName + "-horizontal.txt");
 		if (stageFile.is_open()) {
 			while (getline(stageFile, line)) {
 				string type = line.substr(0, line.find('|'));
@@ -34,7 +34,7 @@ void StageLoader::loadStage(int *i) {
 		}
 	}
 	catch (...){
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing horizontal stage elements"));
 	}
 }
 

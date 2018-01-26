@@ -6,74 +6,108 @@
 #include "stageGenerator.h"
 StageGenerator::StageGenerator() 
 {
-	stageLoad = new StageLoader();
+	stageHorizontalLoad = new HorizontalLoader();
 	edge = true;
 }
 
-bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo) 
+bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures) 
 {
 	bool success = true;
 	//stageLoad->clear();
 
-	stageLoad->initialize();
-	stageLoad->loadStage(stageNo);
-	totalElements = stageLoad->elementSize();
-	stageElement positionElement;
+	stageHorizontalLoad->initialize();
+	stageHorizontalLoad->loadStage(stageNo);
+	totalElements = stageHorizontalLoad->elementSize();
+	horizontalElement horizontalElement;
 	for (int i = 0; i <= totalElements; i++)
 	{
-		if (!stageLoad->elementEmpty())
+		if (!stageHorizontalLoad->elementEmpty())
 		{
-			positionElement = stageLoad->getElement();
-			if (positionElement.element == "FLOOR") {
-				int count = (positionElement.xEnd - positionElement.xStart) / floorNS::WIDTH;
+			horizontalElement = stageHorizontalLoad->getElement();
+			if (horizontalElement.element == "FLOOR") {
+				int count = (horizontalElement.xEnd - horizontalElement.xStart) / floorNS::WIDTH;
 				if (count == 0)
 					count = 1;
 				for (int j = 0; j < count; j++) {
 					floorCollection.emplace_back(new Floor());
 					success = floorCollection.back()->initialize(gamePtr, floorNS::WIDTH, floorNS::HEIGHT, 2, textureM);
 					floorCollection.back()->setCurrentFrame(0);
-					floorCollection.back()->setX(positionElement.xStart + (floorNS::WIDTH * j));
-					floorCollection.back()->setStartX(positionElement.xStart + (floorNS::WIDTH * j));
-					floorCollection.back()->setY(GAME_HEIGHT - floorNS::HEIGHT - positionElement.y);
-					floorCollection.back()->setStartY(GAME_HEIGHT - floorNS::HEIGHT - positionElement.y);
+					floorCollection.back()->setX(horizontalElement.xStart + (floorNS::WIDTH * j));
+					floorCollection.back()->setStartX(horizontalElement.xStart + (floorNS::WIDTH * j));
+					floorCollection.back()->setY(GAME_HEIGHT - floorNS::HEIGHT - horizontalElement.y);
+					floorCollection.back()->setStartY(GAME_HEIGHT - floorNS::HEIGHT - horizontalElement.y);
 				}
 				if (!success)
 					return success;
 			}
-			if (positionElement.element == "FILL") {
-				int count = (positionElement.xEnd - positionElement.xStart) / fillNS::WIDTH;
+			if (horizontalElement.element == "FILL") {
+				int count = (horizontalElement.xEnd - horizontalElement.xStart) / fillNS::WIDTH;
 				if (count == 0)
 					count = 1;
 				for (int j = 0; j < count; j++) {
 					fillCollection.emplace_back(new Fill());
 					success = fillCollection.back()->initialize(gamePtr, fillNS::WIDTH, fillNS::HEIGHT, 2, textureM);
 					fillCollection.back()->setCurrentFrame(1);
-					fillCollection.back()->setX(positionElement.xStart + (fillNS::WIDTH * j));
-					fillCollection.back()->setStartX(positionElement.xStart + (fillNS::WIDTH * j));
-					fillCollection.back()->setY(GAME_HEIGHT - fillNS::HEIGHT - positionElement.y);
-					fillCollection.back()->setStartY(GAME_HEIGHT - fillNS::HEIGHT - positionElement.y);
+					fillCollection.back()->setX(horizontalElement.xStart + (fillNS::WIDTH * j));
+					fillCollection.back()->setStartX(horizontalElement.xStart + (fillNS::WIDTH * j));
+					fillCollection.back()->setY(GAME_HEIGHT - fillNS::HEIGHT - horizontalElement.y);
+					fillCollection.back()->setStartY(GAME_HEIGHT - fillNS::HEIGHT - horizontalElement.y);
 				}
 				if (!success)
 					return success;
 			}
-			if (positionElement.element == "HIDEOUT") {
-				int count = (positionElement.xEnd - positionElement.xStart) / hideoutNS::WIDTH;
+			if (horizontalElement.element == "HIDEOUT") {
+				int count = (horizontalElement.xEnd - horizontalElement.xStart) / hideoutNS::WIDTH;
 				if (count == 0)
 					count = 1;
 				for (int j = 0; j < count; j++) {
 					hideoutCollection.emplace_back(new Hideout());
 					success = hideoutCollection.back()->initialize(gamePtr, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, textureM);
 					hideoutCollection.back()->setCurrentFrame(4);
-					hideoutCollection.back()->setX(positionElement.xStart + (hideoutNS::WIDTH * j));
-					hideoutCollection.back()->setY(GAME_HEIGHT - hideoutNS::HEIGHT - positionElement.y);
+					hideoutCollection.back()->setX(horizontalElement.xStart + (hideoutNS::WIDTH * j));
+					hideoutCollection.back()->setY(GAME_HEIGHT - hideoutNS::HEIGHT - horizontalElement.y);
 				}
 				if (!success)
 					return success;
 			}
 		}
-		//return false;
 	}
-	
+	stageVerticalLoad->initialize();
+	stageVerticalLoad->loadStage(stageNo);
+	totalElements = stageVerticalLoad->elementSize();
+	verticalElement verticalElement;
+
+	for (int i = 0; i <= totalElements; i++)
+	{
+		if (!stageVerticalLoad->elementEmpty()) 
+		{
+			verticalElement = stageVerticalLoad->getElement();
+			if (verticalElement.element == "Ladder") {
+				int count = (verticalElement.yEnd - verticalElement.yStart) / ladderNS::HEIGHT_MID;
+				if (count == 0)
+					count = 1;
+				for (int j = 0; j < count; j++) {
+					ladderCollection.emplace_back(new Ladder());
+					success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_TOP, 3, ladderTextures);
+					if (i == 0) {
+						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_TOP);
+					}
+					else if (i = (count - 1)) {
+						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_BTM);
+					}
+					else {
+						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_MID);
+					}
+					ladderCollection.back()->setX(verticalElement.x + (floorNS::WIDTH * j));
+					ladderCollection.back()->setStartX(verticalElement.x + (floorNS::WIDTH * j));
+					ladderCollection.back()->setY(GAME_HEIGHT - (floorNS::HEIGHT * j) - verticalElement.yStart);
+					ladderCollection.back()->setStartY(GAME_HEIGHT - (floorNS::HEIGHT * j) - verticalElement.yStart);
+				}
+				if (!success)
+					return success;
+			}
+		}
+	}
 }
 
 

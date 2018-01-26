@@ -2,37 +2,37 @@
 // Assignment2		: Assassin Valkyrie
 // Student Number	: Daniel Lee Min Qiang
 // Student Number	: S10162739H
-#ifndef _STAGELOADER_H 
-#define _STAGELOADER_H
+#ifndef _VERTICALLOADER_H 
+#define _VERTICALLOADER_H
 #define WIN32_LEAN_AND_MEAN
 #include "gameError.h"
 #include <queue>
 #include <string>
 
-struct stageElement {
+struct verticalElement {
 	std::string element;
-	int xStart;
-	int xEnd;
-	int y;
+	int x;
+	int yStart;
+	int yEnd;
 };
 
-class StageLoader
+class VerticalLoader
 {
 private:
 	int currentStage;
-	std::queue<stageElement> elementSpawn;
+	std::queue<verticalElement> verticalSpawn;
 	//::queue<std::string> elementAdd;
 public:
-	StageLoader();
-	~StageLoader();
+	VerticalLoader();
+	~VerticalLoader();
 
 	bool initialize();
 	void loadStage(int *i);
 	void clear();
 
-	int elementSize() { return elementSpawn.size(); }
-	bool elementEmpty() { return elementSpawn.empty(); }
+	int elementSize() { return verticalSpawn.size(); }
+	bool elementEmpty() { return verticalSpawn.empty(); }
 
-	stageElement getElement();
+	verticalElement getElement();
 };
 #endif

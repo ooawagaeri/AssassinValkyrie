@@ -49,3 +49,13 @@ void Hideout::draw()
 {
 	Image::draw();              // draw ship
 }
+
+void Hideout::setStartX(int i)
+{
+	startX = i;
+}
+
+void Hideout::setStartY(int i)
+{
+	startY = i;
+}
