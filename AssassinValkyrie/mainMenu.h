@@ -11,6 +11,7 @@
 #include "image.h"
 #include "textureManager.h"
 #include "assassinValkyrie.h"
+#include "rayCasting.h"
 
 class MainMenu :public Game
 {

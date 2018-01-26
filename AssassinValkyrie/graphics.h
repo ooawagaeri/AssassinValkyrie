@@ -15,6 +15,10 @@
 #include "constants.h"
 #include "gameError.h"
 
+// 10165581F --> Used to draw primatitives
+#include <queue>
+struct CUSTOMVERTEX { float x, y, z, RHW; DWORD color; };
+
 // DirectX pointer types
 #define LP_TEXTURE  LPDIRECT3DTEXTURE9
 #define LP_SPRITE   LPD3DXSPRITE
@@ -94,6 +98,9 @@ private:
     int         height;
     COLOR_ARGB  backColor;      // background color
 
+	// 10165581F -->Used to draw primatitives
+	LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
+
     // (For internal engine use only. No user serviceable parts inside.)
     // Initialize D3D presentation parameters
     void    initD3Dpp();
@@ -115,6 +122,9 @@ public:
     //      height = height in pixels
     //      fullscreen = true for full screen, false for window
     void    initialize(HWND hw, int width, int height, bool fullscreen);
+
+	// 10165581F --> Used to draw primatitives
+	void	initGraphics(std::queue<CUSTOMVERTEX> *vertices);
 
     // Load the texture into default D3D memory (normal texture use)
     // For internal engine use only. Use the TextureManager class to load game textures.

@@ -57,7 +57,9 @@ void MainMenu::render()
 	graphics->spriteBegin();
 
 	if (gameStart)
+	{
 		assValk->render();
+	}
 	else
 		mmBackground.draw();
 
