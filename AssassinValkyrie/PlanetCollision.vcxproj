@@ -104,7 +104,7 @@
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="stageGenerator.cpp" />
-    <ClCompile Include="stageLoader.cpp" />
+    <ClCompile Include="horizontalLoader.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="verticalLoader.cpp" />
@@ -133,7 +133,7 @@
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="stageGenerator.h" />
-    <ClInclude Include="stageLoader.h" />
+    <ClInclude Include="horizontalLoader.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="verticalLoader.h" />

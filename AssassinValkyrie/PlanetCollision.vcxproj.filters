@@ -43,12 +43,12 @@
     </ClCompile>
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="background.cpp" />
-    <ClCompile Include="stageLoader.cpp" />
     <ClCompile Include="stageGenerator.cpp" />
     <ClCompile Include="fill.cpp" />
     <ClCompile Include="hideout.cpp" />
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="verticalLoader.cpp" />
+    <ClCompile Include="horizontalLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -105,12 +105,12 @@
     </ClInclude>
     <ClInclude Include="floor.h" />
     <ClInclude Include="background.h" />
-    <ClInclude Include="stageLoader.h" />
     <ClInclude Include="stageGenerator.h" />
     <ClInclude Include="fill.h" />
     <ClInclude Include="hideout.h" />
     <ClInclude Include="ladder.h" />
     <ClInclude Include="verticalLoader.h" />
+    <ClInclude Include="horizontalLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

@@ -3,22 +3,22 @@
 // Student Number	: Daniel Lee Min Qiang
 // Student Number	: S10162739H
 
-#include "stageLoader.h"
+#include "horizontalLoader.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 using namespace std;
 
-StageLoader::StageLoader()
+HorizontalLoader::HorizontalLoader()
 {
 }
 
-bool StageLoader::initialize() {
+bool HorizontalLoader::initialize() {
 	clear();
 	return true;
 }
 
-void StageLoader::loadStage(int *i) {
+void HorizontalLoader::loadStage(int *i) {
 	try {
 		string fileName = to_string(*i);
 		string line = "";
@@ -29,7 +29,7 @@ void StageLoader::loadStage(int *i) {
 				int xStart = atoi(line.substr(line.find('|')+1, line.find(',') - line.find('|')).c_str());
 				int xEnd = atoi(line.substr(line.find(',') + 1, line.find('-') - line.find(',')).c_str());
 				int y = atoi(line.substr(line.find('-')+1, line.find('\n') - line.find('-')).c_str());
-				elementSpawn.push(stageElement{ type, xStart, xEnd, y });
+				elementSpawn.push(horizontalElement{ type, xStart, xEnd, y });
 			}
 		}
 	}
@@ -38,13 +38,13 @@ void StageLoader::loadStage(int *i) {
 	}
 }
 
-stageElement StageLoader::getElement() {
-	stageElement pos = elementSpawn.front();
+horizontalElement HorizontalLoader::getElement() {
+	horizontalElement pos = elementSpawn.front();
 	elementSpawn.pop();
 	return pos;
 }
 
-void StageLoader::clear() {
+void HorizontalLoader::clear() {
 	//elementAdd = std::queue<string>();
-	elementSpawn = std::queue<stageElement>();
+	elementSpawn = std::queue<horizontalElement>();
 }
