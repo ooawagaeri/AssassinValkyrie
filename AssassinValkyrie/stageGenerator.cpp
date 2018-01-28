@@ -92,17 +92,17 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 					if (j == 0) {
 						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_BTM, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_BTM);
-						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM * (j+1)) - verticalElement.yStart);
+						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - verticalElement.yStart);
 					}
 					else if (j == (count - 1)) {
 						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_TOP, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_TOP);
-						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_TOP * (j+2)) - verticalElement.yStart);
+						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM + (ladderNS::HEIGHT_MID * (j-1)) + ladderNS::HEIGHT_TOP) - verticalElement.yStart);
 					}
 					else {
 						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_MID, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_MID);
-						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_MID * (j+1)) - verticalElement.yStart);
+						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM + (ladderNS::HEIGHT_MID * j) ) - verticalElement.yStart);
 					}
 					ladderCollection.back()->setX(verticalElement.x + (ladderNS::WIDTH));
 					//ladderCollection.back()->setStartX(verticalElement.x + (ladderNS::WIDTH * j));
