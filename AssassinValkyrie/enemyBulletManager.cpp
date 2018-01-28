@@ -30,9 +30,12 @@ bool EnemyBulletManager::initializeBullet(Game *gamePtr, TextureManager *texture
 	isInitialised = it->initialize(gamePtr, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, textureM);
 	it->setFrames(bulletNS::START_FRAME, bulletNS::END_FRAME);
 	it->setCurrentFrame(bulletNS::START_FRAME);
-	it->setVelocity(gunner->getMove()->getCurrentVelocity()/ gunner->getMove()->getInitialVelocity() * bulletNS::SPEED);
+	float direction = gunner->getMove()->getCurrentVelocity() / gunner->getMove()->getInitialVelocity();
+	if (direction == 0)
+		direction = 1;
+	it->getMove()->setVelocity(direction * bulletNS::SPEED);
 	it->setX(gunner->getCenterX() - bulletNS::WIDTH / 2);
-	it->setY(gunner->getCenterY() - bulletNS::HEIGHT / 2);
+	it->setY(gunner->getCenterY() - bulletNS::HEIGHT / 2 - gunnerNS::HEIGHT / 6);
 	bulletList.emplace_back(it);
 
 	if (!isInitialised)
@@ -46,12 +49,11 @@ void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *
 		if (g->getActive())
 		{
 			ShootComponent *shot = g->getShoot();
-			if (shot->getAnimation() && shot->shootTimer >= shot->maxTimeShoot)
+			if (shot->getAnimation() && (GetTickCount() - shot->shootTimer > shot->maxTimeShoot))
 			{
 				shot->shootTimer = GetTickCount();
 				initializeBullet(gamePtr, textureM, g);
 			}
-
 		}
 
 	for (Bullet *t : bulletList)

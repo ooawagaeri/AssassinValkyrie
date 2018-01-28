@@ -30,12 +30,16 @@ bool Bullet::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 
 void Bullet::draw()
 {
+	if (move->getCurrentVelocity() > 0)
+		flipHorizontal(false);
+	else
+		flipHorizontal(true);
 	Image::draw();
 }
 
 void Bullet::update(float frameTime)
 {
-	if (spriteData.x < 0 || spriteData.x + spriteData.width > GAME_WIDTH || spriteData.y > GAME_HEIGHT || spriteData.y + spriteData.height < 0)
+	if (spriteData.x + spriteData.width < 0 || spriteData.x > GAME_WIDTH || spriteData.y > GAME_HEIGHT || spriteData.y + spriteData.height < 0)
 		active = false;
 
 	move->update(frameTime);

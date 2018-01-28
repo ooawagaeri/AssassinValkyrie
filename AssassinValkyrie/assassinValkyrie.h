@@ -13,30 +13,29 @@
 #include "image.h"
 #include "gunner.h"
 #include "cursor.h"
+#include "rayCasting.h"
+#include "enemyBulletManager.h"
 #include "stageGenerator.h"
 #include "background.h"
-#include "rayCasting.h"
-#include "enemyManager.h"
 
 class AssassinValkyrie : public Game
 {
 private:
-	TextureManager trooperTexture;
-	TextureManager gunnerTexture;
-	TextureManager mouseTextures;
-	TextureManager backgroundTexture;
-	//Enemy *trooper1;
-	Background *background;
+	TextureManager	mouseTextures;
+	TextureManager	trooperTexture;
+	TextureManager	gunnerTexture;
+	Cursor			*mouse;
+	EnemyManager	emList;
+	EnemyBulletManager	emBulletList;
+	
 	int	currentStage;
-	StageGenerator *stageGenerator;
-
-	TextureManager floorTexture;
-	Hideout *tempChar;
-
-	TextureManager ladderTexture;
-	TextureManager bulletTextures;
-	Cursor *mouse;
-	EnemyManager emList;
+	TextureManager	backgroundTexture;
+	Background		*background;
+	StageGenerator	*stageGenerator;
+	TextureManager	floorTexture;
+	Hideout			*tempChar;
+	TextureManager	ladderTexture;
+	TextureManager	bulletTextures;
 
 public:
     AssassinValkyrie();

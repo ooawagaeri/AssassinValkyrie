@@ -20,9 +20,9 @@ namespace bulletNS
 	const int	Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 	const float SPEED = 200;
 	const float MASS = 300.0f;
-	const int   TEXTURE_COLS = 5;
-	const float START_FRAME = 2;
-	const float END_FRAME = 2;
+	const int   TEXTURE_COLS = 1;
+	const float START_FRAME = 0;
+	const float END_FRAME = 0;
 	const float ANIMATION_DELAY = 0.2f;
 }
 
@@ -37,7 +37,9 @@ public:
 		TextureManager *textureM);
 	virtual void update(float frameTime);
 	virtual void draw();
+
 	void setVelocity(int velocity) { move->setVelocity(velocity); }
+	MovementComponent *getMove() { return move; }
 };
 #endif
 

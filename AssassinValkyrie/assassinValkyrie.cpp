@@ -11,7 +11,6 @@ static PLATFORM pCollection;
 AssassinValkyrie::AssassinValkyrie()
 {
 	ShowCursor(false);
-	//mouse = new Cursor();
 	background = new Background();
 	stageGenerator = new StageGenerator();
 	tempChar = new Hideout();
@@ -46,12 +45,6 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!mouse->initialize(this, cursorNS::WIDTH, cursorNS::HEIGHT, cursorNS::TEXTURE_COLS, &mouseTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
-	//Background
-	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-
-	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 	
 	/////////////////////////////////////////
 	//				Enemy
@@ -69,7 +62,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing bullet texture"));
 
 	Entity *e = new Entity();
-	e->initialize(this, cursorNS::WIDTH, cursorNS::HEIGHT, cursorNS::TEXTURE_COLS, &mouseTextures);
+	e->initialize(this, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, &bulletTextures);
 	e->setX(GAME_WIDTH / 2);
 	e->setY(GAME_HEIGHT / 3 + 60);
 	e->setEdge(RECT{ (long)(-40), (long)(-40), (long)(40), (long)(40) });
@@ -79,6 +72,18 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!emList.initialize(this, &trooperTexture, &gunnerTexture, mouse))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies texture"));
+
+	emBulletList.initialize(&emList);
+
+	/////////////////////////////////////////
+	//				BG
+	/////////////////////////////////////////
+	//Background
+	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
 	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
@@ -106,6 +111,7 @@ void AssassinValkyrie::update()
 	//stageGenerator->update(frameTime);
 	//tempChar->update(frameTime);
 	mouse->update();
+	emBulletList.update(frameTime, this, &bulletTextures);
 	emList.update(frameTime, pCollection);
 }
 
@@ -118,17 +124,18 @@ void AssassinValkyrie::ai()
 // Handle collisions
 void AssassinValkyrie::collisions()
 {
-    VECTOR2 collisionVector;
+	emBulletList.collisions(mouse);
 }
 
 // Render game items
 void AssassinValkyrie::render()
 {
-	background->draw();
+	//background->draw();
 	stageGenerator->render();
 	//tempChar->draw();
 	mouse->draw();
 	emList.render(graphics);
+	emBulletList.render();
 
 	for (const auto& point : pCollection)
 		point->draw();
@@ -139,6 +146,7 @@ void AssassinValkyrie::releaseAll()
 {
 	SAFE_DELETE(mouse);
 	SAFE_DELETE(background);
+	emBulletList.~EnemyBulletManager();
 	emList.~EnemyManager();
 	trooperTexture.onLostDevice();
 	gunnerTexture.onLostDevice();
