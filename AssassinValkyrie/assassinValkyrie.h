@@ -13,6 +13,8 @@
 #include "image.h"
 #include "enemy.h"
 #include "cursor.h"
+#include "Player.h"
+#include"arrowManager.h"
 
 //Testing
 //=============================================================================
@@ -24,8 +26,11 @@ private:
     // game items
 	TextureManager enemyTextures;
 	TextureManager mouseTextures;
+	TextureManager playerTextures;
 	Cursor *mouse;
 	Enemy *trooper1;
+	Player *player;
+	ArrowManager arrowList;
 
 public:
     // Constructor

@@ -87,6 +87,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arrow.cpp" />
+    <ClCompile Include="arrowManager.cpp" />
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="dashboard.cpp" />
@@ -98,13 +100,19 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arrow.h" />
+    <ClInclude Include="arrowManager.h" />
     <ClInclude Include="AttackComponent.h" />
     <ClInclude Include="audio.h" />
+    <ClInclude Include="CrouchingState.h" />
+    <ClInclude Include="CrouchWalkingState.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="HealthComponet.h" />
@@ -117,8 +125,15 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="assassinValkyrie.h" />
+    <ClInclude Include="JumpingState.h" />
     <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="MeleeAttackState.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="RangeAttackState.h" />
+    <ClInclude Include="RunningState.h" />
+    <ClInclude Include="StandingState.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
   </ItemGroup>

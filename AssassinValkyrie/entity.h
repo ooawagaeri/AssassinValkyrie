@@ -22,6 +22,9 @@ class Entity : public Image
 {
     // Entity properties
   protected:
+	bool jumpComplete=false;
+	bool jumpRight = false;
+	bool jumpLeft = false;
     entityNS::COLLISION_TYPE collisionType;
     VECTOR2 center;         // center of entity
     float   radius;         // radius of collision circle
@@ -183,6 +186,37 @@ class Entity : public Image
 
     // Adds the gravitational force to the velocity vector of this entity
     void gravityForce(Entity *other, float frameTime);
+
+
+	bool getJumpComplete()
+	{
+		return jumpComplete;
+	}
+
+	void setJumpComplete(bool condition)
+	{
+		jumpComplete = condition;
+	}
+
+	bool getJumpRight()
+	{
+		return jumpRight;
+	}
+
+	void setJumpRight(bool condition)
+	{
+		jumpRight = condition;
+	}
+
+	bool getJumpLeft()
+	{
+		return jumpLeft;
+	}
+
+	void setJumpLeft(bool condition)
+	{
+		jumpLeft = condition;
+	}
 };
 
 #endif

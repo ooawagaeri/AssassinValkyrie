@@ -41,6 +41,18 @@
     <ClCompile Include="cursor.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>PlayerWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="arrowManager.cpp">
+      <Filter>PlayerWeapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -95,6 +107,39 @@
     <ClInclude Include="cursor.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="RunningState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="StandingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeAttackState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchWalkingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="arrow.h">
+      <Filter>PlayerWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="arrowManager.h">
+      <Filter>PlayerWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -105,6 +150,12 @@
     </Filter>
     <Filter Include="Component Files">
       <UniqueIdentifier>{5012e072-923a-4864-b4b4-074baaeda7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerState">
+      <UniqueIdentifier>{919f1edb-225a-4567-92ac-e2e41e18f12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerWeapon">
+      <UniqueIdentifier>{6095851f-98aa-4520-bdca-648621d90cee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
