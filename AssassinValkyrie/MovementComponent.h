@@ -10,28 +10,39 @@
 class MovementComponent
 {
 private:
-	int velocityX;
-	int velocityY;
-	float *posX;
-	float *posY;
+	Entity *object;
+	VECTOR2 origin;
+	int initialVelocity = 0;
+	int currentVelocity;
 
 public:
-	//MovementComponent(float *x, float *y, int speedX, int speedY);
-	//void update(float frameTime);
+	MovementComponent(Entity* ent)
+	{
+		object = ent;
+	}
+
+	void setVelocity(int speed) {
+		if (initialVelocity == 0)
+			initialVelocity = speed;
+		currentVelocity = speed;
+	}
+	int getInitialVelocity() { return initialVelocity; }
+	int getCurrentVelocity() { return currentVelocity; }
+	void setOrigin(VECTOR2 pos) { origin = pos; }
+
+	bool returnOrigin()
+	{
+		if (object->getCenter()->x > origin.x + 1)
+			currentVelocity = -initialVelocity;
+		else if (object->getCenter()->x < origin.x - 1)
+			currentVelocity = initialVelocity;
+		else
+			return true;
+		return false;
+	}
+	void update(float frameTime)
+	{
+		object->setX(object->getX() + currentVelocity *frameTime);
+	}
 };
-
-//MovementComponent::MovementComponent(float *x, float *y, int speedX, int speedY)
-//{
-//	velocityX = speedX;
-//	velocityY = speedY;
-//	posX = x;
-//	posY = y;
-//}
-
-//void MovementComponent::update(float frameTime)
-//{
-//	*posX = *posX + velocityX * frameTime;
-//	*posY = *posY + velocityY * frameTime;
-//}
-
 #endif

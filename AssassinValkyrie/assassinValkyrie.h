@@ -11,24 +11,21 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
-#include "enemy.h"
+#include "gunner.h"
 #include "cursor.h"
 #include "stageGenerator.h"
 #include "background.h"
+#include "rayCasting.h"
+#include "enemyManager.h"
 
-//Testing
-//=============================================================================
-// This class is the core of the game
-//=============================================================================
 class AssassinValkyrie : public Game
 {
 private:
-    // game items
-	TextureManager enemyTextures;
+	TextureManager trooperTexture;
+	TextureManager gunnerTexture;
 	TextureManager mouseTextures;
 	TextureManager backgroundTexture;
-	Cursor *mouse;
-	Enemy *trooper1;
+	//Enemy *trooper1;
 	Background *background;
 	int	currentStage;
 	StageGenerator *stageGenerator;
@@ -37,22 +34,20 @@ private:
 	Hideout *tempChar;
 
 	TextureManager ladderTexture;
+	TextureManager bulletTextures;
+	Cursor *mouse;
+	EnemyManager emList;
 
 public:
-    // Constructor
     AssassinValkyrie();
-
-    // Destructor
     virtual ~AssassinValkyrie();
 
-	// Initialize the game
 	void initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
 		LARGE_INTEGER *timerFreqM, float *frameTimeM);
-    // Initialize the game
-    void update();      // must override pure virtual from Game
-    void ai();          // "
-    void collisions();  // "
-    void render();      // "
+    void update();      
+    void ai();
+    void collisions();
+    void render();
     void releaseAll();
     void resetAll();
 };

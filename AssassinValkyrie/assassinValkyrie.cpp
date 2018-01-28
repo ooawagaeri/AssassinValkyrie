@@ -1,16 +1,18 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei Jit Timothy
+// Student Number	: Chua Wei Jie Timothy
 // Student Number	: S10165581F
 
 #include "assassinValkyrie.h"
 
+static PLATFORM pCollection;
+
 // Constructor
 AssassinValkyrie::AssassinValkyrie()
-{ 
+{
 	ShowCursor(false);
-	trooper1 = new Enemy();
-	mouse = new Cursor();
+  //trooper1 = new Enemy();
+	//mouse = new Cursor();
 	background = new Background();
 	stageGenerator = new StageGenerator();
 	tempChar = new Hideout();
@@ -37,6 +39,8 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	timerFreq = *timerFreqM;
 	frameTime = *frameTimeM;
 
+	mouse = new Cursor();
+
 	// Mouse
 	if (!mouseTextures.initialize(graphics, MOUSE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
@@ -44,12 +48,32 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!mouse->initialize(this, cursorNS::WIDTH, cursorNS::HEIGHT, cursorNS::TEXTURE_COLS, &mouseTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
 	
-	// Enemy
-	if (!enemyTextures.initialize(graphics, ENEMY_IMAGE))
+	/////////////////////////////////////////
+	//				Enemy
+	/////////////////////////////////////////
+	// Trooper
+	if (!trooperTexture.initialize(graphics, ENEMY_TROOPER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
-	
-	if (!trooper1->initialize(this, trooperNS::WIDTH, trooperNS::HEIGHT, trooperNS::TEXTURE_COLS, &enemyTextures))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
+
+	// Gunner
+	if (!gunnerTexture.initialize(graphics, ENEMY_GUNNER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
+
+	// Bullet
+	if (!bulletTextures.initialize(graphics, BULLET_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing bullet texture"));
+
+	Entity *e = new Entity();
+	e->initialize(this, cursorNS::WIDTH, cursorNS::HEIGHT, cursorNS::TEXTURE_COLS, &mouseTextures);
+	e->setX(GAME_WIDTH / 2);
+	e->setY(GAME_HEIGHT / 3 + 60);
+	e->setEdge(RECT{ (long)(-40), (long)(-40), (long)(40), (long)(40) });
+	e->setCollisionType(entityNS::ROTATED_BOX);
+	e->computeRotatedBox();
+	pCollection.emplace_back(e);
+
+	if (!emList.initialize(this, &trooperTexture, &gunnerTexture, mouse))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies texture"));
 
 	//Background
 	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
@@ -81,25 +105,24 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 // Update all game items
 void AssassinValkyrie::update()
 {
-	background->update(frameTime, tempChar, stageGenerator);
+  background->update(frameTime, tempChar, stageGenerator);
 	trooper1->update(frameTime);
 	//stageGenerator->update(frameTime);
 	//tempChar->update(frameTime);
 	mouse->update();
+	emList.update(frameTime, pCollection);
 }
-
 
 // Artificial Intelligence
 void AssassinValkyrie::ai()
 {
-
+	emList.ai();
 }
 
 // Handle collisions
 void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
-	mouse->collidesWith(*trooper1, collisionVector);
 }
 
 // Render game items
@@ -110,15 +133,23 @@ void AssassinValkyrie::render()
 	stageGenerator->render();
 	//tempChar->draw();
 	mouse->draw();
+	emList.render(graphics);
+
+	for (const auto& point : pCollection)
+		point->draw();
 }
 
 // Release all reserved video memory so graphics device may be reset.
 void AssassinValkyrie::releaseAll()
 {
 	SAFE_DELETE(mouse);
-	SAFE_DELETE(trooper1);
+  //SAFE_DELETE(trooper1);
 	SAFE_DELETE(background);
 	enemyTextures.onLostDevice();
+	emList.~EnemyManager();
+	trooperTexture.onLostDevice();
+	gunnerTexture.onLostDevice();
+	bulletTextures.onLostDevice();
 	mouseTextures.onLostDevice();
 	backgroundTexture.onLostDevice();
 	floorTexture.onLostDevice();
@@ -129,10 +160,14 @@ void AssassinValkyrie::releaseAll()
 // Recreate all surfaces.
 void AssassinValkyrie::resetAll()
 {
-	enemyTextures.onResetDevice();
+
+  enemyTextures.onResetDevice();
 	mouseTextures.onResetDevice();
 	backgroundTexture.onResetDevice();
 	floorTexture.onResetDevice();
+	trooperTexture.onResetDevice();
+	gunnerTexture.onResetDevice();
+	bulletTextures.onResetDevice();
     Game::resetAll();
     return;
 }
