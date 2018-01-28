@@ -140,8 +140,6 @@
     <ClInclude Include="graphics.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="1-horizontal.txt" />
-    <Text Include="1-vertical.txt" />
     <ClInclude Include="hideout.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />

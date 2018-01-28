@@ -192,10 +192,6 @@
     <ClInclude Include="enemyManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="1-horizontal.txt" />
-    <Text Include="1-vertical.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Header Files">
       <UniqueIdentifier>{a1d55fed-646f-46b8-8071-06b8a5aac70d}</UniqueIdentifier>
     </Filter>
@@ -208,5 +204,9 @@
     <Filter Include="State Files">
       <UniqueIdentifier>{2d3c2623-b539-456c-a906-adfb5012dc2f}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="1-horizontal.txt" />
+    <Text Include="1-vertical.txt" />
   </ItemGroup>
 </Project>
