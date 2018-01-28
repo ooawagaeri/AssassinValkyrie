@@ -47,11 +47,9 @@ public:
 
 class ShootComponent : public AttackComponent
 {
-private:
+public:
 	int shootTimer;
 	int maxTimeShoot;
-
-public:
 	ShootComponent(Image *image) : AttackComponent(image) 
 	{ 
 		hitPoint = 20; 
