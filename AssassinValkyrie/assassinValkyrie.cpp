@@ -55,7 +55,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	// Bullet
 	if (!bulletTextures.initialize(graphics, BULLET_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing weaspon texture"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing bullet texture"));
 
 	Entity *e = new Entity();
 	e->initialize(this, cursorNS::WIDTH, cursorNS::HEIGHT, cursorNS::TEXTURE_COLS, &mouseTextures);
@@ -66,7 +66,8 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	e->computeRotatedBox();
 	pCollection.emplace_back(e);
 
-	emList.initialize(this, &trooperTexture, &gunnerTexture, mouse);
+	if (!emList.initialize(this, &trooperTexture, &gunnerTexture, mouse))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies texture"));
 
     return;
 }

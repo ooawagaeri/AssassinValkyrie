@@ -1,6 +1,6 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei trooper Timothy
+// Student Number	: Chua Wei Jie Timothy
 // Student Number	: S10165581F
 
 #include "MainMenu.h"
@@ -31,7 +31,7 @@ void MainMenu::initialize(HWND hwnd)
 
 void MainMenu::update()
 {
-	if (input->isKeyDown(ENTER_KEY))
+	if (input->isKeyDown(ENTER_KEY) && gameStart != true)
 	{
 		gameStart = true;
 		assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime);

@@ -21,7 +21,7 @@ class Ray
 private:
 	float *x;
 	float *y;
-	float direction;
+	double direction;
 	float visibilityAngle;
 	int viewDistance;
 	int viewHeight;		// from center

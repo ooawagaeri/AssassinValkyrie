@@ -1,6 +1,6 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei trooper Timothy
+// Student Number	: Chua Wei Jie Timothy
 // Student Number	: S10165581F
 
 #ifndef _ENEMY_H 
@@ -23,8 +23,8 @@ namespace trooperNS
 	const int	HEIGHT = 100;
 	const double ROTATION = 0;
 	const float SCALE = 1.0f;
-	const int	X = GAME_WIDTH / 2 - WIDTH*SCALE;
-	const int	Y = GAME_HEIGHT / 2 - HEIGHT*SCALE;
+	const float	X = GAME_WIDTH / 2 - WIDTH*SCALE;
+	const float	Y = GAME_HEIGHT / 2 - HEIGHT*SCALE;
 	const float SPEED = 60;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 10;
@@ -32,7 +32,7 @@ namespace trooperNS
 	const int   END_FRAME = 9;
 	const float ANIMATION_DELAY = 0.5f;
 
-	const float VISION_ANGLE = PI / 6;
+	const double VISION_ANGLE = PI / 6;
 	const int	VISION_RANGE = 200;
 	const float	VISION_HEIGHT = HEIGHT*SCALE / 3.5f;
 
@@ -51,8 +51,8 @@ namespace gunnerNS
 	const int	HEIGHT = 96;
 	const double ROTATION = 0;
 	const float SCALE = 1.0f;
-	const int	X = GAME_WIDTH / 2 - WIDTH*SCALE + 100;
-	const int	Y = GAME_HEIGHT / 2 - HEIGHT*SCALE;
+	const float	X = GAME_WIDTH / 2 - WIDTH*SCALE + 100;
+	const float	Y = GAME_HEIGHT / 2 - HEIGHT*SCALE;
 	const float SPEED = 40;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 4;
@@ -60,7 +60,7 @@ namespace gunnerNS
 	const int   END_FRAME = 11;
 	const float ANIMATION_DELAY = 0.25f;
 
-	const float VISION_ANGLE = PI / 8;
+	const double VISION_ANGLE = PI / 8;
 	const int	VISION_RANGE = 250;
 	const float	VISION_HEIGHT = HEIGHT*SCALE / 3.5f;
 

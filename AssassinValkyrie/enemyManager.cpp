@@ -29,21 +29,25 @@ bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, Tex
 {
 	bool isInitialised = true;		//verifies if all enemies are successfully generated
 
-	for (int i = 1; i <= trooperSize + 1; i++)
+	for (int i = 1; i <= trooperSize; i++)
 	{
 		Trooper *t_temp = new Trooper(play);
 		isInitialised = t_temp->initialize(gamePtr, trooperNS::WIDTH, trooperNS::HEIGHT, trooperNS::TEXTURE_COLS, textureTrooper);
 		t_temp->setX(GAME_WIDTH / i - trooperNS::WIDTH * trooperNS::SCALE / 2);
 		t_temp->setY(GAME_HEIGHT / 2 - trooperNS::HEIGHT * trooperNS::SCALE);
 		trooperCollection.emplace_back(t_temp);
+		if (!isInitialised)
+			return isInitialised;
 	}
-	for (int i = 1; i <= gunnerSize + 1; i++)
+	for (int i = 1; i <= gunnerSize; i++)
 	{
 		Gunner *t_temp = new Gunner(play);
 		isInitialised = t_temp->initialize(gamePtr, gunnerNS::WIDTH, gunnerNS::HEIGHT, gunnerNS::TEXTURE_COLS, textureGunner);
 		t_temp->setX(GAME_WIDTH / i - gunnerNS::WIDTH * gunnerNS::SCALE / 2);
 		t_temp->setY(GAME_HEIGHT / 2 - gunnerNS::HEIGHT * gunnerNS::SCALE);
 		gunnerCollection.emplace_back(t_temp);
+		if (!isInitialised)
+			return isInitialised;
 	}
 	return isInitialised;
 }
