@@ -94,6 +94,44 @@ void Graphics::initialize(HWND hw, int w, int h, bool full)
 
 }
 
+
+#define CUSTOMFVF (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1)
+
+void Graphics::initGraphics(std::queue<CUSTOMVERTEX> *verticesClient)
+{
+	// 1 Vertix has 3 sides
+	const int size = 3;
+	CUSTOMVERTEX vertices[size];
+	for (int i = 0; i < size; i++)
+	{
+		CUSTOMVERTEX pos = verticesClient->front();
+		verticesClient->pop();
+		vertices[i] = pos;
+	}
+
+	device3d->CreateVertexBuffer(size * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED,
+		&v_buffer, NULL);
+
+	VOID* pVoid;
+
+	// Diffusion / Overlay / Blending Colours 
+	device3d->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	device3d->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	device3d->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	device3d->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+
+	v_buffer->Lock(0, 0, &pVoid, 0);
+	memcpy(pVoid, vertices, sizeof(vertices));
+	v_buffer->Unlock();
+
+	// Renders Buffer
+	device3d->SetFVF(CUSTOMFVF);
+	device3d->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+	device3d->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+
+	device3d->Present(NULL, NULL, NULL, NULL);
+}
+
 //=============================================================================
 // Initialize D3D presentation parameters
 //=============================================================================

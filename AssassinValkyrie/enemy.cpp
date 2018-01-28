@@ -7,26 +7,19 @@
 
 Enemy::Enemy(Cursor *mouse) : Entity()
 {
-	spriteData.width = trooperNS::WIDTH;           // size of Ship1
-	spriteData.height = trooperNS::HEIGHT;
-	spriteData.x = trooperNS::X;                   // location on screen
-	spriteData.y = trooperNS::Y;
-	spriteData.rect.bottom = trooperNS::HEIGHT;    // rectangle to select parts of an image
-	spriteData.rect.right = trooperNS::WIDTH;
-	spriteData.angle = trooperNS::ROTATION;
-	spriteData.scale = trooperNS::SCALE;
-	velocity = VECTOR2(trooperNS::SPEED, 0);
-	frameDelay = trooperNS::ANIMATION_DELAY;
-	startFrame = trooperNS::START_FRAME;     // first frame of ship animation
-	endFrame = trooperNS::END_FRAME;     // last frame of ship animation
-	currentFrame = startFrame;
-	edge = RECT{ (long)(-trooperNS::WIDTH*trooperNS::SCALE / 2), (long)(-trooperNS::HEIGHT*trooperNS::SCALE / 2), (long)(trooperNS::WIDTH*trooperNS::SCALE / 2), (long)(trooperNS::HEIGHT*trooperNS::SCALE / 2) };
 	collisionType = entityNS::BOX;
-
 	health = new HealthComponent();
 	move = new MovementComponent(this);
-	mouseCursor = mouse;
 	state_ = new PatrollingState();
+	
+	mouseCursor = mouse;
+	vision = new Ray();
+}
+
+bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
+	TextureManager *textureM)
+{
+	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
 void Enemy::handleInput(Input* input)
@@ -39,18 +32,19 @@ void Enemy::handleInput(Input* input)
 	}
 }
 
-void Enemy::update(float frameTime)
+void Enemy::update(float frameTime, PLATFORM p)
 {
 	state_->update(this, mouseCursor);
-	move->update(frameTime);
-
 	handleInput(input);
+
+	move->update(frameTime);
+	attack->update(frameTime);
+	vision->updateVision(p);
 
 	Entity::update(frameTime);
 }
 
-// To find closest ship vector position
-void Enemy::ai(Entity &ship1, Entity &ship2)
+void Enemy::ai()
 {
 }
 
@@ -60,5 +54,7 @@ void Enemy::draw()
 		flipHorizontal(false);
 	else
 		flipHorizontal(true);
+
 	Image::draw();
+	attack->draw(this);
 }

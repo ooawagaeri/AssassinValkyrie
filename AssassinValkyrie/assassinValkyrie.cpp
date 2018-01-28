@@ -5,12 +5,14 @@
 
 #include "assassinValkyrie.h"
 
+PLATFORM pCollection;
+
 // Constructor
 AssassinValkyrie::AssassinValkyrie()
-{ 
+{
 	ShowCursor(false);
-	mouse = new Cursor();
-	trooper1 = new Enemy(mouse);
+
+	pCollection.emplace_back(new Entity());
 }
 
 // Destructor
@@ -33,6 +35,9 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	timerFreq = *timerFreqM;
 	frameTime = *frameTimeM;
 
+	mouse = new Cursor();
+	trooper1 = new Trooper(mouse);
+
 	// Mouse
 	if (!mouseTextures.initialize(graphics, MOUSE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
@@ -47,23 +52,20 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!trooper1->initialize(this, trooperNS::WIDTH, trooperNS::HEIGHT, trooperNS::TEXTURE_COLS, &enemyTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
 
-	//trooper1->handleInput(input);
-
     return;
 }
 
 // Update all game items
 void AssassinValkyrie::update()
 {
-	trooper1->update(frameTime);
+	trooper1->update(frameTime, pCollection);
 	mouse->update();
 }
-
 
 // Artificial Intelligence
 void AssassinValkyrie::ai()
 {
-
+	trooper1->ai();
 }
 
 // Handle collisions
@@ -78,6 +80,7 @@ void AssassinValkyrie::render()
 {
 	trooper1->draw();
 	mouse->draw();
+	trooper1->getRay()->render(graphics);
 }
 
 // Release all reserved video memory so graphics device may be reset.

@@ -11,8 +11,9 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
-#include "enemy.h"
+#include "trooper.h"
 #include "cursor.h"
+#include "rayCasting.h"
 
 //Testing
 //=============================================================================
@@ -25,7 +26,7 @@ private:
 	TextureManager enemyTextures;
 	TextureManager mouseTextures;
 	Cursor *mouse;
-	Enemy *trooper1;
+	Trooper *trooper1;
 
 public:
     // Constructor

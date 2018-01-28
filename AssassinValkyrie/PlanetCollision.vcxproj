@@ -99,8 +99,10 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="rayCasting.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="trooper.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +125,11 @@
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="patrolState.h" />
+    <ClInclude Include="rayCasting.h" />
     <ClInclude Include="standState.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
+    <ClInclude Include="trooper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,14 +3,16 @@
 // Student Number	: Chua Wei Jie Timothy
 // Student Number	: S10165581F
 
-#ifndef _ENEMY_SHIP_H 
-#define _ENEMY_SHIP_H
+#ifndef _ENEMY_H 
+#define _ENEMY_H
 #define WIN32_LEAN_AND_MEAN
 
 #include "entity.h"
 #include "constants.h"
 #include "HealthComponet.h"
 #include "MovementComponent.h"
+#include "AttackComponent.h"
+#include "rayCasting.h"
 #include "cursor.h"
 #include "enemyState.h"
 #include "patrolState.h"
@@ -30,31 +32,43 @@ namespace trooperNS
 	const int   START_FRAME = 0;
 	const int   END_FRAME = 9;
 	const float ANIMATION_DELAY = 0.5f;
+
+	const int MELEE_RANGE = 100;
+
+	const int MELEE_WIDTH = 128;
+	const int MELEE_HEIGHT = 141;
+	const int MELEE_TEXTURE_COLS = 5;
+	const int MELEE_START_FRAME = 5;
+	const int MELEE_END_FRAME = 9;
 }
 
 class Enemy : public Entity
 {
 protected:
-	HealthComponent	*health;
-	MovementComponent *move;
-	EnemyState *state_;
+	HealthComponent		*health;
+	MovementComponent	*move;
+	AttackComponent		*attack;
+	EnemyState			*state_;
 
-	// player to track (temp for vision)
-	Cursor *mouseCursor;
+	// player to track
+	Cursor	*mouseCursor;
+	Ray		*vision;
 
-	bool	dyingOn;
-	Image	dying;
-	Image	damaged;
+	Image	attackAnimation;
 
 public:
 	// constructor
 	Enemy(Cursor *mouse);
 
 	// inherited member functions
+	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
+		TextureManager *textureM);
 	virtual void handleInput(Input* input);
-	void update(float frameTime);
-	void ai(Entity &ship1, Entity &ship2);
+	void update(float frameTime, PLATFORM p);
+	virtual void ai();
 	void draw();
+
+	Ray *getRay() { return vision; }
 };
 
 #endif
