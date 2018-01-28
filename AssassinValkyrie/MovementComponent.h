@@ -44,5 +44,26 @@ public:
 	{
 		object->setX(object->getX() + currentVelocity *frameTime);
 	}
+
+	void movementWithDirection(float frameTime, int direction)
+	{
+		if (direction == 1)
+		{
+			object->setX(object->getX() + currentVelocity *frameTime);
+		}
+		else if (direction == 2)
+		{
+			object->setX(object->getX() + (-currentVelocity) * frameTime);
+		}
+		else if (direction == 3)
+		{
+			object->setY(object->getY() + currentVelocity * frameTime);
+		}
+		else if (direction == 4)
+		{
+			object->setY(object->getY() + (-currentVelocity) * frameTime);
+		}
+	}
+
 };
 #endif

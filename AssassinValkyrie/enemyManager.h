@@ -3,6 +3,11 @@
 //  Student Name:       Timothy Chua
 //  Student Number:     10165581F
 
+#ifndef _ENEMYMANAGER_H 
+#define _ENEMYMANAGER_H
+#define WIN32_LEAN_AND_MEAN
+
+
 #include "trooper.h"
 #include "gunner.h"
 #include <vector>
@@ -31,4 +36,6 @@ public:
 	void collisions(Entity *play);
 	void render(Graphics *g);
 	GUNNERLIST *getGunners() { return &gunnerCollection; }
+	void camera(float frameTime, int direction);
 };
+#endif

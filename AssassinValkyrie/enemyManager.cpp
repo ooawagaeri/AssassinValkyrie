@@ -102,3 +102,10 @@ void EnemyManager::render(Graphics *g)
 		if (t->getActive())
 			t->draw(g);
 }
+void EnemyManager::camera(float frameTime, int direction) {
+	for (Trooper *t : trooperCollection)
+		t->getMove()->movementWithDirection(frameTime, direction);
+
+	for (Gunner *t : gunnerCollection)
+		t->getMove()->movementWithDirection(frameTime, direction);
+}

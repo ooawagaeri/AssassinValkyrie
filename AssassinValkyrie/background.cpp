@@ -29,7 +29,7 @@ bool Background::initialize(Game *gamePtr, int width, int height, int ncols, Tex
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Background::update(float frameTime, Entity *player, StageGenerator *stageGen)
+void Background::update(float frameTime, Entity *player, StageGenerator *stageGen, EnemyManager emList)
 {
 
 	bool left =false;
@@ -50,11 +50,13 @@ void Background::update(float frameTime, Entity *player, StageGenerator *stageGe
 			velocity.x = 100;
 			spriteData.x += frameTime * (velocity.x);         // move ship along X
 			stageGen->update(frameTime, 1, 0, true);
+			emList.camera(frameTime, 1);
 		}
 		if (input->isKeyDown(SHIP_RIGHT_KEY)) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (-velocity.x);         // move ship along X
 			stageGen->update(frameTime, 2, 0, true);
+			emList.camera(frameTime, 2);
 		}
 		player->setX(centreX);
 	}
@@ -64,11 +66,13 @@ void Background::update(float frameTime, Entity *player, StageGenerator *stageGe
 			velocity.x = 100;
 			spriteData.x += frameTime * (velocity.x);         // move ship along X
 			stageGen->update(frameTime, 1, 0, true);
+			emList.camera(frameTime, 1);
 		}
 		if (input->isKeyDown(SHIP_RIGHT_KEY)) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (-velocity.x);         // move ship along X
 			stageGen->update(frameTime, 2, 0, true);
+			emList.camera(frameTime, 2);
 		}
 		player->setX(centreX);
 	}
@@ -90,11 +94,13 @@ void Background::update(float frameTime, Entity *player, StageGenerator *stageGe
 			velocity.y = 100;
 			spriteData.y += frameTime * (-velocity.y);         // move ship along X
 			stageGen->update(frameTime, 4, 0, true);
+			emList.camera(frameTime, 4);
 		}
 		if (input->isKeyDown(SHIP_UP_KEY)) {
 			velocity.y = 100;
 			spriteData.y += frameTime * (velocity.y);         // move ship along X
 			stageGen->update(frameTime, 3, 0, true);
+			emList.camera(frameTime, 3);
 		}
 		player->setY(centreY - 1);
 	}
@@ -103,11 +109,13 @@ void Background::update(float frameTime, Entity *player, StageGenerator *stageGe
 			velocity.y = 100;
 			spriteData.y += frameTime * (-velocity.y);         // move ship along X
 			stageGen->update(frameTime, 4, 0, true);
+			emList.camera(frameTime, 4);
 		}
 		if (input->isKeyDown(SHIP_UP_KEY)) {
 			velocity.y = 100;
 			spriteData.y += frameTime * (velocity.y);         // move ship along X
 			stageGen->update(frameTime, 3 , 0, true);
+			emList.camera(frameTime, 3);
 		}
 		player->setY(centreY + 1);
 	}

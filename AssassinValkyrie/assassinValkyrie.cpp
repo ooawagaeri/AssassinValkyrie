@@ -102,7 +102,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 // Update all game items
 void AssassinValkyrie::update()
 {
-	background->update(frameTime, tempChar, stageGenerator);
+	background->update(frameTime, tempChar, stageGenerator, emList);
 	//stageGenerator->update(frameTime);
 	//tempChar->update(frameTime);
 	mouse->update();
