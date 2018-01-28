@@ -67,8 +67,12 @@ void Enemy::draw(Graphics *g)
 	else
 		flipHorizontal(true);
 
-	Image::draw();
+	// Stops Sprite rendering so that primatives can render
+	g->spriteEnd();
 	vision->render(g);
+	g->spriteBegin();
+
+	Image::draw();
 	attack->draw(this);
 }
 
