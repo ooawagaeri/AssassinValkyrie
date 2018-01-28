@@ -85,28 +85,30 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 			verticalElement = stageVerticalLoad->getElement();
 			if (verticalElement.element == "LADDER") {
 				int count = (verticalElement.yEnd - verticalElement.yStart) / ladderNS::HEIGHT_BTM;
-				if (count == 0)
-					count = 1;
+				if (count < 3)
+					count = 3;
 				for (int j = 0; j < count; j++) {
 					ladderCollection.emplace_back(new Ladder());
 					if (j == 0) {
 						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_BTM, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_BTM);
 						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - verticalElement.yStart);
+						ladderCollection.back()->setStartY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - verticalElement.yStart);
 					}
 					else if (j == (count - 1)) {
 						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_TOP, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_TOP);
 						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM + (ladderNS::HEIGHT_MID * (j-1)) + ladderNS::HEIGHT_TOP) - verticalElement.yStart);
+						ladderCollection.back()->setStartY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM + (ladderNS::HEIGHT_MID * (j - 1)) + ladderNS::HEIGHT_TOP) - verticalElement.yStart);
 					}
 					else {
 						success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_MID, 3, ladderTextures);
 						ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_MID);
 						ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM + (ladderNS::HEIGHT_MID * j) ) - verticalElement.yStart);
+						ladderCollection.back()->setStartY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM + (ladderNS::HEIGHT_MID * j)) - verticalElement.yStart);
 					}
 					ladderCollection.back()->setX(verticalElement.x + (ladderNS::WIDTH));
-					//ladderCollection.back()->setStartX(verticalElement.x + (ladderNS::WIDTH * j));
-					//ladderCollection.back()->setStartY(GAME_HEIGHT - (floorNS::HEIGHT * j) - verticalElement.yStart);
+					ladderCollection.back()->setStartX(verticalElement.x + ladderNS::WIDTH);
 				}
 				if (!success)
 					return success;
@@ -136,35 +138,80 @@ void StageGenerator::render()
 
 void StageGenerator::update(float frametime, int direction, int leftrightupdown, bool moveOn)
 {
-	/*
-	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
-		(*hideout)->update(frametime);
-	}
-	*/
 	for (floor = floorCollection.begin(); floor != floorCollection.end(); floor++)
 	{
-		if (leftrightupdown == 1)
+		switch (leftrightupdown) {
+		case 1:
 			(*floor)->setX((*floor)->getStartX() - 160);
-		else if (leftrightupdown == 2)
+			break;
+		case 2:
 			(*floor)->setX((*floor)->getStartX());
-		else if (leftrightupdown == 3)
+			break;
+		case 3:
 			(*floor)->setY((*floor)->getStartY() + 720);
-		else if (leftrightupdown == 4)
+			break;
+		case 4:
 			(*floor)->setY((*floor)->getStartY());
-
+			break;
+		}
 		if (moveOn)
 			(*floor)->update(frametime, direction);
 	}
 	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
-		if (leftrightupdown == 1)
-			(*fill)->setX((*fill)->getStartX() -160);
-		else if (leftrightupdown == 2)
-			((*fill)->setX((*fill)->getStartX()));
-		else if (leftrightupdown == 3)
+		switch (leftrightupdown) {
+		case 1:
+			(*fill)->setX((*fill)->getStartX() - 160);
+			break;
+		case 2:
+			(*fill)->setX((*fill)->getStartX());
+			break;
+		case 3:
 			(*fill)->setY((*fill)->getStartY() + 720);
-		else if (leftrightupdown == 4)
+			break;
+		case 4:
 			(*fill)->setY((*fill)->getStartY());
+			break;
+		}
 		if (moveOn)
 			(*fill)->update(frametime, direction);
+	}
+	/* to be uncommented and fixed on hideout.cpp AFTER player is merged in
+	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
+		switch (leftrightupdown) {
+		case 1:
+			(*hideout)->setX((*hideout)->getStartX() - 160);
+			break;
+		case 2:
+			((*hideout)->setX((*hideout)->getStartX()));
+			break;
+		case 3:
+			(*hideout)->setY((*hideout)->getStartY() + 720);
+			break;
+		case 4:
+			(*hideout)->setY((*hideout)->getStartY());
+			break;
+		}
+		if (moveOn)
+			(*hideout)->update(frametime, direction);
+	}
+	*/
+	
+	for (ladder = ladderCollection.begin(); ladder != ladderCollection.end(); ladder++) {
+		switch (leftrightupdown) {
+		case 1:
+			(*ladder)->setX((*ladder)->getStartX() - 160);
+			break;
+		case 2:
+			(*ladder)->setX((*ladder)->getStartX());
+			break;
+		case 3:
+			(*ladder)->setY((*ladder)->getStartY() + 720);
+			break;
+		case 4:
+			(*ladder)->setY((*ladder)->getStartY());
+			break;
+		}
+		if (moveOn)
+			(*ladder)->update(frametime, direction);
 	}
 }
