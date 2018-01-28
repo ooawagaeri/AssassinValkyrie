@@ -88,13 +88,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio.cpp" />
+    <ClCompile Include="bullet.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="dashboard.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyBulletManager.cpp" />
+    <ClCompile Include="enemyManager.cpp" />
     <ClCompile Include="enemyState.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="gunner.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
@@ -109,9 +113,13 @@
     <ClInclude Include="alertState.h" />
     <ClInclude Include="AttackComponent.h" />
     <ClInclude Include="audio.h" />
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyBulletManager.h" />
+    <ClInclude Include="enemyManager.h" />
     <ClInclude Include="enemyState.h" />
+    <ClInclude Include="gunner.h" />
     <ClInclude Include="HealthComponet.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="dashboard.h" />

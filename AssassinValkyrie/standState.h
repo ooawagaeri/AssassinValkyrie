@@ -17,7 +17,7 @@ private:
 
 public:
 	StandingState();
-	virtual EnemyState* handleInput(Entity& enemy, Input* input);
-	virtual void update(Entity *enemy, Entity *target);
+	virtual EnemyState* handleInput(Enemy *enemy, Entity *target, PLATFORM p);
+	virtual void update(Enemy *enemy, Entity *target);
 };//end of StandingState class
 #endif

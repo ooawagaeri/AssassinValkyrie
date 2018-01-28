@@ -61,7 +61,7 @@ void Graphics::initialize(HWND hw, int w, int h, bool full)
             d3dpp.FullScreen_RefreshRateInHz = pMode.RefreshRate;
         else
             throw(GameError(gameErrorNS::FATAL_ERROR, 
-            "The graphics device does not support the specified resolution and/or format."));
+            "The graphics device does not support the specified resolution and/or format->"));
     }
 
     // determine if graphics card supports harware texturing and lighting and vertex shaders
@@ -109,8 +109,9 @@ void Graphics::initGraphics(std::queue<CUSTOMVERTEX> *verticesClient)
 		vertices[i] = pos;
 	}
 
-	device3d->CreateVertexBuffer(size * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED,
-		&v_buffer, NULL);
+	while (v_buffer == NULL)
+		device3d->CreateVertexBuffer(size * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED,
+			&v_buffer, NULL);
 
 	VOID* pVoid;
 

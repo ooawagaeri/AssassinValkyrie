@@ -10,11 +10,13 @@
 #include "entity.h"
 #include "rayCasting.h"
 
+class Enemy;
+
 class EnemyState
 {
 public:
 	virtual ~EnemyState() {}
-	virtual EnemyState* handleInput(Entity& enemy, Input* input) { return new EnemyState(); }
-	virtual void update(Entity *enemy, Entity *target) {}
+	virtual EnemyState* handleInput(Enemy *enemy, Entity *target, PLATFORM p) { return new EnemyState(); }
+	virtual void update(Enemy *enemy, Entity *target) {}
 };//end of EnemyState class
 #endif
