@@ -52,6 +52,14 @@
     <ClCompile Include="trooper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyBulletManager.cpp" />
+    <ClCompile Include="enemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -126,6 +134,14 @@
     <ClInclude Include="trooper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyBulletManager.h" />
+    <ClInclude Include="enemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

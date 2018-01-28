@@ -1,6 +1,6 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei Jie Timothy
+// Student Number	: Chua Wei trooper Timothy
 // Student Number	: S10165581F
 
 #ifndef _ENEMY_ALERT_STATE_H 
@@ -17,7 +17,7 @@ private:
 	Entity lastSeen;
 public:
 	AlertedState();
-	virtual EnemyState* handleInput(Entity& enemy, Input* input);
-	virtual void update(Entity *enemy, Entity *target);
+	virtual EnemyState* handleInput(Enemy *enemy, Entity *target, PLATFORM p);
+	virtual void update(Enemy *enemy, Entity *target);
 };//end of AlertedState class
 #endif

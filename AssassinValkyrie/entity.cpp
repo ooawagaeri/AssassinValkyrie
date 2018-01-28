@@ -189,7 +189,7 @@ bool Entity::collideRotatedBox(Entity &ent, VECTOR2 &collisionVector)
     return false;
 }
 
-// Pixel Perfect collision, IN PROGRESS
+// Pixel Perfect collision
 bool Entity::DetectPixelPerfect(Entity &ent)
 {
 	RECT rect1;

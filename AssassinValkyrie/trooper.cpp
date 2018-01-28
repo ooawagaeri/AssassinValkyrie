@@ -1,11 +1,11 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei Jie Timothy
+// Student Number	: Chua Wei trooper Timothy
 // Student Number	: S10165581F
 
 #include "trooper.h"
 
-Trooper::Trooper(Cursor *mouse) : Enemy(mouse)
+Trooper::Trooper(Entity *play) : Enemy(play)
 {
 	spriteData.width = trooperNS::WIDTH;           // size of Ship1
 	spriteData.height = trooperNS::HEIGHT;
@@ -32,22 +32,18 @@ bool Trooper::initialize(Game *gamePtr, int width, int height, int ncols,
 	attackAnimation.setFrameDelay(trooperNS::ANIMATION_DELAY);
 	attackAnimation.setLoop(false);
 
+	move->setVelocity(trooperNS::SPEED);
 	attack = new MeleeComponent(&attackAnimation);
-	vision->init(&center.x, &center.y, &velocity.x, PI / 6, 200);
+	vision->init(&center.x, &center.y, trooperNS::VISION_ANGLE, trooperNS::VISION_RANGE, trooperNS::VISION_HEIGHT);
 
 	return(Enemy::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-bool SameSign(int x, int y)
-{
-	return (x >= 0) ^ (y < 0);
-}
-
 void Trooper::ai()
 {
-	VECTOR2 pos1 = *getCenter() - *mouseCursor->getCenter();
+	VECTOR2 pos1 = *getCenter() - *player->getCenter();
 
-	if (D3DXVec2Length(&pos1) < trooperNS::MELEE_RANGE && !attack->getAnimation() && !SameSign(velocity.x, pos1.x))
+	if (D3DXVec2Length(&pos1) < trooperNS::MELEE_RANGE && !attack->getAnimation() && !sameSign(velocity.x, pos1.x))
 	{
 		attack->setAnimation(true);
 		attackAnimation.setCurrentFrame(trooperNS::MELEE_START_FRAME);

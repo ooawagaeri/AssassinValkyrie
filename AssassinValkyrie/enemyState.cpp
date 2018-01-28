@@ -1,6 +1,6 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei Jie Timothy
+// Student Number	: Chua Wei trooper Timothy
 // Student Number	: S10165581F
 
 #include "enemy.h"
@@ -14,23 +14,21 @@ PatrollingState::PatrollingState()
 	maxTimeWalk = 8000;
 }
 
-EnemyState* PatrollingState::handleInput(Entity& enemy, Input* input)
+EnemyState* PatrollingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
-	if (input->isKeyDown('R'))
+	if (enemy->getRay()->inSight(*target->getCenter(),p))
 	{
+		enemy->getRay()->setColor(graphicsNS::YELLOW);
 		return new AlertedState();
 	}
 	return NULL;
 }
 
-void PatrollingState::update(Entity *enemy, Entity *target)
+void PatrollingState::update(Enemy *enemy, Entity *target)
 {
 	if (GetTickCount() - walkingTime > maxTimeWalk)
 	{
-		if (enemy->getVelocity().x == 0)
-			enemy->setVelocity(VECTOR2(trooperNS::SPEED, 0));
-		else
-			enemy->setVelocity(-enemy->getVelocity());
+		enemy->getMove()->setVelocity(-enemy->getMove()->getCurrentVelocity());
 		walkingTime = GetTickCount();
 	}
 }
@@ -41,7 +39,7 @@ AlertedState::AlertedState()
 	maxTimeAlert = 5000;
 }
 
-EnemyState* AlertedState::handleInput(Entity& enemy, Input* input)
+EnemyState* AlertedState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
 	if (GetTickCount() - alertedTime > maxTimeAlert)
 	{
@@ -50,11 +48,11 @@ EnemyState* AlertedState::handleInput(Entity& enemy, Input* input)
 	return NULL;
 }
 
-void AlertedState::update(Entity *enemy, Entity *target)
+void AlertedState::update(Enemy *enemy, Entity *target)
 {
 	VECTOR2 direction = VECTOR2(target->getX() - enemy->getX(), target->getY() - enemy->getY());
 	direction = *D3DXVec2Normalize(&direction, &direction);
-	enemy->setVelocity(VECTOR2(direction.x * trooperNS::SPEED, 0));
+	enemy->getMove()->setVelocity(direction.x * enemy->getMove()->getInitialVelocity());
 }
 
 StandingState::StandingState()
@@ -63,15 +61,22 @@ StandingState::StandingState()
 	maxTimeStand = 3000;
 }
 
-EnemyState* StandingState::handleInput(Entity& enemy, Input* input)
+EnemyState* StandingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
+	enemy->getMove()->setVelocity(0);
 	if (GetTickCount() - standTime > maxTimeStand)
 	{
-		return new PatrollingState();
+		enemy->getRay()->setColor(graphicsNS::WHITE);
+		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
+		if (enemy->getMove()->returnOrigin())
+		{
+			enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
+			return new PatrollingState();
+		}
 	}
 	return NULL;
 }
-void StandingState::update(Entity *enemy, Entity *target)
+void StandingState::update(Enemy *enemy, Entity *target)
 {
-	enemy->setVelocity(VECTOR2(0, 0));
+	enemy->getMove()->setVelocity(enemy->getMove()->getCurrentVelocity());
 }

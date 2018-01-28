@@ -1,28 +1,29 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei Jit Timothy
+// Student Number	: Chua Wei Jie Timothy
 // Student Number	: S10165581F
 
 #include "rayCasting.h"
 
-
 Ray::Ray()
 {
+	color = graphicsNS::WHITE;
+	direction = PI;
 }
 
-void Ray::init(float *X, float *Y, float *direct, float angle, int dist)
+void Ray::init(float *X, float *Y, float angle, int dist, int height)
 {
 	x = X; 	y = Y;
-	facing = direct;
 	visibilityAngle = angle;
 	viewDistance = dist;
+	viewHeight = height;
 }
 
 bool isLeft(VECTOR2 a, VECTOR2 b, VECTOR2 c) {
 	return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
 }
 
-float NormalizeAngle(float value)
+float normalizeAngle(float value)
 {
 	if (value < 0)
 		value += 2 * PI;
@@ -31,7 +32,7 @@ float NormalizeAngle(float value)
 double Dot(const VECTOR2& a, const VECTOR2& b) { return (a.x*b.x) + (a.y*b.y); }
 double PerpDot(const VECTOR2& a, const VECTOR2& b) { return (a.y*b.x) - (a.x*b.y); }
 
-bool LineCollision(VECTOR2& A1, VECTOR2& A2, VECTOR2& B1, VECTOR2& B2, double* out = 0)
+bool lineCollision(VECTOR2& A1, VECTOR2& A2, VECTOR2& B1, VECTOR2& B2, double* out = 0)
 {
 	VECTOR2 a(A2 - A1);
 	VECTOR2 b(B2 - B1);
@@ -84,7 +85,7 @@ VECTOR2 Ray::castRayVector(VECTOR2 target, const PLATFORM &walls) {
 		for (size_t i = 0; i < 4; ++i) {
 			VECTOR2 B1 = { *wall->getCorner(i) };
 			VECTOR2 B2 = { *wall->getCorner((i + 1) % 4) };
-			if (LineCollision(target, pos, B1, B2, &check))
+			if (lineCollision(target, pos, B1, B2, &check))
 			{
 				VECTOR2 t = ((B2 - B1) * check) + B1;
 				if ((check < out && check != 0) || (D3DXVec2Length(&VECTOR2{ t.x - pos.x, t.y - pos.y }) < D3DXVec2Length(&VECTOR2{ intersect.x - pos.x, intersect.y - pos.y })))
@@ -105,10 +106,7 @@ VECTOR2 Ray::castRayVector(VECTOR2 target, const PLATFORM &walls) {
 
 void Ray::updateVision(const PLATFORM &walls)
 {
-	pos = { *x, *y - 40 };
-	direction = PI;
-	if (*facing > 0)
-		direction = 0;
+	pos = { *x, *y - viewHeight };
 
 	// first, let's get all the vertices of all the walls
 
@@ -154,7 +152,7 @@ void Ray::updateVision(const PLATFORM &walls)
 	 //sort the points based on their angle
 	std::sort(visPoints.begin(), visPoints.end(),
 		[&](const VECTOR2 &p1, const VECTOR2 &p2) {
-		return NormalizeAngle(atan2(p2.y - pos.y, p2.x - pos.x)) > NormalizeAngle(atan2(p1.y - pos.y, p1.x - pos.x));
+		return normalizeAngle(atan2(p2.y - pos.y, p2.x - pos.x)) > normalizeAngle(atan2(p1.y - pos.y, p1.x - pos.x));
 	});
 	
 
@@ -165,15 +163,15 @@ void Ray::updateVision(const PLATFORM &walls)
 	it_visPoints = visPoints.begin();
 	while (it_visPoints != visPoints.end())
 	{
-		vision.push({ pos.x, pos.y, 0.5f, 1.0f, graphicsNS::WHITE  & graphicsNS::ALPHA50 });
-		vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, graphicsNS::ALPHA25 });
+		vision.push({ pos.x, pos.y, 0.5f, 1.0f, color  & graphicsNS::ALPHA50 });
+		vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA10 });
 		it_visPoints++;
 		if (it_visPoints != visPoints.end())
-			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, graphicsNS::ALPHA25 });
+			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  &  ALPHA10 });
 		else
 		{
 			it_visPoints = visPoints.begin();
-			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, graphicsNS::ALPHA25 });
+			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA10 });
 			break;
 		}
 	}
@@ -186,4 +184,24 @@ void Ray::render(Graphics *g)
 		for (int i = 0; i < vision.size()/3; i++)
 			g->initGraphics(&vision);
 	}
+}
+
+bool Ray::inSight(VECTOR2 entity, const PLATFORM &walls)
+{
+	int d = 100000;
+	float range1Angle = direction + visibilityAngle;
+	float range2Angle = direction - visibilityAngle;
+
+	VECTOR2 range1 = VECTOR2{ cos(range1Angle), sin(range1Angle) } *d;
+	VECTOR2 range2 = VECTOR2{ cos(range2Angle), sin(range2Angle) } *d;
+	bool c1 = isLeft(pos, range1, entity);
+	bool c2 = isLeft(pos, range2, entity);
+
+	if ((!c1 && c2))
+	{
+		VECTOR2 collision = castRayVector(entity, walls);
+		if (collision == entity)
+			return true;
+	}
+	return false;
 }

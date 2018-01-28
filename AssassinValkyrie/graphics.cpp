@@ -61,7 +61,7 @@ void Graphics::initialize(HWND hw, int w, int h, bool full)
             d3dpp.FullScreen_RefreshRateInHz = pMode.RefreshRate;
         else
             throw(GameError(gameErrorNS::FATAL_ERROR, 
-            "The graphics device does not support the specified resolution and/or format."));
+            "The graphics device does not support the specified resolution and/or format->"));
     }
 
     // determine if graphics card supports harware texturing and lighting and vertex shaders

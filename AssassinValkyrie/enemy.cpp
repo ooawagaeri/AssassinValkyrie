@@ -1,30 +1,40 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Chua Wei Jie Timothy
+// Student Number	: Chua Wei trooper Timothy
 // Student Number	: S10165581F
 
 #include "enemy.h"
 
-Enemy::Enemy(Cursor *mouse) : Entity()
+Enemy::Enemy(Entity *play) : Entity()
 {
 	collisionType = entityNS::BOX;
 	health = new HealthComponent();
 	move = new MovementComponent(this);
 	state_ = new PatrollingState();
 	
-	mouseCursor = mouse;
+	player = play;
 	vision = new Ray();
+}
+
+Enemy::~Enemy()
+{
+	SAFE_DELETE(health);
+	SAFE_DELETE(move);
+	SAFE_DELETE(state_);
+	SAFE_DELETE(attack);
+	SAFE_DELETE(vision);
 }
 
 bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
 	TextureManager *textureM)
 {
+	move->setOrigin(*getCenter());
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Enemy::handleInput(Input* input)
+void Enemy::handleInput(PLATFORM p)
 {
-	EnemyState* state = state_->handleInput(*this, input);
+	EnemyState* state = state_->handleInput(this, player,p);
 	if (state != NULL)
 	{
 		SAFE_DELETE(state_);
@@ -34,11 +44,13 @@ void Enemy::handleInput(Input* input)
 
 void Enemy::update(float frameTime, PLATFORM p)
 {
-	state_->update(this, mouseCursor);
-	handleInput(input);
+	handleInput(p);
+	state_->update(this, player);
 
 	move->update(frameTime);
 	attack->update(frameTime);
+
+	vision->setDirection(move->getCurrentVelocity());
 	vision->updateVision(p);
 
 	Entity::update(frameTime);
@@ -48,13 +60,19 @@ void Enemy::ai()
 {
 }
 
-void Enemy::draw()
+void Enemy::draw(Graphics *g)
 {
-	if (velocity.x > 0)
+	if (move->getCurrentVelocity() > 0)
 		flipHorizontal(false);
 	else
 		flipHorizontal(true);
 
 	Image::draw();
+	vision->render(g);
 	attack->draw(this);
+}
+
+bool Enemy::sameSign(int x, int y)
+{
+	return (x >= 0) ^ (y < 0);
 }
