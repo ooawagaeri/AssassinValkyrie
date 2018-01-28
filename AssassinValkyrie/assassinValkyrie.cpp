@@ -11,6 +11,12 @@ static PLATFORM pCollection;
 AssassinValkyrie::AssassinValkyrie()
 {
 	ShowCursor(false);
+  //trooper1 = new Enemy();
+	//mouse = new Cursor();
+	background = new Background();
+	stageGenerator = new StageGenerator();
+	tempChar = new Hideout();
+	currentStage = 1;
 }
 
 // Destructor
@@ -69,12 +75,40 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!emList.initialize(this, &trooperTexture, &gunnerTexture, mouse))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies texture"));
 
-    return;
+	//Background
+	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
+	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
+
+	if (!ladderTexture.initialize(graphics, LADDER_IMAGE))
+		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing ladder texture"));
+
+	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing floor generation"));
+
+	/* temporary character in the form of a hideout
+	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
+
+
+	tempChar->setCurrentFrame(4);
+	tempChar->setY(576);
+	*/
+	return;
 }
 
 // Update all game items
 void AssassinValkyrie::update()
 {
+  background->update(frameTime, tempChar, stageGenerator);
+	trooper1->update(frameTime);
+	//stageGenerator->update(frameTime);
+	//tempChar->update(frameTime);
 	mouse->update();
 	emList.update(frameTime, pCollection);
 }
@@ -94,6 +128,10 @@ void AssassinValkyrie::collisions()
 // Render game items
 void AssassinValkyrie::render()
 {
+	background->draw();
+	trooper1->draw();
+	stageGenerator->render();
+	//tempChar->draw();
 	mouse->draw();
 	emList.render(graphics);
 
@@ -105,11 +143,16 @@ void AssassinValkyrie::render()
 void AssassinValkyrie::releaseAll()
 {
 	SAFE_DELETE(mouse);
+  //SAFE_DELETE(trooper1);
+	SAFE_DELETE(background);
+	enemyTextures.onLostDevice();
 	emList.~EnemyManager();
 	trooperTexture.onLostDevice();
 	gunnerTexture.onLostDevice();
 	bulletTextures.onLostDevice();
 	mouseTextures.onLostDevice();
+	backgroundTexture.onLostDevice();
+	floorTexture.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -117,10 +160,14 @@ void AssassinValkyrie::releaseAll()
 // Recreate all surfaces.
 void AssassinValkyrie::resetAll()
 {
+
+  enemyTextures.onResetDevice();
+	mouseTextures.onResetDevice();
+	backgroundTexture.onResetDevice();
+	floorTexture.onResetDevice();
 	trooperTexture.onResetDevice();
 	gunnerTexture.onResetDevice();
 	bulletTextures.onResetDevice();
-	mouseTextures.onLostDevice();
     Game::resetAll();
     return;
 }

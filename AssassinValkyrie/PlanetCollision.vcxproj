@@ -88,6 +88,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio.cpp" />
+    <ClCompile Include="background.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="dashboard.cpp" />
@@ -96,23 +97,31 @@
     <ClCompile Include="enemyManager.cpp" />
     <ClCompile Include="enemyState.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="fill.cpp" />
+    <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="gunner.cpp" />
+    <ClCompile Include="hideout.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="ladder.cpp" />
     <ClCompile Include="rayCasting.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="trooper.cpp" />
+    <ClCompile Include="stageGenerator.cpp" />
+    <ClCompile Include="horizontalLoader.cpp" />
+    <ClCompile Include="verticalLoader.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alertState.h" />
     <ClInclude Include="AttackComponent.h" />
     <ClInclude Include="audio.h" />
+    <ClInclude Include="background.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="enemy.h" />
@@ -121,23 +130,38 @@
     <ClInclude Include="enemyState.h" />
     <ClInclude Include="gunner.h" />
     <ClInclude Include="HealthComponet.h" />
+    <ClInclude Include="fill.h" />
+    <ClInclude Include="floor.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="dashboard.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameError.h" />
     <ClInclude Include="graphics.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="1-horizontal.txt" />
+    <Text Include="1-vertical.txt" />
+    <ClInclude Include="hideout.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="assassinValkyrie.h" />
+    <ClInclude Include="ladder.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="patrolState.h" />
     <ClInclude Include="rayCasting.h" />
     <ClInclude Include="standState.h" />
+    <ClInclude Include="stageGenerator.h" />
+    <ClInclude Include="horizontalLoader.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="trooper.h" />
+    <ClInclude Include="verticalLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="1-horizontal.txt" />
+    <Text Include="1-vertical.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
