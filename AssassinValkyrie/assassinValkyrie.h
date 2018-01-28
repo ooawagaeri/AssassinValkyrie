@@ -11,7 +11,6 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
-#include "trooper.h"
 #include "gunner.h"
 #include "cursor.h"
 #include "rayCasting.h"
@@ -25,8 +24,6 @@ private:
 	TextureManager mouseTextures;
 	TextureManager bulletTextures;
 	Cursor *mouse;
-	Trooper *trooper1;
-	Gunner *gunner1;
 	EnemyManager emList;
 
 public:

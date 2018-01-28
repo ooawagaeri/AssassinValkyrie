@@ -109,8 +109,9 @@ void Graphics::initGraphics(std::queue<CUSTOMVERTEX> *verticesClient)
 		vertices[i] = pos;
 	}
 
-	device3d->CreateVertexBuffer(size * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED,
-		&v_buffer, NULL);
+	while (v_buffer == NULL)
+		device3d->CreateVertexBuffer(size * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED,
+			&v_buffer, NULL);
 
 	VOID* pVoid;
 

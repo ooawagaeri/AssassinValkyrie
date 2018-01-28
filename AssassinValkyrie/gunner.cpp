@@ -7,17 +7,17 @@
 
 Gunner::Gunner(Entity *play) : Enemy(play)
 {
-	spriteData.width = gunnerNS::WIDTH;           // size of Ship1
+	spriteData.width = gunnerNS::WIDTH;
 	spriteData.height = gunnerNS::HEIGHT;
-	spriteData.x = gunnerNS::X;                   // location on screen
+	spriteData.x = gunnerNS::X;
 	spriteData.y = gunnerNS::Y;
-	spriteData.rect.bottom = gunnerNS::HEIGHT;    // rectangle to select parts of an image
+	spriteData.rect.bottom = gunnerNS::HEIGHT;
 	spriteData.rect.right = gunnerNS::WIDTH;
 	spriteData.angle = gunnerNS::ROTATION;
 	spriteData.scale = gunnerNS::SCALE;
 	frameDelay = gunnerNS::ANIMATION_DELAY;
-	startFrame = gunnerNS::START_FRAME;     // first frame of ship animation
-	endFrame = gunnerNS::END_FRAME;     // last frame of ship animation
+	startFrame = gunnerNS::START_FRAME; 
+	endFrame = gunnerNS::END_FRAME;
 	currentFrame = startFrame;
 	edge = RECT{ (long)(-gunnerNS::WIDTH*gunnerNS::SCALE / 2), (long)(-gunnerNS::HEIGHT*gunnerNS::SCALE / 2), (long)(gunnerNS::WIDTH*gunnerNS::SCALE / 2), (long)(gunnerNS::HEIGHT*gunnerNS::SCALE / 2) };
 }

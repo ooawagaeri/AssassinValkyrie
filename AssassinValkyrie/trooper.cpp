@@ -7,18 +7,18 @@
 
 Trooper::Trooper(Entity *play) : Enemy(play)
 {
-	spriteData.width = trooperNS::WIDTH;           // size of Ship1
+	spriteData.width = trooperNS::WIDTH; 
 	spriteData.height = trooperNS::HEIGHT;
-	spriteData.x = trooperNS::X;                   // location on screen
+	spriteData.x = trooperNS::X;
 	spriteData.y = trooperNS::Y;
-	spriteData.rect.bottom = trooperNS::HEIGHT;    // rectangle to select parts of an image
+	spriteData.rect.bottom = trooperNS::HEIGHT;
 	spriteData.rect.right = trooperNS::WIDTH;
 	spriteData.angle = trooperNS::ROTATION;
 	spriteData.scale = trooperNS::SCALE;
 	velocity = VECTOR2(trooperNS::SPEED, 0);
 	frameDelay = trooperNS::ANIMATION_DELAY;
-	startFrame = trooperNS::START_FRAME;     // first frame of ship animation
-	endFrame = trooperNS::END_FRAME;     // last frame of ship animation
+	startFrame = trooperNS::START_FRAME;
+	endFrame = trooperNS::END_FRAME;
 	currentFrame = startFrame;
 	edge = RECT{ (long)(-trooperNS::WIDTH*trooperNS::SCALE / 2), (long)(-trooperNS::HEIGHT*trooperNS::SCALE / 2), (long)(trooperNS::WIDTH*trooperNS::SCALE / 2), (long)(trooperNS::HEIGHT*trooperNS::SCALE / 2) };
 }

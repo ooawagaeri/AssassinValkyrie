@@ -18,13 +18,14 @@ private:
 
 	TROOPERLIST::iterator trooper;
 	GUNNERLIST::iterator gunner;
-	int trooperSize = 4;
-	int gunnerSize = 4;
+	int trooperSize;
+	int gunnerSize;
 
 public:
 	EnemyManager();
+	~EnemyManager();
 
-	bool initialize(Game *gamePtr, TextureManager *textureM, Entity *play);
+	bool initialize(Game *gamePtr, TextureManager *textureTrooper, TextureManager *textureGunner, Entity *play);
 	void update(float frameTime, PLATFORM p);
 	void ai();
 	void collisions(Entity *play);

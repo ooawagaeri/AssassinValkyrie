@@ -31,6 +31,7 @@ private:
 
 public:
 	Ray();
+	~Ray();
 
 	void init(float *x, float *y, float angle, int dist, int height);
 	VECTOR2 Ray::maxDist(VECTOR2 cast);

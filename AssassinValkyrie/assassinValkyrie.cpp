@@ -34,8 +34,6 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	frameTime = *frameTimeM;
 
 	mouse = new Cursor();
-	trooper1 = new Trooper(mouse);
-	gunner1 = new Gunner(mouse);
 
 	// Mouse
 	if (!mouseTextures.initialize(graphics, MOUSE_IMAGE))
@@ -50,16 +48,10 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	// Trooper
 	if (!trooperTexture.initialize(graphics, ENEMY_TROOPER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
-	
-	if (!trooper1->initialize(this, trooperNS::WIDTH, trooperNS::HEIGHT, trooperNS::TEXTURE_COLS, &trooperTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
 
 	// Gunner
 	if (!gunnerTexture.initialize(graphics, ENEMY_GUNNER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
-
-	if (!gunner1->initialize(this, gunnerNS::WIDTH, gunnerNS::HEIGHT, gunnerNS::TEXTURE_COLS, &gunnerTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy gunner"));
 
 	// Bullet
 	if (!bulletTextures.initialize(graphics, BULLET_IMAGE))
@@ -74,7 +66,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	e->computeRotatedBox();
 	pCollection.emplace_back(e);
 
-	emList.initialize(this, &trooperTexture, mouse);
+	emList.initialize(this, &trooperTexture, &gunnerTexture, mouse);
 
     return;
 }
@@ -82,8 +74,6 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 // Update all game items
 void AssassinValkyrie::update()
 {
-	trooper1->update(frameTime, pCollection);
-	gunner1->update(frameTime, pCollection);
 	mouse->update();
 	emList.update(frameTime, pCollection);
 }
@@ -91,8 +81,6 @@ void AssassinValkyrie::update()
 // Artificial Intelligence
 void AssassinValkyrie::ai()
 {
-	trooper1->ai();
-	gunner1->ai();
 	emList.ai();
 }
 
@@ -100,14 +88,11 @@ void AssassinValkyrie::ai()
 void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
-	mouse->collidesWith(*trooper1, collisionVector);
 }
 
 // Render game items
 void AssassinValkyrie::render()
 {
-	trooper1->draw(graphics);
-	gunner1->draw(graphics);
 	mouse->draw();
 	emList.render(graphics);
 
@@ -119,8 +104,7 @@ void AssassinValkyrie::render()
 void AssassinValkyrie::releaseAll()
 {
 	SAFE_DELETE(mouse);
-	SAFE_DELETE(trooper1);
-	SAFE_DELETE(gunner1);
+	emList.~EnemyManager();
 	trooperTexture.onLostDevice();
 	gunnerTexture.onLostDevice();
 	bulletTextures.onLostDevice();

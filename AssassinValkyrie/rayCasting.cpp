@@ -11,6 +11,11 @@ Ray::Ray()
 	direction = PI;
 }
 
+Ray::~Ray()
+{
+	std::queue<CUSTOMVERTEX> empty;
+	std::swap(vision, empty);
+}
 void Ray::init(float *X, float *Y, float angle, int dist, int height)
 {
 	x = X; 	y = Y;
@@ -146,7 +151,6 @@ void Ray::updateVision(const PLATFORM &walls)
 	}
 
 	visPoints.push_back(castRayVector(range1, walls));
-
 	visPoints.push_back(castRayVector(range2, walls));
 
 	 //sort the points based on their angle
@@ -155,7 +159,6 @@ void Ray::updateVision(const PLATFORM &walls)
 		return normalizeAngle(atan2(p2.y - pos.y, p2.x - pos.x)) > normalizeAngle(atan2(p1.y - pos.y, p1.x - pos.x));
 	});
 	
-
 	// Iterator of visPoints 
 	std::vector<VECTOR2>::iterator it_visPoints;
 
