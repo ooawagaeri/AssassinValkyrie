@@ -37,18 +37,36 @@
     <ClCompile Include="mainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="cursor.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="floor.cpp" />
-    <ClCompile Include="background.cpp" />
-    <ClCompile Include="stageGenerator.cpp" />
-    <ClCompile Include="fill.cpp" />
-    <ClCompile Include="hideout.cpp" />
-    <ClCompile Include="ladder.cpp" />
-    <ClCompile Include="verticalLoader.cpp" />
-    <ClCompile Include="horizontalLoader.cpp" />
+    <ClCompile Include="background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="floor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hideout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="horizontalLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ladder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stageGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="verticalLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -99,18 +117,36 @@
     <ClInclude Include="AttackComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="enemy.h" />
     <ClInclude Include="cursor.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="floor.h" />
-    <ClInclude Include="background.h" />
-    <ClInclude Include="stageGenerator.h" />
-    <ClInclude Include="fill.h" />
-    <ClInclude Include="hideout.h" />
-    <ClInclude Include="ladder.h" />
-    <ClInclude Include="verticalLoader.h" />
-    <ClInclude Include="horizontalLoader.h" />
+    <ClInclude Include="background.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="floor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hideout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="horizontalLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ladder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stageGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="verticalLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

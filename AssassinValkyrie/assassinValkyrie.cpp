@@ -67,12 +67,14 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing floor generation"));
 
+	/* temporary character in the form of a hideout
 	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
 
 
 	tempChar->setCurrentFrame(4);
 	tempChar->setY(576);
+	*/
 	return;
 }
 
@@ -82,7 +84,7 @@ void AssassinValkyrie::update()
 	background->update(frameTime, tempChar, stageGenerator);
 	trooper1->update(frameTime);
 	//stageGenerator->update(frameTime);
-	tempChar->update(frameTime);
+	//tempChar->update(frameTime);
 	mouse->update();
 }
 
@@ -106,7 +108,7 @@ void AssassinValkyrie::render()
 	background->draw();
 	trooper1->draw();
 	stageGenerator->render();
-	tempChar->draw();
+	//tempChar->draw();
 	mouse->draw();
 }
 
@@ -116,7 +118,6 @@ void AssassinValkyrie::releaseAll()
 	SAFE_DELETE(mouse);
 	SAFE_DELETE(trooper1);
 	SAFE_DELETE(background);
-	//SAFE_DELETE(stageGenerator);
 	enemyTextures.onLostDevice();
 	mouseTextures.onLostDevice();
 	backgroundTexture.onLostDevice();
