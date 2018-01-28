@@ -12,12 +12,12 @@
 
 class Gunner : public Enemy
 {
-private:
-
 public:
 	Gunner(Entity *play);
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);
 	void ai();
+	
+	ShootComponent *getShoot() { return dynamic_cast<ShootComponent*>(attack); }
 };
 #endif

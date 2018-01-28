@@ -138,7 +138,6 @@ void AssassinValkyrie::render()
 void AssassinValkyrie::releaseAll()
 {
 	SAFE_DELETE(mouse);
-  //SAFE_DELETE(trooper1);
 	SAFE_DELETE(background);
 	emList.~EnemyManager();
 	trooperTexture.onLostDevice();
@@ -154,8 +153,9 @@ void AssassinValkyrie::releaseAll()
 // Recreate all surfaces.
 void AssassinValkyrie::resetAll()
 {
-
 	mouseTextures.onResetDevice();
+	trooperTexture.onResetDevice();
+	gunnerTexture.onResetDevice();
 	backgroundTexture.onResetDevice();
 	floorTexture.onResetDevice();
 	trooperTexture.onResetDevice();

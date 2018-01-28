@@ -150,7 +150,6 @@ void Game::renderGame()
     if (SUCCEEDED(graphics->beginScene()))
     {
         render();           // call render() in derived object
-
         //stop rendering
         graphics->endScene();
     }

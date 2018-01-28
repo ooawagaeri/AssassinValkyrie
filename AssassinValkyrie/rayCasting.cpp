@@ -166,7 +166,7 @@ void Ray::updateVision(const PLATFORM &walls)
 	it_visPoints = visPoints.begin();
 	while (it_visPoints != visPoints.end())
 	{
-		vision.push({ pos.x, pos.y, 0.5f, 1.0f, color  & graphicsNS::ALPHA50 });
+		vision.push({ pos.x, pos.y, 0.5f, 1.0f, color  });
 		vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA10 });
 		it_visPoints++;
 		if (it_visPoints != visPoints.end())
