@@ -34,13 +34,13 @@ namespace playerNS
 class Player : public Entity
 {
 protected:
-	
+
 	PlayerState* state_;
-	
+
 public:
 	// constructor
 	Player();
-	
+
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
@@ -48,6 +48,7 @@ public:
 	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM);
 	void ai(Entity &ship1, Entity &ship2);
 	void draw();
+
 
 
 };

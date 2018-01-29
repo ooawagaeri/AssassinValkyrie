@@ -11,6 +11,7 @@
 #include "constants.h"
 #include"stageGenerator.h"
 #include "enemyManager.h"
+#include "Player.h"
 namespace backgroundNS
 {
 	const int	WIDTH = 1440;
@@ -40,7 +41,7 @@ public:
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime, Entity *player, StageGenerator *stageGen, EnemyManager *emList);
+	void update(float frameTime, Player *player, StageGenerator *stageGen, EnemyManager *emList);
 	void draw();
 };
 #endif

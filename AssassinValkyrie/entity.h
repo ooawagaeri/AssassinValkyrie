@@ -223,6 +223,10 @@ class Entity : public Image
 	{
 		jumpLeft = condition;
 	}
+
+	float getVelocityX() { return velocity.x; }
+	float getVelocityY() { return velocity.y; }
+	void setVelocityY(float v) { velocity.y = v; }
 };
 
 #endif
