@@ -88,6 +88,15 @@
     <ClCompile Include="assassinValkyrie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>PlayerWeapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -191,6 +200,40 @@
     </ClInclude>
     <ClInclude Include="bullet.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+        </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="RunningState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="StandingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeAttackState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchWalkingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="arrow.h">
+      <Filter>PlayerWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="arrowManager.h">
+      <Filter>PlayerWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackState.h">
+      <Filter>PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="enemyBulletManager.h">
       <Filter>Header Files</Filter>

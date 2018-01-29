@@ -47,6 +47,7 @@ const float GRAVITY = 9.81f;
 const char MMBACKGROUND_IMAGE[] = "pictures\\mainMenuBackground.png";
 const char MOUSE_IMAGE[] = "pictures\\mouse.png";
 const char ENEMY_IMAGE[] = "pictures\\enemyTexture.png";
+const char PLAYER_IMAGE[] = "pictures\\Player.png";
 const char FLOOR_IMAGE[] = "pictures\\testElement.png";
 const char BACKGROUND_IMAGE[] = "pictures\\tempbg.png";
 const char LADDER_IMAGE[] = "pictures\\ladderbig.png";
@@ -69,14 +70,14 @@ const UCHAR ESC_KEY      = VK_ESCAPE;       // escape key
 const UCHAR ALT_KEY      = VK_MENU;         // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key
 
-const UCHAR SHIP_RIGHT_KEY = 0x44;
-const UCHAR SHIP_LEFT_KEY = 0x41;
-const UCHAR SHIP_UP_KEY = 0x57;
-const UCHAR SHIP_DOWN_KEY = 0x53;
 
 //control key for player ship
-const UCHAR BULLETSHIP_LEFT_KEY = 'A';
-
+const UCHAR RUNNING_RIGHT_KEY = 'D';
+const UCHAR RUNNING_LEFT_KEY = 'A';
+const UCHAR CROUCHING_KEY = 'S';
+const UCHAR MELEE_ATTACK_KEY = 'G';
+const UCHAR RANGE_ATTACK_KEY = 'F';
+const UCHAR JUMPING_KEY = VK_SPACE;
 // weapon types
 enum WEAPON { BULLET, MISSILE, LASER, SHIP };
 

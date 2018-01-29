@@ -13,6 +13,8 @@
 #include "image.h"
 #include "gunner.h"
 #include "cursor.h"
+#include "Player.h"
+#include"arrowManager.h"
 #include "stageGenerator.h"
 #include "background.h"
 #include "rayCasting.h"
@@ -24,6 +26,9 @@ private:
 	TextureManager trooperTexture;
 	TextureManager gunnerTexture;
 	TextureManager mouseTextures;
+	TextureManager playerTextures;
+	Player *player;
+	ArrowManager arrowList;
 	TextureManager backgroundTexture;
 	//Enemy *trooper1;
 	Background *background;

@@ -11,6 +11,7 @@ static PLATFORM pCollection;
 AssassinValkyrie::AssassinValkyrie()
 {
 	ShowCursor(false);
+  player = new Player();
 	//mouse = new Cursor();
 	background = new Background();
 	stageGenerator = new StageGenerator();
@@ -60,6 +61,12 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!trooperTexture.initialize(graphics, ENEMY_TROOPER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
 
+	// Player
+	if (!playerTextures.initialize(graphics, PLAYER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player Textures"));
+
+	if (!player->initialize(this, playerNS::WIDTH, playerNS::HEIGHT, playerNS::TEXTURE_COLS, &playerTextures))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	// Gunner
 	if (!gunnerTexture.initialize(graphics, ENEMY_GUNNER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
@@ -106,6 +113,8 @@ void AssassinValkyrie::update()
 	//stageGenerator->update(frameTime);
 	//tempChar->update(frameTime);
 	mouse->update();
+  player->update(frameTime,this,&playerTextures);
+	arrowList.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
 	emList.update(frameTime, pCollection);
 }
 
@@ -128,6 +137,10 @@ void AssassinValkyrie::render()
 	stageGenerator->render();
 	//tempChar->draw();
 	mouse->draw();
+  player->draw();
+	arrowList.render();
+	player->draw();
+	arrowList.render();
 	emList.render(graphics);
 
 	for (const auto& point : pCollection)
@@ -144,6 +157,7 @@ void AssassinValkyrie::releaseAll()
 	gunnerTexture.onLostDevice();
 	bulletTextures.onLostDevice();
 	mouseTextures.onLostDevice();
+  playerTextures.onLostDevice();
 	backgroundTexture.onLostDevice();
 	floorTexture.onLostDevice();
     Game::releaseAll();
@@ -153,6 +167,7 @@ void AssassinValkyrie::releaseAll()
 // Recreate all surfaces.
 void AssassinValkyrie::resetAll()
 {
+  playerTextures.onResetDevice();
 	mouseTextures.onResetDevice();
 	trooperTexture.onResetDevice();
 	gunnerTexture.onResetDevice();
