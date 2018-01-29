@@ -88,23 +88,23 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing floor generation"));
-	/*
+	
 	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
 
 
 	tempChar->setCurrentFrame(4);
 	tempChar->setY(576);
-	*/
+	
 	return;
 }
 
 // Update all game items
 void AssassinValkyrie::update()
 {
-	background->update(frameTime, tempChar, stageGenerator, emList);
+	background->update(frameTime, tempChar, stageGenerator, &emList);
 	//stageGenerator->update(frameTime);
-	//tempChar->update(frameTime);
+	tempChar->update(frameTime);
 	mouse->update();
 	emList.update(frameTime, pCollection);
 }
@@ -126,7 +126,7 @@ void AssassinValkyrie::render()
 {
 	background->draw();
 	stageGenerator->render();
-	//tempChar->draw();
+	tempChar->draw();
 	mouse->draw();
 	emList.render(graphics);
 
