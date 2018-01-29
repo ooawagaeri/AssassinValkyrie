@@ -14,8 +14,8 @@
 
 namespace STANDING_STATE
 {
-	const int	WIDTH = 40;
-	const int	HEIGHT = 66;
+	const int	WIDTH = 57.15;
+	const int	HEIGHT = 96;
 	const int TEXTURE_COLS = 1;
 	const int   START_FRAME = 0;
 	const int   END_FRAME = 0;

@@ -15,10 +15,10 @@
 namespace playerNS
 {
 	const int	HEALTH = 20;
-	const int	WIDTH = 40;
-	const int	HEIGHT =66;
+	const int	WIDTH = 57.15;
+	const int	HEIGHT = 96;
 	const double ROTATION = 0;
-	const float SCALE = 2.0f;
+	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 4 ;
 	const int	Y = 500 ;
 	const float SPEED = 100;

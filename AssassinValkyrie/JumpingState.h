@@ -9,8 +9,8 @@
 
 namespace JUMPING_STATE
 {
-	const int	WIDTH = 45;
-	const int	HEIGHT = 66;
+	const int	WIDTH = 65;
+	const int	HEIGHT = 96;
 	const int TEXTURE_COLS = 14;
 	const int   START_FRAME = 42;
 	const int   END_FRAME = 55;
@@ -24,9 +24,7 @@ class JumpingState : public PlayerState
 {
 
 private:
-	Graphics *graphics;
-
-	DWORD Tick=GetTickCount();
+	
 	float velocityX = 150*cos(45*PI/180);
 	float velocityY = -(150*sin(45*PI/180));
 	float gravity = 9.81;
