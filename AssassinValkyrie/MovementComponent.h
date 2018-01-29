@@ -49,19 +49,19 @@ public:
 	{
 		if (direction == 1)
 		{
-			object->setX(object->getX() + currentVelocity *frameTime);
+			object->setX(object->getX() + 100 *frameTime);
 		}
 		else if (direction == 2)
 		{
-			object->setX(object->getX() + (-currentVelocity) * frameTime);
+			object->setX(object->getX() + (-100) * frameTime);
 		}
 		else if (direction == 3)
 		{
-			object->setY(object->getY() + currentVelocity * frameTime);
+			object->setY(object->getY() + 100 * frameTime);
 		}
 		else if (direction == 4)
 		{
-			object->setY(object->getY() + (-currentVelocity) * frameTime);
+			object->setY(object->getY() + (-100) * frameTime);
 		}
 	}
 
