@@ -4,9 +4,6 @@
     <ClCompile Include="audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dashboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,15 +85,21 @@
     <ClCompile Include="assassinValkyrie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="healthBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="serpant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fireBall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
@@ -128,9 +131,6 @@
     </ClInclude>
     <ClInclude Include="mainMenu.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponet.h">
-      <Filter>Component Files</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
       <Filter>Component Files</Filter>
@@ -195,8 +195,20 @@
     <ClInclude Include="enemyBulletManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="healthBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="enemyManager.h">
-      <Filter>State Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="serpant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fireBall.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

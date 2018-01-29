@@ -11,6 +11,7 @@
 #include "fill.h"
 #include "hideout.h"
 #include "ladder.h"
+#include "rayCasting.h"
 #include <queue>
 #include <string>
 #include <vector>
@@ -51,5 +52,7 @@ public:
 	//void clearField();
 	void render();
 	void update(float frametime, int direction, int leftrightupdown, bool moveOn);
+
+	PLATFORM getAllPlatforms();
 };
 #endif

@@ -58,10 +58,10 @@ public:
 	}
 	void setAnimation(bool toggle) 
 	{ 
-
 		AttackComponent::setAnimation(toggle);
 	};
 };
+
 class MeleeComponent : public AttackComponent
 {
 public:
@@ -69,6 +69,23 @@ public:
 	{
 		hitPoint = 20;
 	}
+};
+
+class FireComponent : public AttackComponent
+{
+public:
+	int fireTimer;
+	int maxTimeFire;
+	FireComponent(Image *image) : AttackComponent(image)
+	{
+		hitPoint = 20;
+		fireTimer = GetTickCount();
+		maxTimeFire = 1000;
+	}
+	void setAnimation(bool toggle)
+	{
+		AttackComponent::setAnimation(toggle);
+	};
 };
 
 #endif

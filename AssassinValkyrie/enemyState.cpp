@@ -42,10 +42,16 @@ AlertedState::AlertedState()
 EnemyState* AlertedState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
 	if (GetTickCount() - alertedTime > maxTimeAlert)
-	{
-		return new StandingState();
-	}
+		if (!(enemy->getRay()->inSight(*target->getCenter(), p)))
+			return new StandingState();
+		else
+			alertedTime = GetTickCount();
 	return NULL;
+}
+
+bool sameSign(int x, int y)
+{
+	return (x >= 0) ^ (y < 0);
 }
 
 void AlertedState::update(Enemy *enemy, Entity *target)
@@ -53,6 +59,13 @@ void AlertedState::update(Enemy *enemy, Entity *target)
 	VECTOR2 direction = VECTOR2(target->getX() - enemy->getX(), target->getY() - enemy->getY());
 	direction = *D3DXVec2Normalize(&direction, &direction);
 	enemy->getMove()->setVelocity(direction.x * enemy->getMove()->getInitialVelocity());
+	VECTOR2 pos1 = *enemy->getCenter() - *target->getCenter();
+
+	if (D3DXVec2Length(&pos1) < enemy->getRange() && !enemy->getAttack()->getAnimation())
+	{
+		enemy->getAttack()->setAnimation(true);
+		enemy->getAnimation()->setCurrentFrame(enemy->getAttackFrame());
+	}
 }
 
 StandingState::StandingState()

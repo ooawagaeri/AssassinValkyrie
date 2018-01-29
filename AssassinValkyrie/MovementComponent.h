@@ -9,7 +9,7 @@
 
 class MovementComponent
 {
-private:
+protected:
 	Entity *object;
 	VECTOR2 origin;
 	int initialVelocity = 0;
@@ -28,6 +28,16 @@ public:
 	}
 	int getInitialVelocity() { return initialVelocity; }
 	int getCurrentVelocity() { return currentVelocity; }
+	virtual void update(float frameTime)
+	{
+		object->setX(object->getX() + currentVelocity *frameTime);
+	}
+};
+
+class PatrolMovement : public MovementComponent
+{
+public:
+	PatrolMovement(Entity* ent) : MovementComponent(ent) {}
 	void setOrigin(VECTOR2 pos) { origin = pos; }
 
 	bool returnOrigin()
@@ -40,9 +50,16 @@ public:
 			return true;
 		return false;
 	}
+};
+
+class ProjectileMovement : public MovementComponent
+{
+public:
+	ProjectileMovement(Entity* ent) : MovementComponent(ent) {}
 	void update(float frameTime)
 	{
 		object->setX(object->getX() + currentVelocity *frameTime);
 	}
 };
+
 #endif

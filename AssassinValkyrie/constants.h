@@ -46,13 +46,15 @@ const float GRAVITY = 9.81f;
 // graphic images
 const char MMBACKGROUND_IMAGE[] = "pictures\\mainMenuBackground.png";
 const char MOUSE_IMAGE[] = "pictures\\mouse.png";
-const char ENEMY_IMAGE[] = "pictures\\enemyTexture.png";
 const char FLOOR_IMAGE[] = "pictures\\testElement.png";
 const char BACKGROUND_IMAGE[] = "pictures\\tempbg.png";
 const char LADDER_IMAGE[] = "pictures\\ladderbig.png";
+
 const char ENEMY_TROOPER_IMAGE[] = "pictures\\enemyTexture.png";
 const char ENEMY_GUNNER_IMAGE[] = "pictures\\enemyTexture_gunner.png";
+const char ENEMY_SERPANT_IMAGE[] = "pictures\\enemyTexture_serpant.png";
 const char BULLET_IMAGE[] = "pictures\\bullets.png";
+const char HEALTH_IMAGE[] = "pictures\\healthTexture.png";
 
 // WAVE_BANK must be location of .xwb file.
 const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";

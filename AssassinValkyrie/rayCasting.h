@@ -19,8 +19,7 @@ const COLOR_ARGB ALPHA10 = D3DCOLOR_ARGB(0, 255, 255, 255);  // AND with color t
 class Ray
 {
 private:
-	float *x;
-	float *y;
+	Entity *enemy;
 	double direction;
 	float visibilityAngle;
 	int viewDistance;
@@ -33,19 +32,25 @@ public:
 	Ray();
 	~Ray();
 
-	void init(float *x, float *y, float angle, int dist, int height);
+	void init(Entity *ent, float angle, int dist, int height);
 	VECTOR2 Ray::maxDist(VECTOR2 cast);
 	VECTOR2 castRayVector(VECTOR2 target, const PLATFORM &walls);
 	void updateVision(const PLATFORM &walls);
 	void render(Graphics *g);
 	bool inSight(VECTOR2 entity, const PLATFORM &walls);
 
-	void setDirection(int d) 
+	void setDirection(int d)
 	{
-		if ( d > 0)
+		double old = direction;
+		if (d > 0)
 			direction = 0;
 		else
 			direction = PI;
+		if (old != direction)
+		{
+			std::queue<CUSTOMVERTEX> empty;
+			std::swap(vision, empty);
+		}
 	}
 	void setColor(COLOR_ARGB c) { color = c; }
 };

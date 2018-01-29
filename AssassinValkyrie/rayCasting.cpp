@@ -16,9 +16,9 @@ Ray::~Ray()
 	std::queue<CUSTOMVERTEX> empty;
 	std::swap(vision, empty);
 }
-void Ray::init(float *X, float *Y, float angle, int dist, int height)
+void Ray::init(Entity *ent, float angle, int dist, int height)
 {
-	x = X; 	y = Y;
+	enemy = ent;
 	visibilityAngle = angle;
 	viewDistance = dist;
 	viewHeight = height;
@@ -88,6 +88,10 @@ VECTOR2 Ray::castRayVector(VECTOR2 target, const PLATFORM &walls) {
 	VECTOR2 prev{ -1,-1 };
 	for (const auto &wall : walls) {
 		for (size_t i = 0; i < 4; ++i) {
+			VECTOR2 t = *wall->getCorner(i);
+			VECTOR2 unit = t - pos;
+			if ((D3DXVec2Length(&unit) > viewDistance * 1.2))
+				continue;
 			VECTOR2 B1 = { *wall->getCorner(i) };
 			VECTOR2 B2 = { *wall->getCorner((i + 1) % 4) };
 			if (lineCollision(target, pos, B1, B2, &check))
@@ -111,16 +115,9 @@ VECTOR2 Ray::castRayVector(VECTOR2 target, const PLATFORM &walls) {
 
 void Ray::updateVision(const PLATFORM &walls)
 {
-	pos = { *x, *y - viewHeight };
+	pos = { enemy->getCenterX(), enemy->getCenterY() - viewHeight };
 
 	// first, let's get all the vertices of all the walls
-
-	std::vector<VECTOR2> points;
-	for (const auto &wall : walls)
-	{
-		for (size_t i = 0; i < 4; ++i)
-			points.push_back(*wall->getCorner(i));
-	}
 
 	int d = 100000;
 	float range1Angle = direction + visibilityAngle;
@@ -129,6 +126,22 @@ void Ray::updateVision(const PLATFORM &walls)
 	VECTOR2 range1 = VECTOR2{ cos(range1Angle), sin(range1Angle) } *d;
 	VECTOR2 range2 = VECTOR2{ cos(range2Angle), sin(range2Angle) } *d;
 
+	std::vector<VECTOR2> points;
+	for (const auto &wall : walls)
+	{
+		wall->computeRotatedBox();
+		for (size_t i = 0; i < 4; ++i)
+		{
+			VECTOR2 t = *wall->getCorner(i);
+			VECTOR2 unit = t - pos;
+			bool c1 = isLeft(pos, range1, t);
+			bool c2 = isLeft(pos, range2, t);
+
+			if (!(!c1 && c2) || (D3DXVec2Length(&unit) > viewDistance * 1.2))
+				continue;
+			points.push_back(*wall->getCorner(i));
+		}
+	}
 	std::vector<VECTOR2> visPoints;
 
 	for (const auto& point : points) {
@@ -153,12 +166,12 @@ void Ray::updateVision(const PLATFORM &walls)
 	visPoints.push_back(castRayVector(range1, walls));
 	visPoints.push_back(castRayVector(range2, walls));
 
-	 //sort the points based on their angle
+	//sort the points based on their angle
 	std::sort(visPoints.begin(), visPoints.end(),
 		[&](const VECTOR2 &p1, const VECTOR2 &p2) {
 		return normalizeAngle(atan2(p2.y - pos.y, p2.x - pos.x)) > normalizeAngle(atan2(p1.y - pos.y, p1.x - pos.x));
 	});
-	
+
 	// Iterator of visPoints 
 	std::vector<VECTOR2>::iterator it_visPoints;
 
@@ -166,7 +179,7 @@ void Ray::updateVision(const PLATFORM &walls)
 	it_visPoints = visPoints.begin();
 	while (it_visPoints != visPoints.end())
 	{
-		vision.push({ pos.x, pos.y, 0.5f, 1.0f, color  });
+		vision.push({ pos.x, pos.y, 0.5f, 1.0f, color });
 		vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA10 });
 		it_visPoints++;
 		if (it_visPoints != visPoints.end())

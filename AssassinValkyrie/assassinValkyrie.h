@@ -24,9 +24,12 @@ private:
 	TextureManager	mouseTextures;
 	TextureManager	trooperTexture;
 	TextureManager	gunnerTexture;
+	TextureManager	serpantTexture;
+	TextureManager	healthTexture;
 	Cursor			*mouse;
 	EnemyManager	emList;
 	EnemyBulletManager	emBulletList;
+	PLATFORM		pCollection;
 	
 	int	currentStage;
 	TextureManager	backgroundTexture;
