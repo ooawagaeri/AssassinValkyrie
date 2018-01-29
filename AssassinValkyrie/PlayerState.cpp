@@ -9,7 +9,7 @@
 #include "JumpingState.h"
 #include "RangeAttackState.h"
 
-PlayerState* StandingState::handleInput(Entity& player, Input* input, Game *gamePtr, TextureManager *textureM)
+PlayerState* StandState::handleInput(Entity& player, Input* input, Game *gamePtr, TextureManager *textureM)
 {
 	if (input->isKeyDown(RUNNING_RIGHT_KEY))
 	{
@@ -76,7 +76,7 @@ PlayerState* RunningState::handleInput(Entity& player, Input* input, Game *gameP
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(0, 0);
 		player.setCurrentFrame(0);
-		return new StandingState();
+		return new StandState();
 	}
 
 	else if (input->isKeyDown(JUMPING_KEY) && input->isKeyDown(RUNNING_RIGHT_KEY))
@@ -113,7 +113,7 @@ PlayerState* CrouchingState::handleInput(Entity& player, Input* input, Game *gam
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 		player.setCurrentFrame(STANDING_STATE::START_FRAME);
-		return new StandingState();
+		return new StandState();
 	}
 
 	else if (input->isKeyDown(RUNNING_RIGHT_KEY))
@@ -151,7 +151,7 @@ PlayerState* MeleeAttackState::handleInput(Entity& player, Input* input, Game *g
 			player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 			player.setCurrentFrame(STANDING_STATE::START_FRAME);
 			player.setLoop(true);
-			return new StandingState();
+			return new StandState();
 		
 	}
 	return NULL;
@@ -166,7 +166,7 @@ PlayerState* RangeAttackState::handleInput(Entity& player, Input* input, Game *g
 		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 		player.setCurrentFrame(STANDING_STATE::START_FRAME);
 		player.setLoop(true);
-		return new StandingState();
+		return new StandState();
 
 	}
 	return NULL;
@@ -180,7 +180,7 @@ PlayerState* CrouchWalkingState::handleInput(Entity& player, Input* input, Game 
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 		player.setCurrentFrame(STANDING_STATE::START_FRAME);
-		return new StandingState();
+		return new StandState();
 
 	}
 	return NULL;
@@ -197,7 +197,7 @@ PlayerState* JumpingState::handleInput(Entity& player, Input* input, Game *gameP
 		player.setCurrentFrame(STANDING_STATE::START_FRAME);
 		player.setLoop(true);
 		player.setJumpComplete(false);
-		return new StandingState();
+		return new StandState();
 	}
 
 	return NULL;

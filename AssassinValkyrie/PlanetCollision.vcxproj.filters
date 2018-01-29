@@ -91,11 +91,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
     <ClCompile Include="arrow.cpp">
-      <Filter>PlayerWeapon</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arrowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>State Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,44 +204,43 @@
     <ClInclude Include="bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-        </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="RunningState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="StandingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="CrouchingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeAttackState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="CrouchWalkingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="arrow.h">
-      <Filter>PlayerWeapon</Filter>
-    </ClInclude>
-    <ClInclude Include="arrowManager.h">
-      <Filter>PlayerWeapon</Filter>
-    </ClInclude>
-    <ClInclude Include="RangeAttackState.h">
-      <Filter>PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="enemyBulletManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="enemyManager.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arrowManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchWalkingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeAttackState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StandingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RunningState.h">
       <Filter>State Files</Filter>
     </ClInclude>
   </ItemGroup>

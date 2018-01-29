@@ -23,7 +23,7 @@ namespace STANDING_STATE
 
 
 
-class StandingState : public PlayerState
+class StandState : public PlayerState
 {
 
 private:
@@ -31,8 +31,8 @@ private:
 
 public:
 
-	StandingState() :PlayerState() {}
-	~StandingState() {}
+	StandState() :PlayerState() {}
+	~StandState() {}
 
 	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM);
 	
