@@ -7,7 +7,7 @@
 
 Player::Player() : Entity()
 {
-	state_ = new StandingState();
+	state_ = new StandState();
 	spriteData.width = playerNS::WIDTH;           // size of Ship1
 	spriteData.height = playerNS::HEIGHT;
 	spriteData.x = playerNS::X;                   // location on screen
