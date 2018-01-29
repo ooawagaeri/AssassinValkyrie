@@ -20,7 +20,6 @@ MainMenu::~MainMenu()
 void MainMenu::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd);
-
 	if (!mmBackgroundTexture.initialize(graphics, MMBACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Main Menu Background"));
 
@@ -32,7 +31,7 @@ void MainMenu::initialize(HWND hwnd)
 
 void MainMenu::update()
 {
-	if (input->isKeyDown(ENTER_KEY))
+	if (input->isKeyDown(ENTER_KEY) && gameStart != true)
 	{
 		gameStart = true;
 		assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime);
@@ -58,7 +57,9 @@ void MainMenu::render()
 	graphics->spriteBegin();
 
 	if (gameStart)
+	{
 		assValk->render();
+	}
 	else
 		mmBackground.draw();
 
@@ -79,4 +80,5 @@ void MainMenu::resetAll()
 		assValk->resetAll();
 	else
 		mmBackgroundTexture.onResetDevice();
+	return;
 }

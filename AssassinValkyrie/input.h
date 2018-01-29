@@ -93,7 +93,7 @@ public:
     // Destructor
     virtual ~Input();
 
-    // Initialize mouse and controller input.
+    // Initialize mouse and controller input->
     // Throws GameError
     // Pre: hwnd = window handle
     //      capture = true to capture mouse.
@@ -164,11 +164,11 @@ public:
     // Return mouse Y position
     int  getMouseY()        const { return mouseY; }
 
-    // Return raw mouse X movement. Left is <0, Right is >0
+    // Return raw mouse X movement-> Left is <0, Right is >0
     // Compatible with high-definition mouse.
     int  getMouseRawX()     const { return mouseRawX; }
 
-    // Return raw mouse Y movement. Up is <0, Down is >0
+    // Return raw mouse Y movement-> Up is <0, Down is >0
     // Compatible with high-definition mouse.
     int  getMouseRawY()     const { return mouseRawY; }
 
@@ -225,7 +225,7 @@ public:
         return ((controllers[n].state.Gamepad.wButtons&GAMEPAD_DPAD_DOWN) != 0);
     }
 
-    // Return state of controller n D-pad Left.
+    // Return state of controller n D-pad Left->
     bool getGamepadDPadLeft(UINT n) 
     {
         if(n > MAX_CONTROLLERS-1)
@@ -233,7 +233,7 @@ public:
         return ((controllers[n].state.Gamepad.wButtons&GAMEPAD_DPAD_LEFT) != 0);
     }
 
-    // Return state of controller n D-pad Right.
+    // Return state of controller n D-pad Right->
     bool getGamepadDPadRight(UINT n) 
     {
         if(n > MAX_CONTROLLERS-1)

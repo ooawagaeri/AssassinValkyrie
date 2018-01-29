@@ -189,7 +189,7 @@ bool Entity::collideRotatedBox(Entity &ent, VECTOR2 &collisionVector)
     return false;
 }
 
-// Pixel Perfect collision, IN PROGRESS
+// Pixel Perfect collision
 bool Entity::DetectPixelPerfect(Entity &ent)
 {
 	RECT rect1;
@@ -211,7 +211,7 @@ bool Entity::DetectPixelPerfect(Entity &ent)
 		D3DLOCKED_RECT rectS1;
 		HRESULT hResult = getSpriteInfo().texture->LockRect(0, &rectS1, NULL, 0);
 		if (FAILED(hResult))
-		{
+		{	
 			MessageBox(0, "Failed", "Info", 0);
 			return 0;
 		}

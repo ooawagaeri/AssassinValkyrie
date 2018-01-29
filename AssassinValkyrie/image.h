@@ -59,7 +59,7 @@ class Image
     // Return width.
     virtual int   getWidth()    {return spriteData.width;}
 
-    // Return height.
+    // Return height->
     virtual int   getHeight()   {return spriteData.height;}
 
     // Return center X.

@@ -131,7 +131,7 @@ void Game::initialize(HWND hw)
 
 	// initialize DirectX font
 	if (dxFont.initialize(graphics, gameNS::POINT_SIZE, false, false, gameNS::FONT) == false)
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Failed to initialize DirextX font."));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Failed to initialize DirextX font->"));
 
 	dxFont.setFontColor(gameNS::FONT_COLOR);
 
@@ -150,7 +150,6 @@ void Game::renderGame()
     if (SUCCEEDED(graphics->beginScene()))
     {
         render();           // call render() in derived object
-
         //stop rendering
         graphics->endScene();
     }
@@ -256,8 +255,8 @@ void Game::run(HWND hwnd)
 }
 
 //=============================================================================
-// The graphics device was lost.
-// Release all reserved video memory so graphics device may be reset.
+// The graphics device was lost->
+// Release all reserved video memory so graphics device may be reset->
 //=============================================================================
 void Game::releaseAll()
 {}

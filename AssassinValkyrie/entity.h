@@ -70,8 +70,6 @@ class Entity : public Image
     // Pre: &ent = Other entity
     // Post: &collisionVector contains collision vector
     virtual bool collideRotatedBoxCircle(Entity &ent, VECTOR2 &collisionVector);
-    // Separating axis collision detection helper functions
-    void computeRotatedBox();
     bool projectionsOverlap(Entity &ent);
     bool collideCornerCircle(VECTOR2 corner, Entity &ent, VECTOR2 &collisionVector);
 
@@ -84,6 +82,8 @@ class Entity : public Image
     ////////////////////////////////////////
     //           Get functions            //
     ////////////////////////////////////////
+    // Separating axis collision detection helper functions
+    void computeRotatedBox();
 
     // Return center of scaled Entity as screen x,y.
     virtual const VECTOR2* getCenter()   
@@ -115,7 +115,7 @@ class Entity : public Image
     // Return mass.
     virtual float getMass()           const {return mass;}
 
-    // Return gravitational constant.
+    // Return gravitational constant->
     virtual float getGravity()        const {return gravity;}
 
     // Return health;
@@ -143,11 +143,17 @@ class Entity : public Image
     // Set mass.
     virtual void  setMass(float m)          {mass = m;}
 
-    // Set gravitational constant. Default is 6.67428e-11
+    // Set gravitational constant-> Default is 6.67428e-11
     virtual void  setGravity(float g)       {gravity = g;}
 
     // Set radius of collision circle.
     virtual void setCollisionRadius(float r)    {radius = r;}
+
+	// Set rect of collision rectangle.
+	virtual void setEdge(RECT r)			{ edge = r; }
+
+	// Set collision type.
+	virtual void setCollisionType(entityNS::COLLISION_TYPE r) { collisionType = r; }
 
     ////////////////////////////////////////
     //         Other functions            //
