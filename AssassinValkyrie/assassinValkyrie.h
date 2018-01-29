@@ -25,13 +25,11 @@ private:
 	TextureManager gunnerTexture;
 	TextureManager mouseTextures;
 	TextureManager backgroundTexture;
-	//Enemy *trooper1;
 	Background *background;
 	int	currentStage;
 	StageGenerator *stageGenerator;
 
 	TextureManager floorTexture;
-	Hideout *tempChar;
 
 	TextureManager ladderTexture;
 	TextureManager bulletTextures;

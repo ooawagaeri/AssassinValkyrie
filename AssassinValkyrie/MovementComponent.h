@@ -6,7 +6,9 @@
 #ifndef _MOVE_COMPONENT_H
 #define _MOVE_COMPONENT_H
 #define WIN32_LEAN_AND_MEAN
-
+namespace MovementComponentNS {
+	const int cameraVelocity = 100;
+}
 class MovementComponent
 {
 private:
@@ -49,19 +51,19 @@ public:
 	{
 		if (direction == 1)
 		{
-			object->setX(object->getX() + 100 *frameTime);
+			object->setX(object->getX() + MovementComponentNS::cameraVelocity *frameTime);
 		}
 		else if (direction == 2)
 		{
-			object->setX(object->getX() + (-100) * frameTime);
+			object->setX(object->getX() + (-MovementComponentNS::cameraVelocity) * frameTime);
 		}
 		else if (direction == 3)
 		{
-			object->setY(object->getY() + 100 * frameTime);
+			object->setY(object->getY() + MovementComponentNS::cameraVelocity * frameTime);
 		}
 		else if (direction == 4)
 		{
-			object->setY(object->getY() + (-100) * frameTime);
+			object->setY(object->getY() + (-MovementComponentNS::cameraVelocity) * frameTime);
 		}
 	}
 

@@ -9,6 +9,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "MovementComponent.h"
 
 namespace fillNS
 {
@@ -30,6 +31,7 @@ class Fill : public Entity
 private:
 	int startX;
 	int startY;
+	MovementComponent	*move;
 public:
 	// constructor
 	Fill();

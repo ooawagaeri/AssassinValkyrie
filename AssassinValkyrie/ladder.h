@@ -9,6 +9,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "MovementComponent.h"
 
 namespace ladderNS
 {
@@ -35,6 +36,7 @@ class Ladder : public Entity
 private:
 	int startX;
 	int startY;
+	MovementComponent *move;
 public:
 	// constructor
 	Ladder();
