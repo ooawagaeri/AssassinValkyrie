@@ -33,34 +33,9 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 
 void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)
 {
-	VECTOR2 collisionVector;
-	FLOORS *floorCollection = floorList->getFloors();
-	for (FLOORS::iterator floor = (floorCollection->begin()); floor != floorCollection->end(); floor++)
-	{
-		if (collidesWith(**floor, collisionVector))
-		{
-
-			if (getJumpRight())
-			{
-
-				setJumpComplete(true);
-				setJumpRight(false);
-
-			}
-
-			else if (getJumpLeft() )
-			{
-
-
-				setJumpComplete(true);
-				setJumpLeft(false);
-
-			}
-
-		}
-	}
 	
-	handleInput(input,gamePtr,textureM);
+	
+	handleInput(input,gamePtr,textureM,floorList);
 	state_->update(*this, frameTime);
 
 	
@@ -69,9 +44,9 @@ void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, St
 	//move->update(frameTime);
 }
 
-void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM)
+void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)
 {
-    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM);
+    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,floorList);
 	if (state != NULL)
 	{
 		delete state_;
@@ -79,7 +54,7 @@ void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM)
 	}
 }
 
-void Player::collisions(EnemyManager *enemyList, StageGenerator *floorList)
+void Player::collisions(EnemyManager *enemyList)
 {
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();

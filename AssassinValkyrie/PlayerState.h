@@ -8,6 +8,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include "entity.h"
+#include "stageGenerator.h"
 
 
 class PlayerState
@@ -17,7 +18,7 @@ private:
 public:
 	PlayerState() {}
 	~PlayerState() {}
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM)=0;
+	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)=0;
 	virtual void update(Entity &player, float frameTime)=0;
 
 	
