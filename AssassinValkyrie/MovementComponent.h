@@ -36,6 +36,10 @@ public:
 
 class PatrolMovement : public MovementComponent
 {
+private:
+	bool onFloor;
+	bool onFill;
+
 public:
 	PatrolMovement(Entity* ent) : MovementComponent(ent) {}
 	void setOrigin(VECTOR2 pos) { origin = pos; }
@@ -50,6 +54,14 @@ public:
 			return true;
 		return false;
 	}
+	void update(float frameTime)
+	{
+		MovementComponent::update(frameTime);
+		if (!onFloor)
+			object->setY(object->getY() + GRAVITY / 2);
+	}
+	void setFloor(bool value) { onFloor = value; }
+	void setFill(bool value) { onFill = value; }
 };
 
 class ProjectileMovement : public MovementComponent

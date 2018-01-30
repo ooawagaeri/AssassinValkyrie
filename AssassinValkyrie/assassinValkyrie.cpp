@@ -45,6 +45,33 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
 	
 	/////////////////////////////////////////
+	//				BG
+	/////////////////////////////////////////
+	//Background
+	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
+	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
+
+	if (!ladderTexture.initialize(graphics, LADDER_IMAGE))
+		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing ladder texture"));
+
+	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
+	/*
+	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
+
+
+	tempChar->setCurrentFrame(4);
+	tempChar->setY(576);
+	*/
+
+	/////////////////////////////////////////
 	//				Enemy
 	/////////////////////////////////////////
 	// Trooper
@@ -73,39 +100,13 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	emBulletList.initialize(&emList);
 
-	/////////////////////////////////////////
-	//				BG
-	/////////////////////////////////////////
-	//Background
-	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-
-	if (!background->initialize(this, backgroundNS::WIDTH, backgroundNS::HEIGHT, backgroundNS::TEXTURE_COLS, &backgroundTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-
-	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
-
-	if (!ladderTexture.initialize(graphics, LADDER_IMAGE))
-		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing ladder texture"));
-
-	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
-	/*
-	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
-
-
-	tempChar->setCurrentFrame(4);
-	tempChar->setY(576);
-	*/
 	return;
 }
 
 // Update all game items
 void AssassinValkyrie::update()
 {
-	pCollection = stageGenerator->getAllPlatforms();
+	pCollection = stageGenerator->getFillPlatforms();
 	background->update(frameTime, tempChar, stageGenerator);
 	//stageGenerator->update(frameTime);
 	//tempChar->update(frameTime);
@@ -123,19 +124,19 @@ void AssassinValkyrie::ai()
 // Handle collisions
 void AssassinValkyrie::collisions()
 {
-	emList.collisions(mouse);
+	emList.collisions(mouse, stageGenerator->getFloorPlatforms(), pCollection);
 	emBulletList.collisions(mouse);
 }
 
 // Render game items
 void AssassinValkyrie::render()
 {
-	//background->draw();
-	stageGenerator->render();
+	background->draw();
 	//tempChar->draw();
-	mouse->draw();
+	stageGenerator->render();
 	emList.render(graphics);
 	emBulletList.render();
+	mouse->draw();
 }
 
 // Release all reserved video memory so graphics device may be reset.

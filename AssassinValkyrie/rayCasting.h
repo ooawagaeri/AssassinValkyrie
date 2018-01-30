@@ -14,7 +14,7 @@
 #include "constants.h"
 
 typedef std::vector<Entity *> PLATFORM;
-const COLOR_ARGB ALPHA10 = D3DCOLOR_ARGB(0, 255, 255, 255);  // AND with color to get 10% alpha
+const COLOR_ARGB ALPHA = D3DCOLOR_ARGB(0, 255, 255, 255);
 
 class Ray
 {

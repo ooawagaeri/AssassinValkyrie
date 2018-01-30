@@ -56,10 +56,6 @@ public:
 		shootTimer = GetTickCount();
 		maxTimeShoot = 800;
 	}
-	void setAnimation(bool toggle) 
-	{ 
-		AttackComponent::setAnimation(toggle);
-	};
 };
 
 class MeleeComponent : public AttackComponent
@@ -82,10 +78,10 @@ public:
 		fireTimer = GetTickCount();
 		maxTimeFire = 1000;
 	}
-	void setAnimation(bool toggle)
-	{
-		AttackComponent::setAnimation(toggle);
-	};
+	bool isFire() 
+	{ 
+		return (animation->getCurrentFrame() == 38);
+	}
 };
 
 #endif

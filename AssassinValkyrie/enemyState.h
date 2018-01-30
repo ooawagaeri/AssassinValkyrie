@@ -14,9 +14,14 @@ class Enemy;
 
 class EnemyState
 {
+protected:
+	int maxTime;
+	int timer;
+
 public:
+	EnemyState() { timer = GetTickCount(); }
 	virtual ~EnemyState() {}
 	virtual EnemyState* handleInput(Enemy *enemy, Entity *target, PLATFORM p) { return new EnemyState(); }
-	virtual void update(Enemy *enemy, Entity *target) {}
+	virtual void update(Enemy *enemy, Entity *target);
 };//end of EnemyState class
 #endif

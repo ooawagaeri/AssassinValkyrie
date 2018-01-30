@@ -99,7 +99,7 @@ void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *
 		if (g->getActive())
 		{
 			FireComponent *shot = g->getShoot();
-			if (shot->getAnimation() && (GetTickCount() - shot->fireTimer > shot->maxTimeFire))
+			if (shot->isFire() && (GetTickCount() - shot->fireTimer > shot->maxTimeFire))
 			{
 				shot->fireTimer = GetTickCount();
 				initializeFire(gamePtr, textureM, g);
@@ -124,6 +124,7 @@ void EnemyBulletManager::collisions(Entity *play)
 		if ((*bullet)->getActive()) {
 			if ((*bullet)->collidesWith(*play, collisionVector))
 			{
+				(*bullet)->setActive(false);
 			}
 			bullet++;
 		}
@@ -137,6 +138,7 @@ void EnemyBulletManager::collisions(Entity *play)
 		if ((*fireball)->getActive()) {
 			if ((*fireball)->collidesWith(*play, collisionVector))
 			{
+				(*fireball)->setActive(false);
 			}
 			fireball++;
 		}

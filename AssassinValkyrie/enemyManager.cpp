@@ -7,22 +7,16 @@
 
 EnemyManager::EnemyManager()
 {
-	trooperSize = 1;
-	gunnerSize = 1;
-	serpantSize = 1;
 }
 
 EnemyManager::~EnemyManager()
 {
 	for (trooper = trooperCollection.begin(); trooper != trooperCollection.end(); ++trooper)
-	{
 		SAFE_DELETE(*trooper);
-	}
 	trooperCollection.clear();
+
 	for (gunner = gunnerCollection.begin(); gunner != gunnerCollection.end(); ++gunner)
-	{
 		SAFE_DELETE(*gunner);
-	}
 	gunnerCollection.clear();
 }
 
@@ -30,35 +24,35 @@ bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, Tex
 {
 	bool isInitialised = true;		//verifies if all enemies are successfully generated
 
-	for (int i = 1; i <= trooperSize; i++)
+	for (VECTOR2 loc : trooperPos)
 	{
 		Trooper *t_temp = new Trooper(play);
 		isInitialised = t_temp->initialize(gamePtr, trooperNS::WIDTH, trooperNS::HEIGHT, trooperNS::TEXTURE_COLS, textureTrooper, textureHealth);
-		t_temp->setX(3*GAME_WIDTH / 5 - trooperNS::WIDTH * trooperNS::SCALE / 2);
-		t_temp->setY( GAME_HEIGHT - trooperNS::HEIGHT *2.5* trooperNS::SCALE);
-		t_temp->setOriginalPos({ t_temp->getX(),t_temp->getY() });
+		t_temp->setX(loc.x - trooperNS::WIDTH * trooperNS::SCALE / 2);
+		t_temp->setY(loc.y - trooperNS::HEIGHT * trooperNS::SCALE);
+		t_temp->setOriginalPos({ t_temp->getX(), t_temp->getY() });
 		trooperCollection.emplace_back(t_temp);
 		if (!isInitialised)
 			return isInitialised;
 	}
-	for (int i = 1; i <= gunnerSize; i++)
+	for (VECTOR2 loc : gunnerPos)
 	{
 		Gunner *t_temp = new Gunner(play);
 		isInitialised = t_temp->initialize(gamePtr, gunnerNS::WIDTH, gunnerNS::HEIGHT, gunnerNS::TEXTURE_COLS, textureGunner, textureHealth);
-		t_temp->setX(GAME_WIDTH / (i+2) - gunnerNS::WIDTH * gunnerNS::SCALE / 2);
-		t_temp->setY(GAME_HEIGHT - gunnerNS::HEIGHT * 2 * gunnerNS::SCALE);
-		t_temp->setOriginalPos({ t_temp->getX(),t_temp->getY() });
+		t_temp->setX(loc.x - gunnerNS::WIDTH * gunnerNS::SCALE / 2);
+		t_temp->setY(loc.y - gunnerNS::HEIGHT * gunnerNS::SCALE);
+		t_temp->setOriginalPos({ t_temp->getX(), t_temp->getY() });
 		gunnerCollection.emplace_back(t_temp);
 		if (!isInitialised)
 			return isInitialised;
 	}
-	for (int i = 1; i <= serpantSize; i++)
+	for (VECTOR2 loc : serpantPos)
 	{
 		Serpant *t_temp = new Serpant(play);
 		isInitialised = t_temp->initialize(gamePtr, serpantNS::WIDTH, serpantNS::HEIGHT, serpantNS::TEXTURE_COLS, textureSerpant, textureHealth);
-		t_temp->setX(3 * GAME_WIDTH / 5 - serpantNS::WIDTH * serpantNS::SCALE / 2);
-		t_temp->setY(GAME_HEIGHT - serpantNS::HEIGHT *2.5* serpantNS::SCALE);
-		t_temp->setOriginalPos({ t_temp->getX(),t_temp->getY() });
+		t_temp->setX(loc.x - serpantNS::WIDTH * serpantNS::SCALE / 2);
+		t_temp->setY(loc.y - serpantNS::HEIGHT * serpantNS::SCALE);
+		t_temp->setOriginalPos({ t_temp->getX(), t_temp->getY() });
 		serpantCollection.emplace_back(t_temp);
 		if (!isInitialised)
 			return isInitialised;
@@ -96,7 +90,7 @@ void EnemyManager::ai()
 			t->ai();
 }
 
-void EnemyManager::collisions(Entity *play)
+void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 {
 	VECTOR2 collisionVector;
 
@@ -140,6 +134,67 @@ void EnemyManager::collisions(Entity *play)
 		}
 		else
 			serpant = serpantCollection.erase(serpant);
+	}
+
+	for (Trooper *t : trooperCollection)
+	{
+		for (Entity *e : floor)
+		{
+			if (t->collidesWith(*e, collisionVector))
+			{
+				t->getMove()->setFloor(true);
+				break;
+			}
+			else
+				t->getMove()->setFloor(false);
+		} // end of check floor collisions
+		for (Entity *e : fill)
+			if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
+			{
+				t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
+				t->collideTime = GetTickCount();
+				break;
+			}// end of check fill (wall) collisions
+	} 
+	for (Gunner *t : gunnerCollection)
+	{
+		for (Entity *e : floor)
+		{
+			if (t->collidesWith(*e, collisionVector))
+			{
+				t->getMove()->setFloor(true);
+				break;
+			}
+			else
+				t->getMove()->setFloor(false);
+		}
+		for (Entity *e : fill)
+			if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
+			{
+				t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
+				t->collideTime = GetTickCount();
+				break;
+			}
+	}
+	for (Serpant *t : serpantCollection)
+	{
+		for (Entity *e : floor)
+		{
+			if (t->collidesWith(*e, collisionVector))
+			{
+				t->getMove()->setFloor(true);
+				break;
+			}
+			else
+				t->getMove()->setFloor(false);
+		}
+		for (Entity *e : fill)
+			if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
+			{
+				t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
+				t->collideTime = GetTickCount();
+				break;
+			}
 	}
 }
 

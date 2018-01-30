@@ -180,14 +180,14 @@ void Ray::updateVision(const PLATFORM &walls)
 	while (it_visPoints != visPoints.end())
 	{
 		vision.push({ pos.x, pos.y, 0.5f, 1.0f, color });
-		vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA10 });
+		vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA });
 		it_visPoints++;
 		if (it_visPoints != visPoints.end())
-			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  &  ALPHA10 });
+			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  &  ALPHA });
 		else
 		{
 			it_visPoints = visPoints.begin();
-			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA10 });
+			vision.push({ it_visPoints->x, it_visPoints->y,0.5f,1.0f, color  & ALPHA });
 			break;
 		}
 	}

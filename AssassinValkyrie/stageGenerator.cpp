@@ -11,7 +11,7 @@ StageGenerator::StageGenerator()
 	edge = true;
 }
 
-bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures) 
+bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent)
 {
 	bool success = true;
 	//stageLoad->clear();
@@ -77,8 +77,19 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				if (!success)
 					return success;
 			}
+			if (horizontalElement.element == "TROOPER")
+				trooperPos.emplace_back(VECTOR2{ (float)horizontalElement.xStart, GAME_HEIGHT - (float)horizontalElement.y });
+			if (horizontalElement.element == "GUNNER")
+				gunnerPos.emplace_back(VECTOR2{ (float)horizontalElement.xStart, GAME_HEIGHT - (float)horizontalElement.y });
+			if (horizontalElement.element == "SERPANT")
+				serpantPos.emplace_back(VECTOR2{ (float)horizontalElement.xStart, GAME_HEIGHT - (float)horizontalElement.y });
+			}
 		}
-	}
+	
+	ent->loadTrooper(trooperPos);
+	ent->loadGunner(gunnerPos);
+	ent->loadSerpant(serpantPos);
+
 	stageVerticalLoad->initialize();
 	stageVerticalLoad->loadStage(stageNo);
 	totalElements = stageVerticalLoad->elementSize();
@@ -220,12 +231,18 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	}
 }
 
-PLATFORM StageGenerator::getAllPlatforms()
+PLATFORM StageGenerator::getFillPlatforms()
 {
 	PLATFORM p;
-	//for (Entity *t : floorCollection)
-	//	p.emplace_back(t);
 	for (Entity *t : fillCollection)
+		p.emplace_back(t);
+	return p;
+}
+
+PLATFORM StageGenerator::getFloorPlatforms()
+{
+	PLATFORM p;
+	for (Entity *t : floorCollection)
 		p.emplace_back(t);
 	return p;
 }

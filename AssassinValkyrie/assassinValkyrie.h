@@ -15,6 +15,7 @@
 #include "cursor.h"
 #include "rayCasting.h"
 #include "enemyBulletManager.h"
+#include "enemyManager.h"
 #include "stageGenerator.h"
 #include "background.h"
 

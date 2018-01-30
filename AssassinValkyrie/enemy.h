@@ -104,7 +104,7 @@ class Enemy : public Entity
 {
 protected:
 	HealthComponent		*health;
-	PatrolMovement	*move;
+	PatrolMovement		*move;
 	AttackComponent		*attack;
 	EnemyState			*state_;
 	// player to track
@@ -114,10 +114,12 @@ protected:
 	int		range;
 	int		attackFrame;
 
+
 public:
 	// constructor
 	Enemy(Entity *play);
 	~Enemy();
+	int	collideTime = 0;
 
 	// inherited member functions
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
