@@ -93,7 +93,6 @@
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="cursor.cpp" />
-    <ClCompile Include="dashboard.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyBulletManager.cpp" />
     <ClCompile Include="enemyManager.cpp" />
@@ -105,6 +104,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="gunner.cpp" />
+    <ClCompile Include="healthbar.cpp" />
     <ClCompile Include="hideout.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
@@ -139,7 +139,6 @@
     <ClInclude Include="fill.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="constants.h" />
-    <ClInclude Include="dashboard.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameError.h" />
