@@ -2,13 +2,14 @@
 // Assignment2		: Assassin Valkyrie
 // Student Number	: Daniel Lee Min Qiang
 // Student Number	: S10162739H
-#ifndef _STAGEGENERATOR_H 
+#ifndef _STAGEGENERATOR_H
 #define _STAGEGENERATOR_H
 #define WIN32_LEAN_AND_MEAN
 
 #pragma once
 #include "horizontalLoader.h"
 #include "verticalLoader.h"
+#include "levelLoader.h"
 #include "floor.h"
 #include "fill.h"
 #include "hideout.h"
@@ -42,6 +43,7 @@ private:
 
 	HorizontalLoader *stageHorizontalLoad;
 	VerticalLoader *stageVerticalLoad;
+	LevelLoader level;
 
 	POSITION	trooperPos;
 	POSITION	gunnerPos;
@@ -63,5 +65,7 @@ public:
 	PLATFORM getFillPlatforms();
 	PLATFORM getFloorPlatforms();
 	POSITION getTrooper() { return trooperPos; }
+	FLOORS *getFloors() { return &floorCollection; }
+
 };
 #endif

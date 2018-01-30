@@ -88,7 +88,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="arrow.cpp" />
-    <ClCompile Include="arrowManager.cpp" />
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bullet.cpp" />
@@ -109,6 +108,7 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
+    <ClCompile Include="levelLoader.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="rayCasting.cpp" />
@@ -117,6 +117,8 @@
     <ClCompile Include="trooper.cpp" />
     <ClCompile Include="serpant.cpp" />
     <ClCompile Include="stageGenerator.cpp" />
+    <ClCompile Include="stone.cpp" />
+    <ClCompile Include="weaponManager.cpp" />
     <ClCompile Include="horizontalLoader.cpp" />
     <ClCompile Include="verticalLoader.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -144,7 +146,6 @@
     <ClInclude Include="gameError.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="arrow.h" />
-    <ClInclude Include="arrowManager.h" />
     <ClInclude Include="hideout.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
@@ -173,10 +174,13 @@
     <ClInclude Include="fireBall.h" />
     <ClInclude Include="healthBar.h" />
     <ClInclude Include="serpant.h" />
+    <ClInclude Include="stone.h" />
+    <ClInclude Include="weaponManager.h"/>
   </ItemGroup>
   <ItemGroup>
     <Text Include="1-horizontal.txt" />
     <Text Include="1-vertical.txt" />
+    <Text Include="map.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

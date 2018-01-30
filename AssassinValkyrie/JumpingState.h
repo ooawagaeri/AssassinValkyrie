@@ -64,13 +64,10 @@ public:
 			player.setY(player.getY() + velocityY*frameTime);
 			t += TimeInterval;
 			if (velocityY > (velocityX * 2))
-			{
-				velocityY = -(150 * sin(45 * PI / 180));;
-				player.setY(startY);
-				t = 0;
-				player.setJumpComplete(true);
-				player.setJumpRight(false);
-				jumping = false;
+			{				
+				player.setX(player.getX() + velocityX*frameTime);
+				player.setY(player.getY() + velocityY*frameTime);
+				t += TimeInterval;
 			}
 		}
 		else if (player.getJumpLeft())
@@ -84,14 +81,13 @@ public:
 			t += TimeInterval;
 			if (velocityY > (velocityX * 2))
 			{
-				velocityY = -(150 * sin(45 * PI / 180));;
-				player.setY(startY);
-				t = 0;
-				player.setJumpComplete(true);
-				player.setJumpLeft(false);
-				jumping = false;
+				player.setX(player.getX() - velocityX*frameTime);
+				player.setY(player.getY() + velocityY*frameTime);
+				t += TimeInterval;
 			}
 		}					
 	}
+
+
 };
 #endif

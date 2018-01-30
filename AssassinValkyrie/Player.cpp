@@ -31,10 +31,39 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM)
+void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)
 {
-	state_->update(*this, frameTime);
+	VECTOR2 collisionVector;
+	FLOORS *floorCollection = floorList->getFloors();
+	for (FLOORS::iterator floor = (floorCollection->begin()); floor != floorCollection->end(); floor++)
+	{
+		if (collidesWith(**floor, collisionVector))
+		{
+
+			if (getJumpRight())
+			{
+
+				setJumpComplete(true);
+				setJumpRight(false);
+
+			}
+
+			else if (getJumpLeft() )
+			{
+
+
+				setJumpComplete(true);
+				setJumpLeft(false);
+
+			}
+
+		}
+	}
+	
 	handleInput(input,gamePtr,textureM);
+	state_->update(*this, frameTime);
+
+	
 	Entity::update(frameTime);
 
 	//move->update(frameTime);
@@ -49,6 +78,38 @@ void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM)
 		state_ = state;
 	}
 }
+
+void Player::collisions(EnemyManager *enemyList, StageGenerator *floorList)
+{
+	VECTOR2 collisionVector;
+	GUNNERLIST *gunnerCollection = enemyList->getGunners();
+
+
+	
+	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
+	{
+		if (collidesWith(**gunner,collisionVector))
+		{
+			
+			if (isMeleeAttacking == true)
+			{
+				(*gunner)->setVisible(false);
+				(*gunner)->setActive(false);
+				isMeleeAttacking = false;
+				break;
+			}
+
+			
+		}
+	}
+
+	
+
+
+	
+	
+}
+
 // To find closest ship vector position
 void Player::ai(Entity &ship1, Entity &ship2)
 {

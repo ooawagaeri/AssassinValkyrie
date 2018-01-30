@@ -4,6 +4,7 @@
 // Student Number	: S10165581F
 
 #include "assassinValkyrie.h"
+#include "levelLoader.h"
 
 // Constructor
 AssassinValkyrie::AssassinValkyrie()
@@ -118,8 +119,8 @@ void AssassinValkyrie::update()
 	//stageGenerator->update(frameTime);
 	mouse->update();
   emBulletList.update(frameTime, this, &bulletTextures);
-  player->update(frameTime,this,&playerTextures);
-	arrowList.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
+	player->update(frameTime,this,&playerTextures,stageGenerator);
+	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
 	emList.update(frameTime, pCollection);
 }
 
@@ -132,6 +133,9 @@ void AssassinValkyrie::ai()
 // Handle collisions
 void AssassinValkyrie::collisions()
 {
+    VECTOR2 collisionVector;
+	weaponManager.collisions(&emList);
+	player->collisions(&emList,stageGenerator);
 	emList.collisions(mouse, stageGenerator->getFloorPlatforms(), pCollection);
 	emBulletList.collisions(mouse);
 }
@@ -142,10 +146,10 @@ void AssassinValkyrie::render()
 	background->draw();
 	stageGenerator->render();
 	mouse->draw();
-  player->draw();
-	arrowList.render();
+    player->draw();
+    weaponManager.render();
 	player->draw();
-	arrowList.render();
+
 	emList.render(graphics);
 	emBulletList.render();
 	mouse->draw();

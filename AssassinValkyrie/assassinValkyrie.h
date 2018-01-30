@@ -14,7 +14,7 @@
 #include "gunner.h"
 #include "cursor.h"
 #include "Player.h"
-#include"arrowManager.h"
+#include"weaponManager.h"
 #include "stageGenerator.h"
 #include "background.h"
 #include "rayCasting.h"
@@ -33,7 +33,7 @@ private:
 	TextureManager	healthTexture;
 	TextureManager playerTextures;
 	Player *player;
-	ArrowManager arrowList;
+	WeaponManager weaponManager;
 	TextureManager backgroundTexture;
 	//Enemy *trooper1;
 	Cursor			*mouse;
