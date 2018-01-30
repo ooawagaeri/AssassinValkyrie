@@ -13,6 +13,10 @@
 #include "image.h"
 #include "gunner.h"
 #include "cursor.h"
+#include "Player.h"
+#include"arrowManager.h"
+#include "stageGenerator.h"
+#include "background.h"
 #include "rayCasting.h"
 #include "enemyBulletManager.h"
 #include "enemyManager.h"
@@ -23,15 +27,21 @@ class AssassinValkyrie : public Game
 {
 private:
 	TextureManager	mouseTextures;
-	TextureManager	trooperTexture;
-	TextureManager	gunnerTexture;
-	TextureManager	serpantTexture;
+	TextureManager trooperTexture;
+	TextureManager gunnerTexture;
+	TextureManager mouseTextures;
+  TextureManager	serpantTexture;
 	TextureManager	healthTexture;
+	TextureManager playerTextures;
+	Player *player;
+	ArrowManager arrowList;
+	TextureManager backgroundTexture;
+	//Enemy *trooper1;
+	Background *background;
 	Cursor			*mouse;
 	EnemyManager	emList;
 	EnemyBulletManager	emBulletList;
 	PLATFORM		pCollection;
-	
 	int	currentStage;
 	TextureManager	backgroundTexture;
 	Background		*background;

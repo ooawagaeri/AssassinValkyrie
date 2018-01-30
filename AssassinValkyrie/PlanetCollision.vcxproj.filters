@@ -4,6 +4,9 @@
     <ClCompile Include="audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dashboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +88,18 @@
     <ClCompile Include="assassinValkyrie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arrowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>State Files</Filter>
+    </ClCompile>
     <ClCompile Include="healthBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -100,6 +115,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
@@ -192,14 +210,44 @@
     <ClInclude Include="bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="enemyBulletManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="healthBar.h">
+    <ClInclude Include="enemyManager.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arrow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="enemyManager.h">
+    <ClInclude Include="arrowManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchWalkingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeAttackState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StandingState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RunningState.h">
+      <Filter>State Files</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
       <Filter>Component Files</Filter>
