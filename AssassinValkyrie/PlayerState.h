@@ -18,7 +18,7 @@ private:
 public:
 	PlayerState() {}
 	~PlayerState() {}
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)=0;
+	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)=0;
 	virtual void update(Entity &player, float frameTime)=0;
 
 	

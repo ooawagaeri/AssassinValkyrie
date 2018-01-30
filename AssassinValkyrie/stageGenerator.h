@@ -66,6 +66,8 @@ public:
 	PLATFORM getFloorPlatforms();
 	POSITION getTrooper() { return trooperPos; }
 	FLOORS *getFloors() { return &floorCollection; }
+	FILLS *getFills() { return &fillCollection; }
+
 
 };
 #endif

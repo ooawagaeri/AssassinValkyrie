@@ -270,6 +270,9 @@
     <ClInclude Include="healthBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FallingState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

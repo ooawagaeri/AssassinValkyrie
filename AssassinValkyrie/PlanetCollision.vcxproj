@@ -136,6 +136,7 @@
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />
     <ClInclude Include="enemyState.h" />
+    <ClInclude Include="FallingState.h" />
     <ClInclude Include="gunner.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="fill.h" />

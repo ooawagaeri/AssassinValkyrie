@@ -31,11 +31,11 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)
+void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
 {
 	
 	
-	handleInput(input,gamePtr,textureM,floorList);
+	handleInput(input,gamePtr,textureM,stagegenerator);
 	state_->update(*this, frameTime);
 
 	
@@ -44,9 +44,9 @@ void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, St
 	//move->update(frameTime);
 }
 
-void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)
+void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
 {
-    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,floorList);
+    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,stagegenerator);
 	if (state != NULL)
 	{
 		delete state_;
