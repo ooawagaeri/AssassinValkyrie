@@ -3,7 +3,7 @@
 //  Student Name:       Timothy Chua
 //  Student Number:     10165581F
 
-#ifndef _ENEMY_MANAGER_H 
+#ifndef _ENEMY_MANAGER_H
 #define _ENEMY_MANAGER_H
 #define WIN32_LEAN_AND_MEAN
 
@@ -15,7 +15,7 @@
 typedef std::vector<Trooper*> TROOPERLIST;
 typedef std::vector<Gunner*> GUNNERLIST;
 typedef std::vector<Serpant*> SERPANTLIST;
- 
+
 typedef std::vector<VECTOR2> POSITION;
 
 class EnemyManager

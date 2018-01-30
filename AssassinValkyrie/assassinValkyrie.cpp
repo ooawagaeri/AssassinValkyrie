@@ -46,7 +46,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!mouse->initialize(this, cursorNS::WIDTH, cursorNS::HEIGHT, cursorNS::TEXTURE_COLS, &mouseTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
-	
+
 	/////////////////////////////////////////
 	//				BG
 	/////////////////////////////////////////
@@ -121,8 +121,8 @@ void AssassinValkyrie::update()
 	//tempChar->update(frameTime);
 	mouse->update();
   emBulletList.update(frameTime, this, &bulletTextures);
-  player->update(frameTime,this,&playerTextures);
-	arrowList.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
+	player->update(frameTime,this,&playerTextures,stageGenerator);
+	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
 	emList.update(frameTime, pCollection);
 }
 
@@ -135,6 +135,9 @@ void AssassinValkyrie::ai()
 // Handle collisions
 void AssassinValkyrie::collisions()
 {
+    VECTOR2 collisionVector;
+	weaponManager.collisions(&emList);
+	player->collisions(&emList,stageGenerator);
 	emList.collisions(mouse, stageGenerator->getFloorPlatforms(), pCollection);
 	emBulletList.collisions(mouse);
 }
@@ -146,10 +149,10 @@ void AssassinValkyrie::render()
 	//tempChar->draw();
   stageGenerator->render();
 	mouse->draw();
-  player->draw();
-	arrowList.render();
+    player->draw();
+    weaponManager.render();
 	player->draw();
-	arrowList.render();
+
 	emList.render(graphics);
 	emBulletList.render();
 	mouse->draw();

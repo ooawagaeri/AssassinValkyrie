@@ -11,6 +11,8 @@
 #include "constants.h"
 #include "PlayerState.h"
 #include "StandingState.h"
+#include "enemyManager.h"
+#include "stageGenerator.h"
 
 namespace playerNS
 {
@@ -20,7 +22,7 @@ namespace playerNS
 	const double ROTATION = 0;
 	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 4 ;
-	const int	Y = 500 ;
+	const int	Y = GAME_HEIGHT/2-100 ;
 	const float SPEED = 100;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 1;
@@ -44,9 +46,10 @@ public:
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime, Game *gamePtr, TextureManager *textureM);
+	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
 	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM);
 	void ai(Entity &ship1, Entity &ship2);
+	void collisions(EnemyManager *enemyList,StageGenerator *floorList);
 	void draw();
 
 

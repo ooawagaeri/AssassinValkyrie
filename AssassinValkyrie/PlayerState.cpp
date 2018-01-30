@@ -18,6 +18,7 @@ PlayerState* StandState::handleInput(Entity& player, Input* input, Game *gamePtr
 		player.setCurrentFrame(RUNNING_STATE::START_FRAME);
 		player.setFrameDelay(0.2);
 		player.flipHorizontal(false);
+		player.setIsRunning(true);
 		player.setVelocity(VECTOR2(RUNNING_STATE::RUNNING_SPEED, RUNNING_STATE::RUNNING_SPEED));
 		return new RunningState();
 	}
@@ -29,7 +30,7 @@ PlayerState* StandState::handleInput(Entity& player, Input* input, Game *gamePtr
 		player.setFrames(RUNNING_STATE::START_FRAME, RUNNING_STATE::END_FRAME);
 		player.setCurrentFrame(RUNNING_STATE::START_FRAME);
 		player.setFrameDelay(0.2);
-	
+		player.setIsRunning(true);
 		player.setVelocity(VECTOR2(-RUNNING_STATE::RUNNING_SPEED, -RUNNING_STATE::RUNNING_SPEED));
 		return new RunningState();
 	}
@@ -50,6 +51,7 @@ PlayerState* StandState::handleInput(Entity& player, Input* input, Game *gamePtr
 		player.setCurrentFrame(MELEE_ATTACK_STATE::START_FRAME);
 		player.setFrameDelay(0.1);
 		player.setLoop(false);
+		player.IsMeleeAttacking(true);
 		return new MeleeAttackState();
 
 	}
@@ -76,6 +78,7 @@ PlayerState* RunningState::handleInput(Entity& player, Input* input, Game *gameP
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(0, 0);
 		player.setCurrentFrame(0);
+		player.setIsRunning(false);
 		return new StandState();
 	}
 
@@ -88,6 +91,7 @@ PlayerState* RunningState::handleInput(Entity& player, Input* input, Game *gameP
 		player.flipHorizontal(false);
 		player.setLoop(false);
 		player.setJumpRight(true);
+		player.setIsRunning(false);
 	
 		return new JumpingState();
 	}
@@ -101,6 +105,7 @@ PlayerState* RunningState::handleInput(Entity& player, Input* input, Game *gameP
 		player.flipHorizontal(true);
 		player.setLoop(false);
 		player.setJumpLeft(true);
+		player.setIsRunning(false);
 		return new JumpingState();
 	}
 	return NULL;
