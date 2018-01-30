@@ -135,7 +135,7 @@ void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
 	weaponManager.collisions(&emList);
-	player->collisions(&emList,stageGenerator);
+	player->collisions(&emList);
 	emList.collisions(mouse, stageGenerator->getFloorPlatforms(), pCollection);
 	emBulletList.collisions(mouse);
 }
