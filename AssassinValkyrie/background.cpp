@@ -103,11 +103,11 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.y += frameTime * (velocity.y);         // move ship along X
 			stageGen->update(frameTime, 3, 0, true);
 			emList->camera(frameTime, 3);
-			if (player->getY() < centreY)
-				player->setY(centre);
+			//if (player->getY() < centreY)
+				//player->setY(centre);
 		}
 
-		//player->setY(centreY);
+		player->setY(centreY);
 	}
 	if ((player->getY() < centreY) && !up) {
 		if (player->getVelocityY() > 0) {
@@ -123,10 +123,10 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.y += frameTime * (velocity.y);         // move ship along X
 			stageGen->update(frameTime, 3 , 0, true);
 			emList->camera(frameTime, 3);
-			if (player->getY() > centreY)
-				player->setY(centre);
+			//if (player->getY() > centreY)
+				//player->setY(centre);
 		}
-		//player->setY(centreY);
+		player->setY(centreY);
 	}
 
 	/*	
