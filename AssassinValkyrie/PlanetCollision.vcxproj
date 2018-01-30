@@ -176,6 +176,7 @@
     <ClInclude Include="serpant.h" />
     <ClInclude Include="stone.h" />
     <ClInclude Include="weaponManager.h"/>
+    <ClInclude Include="returnState.h"/>
   </ItemGroup>
   <ItemGroup>
     <Text Include="1-horizontal.txt" />
