@@ -118,7 +118,6 @@ void AssassinValkyrie::update()
 	pCollection = stageGenerator->getFillPlatforms();
 	background->update(frameTime, tempChar, stageGenerator);
 	//stageGenerator->update(frameTime);
-	//tempChar->update(frameTime);
 	mouse->update();
   emBulletList.update(frameTime, this, &bulletTextures);
 	player->update(frameTime,this,&playerTextures,stageGenerator);
