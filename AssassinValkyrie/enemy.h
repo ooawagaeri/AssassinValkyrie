@@ -9,7 +9,7 @@
 
 #include "entity.h"
 #include "constants.h"
-#include "HealthComponet.h"
+#include "HealthComponent.h"
 #include "MovementComponent.h"
 #include "AttackComponent.h"
 #include "rayCasting.h"
@@ -64,7 +64,7 @@ namespace gunnerNS
 	const int	VISION_RANGE = 250;
 	const float	VISION_HEIGHT = HEIGHT*SCALE / 3.5f;
 
-	const int SHOOT_RANGE = 100;
+	const int SHOOT_RANGE = 200;
 	const int SHOOT_WIDTH = 96;
 	const int SHOOT_HEIGHT = 95;
 	const int SHOOT_TEXTURE_COLS = 4;
@@ -72,23 +72,54 @@ namespace gunnerNS
 	const int SHOOT_END_FRAME = 26;
 }
 
+namespace serpantNS
+{
+	const int	HEALTH = 50;
+	const int	WIDTH = 90;
+	const int	HEIGHT = 99;
+	const double ROTATION = 0;
+	const float SCALE = 1.0f;
+	const float	X = GAME_WIDTH / 2 - WIDTH*SCALE + 100;
+	const float	Y = GAME_HEIGHT / 2 - HEIGHT*SCALE;
+	const float SPEED = 40;
+	const float MASS = 300.0f;
+	const int   TEXTURE_COLS = 5;
+	const int   START_FRAME = 0;
+	const int   END_FRAME = 4;
+	const float ANIMATION_DELAY = 0.25f;
+
+	const double VISION_ANGLE = PI / 5;
+	const int	VISION_RANGE = 200;
+	const float	VISION_HEIGHT = HEIGHT*SCALE / 3.5f;
+
+	const int FIRE_RANGE = 200;
+	const int FIRE_WIDTH = 90;
+	const int FIRE_HEIGHT = 99;
+	const int FIRE_TEXTURE_COLS = 10;
+	const int FIRE_START_FRAME = 31;
+	const int FIRE_END_FRAME = 39;
+}
+
 class Enemy : public Entity
 {
 protected:
 	HealthComponent		*health;
-	MovementComponent	*move;
+	PatrolMovement		*move;
 	AttackComponent		*attack;
 	EnemyState			*state_;
 	// player to track
 	Entity	*player;
 	Ray		*vision;
 	Image	attackAnimation;
-	bool	sameSign(int x, int y);
+	int		range;
+	int		attackFrame;
+
 
 public:
 	// constructor
 	Enemy(Entity *play);
 	~Enemy();
+	int	collideTime = 0;
 
 	// inherited member functions
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
@@ -104,7 +135,13 @@ public:
 		move->setOrigin(pos);
 	}
 	Ray *getRay() { return vision; }
-	MovementComponent *getMove() { return move; }
+	AttackComponent *getAttack() { return attack; }
+	PatrolMovement *getMove() { return move; }
+	HealthComponent *getHealth() { return health; }
+	int getRange() { return range; }
+	Image *getAnimation() { return &attackAnimation; }
+	int getAttackFrame() { return attackFrame; }
+	bool isAlive() { return health->getAlive(); }
 };
 
 #endif

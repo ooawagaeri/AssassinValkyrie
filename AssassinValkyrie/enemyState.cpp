@@ -4,14 +4,20 @@
 // Student Number	: S10165581F
 
 #include "enemy.h"
+#include "enemyState.h"
 #include "alertState.h"
 #include "standState.h"
 #include "patrolState.h"
+#include "returnState.h"
 
-PatrollingState::PatrollingState()
+void EnemyState::update(Enemy *enemy, Entity *target)
 {
-	walkingTime = GetTickCount();
-	maxTimeWalk = 8000;
+	enemy->getMove()->setVelocity(enemy->getMove()->getCurrentVelocity());
+}
+
+PatrollingState::PatrollingState() : EnemyState()
+{
+	maxTime = 8000;
 }
 
 EnemyState* PatrollingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
@@ -26,26 +32,31 @@ EnemyState* PatrollingState::handleInput(Enemy *enemy, Entity *target, PLATFORM 
 
 void PatrollingState::update(Enemy *enemy, Entity *target)
 {
-	if (GetTickCount() - walkingTime > maxTimeWalk)
+	if (GetTickCount() - timer > maxTime)
 	{
 		enemy->getMove()->setVelocity(-enemy->getMove()->getCurrentVelocity());
-		walkingTime = GetTickCount();
+		timer = GetTickCount();
 	}
 }
 
-AlertedState::AlertedState()
+AlertedState::AlertedState() : EnemyState()
 {
-	alertedTime = GetTickCount();
-	maxTimeAlert = 5000;
+	maxTime = 5000;
 }
 
 EnemyState* AlertedState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
-	if (GetTickCount() - alertedTime > maxTimeAlert)
-	{
-		return new StandingState();
-	}
+	if (GetTickCount() - timer > maxTime)
+		if (!(enemy->getRay()->inSight(*target->getCenter(), p)))
+			return new StandingState();
+		else
+			timer = GetTickCount();
 	return NULL;
+}
+
+bool sameSign(int x, int y)
+{
+	return (x >= 0) ^ (y < 0);
 }
 
 void AlertedState::update(Enemy *enemy, Entity *target)
@@ -53,30 +64,52 @@ void AlertedState::update(Enemy *enemy, Entity *target)
 	VECTOR2 direction = VECTOR2(target->getX() - enemy->getX(), target->getY() - enemy->getY());
 	direction = *D3DXVec2Normalize(&direction, &direction);
 	enemy->getMove()->setVelocity(direction.x * enemy->getMove()->getInitialVelocity());
+	VECTOR2 pos1 = *enemy->getCenter() - *target->getCenter();
+
+	if (D3DXVec2Length(&pos1) < enemy->getRange() && !enemy->getAttack()->getAnimation())
+	{
+		enemy->getAttack()->setAnimation(true);
+		enemy->getAnimation()->setCurrentFrame(enemy->getAttackFrame());
+	}
 }
 
-StandingState::StandingState()
+StandingState::StandingState() : EnemyState()
 {
-	standTime = GetTickCount();
-	maxTimeStand = 3000;
+	maxTime = 3000;
 }
 
 EnemyState* StandingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
 	enemy->getMove()->setVelocity(0);
-	if (GetTickCount() - standTime > maxTimeStand)
+	if (GetTickCount() - timer > maxTime)
 	{
 		enemy->getRay()->setColor(graphicsNS::WHITE);
 		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
-		if (enemy->getMove()->returnOrigin())
-		{
-			enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
-			return new PatrollingState();
-		}
+		return new ReturningState();
 	}
 	return NULL;
 }
-void StandingState::update(Enemy *enemy, Entity *target)
+
+ReturningState::ReturningState()
 {
-	enemy->getMove()->setVelocity(enemy->getMove()->getCurrentVelocity());
+	timer = 0;
+	maxTime = 1000;
+}
+
+EnemyState* ReturningState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
+{
+	if (enemy->getMove()->returnOrigin())
+	{
+		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
+		return new PatrollingState();
+	}
+	for (Entity *e : p)
+		if (enemy->collidesWith(*e, VECTOR2{}))
+		{
+			enemy->getMove()->setVelocity(-enemy->getMove()->getCurrentVelocity());
+			enemy->setOriginalPos({ enemy->getX(), enemy->getY() });
+			return new PatrollingState();
+		}
+
+	return NULL;
 }

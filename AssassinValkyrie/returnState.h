@@ -3,16 +3,16 @@
 // Student Number	: Chua Wei Jie Timothy
 // Student Number	: S10165581F
 
-#ifndef _ENEMY_STAND_STATE_H 
-#define _ENEMY_STAND_STATE_H
+#ifndef _ENEMY_RETURN_STATE_H 
+#define _ENEMY_RETURN_STATE_H
 #define WIN32_LEAN_AND_MEAN
 
 #include "enemyState.h"
 
-class StandingState : public EnemyState
+class ReturningState : public EnemyState
 {
 public:
-	StandingState();
+	ReturningState();
 	virtual EnemyState* handleInput(Enemy *enemy, Entity *target, PLATFORM p);
-};//end of StandingState class
+};
 #endif

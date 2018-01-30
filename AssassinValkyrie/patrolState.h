@@ -11,10 +11,6 @@
 
 class PatrollingState : public EnemyState
 {
-private:
-	int maxTimeWalk;
-	int walkingTime;
-
 public:
 	PatrollingState();
 	virtual EnemyState* handleInput(Enemy *enemy, Entity *target, PLATFORM p);

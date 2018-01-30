@@ -12,9 +12,8 @@
 class AlertedState : public EnemyState
 {
 private:
-	int maxTimeAlert;
-	int alertedTime;
 	Entity lastSeen;
+
 public:
 	AlertedState();
 	virtual EnemyState* handleInput(Enemy *enemy, Entity *target, PLATFORM p);

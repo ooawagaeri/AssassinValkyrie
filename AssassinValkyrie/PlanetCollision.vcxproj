@@ -92,34 +92,37 @@
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="cursor.cpp" />
-    <ClCompile Include="dashboard.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyBulletManager.cpp" />
     <ClCompile Include="enemyManager.cpp" />
     <ClCompile Include="enemyState.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="fill.cpp" />
+    <ClCompile Include="fireBall.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="gunner.cpp" />
+    <ClCompile Include="healthbar.cpp" />
     <ClCompile Include="hideout.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
+    <ClCompile Include="levelLoader.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="rayCasting.cpp" />
-    <ClCompile Include="stone.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="trooper.cpp" />
+    <ClCompile Include="serpant.cpp" />
     <ClCompile Include="stageGenerator.cpp" />
+    <ClCompile Include="stone.cpp" />
+    <ClCompile Include="weaponManager.cpp" />
     <ClCompile Include="horizontalLoader.cpp" />
     <ClCompile Include="verticalLoader.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
-    <ClCompile Include="weaponManager.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +137,10 @@
     <ClInclude Include="enemyManager.h" />
     <ClInclude Include="enemyState.h" />
     <ClInclude Include="gunner.h" />
-    <ClInclude Include="HealthComponet.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="fill.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="constants.h" />
-    <ClInclude Include="dashboard.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameError.h" />
@@ -156,7 +158,6 @@
     <ClInclude Include="standState.h" />
     <ClInclude Include="stageGenerator.h" />
     <ClInclude Include="horizontalLoader.h" />
-    <ClInclude Include="stone.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="trooper.h" />
@@ -170,11 +171,16 @@
     <ClInclude Include="RangeAttackState.h" />
     <ClInclude Include="RunningState.h" />
     <ClInclude Include="StandingState.h" />
-    <ClInclude Include="weaponManager.h" />
+    <ClInclude Include="fireBall.h" />
+    <ClInclude Include="healthBar.h" />
+    <ClInclude Include="serpant.h" />
+    <ClInclude Include="stone.h" />
+    <ClInclude Include="weaponManager.h"/>
   </ItemGroup>
   <ItemGroup>
     <Text Include="1-horizontal.txt" />
     <Text Include="1-vertical.txt" />
+    <Text Include="map.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
