@@ -9,6 +9,7 @@
 #pragma once
 #include "horizontalLoader.h"
 #include "verticalLoader.h"
+#include "levelLoader.h"
 #include "floor.h"
 #include "fill.h"
 #include "hideout.h"
@@ -42,7 +43,8 @@ private:
 
 	HorizontalLoader *stageHorizontalLoad;
 	VerticalLoader *stageVerticalLoad;
-
+	LevelLoader level;
+	
 	POSITION	trooperPos;
 	POSITION	gunnerPos;
 	POSITION	serpantPos;
