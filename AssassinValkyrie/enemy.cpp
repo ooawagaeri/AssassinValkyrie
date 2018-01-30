@@ -9,7 +9,7 @@ Enemy::Enemy(Entity *play) : Entity()
 {
 	collisionType = entityNS::BOX;
 	health = new HealthComponent();
-	move = new MovementComponent(this);
+	move = new PatrolMovement(this);
 	state_ = new PatrollingState();
 	
 	player = play;
@@ -28,7 +28,6 @@ Enemy::~Enemy()
 bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
 	TextureManager *textureM)
 {
-	move->setOrigin(*getCenter());
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
@@ -49,6 +48,7 @@ void Enemy::update(float frameTime, PLATFORM p)
 
 	move->update(frameTime);
 	attack->update(frameTime);
+	health->update(frameTime, { spriteData.x + spriteData.width/2, spriteData.y });
 
 	vision->setDirection(move->getCurrentVelocity());
 	vision->updateVision(p);
@@ -74,9 +74,5 @@ void Enemy::draw(Graphics *g)
 
 	Image::draw();
 	attack->draw(this);
-}
-
-bool Enemy::sameSign(int x, int y)
-{
-	return (x >= 0) ^ (y < 0);
+	health->draw();
 }

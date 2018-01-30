@@ -51,9 +51,12 @@ const char PLAYER_IMAGE[] = "pictures\\Player.png";
 const char FLOOR_IMAGE[] = "pictures\\testElement.png";
 const char BACKGROUND_IMAGE[] = "pictures\\tempbg.png";
 const char LADDER_IMAGE[] = "pictures\\ladderbig.png";
+
 const char ENEMY_TROOPER_IMAGE[] = "pictures\\enemyTexture.png";
 const char ENEMY_GUNNER_IMAGE[] = "pictures\\enemyTexture_gunner.png";
+const char ENEMY_SERPANT_IMAGE[] = "pictures\\enemyTexture_serpant.png";
 const char BULLET_IMAGE[] = "pictures\\bullets.png";
+const char HEALTH_IMAGE[] = "pictures\\healthTexture.png";
 
 // WAVE_BANK must be location of .xwb file.
 const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
@@ -80,11 +83,6 @@ const UCHAR RANGE_ATTACK_KEY = 'F';
 const UCHAR DISTRACT_KEY = 'H';
 const UCHAR JUMPING_KEY = VK_SPACE;
 
-//temp controls based off old naming of controls
-const UCHAR SHIP_UP_KEY = 'W';
-const UCHAR SHIP_DOWN_KEY = 'S';
-const UCHAR SHIP_LEFT_KEY = 'A';
-const UCHAR SHIP_RIGHT_KEY = 'D';
 // weapon types
 enum WEAPON { BULLET, MISSILE, LASER, SHIP };
 

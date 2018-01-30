@@ -21,10 +21,12 @@ Trooper::Trooper(Entity *play) : Enemy(play)
 	endFrame = trooperNS::END_FRAME;
 	currentFrame = startFrame;
 	edge = RECT{ (long)(-trooperNS::WIDTH*trooperNS::SCALE / 2), (long)(-trooperNS::HEIGHT*trooperNS::SCALE / 2), (long)(trooperNS::WIDTH*trooperNS::SCALE / 2), (long)(trooperNS::HEIGHT*trooperNS::SCALE / 2) };
+	range = trooperNS::MELEE_RANGE;
+	attackFrame = trooperNS::MELEE_START_FRAME;
 }
 
 bool Trooper::initialize(Game *gamePtr, int width, int height, int ncols,
-	TextureManager *textureM)
+	TextureManager *textureM, TextureManager *textureHealth)
 {
 	attackAnimation.initialize(gamePtr->getGraphics(), trooperNS::MELEE_WIDTH, trooperNS::MELEE_HEIGHT, trooperNS::MELEE_TEXTURE_COLS, textureM);
 	attackAnimation.setFrames(trooperNS::MELEE_START_FRAME, trooperNS::MELEE_END_FRAME);
@@ -34,18 +36,8 @@ bool Trooper::initialize(Game *gamePtr, int width, int height, int ncols,
 
 	move->setVelocity(trooperNS::SPEED);
 	attack = new MeleeComponent(&attackAnimation);
-	vision->init(&center.x, &center.y, trooperNS::VISION_ANGLE, trooperNS::VISION_RANGE, trooperNS::VISION_HEIGHT);
+	health->initialize(gamePtr->getGraphics(), textureHealth, trooperNS::HEALTH);
+	vision->init(this, trooperNS::VISION_ANGLE, trooperNS::VISION_RANGE, trooperNS::VISION_HEIGHT);
 
 	return(Enemy::initialize(gamePtr, width, height, ncols, textureM));
-}
-
-void Trooper::ai()
-{
-	VECTOR2 pos1 = *getCenter() - *player->getCenter();
-
-	if (D3DXVec2Length(&pos1) < trooperNS::MELEE_RANGE && !attack->getAnimation() && !sameSign(velocity.x, pos1.x))
-	{
-		attack->setAnimation(true);
-		attackAnimation.setCurrentFrame(trooperNS::MELEE_START_FRAME);
-	}
 }

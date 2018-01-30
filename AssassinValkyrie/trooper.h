@@ -17,7 +17,6 @@ private:
 public:
 	Trooper(Entity *play);
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
-		TextureManager *textureM);
-	void ai();
+		TextureManager *textureM, TextureManager *textureHealth);
 };
 #endif

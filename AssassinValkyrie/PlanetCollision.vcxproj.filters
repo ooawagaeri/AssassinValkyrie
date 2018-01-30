@@ -4,9 +4,6 @@
     <ClCompile Include="audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dashboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -91,17 +88,29 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="weaponManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="PlayerState.cpp">
       <Filter>State Files</Filter>
     </ClCompile>
-    <ClCompile Include="arrow.cpp">
-      <Filter>Weapon</Filter>
+    <ClCompile Include="healthBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="serpant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fireBall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="levelLoader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stone.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="weaponManager.cpp">
-      <Filter>Weapon</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +118,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
@@ -143,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="mainMenu.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponet.h">
-      <Filter>Component Files</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
       <Filter>Component Files</Filter>
@@ -216,6 +219,12 @@
     <ClInclude Include="enemyManager.h">
       <Filter>State Files</Filter>
     </ClInclude>
+    <ClInclude Include="arrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="weaponManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="CrouchingState.h">
       <Filter>State Files</Filter>
     </ClInclude>
@@ -240,14 +249,23 @@
     <ClInclude Include="RunningState.h">
       <Filter>State Files</Filter>
     </ClInclude>
-    <ClInclude Include="arrow.h">
-      <Filter>Weapon</Filter>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="serpant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fireBall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="returnState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="levelLoader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stone.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="weaponManager.h">
-      <Filter>Weapon</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,12 +281,10 @@
     <Filter Include="State Files">
       <UniqueIdentifier>{2d3c2623-b539-456c-a906-adfb5012dc2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Weapon">
-      <UniqueIdentifier>{f59a47a8-02eb-467c-8f6b-22ef8608d03d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="1-horizontal.txt" />
     <Text Include="1-vertical.txt" />
+    <Text Include="map.txt" />
   </ItemGroup>
 </Project>

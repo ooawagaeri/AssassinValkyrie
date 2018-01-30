@@ -14,7 +14,7 @@ namespace JUMPING_STATE
 	const int TEXTURE_COLS = 14;
 	const int   START_FRAME = 42;
 	const int   END_FRAME = 55;
-	
+
 }
 
 #include "PlayerState.h"
@@ -24,9 +24,9 @@ class JumpingState : public PlayerState
 {
 
 private:
-	
-	float velocityX = 150*cos(45*PI/180);
-	float velocityY = -(150*sin(45*PI/180));
+
+	float velocityX = 150 * cos(45 * PI / 180);
+	float velocityY = -(150 * sin(45 * PI / 180));
 	float gravity = 9.81;
 	float DestinationTime = 500 / velocityX;
 	float TimeInterval = DestinationTime / 50;
@@ -41,29 +41,29 @@ public:
 	void update(Entity &player, float frameTime)
 	{
 
-			velocityY += gravity*t*frameTime;
+		velocityY += gravity*t*frameTime;
 
-			if (player.getJumpRight())
-			{
-				
-				player.setX(player.getX() + velocityX*frameTime);
-				player.setY(player.getY() + velocityY*frameTime);
-				t += TimeInterval;
+		if (player.getJumpRight())
+		{
 
-				
-			}
+			player.setX(player.getX() + velocityX*frameTime);
+			player.setY(player.getY() + velocityY*frameTime);
+			t += TimeInterval;
 
-			else if (player.getJumpLeft())
-			{
-				player.setX(player.getX() - velocityX*frameTime);
-				player.setY(player.getY() + velocityY*frameTime);
-				t += TimeInterval;
 
-			
-			}
+		}
 
-			
-						
+		else if (player.getJumpLeft())
+		{
+			player.setX(player.getX() - velocityX*frameTime);
+			player.setY(player.getY() + velocityY*frameTime);
+			t += TimeInterval;
+
+
+		}
+
+
+
 	}
 
 

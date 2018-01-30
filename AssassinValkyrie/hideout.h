@@ -9,6 +9,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "MovementComponent.h"
 
 namespace hideoutNS
 {
@@ -30,14 +31,14 @@ class Hideout : public Entity
 private:
 	int startX;
 	int startY;
-
+	MovementComponent *move;
 public:
 	// constructor
 	Hideout();
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime);
+	void update(float frameTime, int direction);
 	void draw();
 
 	void setStartX(int i);

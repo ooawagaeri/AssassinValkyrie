@@ -20,14 +20,18 @@ Hideout::Hideout() : Entity()
 
 bool Hideout::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
 {
+	move = new MovementComponent(this);
 	//health = new HealthComponent();
 	//move = new MovementComponent(&(spriteData.x), &(spriteData.y), trooperNS::SPEED, 0);
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Hideout::update(float frameTime)
+void Hideout::update(float frameTime, int direction)
 {
 	Entity::update(frameTime);
+
+	move->movementWithDirection(frameTime, direction);
+	/* placeholder player controls
 	if (input->isKeyDown(SHIP_RIGHT_KEY))
 	{
 		spriteData.x += frameTime * velocity.x;         // move ship along X 
@@ -41,6 +45,7 @@ void Hideout::update(float frameTime)
 		spriteData.y += frameTime * velocity.y;
 	if (input->isKeyDown(SHIP_UP_KEY))
 		spriteData.y += frameTime * (-velocity.y);
+		*/
 	//move->update(frameTime);
 }
 
