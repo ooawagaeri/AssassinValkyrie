@@ -4,6 +4,7 @@
 // Student Number	: S10165581F
 
 #include "assassinValkyrie.h"
+#include "levelLoader.h"
 
 // Constructor
 AssassinValkyrie::AssassinValkyrie()

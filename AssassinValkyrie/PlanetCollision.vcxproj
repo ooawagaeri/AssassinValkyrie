@@ -109,6 +109,7 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="assassinValkyrie.cpp" />
+    <ClCompile Include="levelLoader.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="rayCasting.cpp" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <Text Include="1-horizontal.txt" />
     <Text Include="1-vertical.txt" />
+    <Text Include="map.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
