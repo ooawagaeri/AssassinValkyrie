@@ -75,11 +75,41 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				gunnerPos.emplace_back(VECTOR2{ (float)horizontalElement2.x, GAME_HEIGHT - (float)horizontalElement2.y });
 			else if (horizontalElement2.element == "SERPANT")
 				serpantPos.emplace_back(VECTOR2{ (float)horizontalElement2.x, GAME_HEIGHT - (float)horizontalElement2.y });
+
+			else if (horizontalElement2.element == "LADDER")
+			{
+				ladderCollection.emplace_back(new Ladder());
+				success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_BTM, 3, ladderTextures);
+				ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_BTM);
+				ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - horizontalElement2.y);
+				ladderCollection.back()->setStartY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - horizontalElement2.y);
+				ladderCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
+				ladderCollection.back()->setX(horizontalElement2.x + (ladderNS::WIDTH));
+				ladderCollection.back()->setStartX(horizontalElement2.x + ladderNS::WIDTH);
+			}
+
 		}
 
 		ent->loadTrooper(trooperPos);
 		ent->loadGunner(gunnerPos);
 		ent->loadSerpant(serpantPos);
+	}
+	int firstX = 0;
+	for (Ladder *t : ladderCollection)
+	{
+		if (firstX == 0)
+		{
+			t->setCurrentFrame(ladderNS::FRAME_TOP);
+			firstX = t->getX();
+			continue;
+		}
+		if (firstX == t->getX())
+		{
+			t->setCurrentFrame(ladderNS::FRAME_MID);
+		} else
+		{
+			firstX = 0;
+		}
 	}
 }
 
