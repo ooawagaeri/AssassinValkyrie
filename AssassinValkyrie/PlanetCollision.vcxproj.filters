@@ -100,6 +100,15 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>State Files</Filter>
     </ClCompile>
+    <ClCompile Include="healthBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="serpant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fireBall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -140,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="mainMenu.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponet.h">
-      <Filter>Component Files</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
       <Filter>Component Files</Filter>
@@ -242,6 +248,21 @@
     </ClInclude>
     <ClInclude Include="RunningState.h">
       <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="serpant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fireBall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="returnState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="levelLoader.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
