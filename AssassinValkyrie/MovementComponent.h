@@ -34,6 +34,25 @@ public:
 	{
 		object->setX(object->getX() + currentVelocity *frameTime);
 	}
+	void movementWithDirection(float frameTime, int direction)
+	{
+		if (direction == 1)
+		{
+			object->setX(object->getX() + MovementComponentNS::cameraVelocity *frameTime);
+		}
+		else if (direction == 2)
+		{
+			object->setX(object->getX() + (-MovementComponentNS::cameraVelocity) * frameTime);
+		}
+		else if (direction == 3)
+		{
+			object->setY(object->getY() + MovementComponentNS::cameraVelocity * frameTime);
+		}
+		else if (direction == 4)
+		{
+			object->setY(object->getY() + (-MovementComponentNS::cameraVelocity) * frameTime);
+		}
+	}
 };
 
 class PatrolMovement : public MovementComponent
@@ -73,26 +92,6 @@ public:
 	void update(float frameTime)
 	{
 		object->setX(object->getX() + currentVelocity *frameTime);
-	}
-
-	void movementWithDirection(float frameTime, int direction)
-	{
-		if (direction == 1)
-		{
-			object->setX(object->getX() + MovementComponentNS::cameraVelocity *frameTime);
-		}
-		else if (direction == 2)
-		{
-			object->setX(object->getX() + (-MovementComponentNS::cameraVelocity) * frameTime);
-		}
-		else if (direction == 3)
-		{
-			object->setY(object->getY() + MovementComponentNS::cameraVelocity * frameTime);
-		}
-		else if (direction == 4)
-		{
-			object->setY(object->getY() + (-MovementComponentNS::cameraVelocity) * frameTime);
-		}
 	}
 
 };

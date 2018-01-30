@@ -49,5 +49,7 @@ public:
 	void loadTrooper(POSITION p) { trooperPos = p; }
 	void loadGunner(POSITION p) { gunnerPos = p; }
 	void loadSerpant(POSITION p) { serpantPos = p; }
+
+	void camera(float frameTime, int direction);
 };
 #endif
