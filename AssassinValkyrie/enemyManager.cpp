@@ -63,30 +63,30 @@ bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, Tex
 void EnemyManager::update(float frameTime, PLATFORM p)
 {
 	for ( Trooper *t : trooperCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->update(frameTime, p);
 
 	for (Gunner *t : gunnerCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->update(frameTime, p);
 
 	for (Serpant *t : serpantCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->update(frameTime, p);
 }
 
 void EnemyManager::ai()
 {
 	for (Trooper *t : trooperCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->ai();
 
 	for (Gunner *t : gunnerCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->ai();
 
 	for (Serpant *t : serpantCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->ai();
 }
 
@@ -138,80 +138,91 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 
 	for (Trooper *t : trooperCollection)
 	{
-		for (Entity *e : floor)
+		if (!t->outOfBounds())
 		{
-			if (t->collidesWith(*e, collisionVector))
+
+			for (Entity *e : floor)
 			{
-				t->getMove()->setFloor(true);
-				break;
-			}
-			else
-				t->getMove()->setFloor(false);
-		} // end of check floor collisions
-		for (Entity *e : fill)
-			if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
-			{
-				t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
-				t->collideTime = GetTickCount();
-				break;
-			}// end of check fill (wall) collisions
-	} 
+				if (t->collidesWith(*e, collisionVector))
+				{
+					t->getMove()->setFloor(true);
+					break;
+				}
+				else
+					t->getMove()->setFloor(false);
+			} // end of check floor collisions
+			for (Entity *e : fill)
+				if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
+				{
+					t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
+					t->collideTime = GetTickCount();
+					break;
+				}// end of check fill (wall) collisions
+		}
+	}
 	for (Gunner *t : gunnerCollection)
 	{
-		for (Entity *e : floor)
+		if (!t->outOfBounds())
 		{
-			if (t->collidesWith(*e, collisionVector))
+			for (Entity *e : floor)
 			{
-				t->getMove()->setFloor(true);
-				break;
+				if (t->collidesWith(*e, collisionVector))
+				{
+					t->getMove()->setFloor(true);
+					break;
+				}
+				else
+					t->getMove()->setFloor(false);
 			}
-			else
-				t->getMove()->setFloor(false);
+			for (Entity *e : fill)
+				if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
+				{
+					t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
+					t->collideTime = GetTickCount();
+					break;
+				}
 		}
-		for (Entity *e : fill)
-			if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
-			{
-				t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
-				t->collideTime = GetTickCount();
-				break;
-			}
 	}
 	for (Serpant *t : serpantCollection)
 	{
-		for (Entity *e : floor)
+		if (!t->outOfBounds())
 		{
-			if (t->collidesWith(*e, collisionVector))
+			for (Entity *e : floor)
 			{
-				t->getMove()->setFloor(true);
-				break;
+				if (t->collidesWith(*e, collisionVector))
+				{
+					t->getMove()->setFloor(true);
+					break;
+				}
+				else
+					t->getMove()->setFloor(false);
 			}
-			else
-				t->getMove()->setFloor(false);
+			for (Entity *e : fill)
+				if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
+				{
+					t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
+					t->collideTime = GetTickCount();
+					break;
+				}
 		}
-		for (Entity *e : fill)
-			if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
-			{
-				t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
-				t->collideTime = GetTickCount();
-				break;
-			}
 	}
 }
 
 void EnemyManager::render(Graphics *g)
 {
 	for (Trooper *t : trooperCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->draw(g);
 
 	for (Gunner *t : gunnerCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->draw(g);
 
 	for (Serpant *t : serpantCollection)
-		if (t->isAlive())
+		if (!t->outOfBounds())
 			t->draw(g);
 }
+
 void EnemyManager::camera(float frameTime, int direction) {
 	for (Trooper *t : trooperCollection)
 		t->getMove()->movementWithDirection(frameTime, direction);

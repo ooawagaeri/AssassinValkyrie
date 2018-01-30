@@ -58,9 +58,6 @@
     <ClCompile Include="verticalLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="enemyState.cpp">
-      <Filter>State Files</Filter>
-    </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -94,9 +91,6 @@
     <ClCompile Include="weaponManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>State Files</Filter>
-    </ClCompile>
     <ClCompile Include="healthBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,6 +105,12 @@
     </ClCompile>
     <ClCompile Include="stone.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyState.cpp">
+      <Filter>State Files\Enemy State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>State Files\Player State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,18 +183,6 @@
     <ClInclude Include="verticalLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="enemyState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="patrolState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="alertState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="standState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
     <ClInclude Include="enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -216,38 +204,11 @@
     <ClInclude Include="enemyBulletManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="enemyManager.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
     <ClInclude Include="arrow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="weaponManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CrouchingState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CrouchWalkingState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpingState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeAttackState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RangeAttackState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StandingState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RunningState.h">
-      <Filter>State Files</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
       <Filter>Component Files</Filter>
@@ -258,13 +219,55 @@
     <ClInclude Include="fireBall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="alertState.h">
+      <Filter>State Files\Enemy State</Filter>
+    </ClInclude>
+    <ClInclude Include="standState.h">
+      <Filter>State Files\Enemy State</Filter>
+    </ClInclude>
     <ClInclude Include="returnState.h">
-      <Filter>State Files</Filter>
+      <Filter>State Files\Enemy State</Filter>
+    </ClInclude>
+    <ClInclude Include="patrolState.h">
+      <Filter>State Files\Enemy State</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyState.h">
+      <Filter>State Files\Enemy State</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchingState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchWalkingState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpingState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeAttackState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttackState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="RunningState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="StandingState.h">
+      <Filter>State Files\Player State</Filter>
     </ClInclude>
     <ClInclude Include="levelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stone.h">
+    <ClInclude Include="healthBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -280,6 +283,12 @@
     </Filter>
     <Filter Include="State Files">
       <UniqueIdentifier>{2d3c2623-b539-456c-a906-adfb5012dc2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State Files\Enemy State">
+      <UniqueIdentifier>{7b5fcb26-ad4e-47b0-84bf-a97367017ea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State Files\Player State">
+      <UniqueIdentifier>{8c77f9c7-f8b3-4b20-b1e8-8e48804fb00f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

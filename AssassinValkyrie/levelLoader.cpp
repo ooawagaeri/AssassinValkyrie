@@ -79,8 +79,8 @@ void LevelLoader::loadElements()
 			string type = getType(layout[y][x]);
 			if (type == "")
 				continue;
-			int posX = x * 64;
-			int posY = (height - y) * 64;
+			int posX = x * block_height;
+			int posY = (height - y) * block_height;
 			elementSpawn.push(horizontalElement2{ type, posX, posY});
 		}
 }

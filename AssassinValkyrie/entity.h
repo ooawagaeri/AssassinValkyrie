@@ -161,6 +161,14 @@ class Entity : public Image
     //         Other functions            //
     ////////////////////////////////////////
 
+	// 10165581F
+	bool outOfBounds()
+	{
+		if (spriteData.x + spriteData.width < 0 || (spriteData.x > GAME_WIDTH) || (spriteData.y > GAME_HEIGHT) || (spriteData.y + spriteData.height < 0))
+			return true;
+		return false;
+	}
+
     // Update Entity.
     // typically called once per frame
     // frameTime is used to regulate the speed of movement and animation
