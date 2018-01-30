@@ -5,7 +5,7 @@
 
 using std::vector;
 
-typedef std::vector<Arrow *> BULLETLIST;
+typedef std::vector<Arrow *> ARROWLIST;
 
 class ArrowManager
 {

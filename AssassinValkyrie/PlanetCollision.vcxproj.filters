@@ -4,9 +4,6 @@
     <ClCompile Include="audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dashboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -115,9 +112,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
