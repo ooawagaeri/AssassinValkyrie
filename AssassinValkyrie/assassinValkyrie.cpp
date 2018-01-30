@@ -14,7 +14,6 @@ AssassinValkyrie::AssassinValkyrie()
 	//mouse = new Cursor();
 	background = new Background();
 	stageGenerator = new StageGenerator();
-	tempChar = new Hideout();
 	currentStage = 1;
 }
 
@@ -116,7 +115,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 void AssassinValkyrie::update()
 {
 	pCollection = stageGenerator->getFillPlatforms();
-	background->update(frameTime, tempChar, stageGenerator);
+	background->update(frameTime, player, stageGenerator, &emList);
 	//stageGenerator->update(frameTime);
 	mouse->update();
   emBulletList.update(frameTime, this, &bulletTextures);
@@ -145,8 +144,7 @@ void AssassinValkyrie::collisions()
 void AssassinValkyrie::render()
 {
 	background->draw();
-	//tempChar->draw();
-  stageGenerator->render();
+	stageGenerator->render();
 	mouse->draw();
     player->draw();
     weaponManager.render();
