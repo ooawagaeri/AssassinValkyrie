@@ -30,6 +30,8 @@ namespace playerNS
 	const int   START_FRAME =0;
 	const int   END_FRAME = 0;
 	const float ANIMATION_DELAY = 0.5f;
+	const int	START_LEVEL = 1;
+	const int	TOTAL_LEVELS = 9;
 }
 
 
@@ -37,9 +39,14 @@ namespace playerNS
 class Player : public Entity
 {
 protected:
-
+	int totalXP;
+	int totalLevels;
+	int currentTotalLevel;
+	int speedLevel;
+	int rangeLevel;
+	int armorLevel;
 	PlayerState* state_;
-
+	int skillPointAvailable;
 public:
 	// constructor
 	Player();
@@ -53,7 +60,19 @@ public:
 	void collisions(EnemyManager *enemyList);
 	void draw();
 
+	void setSpeedLevel(int i) { speedLevel = i; }
+	int getSpeedLevel() { return speedLevel; }
 
+	void setArmorLevel(int i) { armorLevel = i; }
+	int getArmorLevel() { return armorLevel; }
 
+	void setRangeLevel(int i) { rangeLevel = i; }
+	int getRangeLevel() { return rangeLevel; }
+
+	void setTotalXP(int i) { totalXP = i; }
+	int getTotalXP() { return totalXP; }
+
+	int getTotalLevels() { return totalLevels; }
+	int getCurrentTotalLevel() { return currentTotalLevel; }
 };
 #endif

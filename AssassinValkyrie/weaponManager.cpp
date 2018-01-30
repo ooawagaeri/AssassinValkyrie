@@ -127,11 +127,12 @@ void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int wid
 void WeaponManager::ai() {}
 
 
-void WeaponManager::collisions(EnemyManager *enemyList)
+void WeaponManager::collisions(EnemyManager *enemyList, Player *player)
 {
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
-
+	TROOPERLIST *trooperCollection = enemyList->getTroopers();
+	SERPANTLIST *serpantCollection = enemyList->getSerpant();
 
 	ARROWLIST::iterator it = arrow_collection.begin();
 	while (it != arrow_collection.end())
@@ -140,13 +141,39 @@ void WeaponManager::collisions(EnemyManager *enemyList)
 		{
 			if ((*gunner)->collidesWith(**it, collisionVector))
 			{
-
+				(*gunner)->getHealth()->damage(gunnerNS::HEALTH / 2);
 				(*it)->setVisible(false);
 				(*it)->setActive(false);
+				if (!(*gunner)->getHealth()->getAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
+					player->setTotalXP(player->getTotalXP() + 50);
+				break;
+			}
+		}
+		for (TROOPERLIST::iterator trooper = (trooperCollection->begin()); trooper != trooperCollection->end(); trooper++)
+		{
+			if ((*trooper)->collidesWith(**it, collisionVector))
+			{
+				(*trooper)->getHealth()->damage(trooperNS::HEALTH/2);
+				(*it)->setVisible(false);
+				(*it)->setActive(false);
+				if (!(*trooper)->getHealth()->getAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
+					player->setTotalXP(player->getTotalXP() + 50);
 				break;
 			}
 		}
 
+		for (SERPANTLIST::iterator serpant = (serpantCollection->begin()); serpant != serpantCollection->end(); serpant++)
+		{
+			if ((*serpant)->collidesWith(**it, collisionVector))
+			{
+				(*serpant)->getHealth()->damage(serpantNS::HEALTH / 3);
+				(*it)->setVisible(false);
+				(*it)->setActive(false);
+				if (!(*serpant)->getHealth()->getAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
+					player->setTotalXP(player->getTotalXP() + 100);
+				break;
+			}
+		}
 
 		if (!(*it)->getActive())
 			it = arrow_collection.erase(it);
