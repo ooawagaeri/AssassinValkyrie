@@ -17,7 +17,6 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 	
 	level.initializeStage(*stageNo);
 	level.loadElements();
-	int block_height = 64;
 	totalElements = level.elementSize();
 	horizontalElement2 horizontalElement2;
 	for (int i = 0; i <= totalElements; i++)
@@ -32,8 +31,8 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				floorCollection.back()->setCurrentFrame(0);
 				floorCollection.back()->setX(horizontalElement2.x);
 				floorCollection.back()->setStartX(horizontalElement2.x);
-				floorCollection.back()->setY(GAME_HEIGHT - horizontalElement2.y + 64 - floorNS::HEIGHT);
-				floorCollection.back()->setStartY(GAME_HEIGHT - horizontalElement2.y + 64 - floorNS::HEIGHT);
+				floorCollection.back()->setY(GAME_HEIGHT - horizontalElement2.y + block_height - floorNS::HEIGHT);
+				floorCollection.back()->setStartY(GAME_HEIGHT - horizontalElement2.y + block_height - floorNS::HEIGHT);
 				floorCollection.back()->setEdge(RECT{ (long)(-floorNS::WIDTH / 2), (long)(-floorNS::HEIGHT / 2), (long)(floorNS::WIDTH / 2), (long)(floorNS::HEIGHT / 2) });
 				floorCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
 				if (!success)
@@ -209,19 +208,21 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 
 void StageGenerator::render()
 {
-	for (floor = floorCollection.begin(); floor != floorCollection.end(); floor++)
-	{
-		(*floor)->draw();
-	}
-	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
-		(*fill)->draw();
-	}
-	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
-		(*hideout)->draw();
-	}
-	for (ladder = ladderCollection.begin(); ladder != ladderCollection.end(); ladder++) {
-		(*ladder)->draw();
-	}
+	for (Floor *t : floorCollection)
+		if (!t->outOfBounds())
+			t->draw();
+
+	for (Fill *t : fillCollection)
+		if (!t->outOfBounds())
+			t->draw();
+
+	for (Hideout *t : hideoutCollection)
+		if (!t->outOfBounds())
+			t->draw();
+
+	for (Ladder *t : ladderCollection)
+		if (!t->outOfBounds())
+			t->draw();
 }
 
 void StageGenerator::update(float frametime, int direction, int leftrightupdown, bool moveOn)

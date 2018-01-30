@@ -15,7 +15,8 @@
 using namespace std;
 
 const int width = 60;
-const int height = 22;
+const int height = 31;
+const int block_height = 64;
 
 struct horizontalElement2 {
 	string element;
