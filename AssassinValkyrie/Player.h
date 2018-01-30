@@ -22,7 +22,8 @@ namespace playerNS
 	const double ROTATION = 0;
 	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 4 ;
-	const int	Y = GAME_HEIGHT/2-100 ;
+	//const int	Y = GAME_HEIGHT/2-100 ;
+	const int	Y = 500;
 	const float SPEED = 100;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 1;

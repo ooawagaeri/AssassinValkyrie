@@ -11,7 +11,7 @@ Background::Background() : Entity()
 	spriteData.height = backgroundNS::HEIGHT;
 	spriteData.rect.bottom = backgroundNS::HEIGHT;    // rectangle to select parts of an image
 	spriteData.rect.right = backgroundNS::WIDTH;
-	spriteData.y = -720;
+	spriteData.y = backgroundNS::Y;
 	i = 0;
 	centre = false;
 	velocity.x = 0;
@@ -39,10 +39,10 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 		spriteData.x = 0;
 		stageGen->update(frameTime, 0, 2, false);
 	}
-	if (spriteData.x <= -160)
+	if (spriteData.x <= -2560)
 	{
 		right = true;
-		spriteData.x = -160;
+		spriteData.x = -2560;
 		stageGen->update(frameTime, 0, 1, false);
 	}
 	if ((player->getX() < centreX) && !left) {
@@ -84,9 +84,9 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 		spriteData.y = 0;
 		stageGen->update(frameTime, 0, 3, false);
 	}
-	if (spriteData.y <= -720) {
+	if (spriteData.y <= -1264) {
 		down = true;
-		spriteData.y = -720;
+		spriteData.y = -1264;
 		stageGen->update(frameTime, 0, 4, false);
 	}
 	if ((player->getY() > centreY) && !down) {

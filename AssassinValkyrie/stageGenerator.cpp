@@ -231,13 +231,13 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	{
 		switch (leftrightupdown) {
 		case 1:
-			(*floor)->setX((*floor)->getStartX() - 160);
+			(*floor)->setX((*floor)->getStartX() - 2560);
 			break;
 		case 2:
 			(*floor)->setX((*floor)->getStartX());
 			break;
 		case 3:
-			(*floor)->setY((*floor)->getStartY() + 720);
+			(*floor)->setY((*floor)->getStartY() + 1264);
 			break;
 		case 4:
 			(*floor)->setY((*floor)->getStartY());
@@ -249,13 +249,13 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
 		switch (leftrightupdown) {
 		case 1:
-			(*fill)->setX((*fill)->getStartX() - 160);
+			(*fill)->setX((*fill)->getStartX() - 2560);
 			break;
 		case 2:
 			(*fill)->setX((*fill)->getStartX());
 			break;
 		case 3:
-			(*fill)->setY((*fill)->getStartY() + 720);
+			(*fill)->setY((*fill)->getStartY() + 1264);
 			break;
 		case 4:
 			(*fill)->setY((*fill)->getStartY());
@@ -288,13 +288,13 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	for (ladder = ladderCollection.begin(); ladder != ladderCollection.end(); ladder++) {
 		switch (leftrightupdown) {
 		case 1:
-			(*ladder)->setX((*ladder)->getStartX() - 160);
+			(*ladder)->setX((*ladder)->getStartX() - 2560);
 			break;
 		case 2:
 			(*ladder)->setX((*ladder)->getStartX());
 			break;
 		case 3:
-			(*ladder)->setY((*ladder)->getStartY() + 720);
+			(*ladder)->setY((*ladder)->getStartY() + 1264);
 			break;
 		case 4:
 			(*ladder)->setY((*ladder)->getStartY());
