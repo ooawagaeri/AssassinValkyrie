@@ -30,7 +30,7 @@ public:
 	RunningState() :PlayerState() {}
 	~RunningState() {}
 
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM);
+	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
 	
 	void update(Entity &player, float frameTime)
 	{
