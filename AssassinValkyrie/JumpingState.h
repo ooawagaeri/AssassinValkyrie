@@ -49,7 +49,7 @@ public:
 			player.setX(player.getX() + velocityX*frameTime);
 			player.setY(player.getY() + velocityY*frameTime);
 			t += TimeInterval;
-
+			player.setVelocityY(velocityY);
 
 		}
 
@@ -58,7 +58,7 @@ public:
 			player.setX(player.getX() - velocityX*frameTime);
 			player.setY(player.getY() + velocityY*frameTime);
 			t += TimeInterval;
-
+			player.setVelocityY(velocityY);
 
 		}
 
