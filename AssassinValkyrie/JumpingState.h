@@ -1,6 +1,6 @@
 // Module			: Gameplay Programming
 // Assignment2		: Assassin Valkyrie
-// Student Number	: Zhuang yuteng
+// Student Number	: Zhuang yuteng, Daniel Lee Min Qiang
 // Student Number	: S10163964C
 
 #ifndef _JUMPINGING_STATE_H                // Prevent multiple definitions if this 
@@ -24,46 +24,68 @@ class JumpingState : public PlayerState
 {
 
 private:
-	
+	//float animationTime = 0;
+	//float initialX = 150;
+	//float initialY = 150;
+	//float velocityX = 0;
+	//float velocityY = 0;
 	float velocityX = 150*cos(45*PI/180);
 	float velocityY = -(150*sin(45*PI/180));
 	float gravity = 9.81;
-	float DestinationTime = 500 / velocityX;
+	//float DestinationTime = 0;
+	float DestinationTime = 500/velocityX;
 	float TimeInterval = DestinationTime / 50;
+	//float TimeInterval = 0;
 	float t = 0;
+	float startY;
+	float currentX;
+	float currentY;
+	bool jumping = false;
 public:
 
-	JumpingState() :PlayerState() {}
+	JumpingState() :PlayerState() {
+	}
 	~JumpingState() {}
 
 	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM);
 
 	void update(Entity &player, float frameTime)
 	{
+		player.setVelocityY(velocityY);
+		velocityY += gravity*t*frameTime;
 
-			velocityY += gravity*t*frameTime;
-
-			if (player.getJumpRight())
-			{
-				
+		if (player.getJumpRight())
+		{
+			if (!jumping) {
+				startY = player.getY();
+				jumping = true;
+			}
+			player.setX(player.getX() + velocityX*frameTime);
+			player.setY(player.getY() + velocityY*frameTime);
+			t += TimeInterval;
+			if (velocityY > (velocityX * 2))
+			{				
 				player.setX(player.getX() + velocityX*frameTime);
 				player.setY(player.getY() + velocityY*frameTime);
 				t += TimeInterval;
-
-				
 			}
-
-			else if (player.getJumpLeft())
+		}
+		else if (player.getJumpLeft())
+		{
+			if (!jumping) {
+				startY = player.getY();
+				jumping = true;
+			}
+			player.setX(player.getX() - velocityX*frameTime);
+			player.setY(player.getY() + velocityY*frameTime);
+			t += TimeInterval;
+			if (velocityY > (velocityX * 2))
 			{
 				player.setX(player.getX() - velocityX*frameTime);
 				player.setY(player.getY() + velocityY*frameTime);
 				t += TimeInterval;
-
-			
 			}
-
-			
-						
+		}					
 	}
 
 

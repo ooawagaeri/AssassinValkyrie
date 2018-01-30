@@ -36,13 +36,13 @@ namespace playerNS
 class Player : public Entity
 {
 protected:
-	
+
 	PlayerState* state_;
-	
+
 public:
 	// constructor
 	Player();
-	
+
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
@@ -51,6 +51,7 @@ public:
 	void ai(Entity &ship1, Entity &ship2);
 	void collisions(EnemyManager *enemyList,StageGenerator *floorList);
 	void draw();
+
 
 
 };

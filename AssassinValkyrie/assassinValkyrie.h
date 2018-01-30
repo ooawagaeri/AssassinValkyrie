@@ -1,9 +1,9 @@
 // Programming 2D Games
-// Copyright (c) 2011 by: 
+// Copyright (c) 2011 by:
 // Charles Kelly
 // Chapter 6 spacewar.h v1.0
 
-#ifndef _LETITRAIN_H             // Prevent multiple definitions if this 
+#ifndef _LETITRAIN_H             // Prevent multiple definitions if this
 #define _LETITRAIN_H             // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
@@ -54,7 +54,7 @@ public:
 
 	void initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
 		LARGE_INTEGER *timerFreqM, float *frameTimeM);
-    void update();      
+    void update();
     void ai();
     void collisions();
     void render();
