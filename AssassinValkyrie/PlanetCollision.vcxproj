@@ -93,17 +93,18 @@
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="cursor.cpp" />
-    <ClCompile Include="dashboard.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyBulletManager.cpp" />
     <ClCompile Include="enemyManager.cpp" />
     <ClCompile Include="enemyState.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="fill.cpp" />
+    <ClCompile Include="fireBall.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="gunner.cpp" />
+    <ClCompile Include="healthbar.cpp" />
     <ClCompile Include="hideout.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="trooper.cpp" />
+    <ClCompile Include="serpant.cpp" />
     <ClCompile Include="stageGenerator.cpp" />
     <ClCompile Include="horizontalLoader.cpp" />
     <ClCompile Include="verticalLoader.cpp" />
@@ -133,11 +135,10 @@
     <ClInclude Include="enemyManager.h" />
     <ClInclude Include="enemyState.h" />
     <ClInclude Include="gunner.h" />
-    <ClInclude Include="HealthComponet.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="fill.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="constants.h" />
-    <ClInclude Include="dashboard.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameError.h" />
@@ -169,6 +170,9 @@
     <ClInclude Include="RangeAttackState.h" />
     <ClInclude Include="RunningState.h" />
     <ClInclude Include="StandingState.h" />
+    <ClInclude Include="fireBall.h" />
+    <ClInclude Include="healthBar.h" />
+    <ClInclude Include="serpant.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="1-horizontal.txt" />

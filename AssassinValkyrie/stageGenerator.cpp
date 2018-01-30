@@ -11,7 +11,7 @@ StageGenerator::StageGenerator()
 	edge = true;
 }
 
-bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures) 
+bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent)
 {
 	bool success = true;
 	//stageLoad->clear();
@@ -37,6 +37,8 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 					floorCollection.back()->setStartX(horizontalElement.xStart + (floorNS::WIDTH * j));
 					floorCollection.back()->setY(GAME_HEIGHT - floorNS::HEIGHT - horizontalElement.y);
 					floorCollection.back()->setStartY(GAME_HEIGHT - floorNS::HEIGHT - horizontalElement.y);
+					floorCollection.back()->setEdge(RECT{ (long)(-floorNS::WIDTH/2), (long)(-floorNS::HEIGHT/2), (long)(floorNS::WIDTH / 2), (long)(floorNS::HEIGHT/2)});
+					floorCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
 				}
 				if (!success)
 					return success;
@@ -53,6 +55,8 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 					fillCollection.back()->setStartX(horizontalElement.xStart + (fillNS::WIDTH * j));
 					fillCollection.back()->setY(GAME_HEIGHT - fillNS::HEIGHT - horizontalElement.y);
 					fillCollection.back()->setStartY(GAME_HEIGHT - fillNS::HEIGHT - horizontalElement.y);
+					fillCollection.back()->setEdge(RECT{ (long)(-fillNS::WIDTH / 2), (long)(-fillNS::HEIGHT / 2), (long)(fillNS::WIDTH / 2), (long)(fillNS::HEIGHT / 2) });
+					fillCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
 				}
 				if (!success)
 					return success;
@@ -67,12 +71,25 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 					hideoutCollection.back()->setCurrentFrame(4);
 					hideoutCollection.back()->setX(horizontalElement.xStart + (hideoutNS::WIDTH * j));
 					hideoutCollection.back()->setY(GAME_HEIGHT - hideoutNS::HEIGHT - horizontalElement.y);
+					hideoutCollection.back()->setEdge(RECT{ (long)(-hideoutNS::WIDTH / 2), (long)(-hideoutNS::HEIGHT / 2), (long)(hideoutNS::WIDTH / 2), (long)(hideoutNS::HEIGHT / 2) });
+					hideoutCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
 				}
 				if (!success)
 					return success;
 			}
+			if (horizontalElement.element == "TROOPER")
+				trooperPos.emplace_back(VECTOR2{ (float)horizontalElement.xStart, GAME_HEIGHT - (float)horizontalElement.y });
+			if (horizontalElement.element == "GUNNER")
+				gunnerPos.emplace_back(VECTOR2{ (float)horizontalElement.xStart, GAME_HEIGHT - (float)horizontalElement.y });
+			if (horizontalElement.element == "SERPANT")
+				serpantPos.emplace_back(VECTOR2{ (float)horizontalElement.xStart, GAME_HEIGHT - (float)horizontalElement.y });
+			}
 		}
-	}
+	
+	ent->loadTrooper(trooperPos);
+	ent->loadGunner(gunnerPos);
+	ent->loadSerpant(serpantPos);
+
 	stageVerticalLoad->initialize();
 	stageVerticalLoad->loadStage(stageNo);
 	totalElements = stageVerticalLoad->elementSize();
@@ -116,8 +133,6 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 		}
 	}
 }
-
-
 
 void StageGenerator::render()
 {
@@ -214,4 +229,20 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 		if (moveOn)
 			(*ladder)->update(frametime, direction);
 	}
+}
+
+PLATFORM StageGenerator::getFillPlatforms()
+{
+	PLATFORM p;
+	for (Entity *t : fillCollection)
+		p.emplace_back(t);
+	return p;
+}
+
+PLATFORM StageGenerator::getFloorPlatforms()
+{
+	PLATFORM p;
+	for (Entity *t : floorCollection)
+		p.emplace_back(t);
+	return p;
 }

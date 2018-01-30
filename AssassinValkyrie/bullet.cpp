@@ -7,35 +7,38 @@
 
 Bullet::Bullet() : Entity()
 {
-	spriteData.width = bulletNS::WIDTH;           // size of Ship1
+	spriteData.width = bulletNS::WIDTH;
 	spriteData.height = bulletNS::HEIGHT;
-	spriteData.x = bulletNS::X;                   // location on screen
+	spriteData.x = bulletNS::X; 
 	spriteData.y = bulletNS::Y;
-	spriteData.rect.bottom = bulletNS::HEIGHT;    // rectangle to select parts of an image
+	spriteData.rect.bottom = bulletNS::HEIGHT;
 	spriteData.rect.right = bulletNS::WIDTH;
 	frameDelay = bulletNS::ANIMATION_DELAY;
-	startFrame = bulletNS::START_FRAME;     // first frame of ship animation
-	endFrame = bulletNS::END_FRAME;     // last frame of ship animation
+	startFrame = bulletNS::START_FRAME;
+	endFrame = bulletNS::END_FRAME;
 	currentFrame = startFrame;
 	edge = RECT{ (long)(-bulletNS::WIDTH*bulletNS::SCALE / 2), (long)(-bulletNS::HEIGHT*bulletNS::SCALE / 2), (long)(bulletNS::WIDTH*bulletNS::SCALE / 2), (long)(bulletNS::HEIGHT*bulletNS::SCALE / 2) };
 	collisionType = entityNS::BOX;
-
-	move = new MovementComponent(this);
 }
 
 bool Bullet::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
 {
+	move = new MovementComponent(this);
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
 void Bullet::draw()
 {
+	if (move->getCurrentVelocity() > 0)
+		flipHorizontal(false);
+	else
+		flipHorizontal(true);
 	Image::draw();
 }
 
 void Bullet::update(float frameTime)
 {
-	if (spriteData.x < 0 || spriteData.x + spriteData.width > GAME_WIDTH || spriteData.y > GAME_HEIGHT || spriteData.y + spriteData.height < 0)
+	if (spriteData.x + spriteData.width < 0 || spriteData.x > GAME_WIDTH || spriteData.y > GAME_HEIGHT || spriteData.y + spriteData.height < 0)
 		active = false;
 
 	move->update(frameTime);
