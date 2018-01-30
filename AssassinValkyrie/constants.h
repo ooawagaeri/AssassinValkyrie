@@ -83,11 +83,6 @@ const UCHAR RANGE_ATTACK_KEY = 'F';
 const UCHAR DISTRACT_KEY = 'H';
 const UCHAR JUMPING_KEY = VK_SPACE;
 
-//temp controls based off old naming of controls
-const UCHAR SHIP_UP_KEY = 'W';
-const UCHAR SHIP_DOWN_KEY = 'S';
-const UCHAR SHIP_LEFT_KEY = 'A';
-const UCHAR SHIP_RIGHT_KEY = 'D';
 // weapon types
 enum WEAPON { BULLET, MISSILE, LASER, SHIP };
 
