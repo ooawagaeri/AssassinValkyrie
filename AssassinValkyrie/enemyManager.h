@@ -2,7 +2,7 @@
 //  Assignment1:        LET IT RAIN
 //  Student Name:       Timothy Chua
 //  Student Number:     10165581F
-
+#pragma once
 #include "trooper.h"
 #include "gunner.h"
 #include <vector>

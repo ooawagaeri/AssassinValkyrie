@@ -51,5 +51,6 @@ public:
 	//void clearField();
 	void render();
 	void update(float frametime, int direction, int leftrightupdown, bool moveOn);
+	FLOORS *getFloors() { return &floorCollection; }
 };
 #endif

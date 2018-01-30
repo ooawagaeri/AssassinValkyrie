@@ -25,6 +25,8 @@ class Entity : public Image
 	bool jumpComplete=false;
 	bool jumpRight = false;
 	bool jumpLeft = false;
+	bool isMeleeAttacking = false;
+	bool isRunning = false;
     entityNS::COLLISION_TYPE collisionType;
     VECTOR2 center;         // center of entity
     float   radius;         // radius of collision circle
@@ -222,6 +224,21 @@ class Entity : public Image
 	void setJumpLeft(bool condition)
 	{
 		jumpLeft = condition;
+	}
+
+	void IsMeleeAttacking(bool condition)
+	{
+		isMeleeAttacking = condition;
+	}
+
+	void setIsRunning(bool condition)
+	{
+		isRunning = condition;
+	}
+
+	bool IsRunning()
+	{
+		return isRunning;
 	}
 };
 

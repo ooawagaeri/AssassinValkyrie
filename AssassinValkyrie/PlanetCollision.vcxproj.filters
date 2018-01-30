@@ -91,14 +91,17 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="arrow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arrowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerState.cpp">
       <Filter>State Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="stone.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="weaponManager.cpp">
+      <Filter>Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,12 +216,6 @@
     <ClInclude Include="enemyManager.h">
       <Filter>State Files</Filter>
     </ClInclude>
-    <ClInclude Include="arrow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arrowManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CrouchingState.h">
       <Filter>State Files</Filter>
     </ClInclude>
@@ -243,6 +240,15 @@
     <ClInclude Include="RunningState.h">
       <Filter>State Files</Filter>
     </ClInclude>
+    <ClInclude Include="arrow.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="stone.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="weaponManager.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -256,6 +262,9 @@
     </Filter>
     <Filter Include="State Files">
       <UniqueIdentifier>{2d3c2623-b539-456c-a906-adfb5012dc2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapon">
+      <UniqueIdentifier>{f59a47a8-02eb-467c-8f6b-22ef8608d03d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

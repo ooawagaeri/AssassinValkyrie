@@ -95,14 +95,14 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing floor generation"));
-	/*
+	
 	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
 
 
 	tempChar->setCurrentFrame(4);
 	tempChar->setY(576);
-	*/
+	
 	return;
 }
 
@@ -111,10 +111,10 @@ void AssassinValkyrie::update()
 {
 	background->update(frameTime, tempChar, stageGenerator);
 	//stageGenerator->update(frameTime);
-	//tempChar->update(frameTime);
+	tempChar->update(frameTime);
 	mouse->update();
-  player->update(frameTime,this,&playerTextures);
-	arrowList.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
+    player->update(frameTime,this,&playerTextures,stageGenerator);
+    weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
 	emList.update(frameTime, pCollection);
 }
 
@@ -128,6 +128,8 @@ void AssassinValkyrie::ai()
 void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
+	weaponManager.collisions(&emList);
+	player->collisions(&emList,stageGenerator);
 }
 
 // Render game items
@@ -135,12 +137,12 @@ void AssassinValkyrie::render()
 {
 	background->draw();
 	stageGenerator->render();
-	//tempChar->draw();
+	tempChar->draw();
 	mouse->draw();
-  player->draw();
-	arrowList.render();
+    player->draw();
+    weaponManager.render();
 	player->draw();
-	arrowList.render();
+	
 	emList.render(graphics);
 
 	for (const auto& point : pCollection)
