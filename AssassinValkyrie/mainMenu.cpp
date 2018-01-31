@@ -81,6 +81,8 @@ void MainMenu::initialize(HWND hwnd)
 
 void MainMenu::update()
 {
+	cursor->update();
+
 	VECTOR2 collisionVector;
 
 	if (!gameStart)
@@ -104,8 +106,6 @@ void MainMenu::update()
 
 	}
 
-	if(!gameStart)
-		cursor->update();
 
 
 	if (gameStart)

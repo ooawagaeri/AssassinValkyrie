@@ -12,9 +12,10 @@ AssassinValkyrie::AssassinValkyrie()
 	trooper1 = new Enemy();
 	dashboard = new Dashboard();
 	text = new TextDX();
-	timer = new TextDX();
+	displayTimer = new TextDX();
 	mins = 0;
 	secs = 0;
+	milliSec = 0;
 }
 
 // Destructor
@@ -56,7 +57,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	dashboard->initialize(graphics, mouse);
 
-	if (!timer->initialize(graphics, 30, false, false, "Spectre 007"))
+	if (!displayTimer->initialize(graphics, 30, false, false, "Spectre 007"))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Dashboard Text"));
 
 	if (!text->initialize(graphics, 30, false, false, "Spectre 007"))
@@ -68,21 +69,24 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 // Update all game items
 void AssassinValkyrie::update()
 {
-	Sleep(1000);
-	secs++;
-	if (secs >= 60)
+	milliSec++;
+	if (milliSec >= FRAME_RATE)
 	{
-	mins++;
-	secs = 0;
+		secs++;
+		milliSec = 0;
+		if (secs >= 60)
+		{
+			mins++;
+			secs = 0;
+		}
 	}
 
 	trooper1->update(frameTime);
 	//mouse->update();
 	dashboard->update();
 
-	
-
 }
+
 
 
 // Artificial Intelligence
@@ -112,8 +116,8 @@ void AssassinValkyrie::render()
 
 	// Timer text
 	_snprintf(buffer, bufferSize, "Time \n %d : %02d", (int)mins, (int)secs);
-	timer->setFontColor(graphicsNS::WHITE);
-	timer->print(buffer, (GAME_WIDTH / 2) - 30, 0);
+	displayTimer->setFontColor(graphicsNS::WHITE);
+	displayTimer->print(buffer, (GAME_WIDTH / 2) - 30, 0);
 	//mouse->draw();
 }
 
@@ -124,7 +128,7 @@ void AssassinValkyrie::releaseAll()
 	SAFE_DELETE(trooper1);
 	SAFE_DELETE(dashboard);
 	SAFE_DELETE(text);
-	SAFE_DELETE(timer);
+	SAFE_DELETE(displayTimer);
 	enemyTextures.onLostDevice();
 	mouseTextures.onLostDevice();
     Game::releaseAll();

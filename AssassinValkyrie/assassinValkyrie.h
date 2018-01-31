@@ -15,6 +15,9 @@
 #include "cursor.h"
 #include "dashboard.h"
 #include "textDX.h"
+#include <vector>
+#include <thread>
+
 
 //Testing
 //=============================================================================
@@ -30,8 +33,7 @@ private:
 	Enemy *trooper1;
 	Dashboard *dashboard;
 	TextDX *text;
-	TextDX *timer;
-
+	TextDX *displayTimer;
 
 public:
     // Constructor
@@ -50,13 +52,14 @@ public:
     void render();      // "
     void releaseAll();
     void resetAll();
-
+	
 	void setPause(bool value) { paused = value; }
 	bool getPaused() { return paused; }
 
 	int mins;
 	int secs;
 	int milliSec;
+
 };
 
 #endif
