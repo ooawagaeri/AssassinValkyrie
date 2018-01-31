@@ -9,6 +9,8 @@ Ray::Ray()
 {
 	color = graphicsNS::WHITE;
 	direction = PI;
+	rayMultiplier = 100000;
+	distMultipler = 1.1;
 }
 
 Ray::~Ray()
@@ -26,6 +28,9 @@ void Ray::init(Entity *ent, float angle, int dist, int height)
 
 bool isLeft(VECTOR2 a, VECTOR2 b, VECTOR2 c) {
 	return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
+}
+bool isRight(VECTOR2 a, VECTOR2 b, VECTOR2 c) {
+	return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) < 0;
 }
 
 float normalizeAngle(float value)
@@ -82,16 +87,20 @@ VECTOR2 Ray::maxDist(VECTOR2 cast)
 }
 
 VECTOR2 Ray::castRayVector(VECTOR2 target, const PLATFORM &walls) {
-	double out = 100000;
+	double out = rayMultiplier;
 	double check = 0;
 	VECTOR2 intersect{ -(float)out,-(float)out };
 	VECTOR2 prev{ -1,-1 };
 	for (const auto &wall : walls) {
+		if (wall->outOfBounds())
+			continue;
+
 		for (size_t i = 0; i < 4; ++i) {
 			VECTOR2 t = *wall->getCorner(i);
 			VECTOR2 unit = t - pos;
-			if ((D3DXVec2Length(&unit) > viewDistance * 1.2))
+			if ((D3DXVec2Length(&unit) > viewDistance * distMultipler))
 				continue;
+
 			VECTOR2 B1 = { *wall->getCorner(i) };
 			VECTOR2 B2 = { *wall->getCorner((i + 1) % 4) };
 			if (lineCollision(target, pos, B1, B2, &check))
@@ -115,16 +124,16 @@ VECTOR2 Ray::castRayVector(VECTOR2 target, const PLATFORM &walls) {
 
 void Ray::updateVision(const PLATFORM &walls)
 {
-	pos = { enemy->getCenterX(), enemy->getCenterY() - viewHeight };
+	if (enemy->isFlipHorizontal())
+		pos = { enemy->getCenterX() - enemy->getWidth()*0.2f, enemy->getCenterY() - viewHeight };
+	else
+		pos = { enemy->getCenterX() + enemy->getWidth()*0.2f, enemy->getCenterY() - viewHeight };
 
-	// first, let's get all the vertices of all the walls
-
-	int d = 100000;
 	float range1Angle = direction + visibilityAngle;
 	float range2Angle = direction - visibilityAngle;
 
-	VECTOR2 range1 = VECTOR2{ cos(range1Angle), sin(range1Angle) } *d;
-	VECTOR2 range2 = VECTOR2{ cos(range2Angle), sin(range2Angle) } *d;
+	range1 = VECTOR2{ cos(range1Angle), sin(range1Angle) } *rayMultiplier;
+	range2 = VECTOR2{ cos(range2Angle), sin(range2Angle) } *rayMultiplier;
 
 	std::vector<VECTOR2> points;
 	for (const auto &wall : walls)
@@ -132,34 +141,32 @@ void Ray::updateVision(const PLATFORM &walls)
 		wall->computeRotatedBox();
 		for (size_t i = 0; i < 4; ++i)
 		{
+			if (wall->outOfBounds())
+				continue;
+
 			VECTOR2 t = *wall->getCorner(i);
 			VECTOR2 unit = t - pos;
-			bool c1 = isLeft(pos, range1, t);
+			bool c1 = isRight(pos, range1, t);
 			bool c2 = isLeft(pos, range2, t);
-
-			if (!(!c1 && c2) || (D3DXVec2Length(&unit) > viewDistance * 1.2))
+			if (!(c1 && c2) || (D3DXVec2Length(&unit) > viewDistance * distMultipler))
 				continue;
+
 			points.push_back(*wall->getCorner(i));
 		}
 	}
+
 	std::vector<VECTOR2> visPoints;
 
 	for (const auto& point : points) {
 		float angle = atan2(point.y - pos.y, point.x - pos.x);
 
-		bool c1 = isLeft(pos, range1, point);
-		bool c2 = isLeft(pos, range2, point);
-
-		if (!(!c1 && c2))
-			continue;
-
-		VECTOR2 rayVector = VECTOR2{ cos(angle + 0.0001f), sin(angle + 0.0001f) } *d;
+		VECTOR2 rayVector = VECTOR2{ cos(angle + 0.0001f), sin(angle + 0.0001f) } *rayMultiplier;
 		visPoints.push_back(castRayVector(rayVector, walls));
 
-		rayVector = VECTOR2{ cos(angle - 0.0001f), sin(angle - 0.0001f) } *d;
+		rayVector = VECTOR2{ cos(angle - 0.0001f), sin(angle - 0.0001f) } *rayMultiplier;
 		visPoints.push_back(castRayVector(rayVector, walls));
 
-		rayVector = VECTOR2{ cos(angle), sin(angle) } *d;
+		rayVector = VECTOR2{ cos(angle), sin(angle) } *rayMultiplier;
 		visPoints.push_back(castRayVector(rayVector, walls));
 	}
 
@@ -197,23 +204,22 @@ void Ray::render(Graphics *g)
 {
 	if (vision.size() >= 3)
 	{
-		for (int i = 0; i < vision.size()/3; i++)
-			g->initGraphics(&vision);
+		for (int i = 0; i < round(vision.size()/3); i++)
+			g->initTriangle(&vision);
 	}
 }
 
 bool Ray::inSight(VECTOR2 entity, const PLATFORM &walls)
 {
-	int d = 100000;
 	float range1Angle = direction + visibilityAngle;
 	float range2Angle = direction - visibilityAngle;
 
-	VECTOR2 range1 = VECTOR2{ cos(range1Angle), sin(range1Angle) } *d;
-	VECTOR2 range2 = VECTOR2{ cos(range2Angle), sin(range2Angle) } *d;
-	bool c1 = isLeft(pos, range1, entity);
+	VECTOR2 range1 = VECTOR2{ cos(range1Angle), sin(range1Angle) } *rayMultiplier;
+	VECTOR2 range2 = VECTOR2{ cos(range2Angle), sin(range2Angle) } *rayMultiplier;
+	bool c1 = isRight(pos, range1, entity);
 	bool c2 = isLeft(pos, range2, entity);
 
-	if ((!c1 && c2))
+	if ((c1 && c2))
 	{
 		VECTOR2 collision = castRayVector(entity, walls);
 		if (collision == entity)

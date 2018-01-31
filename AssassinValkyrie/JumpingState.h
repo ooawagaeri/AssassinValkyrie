@@ -36,9 +36,9 @@ public:
 	JumpingState() :PlayerState() {}
 	~JumpingState() {}
 
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
 
-	void update(Entity &player, float frameTime)
+	void update(Player &player, float frameTime)
 	{
 
 		velocityY += gravity*t*frameTime;

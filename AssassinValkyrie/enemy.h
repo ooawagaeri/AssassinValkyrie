@@ -18,7 +18,7 @@
 
 namespace trooperNS
 {
-	const int	HEALTH = 20;
+	const int	HEALTH = 50;
 	const int	WIDTH = 65;
 	const int	HEIGHT = 100;
 	const double ROTATION = 0;
@@ -42,11 +42,18 @@ namespace trooperNS
 	const int MELEE_TEXTURE_COLS = 5;
 	const int MELEE_START_FRAME = 5;
 	const int MELEE_END_FRAME = 9;
+
+	const int DIE_WIDTH = 65*2;
+	const int DIE_HEIGHT = 100;
+	const int DIE_TEXTURE_COLS = 5;
+	const int DIE_START_FRAME = 15;
+	const int DIE_END_FRAME = 24;
+	const float DIE_ANIMATION_DELAY = 0.2f;
 }
 
 namespace gunnerNS
 {
-	const int	HEALTH = 20;
+	const int	HEALTH = 50;
 	const int	WIDTH = 96;
 	const int	HEIGHT = 96;
 	const double ROTATION = 0;
@@ -70,11 +77,18 @@ namespace gunnerNS
 	const int SHOOT_TEXTURE_COLS = 4;
 	const int SHOOT_START_FRAME = 21;
 	const int SHOOT_END_FRAME = 26;
+
+	const int DIE_WIDTH = 96;
+	const int DIE_HEIGHT = 96;
+	const int DIE_TEXTURE_COLS = 4;
+	const int DIE_START_FRAME = 32;
+	const int DIE_END_FRAME = 39;
+	const float DIE_ANIMATION_DELAY = 0.2f;
 }
 
 namespace serpantNS
 {
-	const int	HEALTH = 50;
+	const int	HEALTH = 100;
 	const int	WIDTH = 90;
 	const int	HEIGHT = 99;
 	const double ROTATION = 0;
@@ -98,6 +112,13 @@ namespace serpantNS
 	const int FIRE_TEXTURE_COLS = 10;
 	const int FIRE_START_FRAME = 31;
 	const int FIRE_END_FRAME = 39;
+
+	const int DIE_WIDTH = 90;
+	const int DIE_HEIGHT = 99;
+	const int DIE_TEXTURE_COLS = 9;
+	const int DIE_START_FRAME = 9;
+	const int DIE_END_FRAME = 17;
+	const float DIE_ANIMATION_DELAY = 0.2f;
 }
 
 class Enemy : public Entity
@@ -111,6 +132,7 @@ protected:
 	Entity	*player;
 	Ray		*vision;
 	Image	attackAnimation;
+	Image	dieAnimation;
 	int		range;
 	int		attackFrame;
 
@@ -127,7 +149,8 @@ public:
 	virtual void handleInput(PLATFORM p);
 	void update(float frameTime, PLATFORM p);
 	virtual void ai();
-	void draw(Graphics *g);
+	void draw();
+	void drawRay(Graphics *g);
 
 	void setOriginalPos(VECTOR2 pos) 
 	{ 

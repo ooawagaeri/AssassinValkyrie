@@ -97,10 +97,10 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	trooper = trooperCollection.begin();
 	while (trooper != trooperCollection.end())
 	{
-		if ((*trooper)->isAlive()) {
+		if ((*trooper)->isAlive()  && !(*trooper)->outOfBounds()) {
 			if ((*trooper)->collidesWith(*play, collisionVector))
 			{
-				//(*trooper)->getHealth()->damage(10);
+				(*trooper)->getHealth()->damage(10);
 			}
 			trooper++;
 		}
@@ -111,10 +111,10 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	gunner = gunnerCollection.begin();
 	while (gunner != gunnerCollection.end())
 	{
-		if ((*gunner)->isAlive()) {
+		if ((*gunner)->isAlive() && !(*gunner)->outOfBounds()) {
 			if ((*gunner)->collidesWith(*play, collisionVector))
 			{
-				//(*gunner)->getHealth()->damage(10);
+				(*gunner)->getHealth()->damage(10);
 			}
 			gunner++;
 		}
@@ -125,10 +125,10 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	serpant = serpantCollection.begin();
 	while (serpant != serpantCollection.end())
 	{
-		if ((*serpant)->isAlive()) {
+		if ((*serpant)->isAlive() && !(*serpant)->outOfBounds()) {
 			if ((*serpant)->collidesWith(*play, collisionVector))
 			{
-				//(*serpant)->getHealth()->damage(10);
+				(*serpant)->getHealth()->damage(10);
 			}
 			serpant++;
 		}
@@ -140,7 +140,6 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	{
 		if (!t->outOfBounds())
 		{
-
 			for (Entity *e : floor)
 			{
 				if (t->collidesWith(*e, collisionVector))
@@ -164,8 +163,7 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	{
 		if (!t->outOfBounds())
 		{
-			for (Entity *e : floor)
-			{
+			for (Entity *e : floor) {
 				if (t->collidesWith(*e, collisionVector))
 				{
 					t->getMove()->setFloor(true);
@@ -208,19 +206,34 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	}
 }
 
-void EnemyManager::render(Graphics *g)
+void EnemyManager::render()
 {
 	for (Trooper *t : trooperCollection)
 		if (!t->outOfBounds())
-			t->draw(g);
+			t->draw();
 
 	for (Gunner *t : gunnerCollection)
 		if (!t->outOfBounds())
-			t->draw(g);
+			t->draw();
 
 	for (Serpant *t : serpantCollection)
 		if (!t->outOfBounds())
-			t->draw(g);
+			t->draw();
+}
+
+void EnemyManager::renderRay(Graphics *g)
+{
+	for (Trooper *t : trooperCollection)
+		if (!t->outOfBounds())
+			t->drawRay(g);
+
+	for (Gunner *t : gunnerCollection)
+		if (!t->outOfBounds())
+			t->drawRay(g);
+
+	for (Serpant *t : serpantCollection)
+		if (!t->outOfBounds())
+			t->drawRay(g);
 }
 
 void EnemyManager::camera(float frameTime, int direction) {
