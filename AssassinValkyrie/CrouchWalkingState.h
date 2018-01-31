@@ -31,9 +31,9 @@ public:
 	CrouchWalkingState() :PlayerState() {}
 	~CrouchWalkingState() {}
 
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM ,StageGenerator *floorList);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM ,StageGenerator *floorList);
 
-	void update(Entity &player, float frameTime)
+	void update(Player &player, float frameTime)
 	{
 		VECTOR2 velocity = player.getVelocity();
 		player.setX(player.getX() + (velocity.x) *frameTime);
