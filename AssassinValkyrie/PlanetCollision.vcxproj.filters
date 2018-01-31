@@ -114,6 +114,7 @@
     </ClCompile>
     <ClCompile Include="HealthComponent.cpp">
       <Filter>Component Files</Filter>
+    </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
