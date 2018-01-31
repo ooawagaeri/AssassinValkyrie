@@ -36,7 +36,9 @@ namespace playerNS
 class Player : public Entity
 {
 protected:
-
+	bool jumpRight = false;
+	bool jumpLeft = false;
+	bool isMeleeAttacking = false;
 	PlayerState* state_;
 
 public:
@@ -51,7 +53,30 @@ public:
 	void ai(Entity &ship1, Entity &ship2);
 	void collisions(EnemyManager *enemyList);
 	void draw();
+	bool getJumpRight()
+	{
+		return jumpRight;
+	}
 
+	void setJumpRight(bool condition)
+	{
+		jumpRight = condition;
+	}
+
+	bool getJumpLeft()
+	{
+		return jumpLeft;
+	}
+
+	void setJumpLeft(bool condition)
+	{
+		jumpLeft = condition;
+	}
+
+	void IsMeleeAttacking(bool condition)
+	{
+		isMeleeAttacking = condition;
+	}
 
 
 };

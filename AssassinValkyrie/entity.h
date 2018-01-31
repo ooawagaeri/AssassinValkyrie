@@ -23,9 +23,7 @@ class Entity : public Image
     // Entity properties
   protected:
 
-	bool jumpRight = false;
-	bool jumpLeft = false;
-	bool isMeleeAttacking = false;
+	
     entityNS::COLLISION_TYPE collisionType;
     VECTOR2 center;         // center of entity
     float   radius;         // radius of collision circle
@@ -204,30 +202,7 @@ class Entity : public Image
 
 
 
-	bool getJumpRight()
-	{
-		return jumpRight;
-	}
 
-	void setJumpRight(bool condition)
-	{
-		jumpRight = condition;
-	}
-
-	bool getJumpLeft()
-	{
-		return jumpLeft;
-	}
-
-	void setJumpLeft(bool condition)
-	{
-		jumpLeft = condition;
-	}
-
-	void IsMeleeAttacking(bool condition)
-	{
-		isMeleeAttacking = condition;
-	}
 
 
 	float getVelocityX() { return velocity.x; }
