@@ -8,7 +8,7 @@
 bool Bar::initialize(Graphics *graphics, TextureManager *textureM, int total_health)
 {
     try {
-        Image::initialize(graphics, healthBarNS::WIDTH, healthBarNS::HEIGHT, 
+        Image::initialize(graphics, healthBarNS::WIDTH, healthBarNS::HEIGHT,
                           healthBarNS::TEXTURE_COLS, textureM);
         setCurrentFrame(healthBarNS::BAR_FRAME);
         spriteData.scale = healthBarNS::SCALE;
@@ -35,4 +35,3 @@ void Bar::setSize(int health)
 		health = originalHealth;
 	spriteData.rect.right = spriteData.rect.left + (LONG)(spriteData.width * health / originalHealth);
 }
-
