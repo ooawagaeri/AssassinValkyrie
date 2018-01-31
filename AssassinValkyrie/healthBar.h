@@ -3,7 +3,7 @@
 // Student Number	: Chua Wei Jie Timothy
 // Student Number	: S10165581F
 
-#ifndef _HEALTHBAR_H 
+#ifndef _HEALTHBAR_H
 #define _HEALTHBAR_H
 #define WIN32_LEAN_AND_MEAN
 
@@ -33,4 +33,3 @@ public:
 };
 
 #endif
-

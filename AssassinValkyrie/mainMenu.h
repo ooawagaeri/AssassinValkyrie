@@ -11,9 +11,12 @@
 #include "image.h"
 #include "textureManager.h"
 #include "assassinValkyrie.h"
+#include "button.h"
+#include "cursor.h"
+#include "dashboard.h"
 #include "rayCasting.h"
 
-class MainMenu :public Game
+class MainMenu : public Game
 {
 private:
 	AssassinValkyrie* assValk;	// main game to play
@@ -21,7 +24,17 @@ private:
 
 	// Textures & pictures
 	TextureManager mmBackgroundTexture;
+	TextureManager buttonsTexture;
+	TextureManager mouseTextures;
+	TextureManager pauseTexture;
+
 	Image mmBackground;
+	Button startButton;
+	Button exitButton;
+	Button creditsButton;
+	Button settingsButton;
+	Button pauseButton;
+	Cursor *cursor;
 
 public:
 	MainMenu();
