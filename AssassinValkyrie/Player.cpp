@@ -69,7 +69,7 @@ void Player::collisions(EnemyManager *enemyList)
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
 	TROOPERLIST *trooperCollection = enemyList->getTroopers();
-	SERPANTLIST *serpantCollection = enemyList->getSerpant();
+	SERPANTLIST *serpantCollection = enemyList->getSerpants();
 
 	
 	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)

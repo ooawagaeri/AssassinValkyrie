@@ -115,6 +115,7 @@
     <ClCompile Include="levelLoader.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="rayCasting.cpp" />
     <ClCompile Include="rightFill.cpp" />
     <ClCompile Include="textDX.cpp" />
@@ -138,7 +139,7 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cursor.h" />
-    <ClInclude Include="dashboard.h"/>
+    <ClInclude Include="dashboard.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />
