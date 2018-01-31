@@ -1,34 +1,48 @@
-//  Module:             Gameplay Programming
-//  Assignment2:        LET IT RAIN
-//  Student Name:       Timothy Chua
-//  Student Number:     10165581F
-
-#ifndef _DASHBOARD_H 
+#ifndef _DASHBOARD_H
 #define _DASHBOARD_H
 #define WIN32_LEAN_AND_MEAN
 
-#include "image.h"
+#include "game.h"
+#include "textureManager.h"
+#include "textDX.h"
 #include "constants.h"
+#include "graphics.h"
+#include "button.h"
 
 namespace dashboardNS
 {
-	const int   WIDTH = 403;      
-	const int   HEIGHT = 32;
-	const int   TEXTURE_COLS = 1;
-	const int   BAR_FRAME = 8;
+	const COLOR_ARGB fontColor = D3DCOLOR_ARGB(255, 141, 214, 233);
+	const int PAUSE_WIDTH = 100;
+	const int PAUSE_HEIGHT = 50;
+	const int PAUSE_NCOLS = 0;
+	const int PAUSE_FRAME = 0;
+	const int PAUSE_HOVER_FRAME = 1;
 }
 
-class Bar : public Image
+class Dashboard
 {
 private:
-	int originalHealth;
+	TextureManager skillTexture;
+	TextureManager dashboardTexture;
+	//TextDX *timer;
+	Button stealthIcon;
+	Button speedIcon;
+	Button rangeIcon;
+	Button armorIcon;
+	Cursor *mouse;
+	Image dashboard;
+
 
 public:
-    bool initialize(Graphics *graphics, TextureManager *textureM, int left, int top,
-                    float scale, int total_health);
-    // Set Bar Size
-    void setSize(int health);
+	Dashboard();
+	virtual ~Dashboard();
+	bool initialize(Graphics *g, Cursor *cursor);
+	void draw();
+	void update();
+	void collisions();
+
+	int mins;
+	int secs;
 };
 
 #endif
-

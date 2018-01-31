@@ -13,6 +13,8 @@
 #include "image.h"
 #include "enemy.h"
 #include "cursor.h"
+#include "dashboard.h"
+#include "textDX.h"
 
 //Testing
 //=============================================================================
@@ -26,6 +28,10 @@ private:
 	TextureManager mouseTextures;
 	Cursor *mouse;
 	Enemy *trooper1;
+	Dashboard *dashboard;
+	TextDX *text;
+	TextDX *timer;
+
 
 public:
     // Constructor
@@ -36,7 +42,7 @@ public:
 
 	// Initialize the game
 	void initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
-		LARGE_INTEGER *timerFreqM, float *frameTimeM);
+		LARGE_INTEGER *timerFreqM, float *frameTimeM, bool *paused, Cursor *cursor);
     // Initialize the game
     void update();      // must override pure virtual from Game
     void ai();          // "
@@ -44,6 +50,13 @@ public:
     void render();      // "
     void releaseAll();
     void resetAll();
+
+	void setPause(bool value) { paused = value; }
+	bool getPaused() { return paused; }
+
+	int mins;
+	int secs;
+	int milliSec;
 };
 
 #endif
