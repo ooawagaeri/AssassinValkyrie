@@ -11,15 +11,6 @@
 #include "entity.h"
 #include "constants.h"
 
-namespace healthBarNS
-{
-	const int   WIDTH = 65;
-	const int   HEIGHT = 10;
-	const float	SCALE = 1.0f;
-	const int   TEXTURE_COLS = 1;
-	const int   BAR_FRAME = 0;
-}
-
 class Bar : public Image
 {
 private:

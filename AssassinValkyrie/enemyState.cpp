@@ -135,7 +135,7 @@ EnemyState* DistractedState::handleInput(Enemy *enemy, Entity *target, PLATFORM 
 
 void DistractedState::update(Enemy *enemy, Entity *target)
 {
-	enemy->getRay()->setColor(graphicsNS::TEAL);
+	enemy->drawCaution();
 	if (enemy->getCenterX() < distractionPos.x - 5)
 		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
 	else if (enemy->getCenterX() > distractionPos.x + 5)

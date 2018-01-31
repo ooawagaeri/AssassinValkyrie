@@ -72,14 +72,6 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
-	/*
-	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
-
-
-	tempChar->setCurrentFrame(4);
-	tempChar->setY(576);
-	*/
 
 	/////////////////////////////////////////
 	//				Enemy
@@ -88,12 +80,6 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!trooperTexture.initialize(graphics, ENEMY_TROOPER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
 
-	// Player
-	if (!playerTextures.initialize(graphics, PLAYER_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player Textures"));
-
-	if (!player->initialize(this, playerNS::WIDTH, playerNS::HEIGHT, playerNS::TEXTURE_COLS, &playerTextures))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	// Gunner
 	if (!gunnerTexture.initialize(graphics, ENEMY_GUNNER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
@@ -116,7 +102,19 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	emBulletList.initialize(&emList);
 
-	//UI
+	/////////////////////////////////////////
+	//				Player
+	/////////////////////////////////////////
+	// Player
+	if (!playerTextures.initialize(graphics, PLAYER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player Textures"));
+
+	if (!player->initialize(this, playerNS::WIDTH, playerNS::HEIGHT, playerNS::TEXTURE_COLS, &playerTextures))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
+
+	/////////////////////////////////////////
+	//				UI
+	/////////////////////////////////////////
 	dashboard->initialize(graphics, mouse);
 
 	if (!displayTimer->initialize(graphics, 30, false, false, "Spectre 007"))

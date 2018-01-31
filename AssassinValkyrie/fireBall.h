@@ -17,7 +17,7 @@ namespace fireNS
 	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 2 - WIDTH / 2;
 	const int	Y = GAME_HEIGHT / 2 - HEIGHT / 2;
-	const float SPEED = 200;
+	const float SPEED = 250;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 1;
 	const float START_FRAME = 1;

@@ -52,20 +52,33 @@ void PatrolMovement::update(float frameTime)
 		object->setY(object->getY() + GRAVITY / 2);
 }
 
-ProjectileMovement::ProjectileMovement(Entity* ent, Entity *play) : MovementComponent(ent)
+ProjectileMovement::ProjectileMovement(Entity *ent, Entity *play) : MovementComponent(ent)
 {
 	player = play;
 	t = 0;
-
-	VECTOR2 unit = *player->getCenter() - *object->getCenter();
-	D3DXVec2Normalize(&velocity, &unit);
-	velocity *= 500;
-	timeInterval = (D3DXVec2Length(&unit) / velocity.x) / 50;
+	initialized = false;
+	angle = 50 * PI / 180;
 }
 void ProjectileMovement::update(float frameTime)
 {
-	velocity.y += GRAVITY*t*frameTime;
-	object->setX(object->getX() + velocity.x *frameTime);
-	object->setY(object->getY() + velocity.y *frameTime);
-	t += timeInterval;
+	if (velocity.x != (float)(currentVelocity * cos(angle)))
+	{
+		VECTOR2 unit = *player->getCenter() - *object->getCenter();
+		velocity = { (float)(currentVelocity * cos(angle)), -(float)(currentVelocity * sin(angle)) };
+		if (velocity.y > 0) velocity.y = -velocity.y;
+		timeInterval = (unit.x / velocity.x) / 2;
+		if (timeInterval < 0) 
+			timeInterval = -timeInterval;
+	}
+	else
+	{
+		velocity.y += GRAVITY*t*frameTime;
+		t = t + timeInterval;
+		object->setX(object->getX() + velocity.x *frameTime);
+		object->setY(object->getY() + velocity.y *frameTime);
+		double rotate = atan2(velocity.y, velocity.x);
+		object->setRadians(rotate);
+		if (currentVelocity < 0)
+			object->setRadians(rotate + PI);
+	}
 }

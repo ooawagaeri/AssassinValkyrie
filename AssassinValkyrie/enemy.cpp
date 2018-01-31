@@ -11,7 +11,6 @@ Enemy::Enemy(Entity *play) : Entity()
 	health = new HealthComponent(&dieAnimation);
 	move = new PatrolMovement(this);
 	state_ = new PatrollingState();
-	
 	player = play;
 	vision = new Ray();
 }
@@ -26,8 +25,11 @@ Enemy::~Enemy()
 }
 
 bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
-	TextureManager *textureM)
+	TextureManager *textureM, TextureManager *textureHealth)
 {
+	cautionAnimation.initialize(gamePtr->getGraphics(), cautionNS::WIDTH, cautionNS::HEIGHT, cautionNS::TEXTURE_COLS, textureHealth);
+	cautionAnimation.setCurrentFrame(cautionNS::FRAME);
+	cautionAnimation.setVisible(true);
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
@@ -53,7 +55,8 @@ void Enemy::update(float frameTime, PLATFORM p)
 		vision->updateVision(p);
 	}
 	health->update(frameTime, { spriteData.x + spriteData.width / 2, spriteData.y });
-
+	cautionAnimation.setX(spriteData.x + spriteData.width / 2);
+	cautionAnimation.setY(spriteData.y - cautionNS::WIDTH * 3 );
 	Entity::update(frameTime);
 }
 
@@ -71,6 +74,7 @@ void Enemy::draw()
 	COLOR_ARGB c = health->getDamageAnimation();
 	if (!health->getDieAnimation()) {
 		attack->draw(this,c);
+		cautionAnimation.draw(graphicsNS::YELLOW);
 	}
 	Image::draw(c);
 	health->draw(this);		//	image::draw inside health
@@ -79,4 +83,8 @@ void Enemy::draw()
 void Enemy::drawRay(Graphics *g)
 {
 	vision->render(g);
+}
+void Enemy::drawCaution()
+{
+	cautionAnimation.setVisible(true);
 }

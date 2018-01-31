@@ -52,10 +52,12 @@ private:
 	VECTOR2 velocity;
 	int t;
 	float timeInterval;
+	bool initialized;
 	Entity *player;
+	double angle;
 
 public:
-	ProjectileMovement(Entity* ent, Entity *play);
+	ProjectileMovement(Entity *ent, Entity *play);
 	void update(float frameTime);
 };
 
