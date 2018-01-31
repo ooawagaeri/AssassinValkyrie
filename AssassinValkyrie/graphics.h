@@ -124,7 +124,8 @@ public:
     void    initialize(HWND hw, int width, int height, bool fullscreen);
 
 	// 10165581F --> Used to draw primatitives
-	void	initGraphics(std::queue<CUSTOMVERTEX> *vertices);
+	void	initTriangle(std::queue<CUSTOMVERTEX> *vertices);
+	void	initRectangle();
 
     // Load the texture into default D3D memory (normal texture use)
     // For internal engine use only. Use the TextureManager class to load game textures.

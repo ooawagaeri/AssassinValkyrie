@@ -96,8 +96,7 @@ void Graphics::initialize(HWND hw, int w, int h, bool full)
 
 
 #define CUSTOMFVF (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1)
-
-void Graphics::initGraphics(std::queue<CUSTOMVERTEX> *verticesClient)
+void Graphics::initTriangle(std::queue<CUSTOMVERTEX> *verticesClient)
 {
 	// 1 Vertix has 3 sides
 	const int size = 3;
@@ -128,7 +127,44 @@ void Graphics::initGraphics(std::queue<CUSTOMVERTEX> *verticesClient)
 	// Renders Buffer
 	device3d->SetFVF(CUSTOMFVF);
 	device3d->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
-	device3d->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+	device3d->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, size/3);
+
+	device3d->Present(NULL, NULL, NULL, NULL);
+}
+
+void Graphics::initRectangle()
+{
+	COLOR_ARGB filter = D3DCOLOR_ARGB(124, 32, 41, 48);
+	CUSTOMVERTEX vertices[] =
+	{
+		{ 0, 0,0.5f,1.0f, filter },
+		{ GAME_WIDTH, 0,0.5f,1.0f, filter },
+		{ 0, GAME_HEIGHT,0.5f,1.0f, filter },
+		{ GAME_WIDTH, GAME_HEIGHT,0.5f,1.0f, filter }
+	};
+
+	// create a vertex buffer interface called i_buffer
+	device3d->CreateVertexBuffer(4 * sizeof(CUSTOMVERTEX),    // change to 4, instead of 3
+		0,
+		CUSTOMFVF,
+		D3DPOOL_MANAGED,
+		&v_buffer,
+		NULL);
+
+	VOID* pVoid;    // a void pointer
+
+	device3d->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	device3d->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	// lock v_buffer and load the vertices into it
+	v_buffer->Lock(0, 0, (void**)&pVoid, 0);
+	memcpy(pVoid, vertices, sizeof(vertices));
+	v_buffer->Unlock();
+
+	// Renders Buffer
+	device3d->SetFVF(CUSTOMFVF);
+	device3d->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+	device3d->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
 	device3d->Present(NULL, NULL, NULL, NULL);
 }

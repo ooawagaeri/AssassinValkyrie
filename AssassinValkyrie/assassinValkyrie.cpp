@@ -149,9 +149,15 @@ void AssassinValkyrie::render()
     player->draw();
     weaponManager.render();
 	player->draw();
-
-	emList.render(graphics);
+	
+	emList.render();
 	emBulletList.render();
+
+	graphics->spriteEnd();
+	graphics->initRectangle();
+	emList.renderRay(graphics);
+	graphics->spriteBegin();
+
 	mouse->draw();
 }
 

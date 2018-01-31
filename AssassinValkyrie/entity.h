@@ -161,9 +161,7 @@ class Entity : public Image
 	// 10165581F
 	bool outOfBounds()
 	{
-		if (spriteData.x + spriteData.width < 0 || (spriteData.x > GAME_WIDTH) || (spriteData.y > GAME_HEIGHT) || (spriteData.y + spriteData.height < 0))
-			return true;
-		return false;
+		return (spriteData.x + spriteData.width < 0 || (spriteData.x > GAME_WIDTH) || (spriteData.y > GAME_HEIGHT) || (spriteData.y + spriteData.height < 0));
 	}
 
     // Update Entity.

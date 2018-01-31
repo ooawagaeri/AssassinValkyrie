@@ -31,10 +31,9 @@ private:
 	std::queue<horizontalElement2> elementSpawn;
 
 public:
-	LevelLoader();
+	~LevelLoader();
 	bool initializeStage(int i);
 	void loadElements();
-	void clear();
 
 	horizontalElement2 getElement();
 	int elementSize() { return elementSpawn.size(); }
