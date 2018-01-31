@@ -10,11 +10,61 @@
 #include "RangeAttackState.h"
 #include "FallingState.h"
 #include "ThrowingState.h"
+#include "AssassinateState.h"
 
 
 
-PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p)
 {
+	player.setCollideWithVision(false);
+	VECTOR2 collisionVector;
+	GUNNERLIST *gunnerCollection = enemyList->getGunners();
+	TROOPERLIST *trooperCollection = enemyList->getTroopers();
+	SERPANTLIST *serpantCollection = enemyList->getSerpant();
+
+	Player *playerpointer;
+	playerpointer = &player;
+	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
+	{
+		if ((*gunner)->getRay()->inSight(*playerpointer->getCenter(),p))
+		{
+			
+			player.setCollideWithVision(true);
+		
+		}
+	}
+	for (TROOPERLIST::iterator trooper = (trooperCollection->begin()); trooper != trooperCollection->end(); trooper++)
+	{
+		if ((*trooper)->getRay()->inSight(*playerpointer->getCenter(), p))
+		{
+
+			player.setCollideWithVision(true);
+
+		}
+	}
+	for (SERPANTLIST::iterator serpant = (serpantCollection->begin()); serpant != serpantCollection->end(); serpant++)
+	{
+		if ((*serpant)->getRay()->inSight(*playerpointer->getCenter(), p))
+		{
+
+			player.setCollideWithVision(true);
+
+		}
+	}
+
+	if (!player.isCollidingWithVision())
+	{
+		if (input->isKeyDown(ASSASSINATE_KEY))
+		{
+			player.initialize(gamePtr, ASSASSINATE_STATE::WIDTH, ASSASSINATE_STATE::HEIGHT, ASSASSINATE_STATE::TEXTURE_COLS, textureM);
+			player.setFrames(ASSASSINATE_STATE::START_FRAME, ASSASSINATE_STATE::END_FRAME);
+			player.setCurrentFrame(ASSASSINATE_STATE::START_FRAME);
+			player.setFrameDelay(0.1);
+			player.setLoop(false);
+			player.IsAssassinating(true);
+			return new AssassinateState();
+		}
+	}
 	if (input->isKeyDown(RUNNING_RIGHT_KEY))
 	{
 		player.initialize(gamePtr, RUNNING_STATE::WIDTH, RUNNING_STATE::HEIGHT, RUNNING_STATE::TEXTURE_COLS, textureM);
@@ -85,7 +135,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 	return NULL;
 }
 
-PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM,  StageGenerator *stagegenerator)
+PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM,  StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 
 	VECTOR2 collisionVector;
@@ -147,7 +197,7 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 	return NULL;
 }
 
-PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 	if (!input->isKeyDown(CROUCHING_KEY))
 	{
@@ -185,7 +235,24 @@ PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gam
 	return NULL;
 }
 
-PlayerState* MeleeAttackState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* AssassinateState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
+{
+	
+	if (player.getAnimationComplete())
+	{
+
+		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
+		player.setCurrentFrame(STANDING_STATE::START_FRAME);
+		player.setLoop(true);
+	
+		return new StandState();
+
+	}
+	return NULL;
+}
+
+PlayerState* MeleeAttackState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 	if (player.getAnimationComplete())
 	{
@@ -200,7 +267,7 @@ PlayerState* MeleeAttackState::handleInput(Player& player, Input* input, Game *g
 	return NULL;
 }
 
-PlayerState* RangeAttackState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* RangeAttackState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 	if (player.getAnimationComplete())
 	{
@@ -215,7 +282,7 @@ PlayerState* RangeAttackState::handleInput(Player& player, Input* input, Game *g
 	return NULL;
 }
 
-PlayerState* ThrowingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* ThrowingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 	if (player.getAnimationComplete())
 	{
@@ -230,7 +297,7 @@ PlayerState* ThrowingState::handleInput(Player& player, Input* input, Game *game
 	return NULL;
 }
 
-PlayerState* CrouchWalkingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* CrouchWalkingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 	VECTOR2 collisionVector;
 	FILLS *fillCollection = stagegenerator->getFills();
@@ -265,7 +332,7 @@ PlayerState* CrouchWalkingState::handleInput(Player& player, Input* input, Game 
 	return NULL;
 }
 
-PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 	
 	
@@ -282,9 +349,9 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 				player.setJumpRight(false);
 				player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 				if ((*floor)->getY() == ((*floor)->getStartY()))
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT );
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT + 3);
 				else
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY()));
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY() +3));
 				player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 				player.setCurrentFrame(STANDING_STATE::START_FRAME);
 				player.setLoop(true);
@@ -296,9 +363,9 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 				player.setJumpLeft(false);
 				player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 				if ((*floor)->getY() == ((*floor)->getStartY()))
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT);
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT+3);
 				else
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY()));
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY()+3));
 				player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 				player.setCurrentFrame(STANDING_STATE::START_FRAME);
 				player.setLoop(true);
@@ -333,7 +400,7 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 	return NULL;
 }
 
-PlayerState* FallingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+PlayerState* FallingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
 	VECTOR2 collisionVector;
 	FLOORS *floorCollection = stagegenerator->getFloors();

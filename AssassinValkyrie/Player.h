@@ -41,7 +41,9 @@ class Player : public Entity
 protected:
 	bool jumpRight = false;
 	bool jumpLeft = false;
+	bool collidingWithVision = false;
 	bool isMeleeAttacking = false;
+	bool isAssassinating = false;
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
@@ -57,8 +59,8 @@ public:
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
-	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
+	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p);
+	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p);
 	void ai(Entity &ship1, Entity &ship2);
 	void collisions(EnemyManager *enemyList);
 	void draw();
@@ -84,6 +86,18 @@ public:
 	void IsMeleeAttacking(bool condition)
 	{
 		isMeleeAttacking = condition;
+	}
+	void IsAssassinating(bool condition)
+	{
+		isAssassinating = condition;
+	}
+	void setCollideWithVision(bool condition)
+	{
+		collidingWithVision = condition;
+	}
+	bool isCollidingWithVision()
+	{
+		return collidingWithVision;
 	}
 	void setSpeedLevel(int i) { speedLevel = i; }
 	int getSpeedLevel() { return speedLevel; }

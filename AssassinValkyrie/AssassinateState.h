@@ -3,23 +3,23 @@
 // Student Number	: Zhuang yuteng
 // Student Number	: S10163964C
 
-#ifndef _THROWING_STATE_H                // Prevent multiple definitions if this 
-#define _THROWING_STATE_H                // file is included in more than one place
+#ifndef _ASSASSINATE_STATE_H                // Prevent multiple definitions if this 
+#define _ASSASSINATE_STATE_H                // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
-namespace THROWING_STATE
+namespace ASSASSINATE_STATE
 {
-	const int	WIDTH = 79;
+	const int	WIDTH = 129;
 	const int	HEIGHT = 96;
-	const int TEXTURE_COLS = 3;
-	const int   START_FRAME = 21;
-	const int   END_FRAME = 23;
+	const int TEXTURE_COLS = 1;
+	const int   START_FRAME = 6;
+	const int   END_FRAME = 8;
 
 }
 
 #include "PlayerState.h"
 
-class ThrowingState : public PlayerState
+class AssassinateState : public PlayerState
 {
 
 private:
@@ -27,8 +27,8 @@ private:
 
 public:
 
-	ThrowingState() :PlayerState() {}
-	~ThrowingState() {}
+	AssassinateState() :PlayerState() {}
+	~AssassinateState() {}
 
 	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList, EnemyManager *enemyList, PLATFORM p);
 

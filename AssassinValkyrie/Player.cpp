@@ -38,14 +38,14 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p)
 {
 	if (totalXP > ((currentTotalLevel - 2) * 50)) {
 		currentTotalLevel++;
 		skillPointAvailable++;
 	}
 	
-	handleInput(input,gamePtr,textureM,stagegenerator);
+	handleInput(input,gamePtr,textureM,stagegenerator,enemyList,p);
 	state_->update(*this, frameTime);
 
 	
@@ -54,9 +54,9 @@ void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, St
 	//move->update(frameTime);
 }
 
-void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
-    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,stagegenerator);
+    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,stagegenerator,enemyList,p);
 	if (state != NULL)
 	{
 		delete state_;
@@ -85,6 +85,15 @@ void Player::collisions(EnemyManager *enemyList)
 					totalXP += 50;
 				break;
 			}
+
+			if (isAssassinating == true)
+			{
+				(*gunner)->getHealth()->damage(trooperNS::HEALTH);
+				isAssassinating = false;
+				if (!(*gunner)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
+				break;
+			}
 		}
 	}
 	for (TROOPERLIST::iterator trooper = (trooperCollection->begin()); trooper != trooperCollection->end(); trooper++)
@@ -95,6 +104,15 @@ void Player::collisions(EnemyManager *enemyList)
 			{
 				(*trooper)->getHealth()->damage(trooperNS::HEALTH);
 				isMeleeAttacking = false;
+				if (!(*trooper)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
+				break;
+			}
+
+			if (isAssassinating == true)
+			{
+				(*trooper)->getHealth()->damage(trooperNS::HEALTH);
+				isAssassinating = false;
 				if (!(*trooper)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 50;
 				break;
@@ -111,6 +129,14 @@ void Player::collisions(EnemyManager *enemyList)
 				isMeleeAttacking = false;
 				if (!(*serpant)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 100;
+				break;
+			}
+			if (isAssassinating == true)
+			{
+				(*serpant)->getHealth()->damage(trooperNS::HEALTH);
+				isAssassinating = false;
+				if (!(*serpant)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
 				break;
 			}
 		}

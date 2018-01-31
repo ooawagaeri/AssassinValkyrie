@@ -132,13 +132,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alertState.h" />
+    <ClInclude Include="AssassinateState.h" />
     <ClInclude Include="AttackComponent.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cursor.h" />
-    <ClInclude Include="dashboard.h"/>
+    <ClInclude Include="dashboard.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />

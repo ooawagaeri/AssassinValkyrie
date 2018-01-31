@@ -333,6 +333,9 @@
     <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AssassinateState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
