@@ -20,7 +20,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
 	TROOPERLIST *trooperCollection = enemyList->getTroopers();
-	SERPANTLIST *serpantCollection = enemyList->getSerpant();
+	SERPANTLIST *serpantCollection = enemyList->getSerpants();
 
 	Player *playerpointer;
 	playerpointer = &player;
