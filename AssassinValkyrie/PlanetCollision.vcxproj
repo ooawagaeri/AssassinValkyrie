@@ -162,6 +162,7 @@
     <ClInclude Include="horizontalLoader.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
+    <ClInclude Include="ThrowingState.h" />
     <ClInclude Include="trooper.h" />
     <ClInclude Include="verticalLoader.h" />
     <ClInclude Include="CrouchingState.h" />

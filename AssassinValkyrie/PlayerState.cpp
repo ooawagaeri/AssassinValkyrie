@@ -9,6 +9,7 @@
 #include "JumpingState.h"
 #include "RangeAttackState.h"
 #include "FallingState.h"
+#include "ThrowingState.h"
 
 PlayerState* StandState::handleInput(Entity& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
 {
@@ -65,6 +66,17 @@ PlayerState* StandState::handleInput(Entity& player, Input* input, Game *gamePtr
 		player.setFrameDelay(0.1);
 		player.setLoop(false);
 		return new RangeAttackState();
+
+	}
+
+	else if (input->isKeyDown(DISTRACT_KEY))
+	{
+		player.initialize(gamePtr, THROWING_STATE::WIDTH, THROWING_STATE::HEIGHT, THROWING_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(THROWING_STATE::START_FRAME, THROWING_STATE::END_FRAME);
+		player.setCurrentFrame(THROWING_STATE::START_FRAME);
+		player.setFrameDelay(0.3);
+		player.setLoop(false);
+		return new ThrowingState();
 
 	}
 
@@ -208,6 +220,21 @@ PlayerState* RangeAttackState::handleInput(Entity& player, Input* input, Game *g
 	return NULL;
 }
 
+PlayerState* ThrowingState::handleInput(Entity& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+{
+	if (player.getAnimationComplete())
+	{
+
+		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
+		player.setCurrentFrame(STANDING_STATE::START_FRAME);
+		player.setLoop(true);
+		return new StandState();
+
+	}
+	return NULL;
+}
+
 PlayerState* CrouchWalkingState::handleInput(Entity& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
 {
 	VECTOR2 collisionVector;
@@ -294,12 +321,12 @@ PlayerState* JumpingState::handleInput(Entity& player, Input* input, Game *gameP
 		{
 			if (!player.isFlipHorizontal())
 			{
-				player.setX((*fill)->getX() - FALLING_STATE::WIDTH);
+				player.setX((*fill)->getX() - FALLING_STATE::WIDTH-10);
 			}
 
 			else
 			{
-				player.setX((*fill)->getX() + FALLING_STATE::WIDTH);
+				player.setX((*fill)->getX() + FALLING_STATE::WIDTH+10);
 			}
 			
 			player.initialize(gamePtr, FALLING_STATE::WIDTH, FALLING_STATE::HEIGHT, FALLING_STATE::TEXTURE_COLS, textureM);

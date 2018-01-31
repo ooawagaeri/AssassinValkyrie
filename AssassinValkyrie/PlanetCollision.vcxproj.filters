@@ -273,6 +273,9 @@
     <ClInclude Include="FallingState.h">
       <Filter>State Files\Player State</Filter>
     </ClInclude>
+    <ClInclude Include="ThrowingState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

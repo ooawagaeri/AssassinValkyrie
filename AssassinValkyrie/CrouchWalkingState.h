@@ -9,7 +9,7 @@
 
 namespace CROUCH_WALKING_STATE
 {
-	const int	WIDTH = 61;
+	const int	WIDTH = 59.5;
 	const int	HEIGHT = 95.99;
 	const int TEXTURE_COLS = 7;
 	const int   START_FRAME = 16;
