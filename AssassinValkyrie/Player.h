@@ -39,6 +39,9 @@ namespace playerNS
 class Player : public Entity
 {
 protected:
+	bool jumpRight = false;
+	bool jumpLeft = false;
+	bool isMeleeAttacking = false;
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
@@ -54,12 +57,34 @@ public:
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
-	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
+	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
+	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
 	void ai(Entity &ship1, Entity &ship2);
 	void collisions(EnemyManager *enemyList);
 	void draw();
+	bool getJumpRight()
+	{
+		return jumpRight;
+	}
 
+	void setJumpRight(bool condition)
+	{
+		jumpRight = condition;
+	}
+
+	bool getJumpLeft()
+	{
+		return jumpLeft;
+	}
+
+	void setJumpLeft(bool condition)
+	{
+		jumpLeft = condition;
+	}
+	void IsMeleeAttacking(bool condition)
+	{
+		isMeleeAttacking = condition;
+	}
 	void setSpeedLevel(int i) { speedLevel = i; }
 	int getSpeedLevel() { return speedLevel; }
 

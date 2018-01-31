@@ -3,23 +3,23 @@
 // Student Number	: Zhuang yuteng
 // Student Number	: S10163964C
 
-#ifndef _MELEE_ATTACK_STATE_H                // Prevent multiple definitions if this 
-#define _MELEE_ATTACK_STATE_H                // file is included in more than one place
+#ifndef _THROWING_STATE_H                // Prevent multiple definitions if this 
+#define _THROWING_STATE_H                // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
-namespace MELEE_ATTACK_STATE
+namespace THROWING_STATE
 {
-	const int	WIDTH = 111;
+	const int	WIDTH = 79;
 	const int	HEIGHT = 96;
-	const int TEXTURE_COLS = 5;
-	const int   START_FRAME = 20;
-	const int   END_FRAME = 24;
+	const int TEXTURE_COLS = 3;
+	const int   START_FRAME = 21;
+	const int   END_FRAME = 23;
 
 }
 
 #include "PlayerState.h"
 
-class MeleeAttackState : public PlayerState
+class ThrowingState : public PlayerState
 {
 
 private:
@@ -27,8 +27,8 @@ private:
 
 public:
 
-	MeleeAttackState() :PlayerState() {}
-	~MeleeAttackState() {}
+	ThrowingState() :PlayerState() {}
+	~ThrowingState() {}
 
 	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
 

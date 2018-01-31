@@ -276,6 +276,11 @@
     <ClInclude Include="healthBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FallingState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowingState.h">
+      <Filter>State Files\Player State</Filter>
     <ClInclude Include="leftFill.h">
       <Filter>Header Files</Filter>
     </ClInclude>

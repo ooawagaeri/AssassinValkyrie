@@ -9,7 +9,7 @@
 
 namespace CROUCHING_STATE
 {
-	const int	WIDTH = 61;
+	const int	WIDTH = 59.5;
 	const int	HEIGHT = 95.99;
 	const int TEXTURE_COLS = 7;
 	const int   START_FRAME = 15;
@@ -30,9 +30,9 @@ public:
 	CrouchingState() :PlayerState() {}
 	~CrouchingState() {}
 
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
 
-	void update(Entity &player, float frameTime)
+	void update(Player &player, float frameTime)
 	{
 		
 	}

@@ -138,6 +138,7 @@
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />
     <ClInclude Include="enemyState.h" />
+    <ClInclude Include="FallingState.h" />
     <ClInclude Include="gunner.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="fill.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="horizontalLoader.h" />
     <ClInclude Include="textDX.h" />
     <ClInclude Include="textureManager.h" />
+    <ClInclude Include="ThrowingState.h" />
     <ClInclude Include="trooper.h" />
     <ClInclude Include="verticalLoader.h" />
     <ClInclude Include="CrouchingState.h" />
