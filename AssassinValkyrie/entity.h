@@ -22,11 +22,8 @@ class Entity : public Image
 {
     // Entity properties
   protected:
-	bool jumpComplete=false;
-	bool jumpRight = false;
-	bool jumpLeft = false;
-	bool isMeleeAttacking = false;
-	bool isRunning = false;
+
+	
     entityNS::COLLISION_TYPE collisionType;
     VECTOR2 center;         // center of entity
     float   radius;         // radius of collision circle
@@ -202,50 +199,10 @@ class Entity : public Image
     void gravityForce(Entity *other, float frameTime);
 
 
-	bool getJumpComplete()
-	{
-		return jumpComplete;
-	}
 
-	void setJumpComplete(bool condition)
-	{
-		jumpComplete = condition;
-	}
 
-	bool getJumpRight()
-	{
-		return jumpRight;
-	}
 
-	void setJumpRight(bool condition)
-	{
-		jumpRight = condition;
-	}
 
-	bool getJumpLeft()
-	{
-		return jumpLeft;
-	}
-
-	void setJumpLeft(bool condition)
-	{
-		jumpLeft = condition;
-	}
-
-	void IsMeleeAttacking(bool condition)
-	{
-		isMeleeAttacking = condition;
-	}
-
-	void setIsRunning(bool condition)
-	{
-		isRunning = condition;
-	}
-
-	bool IsRunning()
-	{
-		return isRunning;
-	}
 	float getVelocityX() { return velocity.x; }
 	float getVelocityY() { return velocity.y; }
 	void setVelocityY(float v) { velocity.y = v; }

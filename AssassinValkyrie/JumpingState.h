@@ -36,9 +36,9 @@ public:
 	JumpingState() :PlayerState() {}
 	~JumpingState() {}
 
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
 
-	void update(Entity &player, float frameTime)
+	void update(Player &player, float frameTime)
 	{
 
 		velocityY += gravity*t*frameTime;
@@ -49,7 +49,7 @@ public:
 			player.setX(player.getX() + velocityX*frameTime);
 			player.setY(player.getY() + velocityY*frameTime);
 			t += TimeInterval;
-
+			player.setVelocityY(velocityY);
 
 		}
 
@@ -58,7 +58,7 @@ public:
 			player.setX(player.getX() - velocityX*frameTime);
 			player.setY(player.getY() + velocityY*frameTime);
 			t += TimeInterval;
-
+			player.setVelocityY(velocityY);
 
 		}
 

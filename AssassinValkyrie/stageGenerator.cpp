@@ -75,11 +75,41 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				gunnerPos.emplace_back(VECTOR2{ (float)horizontalElement2.x, GAME_HEIGHT - (float)horizontalElement2.y });
 			else if (horizontalElement2.element == "SERPANT")
 				serpantPos.emplace_back(VECTOR2{ (float)horizontalElement2.x, GAME_HEIGHT - (float)horizontalElement2.y });
+
+			else if (horizontalElement2.element == "LADDER")
+			{
+				ladderCollection.emplace_back(new Ladder());
+				success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_BTM, 3, ladderTextures);
+				ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_BTM);
+				ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - horizontalElement2.y);
+				ladderCollection.back()->setStartY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - horizontalElement2.y);
+				ladderCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
+				ladderCollection.back()->setX(horizontalElement2.x + (ladderNS::WIDTH));
+				ladderCollection.back()->setStartX(horizontalElement2.x + ladderNS::WIDTH);
+			}
+
 		}
 
 		ent->loadTrooper(trooperPos);
 		ent->loadGunner(gunnerPos);
 		ent->loadSerpant(serpantPos);
+	}
+	int firstX = 0;
+	for (Ladder *t : ladderCollection)
+	{
+		if (firstX == 0)
+		{
+			t->setCurrentFrame(ladderNS::FRAME_TOP);
+			firstX = t->getX();
+			continue;
+		}
+		if (firstX == t->getX())
+		{
+			t->setCurrentFrame(ladderNS::FRAME_MID);
+		} else
+		{
+			firstX = 0;
+		}
 	}
 }
 
@@ -231,13 +261,13 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	{
 		switch (leftrightupdown) {
 		case 1:
-			(*floor)->setX((*floor)->getStartX() - 160);
+			(*floor)->setX((*floor)->getStartX() - 2560);
 			break;
 		case 2:
 			(*floor)->setX((*floor)->getStartX());
 			break;
 		case 3:
-			(*floor)->setY((*floor)->getStartY() + 720);
+			(*floor)->setY((*floor)->getStartY() + 1264);
 			break;
 		case 4:
 			(*floor)->setY((*floor)->getStartY());
@@ -249,13 +279,13 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
 		switch (leftrightupdown) {
 		case 1:
-			(*fill)->setX((*fill)->getStartX() - 160);
+			(*fill)->setX((*fill)->getStartX() - 2560);
 			break;
 		case 2:
 			(*fill)->setX((*fill)->getStartX());
 			break;
 		case 3:
-			(*fill)->setY((*fill)->getStartY() + 720);
+			(*fill)->setY((*fill)->getStartY() + 1264);
 			break;
 		case 4:
 			(*fill)->setY((*fill)->getStartY());
@@ -288,13 +318,13 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	for (ladder = ladderCollection.begin(); ladder != ladderCollection.end(); ladder++) {
 		switch (leftrightupdown) {
 		case 1:
-			(*ladder)->setX((*ladder)->getStartX() - 160);
+			(*ladder)->setX((*ladder)->getStartX() - 2560);
 			break;
 		case 2:
 			(*ladder)->setX((*ladder)->getStartX());
 			break;
 		case 3:
-			(*ladder)->setY((*ladder)->getStartY() + 720);
+			(*ladder)->setY((*ladder)->getStartY() + 1264);
 			break;
 		case 4:
 			(*ladder)->setY((*ladder)->getStartY());

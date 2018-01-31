@@ -14,8 +14,8 @@
 #include "Player.h"
 namespace backgroundNS
 {
-	const int	WIDTH = 1440;
-	const int	HEIGHT = 1440;
+	const int	WIDTH = 3840;
+	const int	HEIGHT = 1984;
 	const double ROTATION = 0;
 	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 2 - WIDTH*SCALE;

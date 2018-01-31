@@ -30,9 +30,9 @@ public:
 	RangeAttackState() :PlayerState() {}
 	~RangeAttackState() {}
 
-	virtual PlayerState* handleInput(Entity &player, Input* input, Game *gamePtr, TextureManager *textureM);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
 
-	void update(Entity &player, float frameTime)
+	void update(Player &player, float frameTime)
 	{
 
 	}

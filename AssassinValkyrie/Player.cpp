@@ -23,6 +23,13 @@ Player::Player() : Entity()
 	currentFrame = startFrame;
 	edge = RECT{ (long)(-playerNS::WIDTH*playerNS::SCALE / 2), (long)(-playerNS::HEIGHT*playerNS::SCALE / 2), (long)(playerNS::WIDTH*playerNS::SCALE / 2), (long)(playerNS::HEIGHT*playerNS::SCALE / 2) };
 	collisionType = entityNS::BOX;
+	totalXP = 0;
+	totalLevels = playerNS::TOTAL_LEVELS;
+	speedLevel = playerNS::START_LEVEL;
+	rangeLevel = playerNS::START_LEVEL;
+	armorLevel = playerNS::START_LEVEL;
+	currentTotalLevel = speedLevel + rangeLevel + armorLevel - 2;
+	skillPointAvailable = 0;
 }
 
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
@@ -31,36 +38,14 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)
+void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
 {
-	VECTOR2 collisionVector;
-	FLOORS *floorCollection = floorList->getFloors();
-	for (FLOORS::iterator floor = (floorCollection->begin()); floor != floorCollection->end(); floor++)
-	{
-		if (collidesWith(**floor, collisionVector))
-		{
-
-			if (getJumpRight())
-			{
-
-				setJumpComplete(true);
-				setJumpRight(false);
-
-			}
-
-			else if (getJumpLeft() )
-			{
-
-
-				setJumpComplete(true);
-				setJumpLeft(false);
-
-			}
-
-		}
+	if (totalXP > ((currentTotalLevel - 2) * 50)) {
+		currentTotalLevel++;
+		skillPointAvailable++;
 	}
 	
-	handleInput(input,gamePtr,textureM);
+	handleInput(input,gamePtr,textureM,stagegenerator);
 	state_->update(*this, frameTime);
 
 	
@@ -69,9 +54,9 @@ void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, St
 	//move->update(frameTime);
 }
 
-void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM)
+void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
 {
-    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM);
+    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,stagegenerator);
 	if (state != NULL)
 	{
 		delete state_;
@@ -79,11 +64,12 @@ void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM)
 	}
 }
 
-void Player::collisions(EnemyManager *enemyList, StageGenerator *floorList)
+void Player::collisions(EnemyManager *enemyList)
 {
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
-
+	TROOPERLIST *trooperCollection = enemyList->getTroopers();
+	SERPANTLIST *serpantCollection = enemyList->getSerpant();
 
 	
 	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
@@ -93,20 +79,42 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *floorList)
 			
 			if (isMeleeAttacking == true)
 			{
-				(*gunner)->setVisible(false);
-				(*gunner)->setActive(false);
+				(*gunner)->getHealth()->damage(gunnerNS::HEALTH);
 				isMeleeAttacking = false;
+				if (!(*gunner)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
 				break;
 			}
-
-			
 		}
 	}
-
-	
-
-
-	
+	for (TROOPERLIST::iterator trooper = (trooperCollection->begin()); trooper != trooperCollection->end(); trooper++)
+	{
+		if (collidesWith(**trooper, collisionVector))
+		{
+			if (isMeleeAttacking == true)
+			{
+				(*trooper)->getHealth()->damage(trooperNS::HEALTH);
+				isMeleeAttacking = false;
+				if (!(*trooper)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
+				break;
+			}
+		}
+	}
+	for (SERPANTLIST::iterator serpant = (serpantCollection->begin()); serpant != serpantCollection->end(); serpant++)
+	{
+		if (collidesWith(**serpant, collisionVector))
+		{
+			if (isMeleeAttacking == true)
+			{
+				(*serpant)->getHealth()->damage(serpantNS::HEALTH/2);
+				isMeleeAttacking = false;
+				if (!(*serpant)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 100;
+				break;
+			}
+		}
+	}
 	
 }
 
