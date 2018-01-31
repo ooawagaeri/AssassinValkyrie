@@ -15,31 +15,21 @@ private:
 	int curr_health;
 	bool isAlive;
 	Bar healthbar;
+	bool animationOn = false;
+	COLOR_ARGB damageColor = NULL;
+	int damageTimer;
+	Image *animation;
 
 public:
-	bool initialize(Graphics *graphics, TextureManager *textureM, int max) 
-	{
-		curr_health = max;
-		isAlive = true;
-		healthbar.initialize(graphics, textureM, max);
-		return true;
-	}
-	void update(float frameTime, VECTOR2 pos)
-	{
-		healthbar.update(frameTime, pos);
-	}
-	void draw() 
-	{ 
-		healthbar.draw(graphicsNS::MAROON); 
-	}
-	void damage(int hitPoint) 
-	{
-		curr_health -= hitPoint;
-		healthbar.setSize(curr_health);
-		if (curr_health <= 0)
-			isAlive = false;
-	}
+	HealthComponent(Image *image);
+	bool initialize(Graphics *graphics, TextureManager *textureM, int max);
+	void update(float frameTime, VECTOR2 pos);
+	void draw(Entity *ent);
+	void damage(int hitPoint);
+
 	bool getAlive() { return isAlive; }
+	bool getDieAnimation() { return animationOn; }
+	COLOR_ARGB getDamageAnimation() { return damageColor; }
 };
 
 #endif

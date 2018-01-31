@@ -12,8 +12,6 @@
 
 class Trooper : public Enemy
 {
-private:
-
 public:
 	Trooper(Entity *play);
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
