@@ -4,14 +4,18 @@
 // Student Number	: S10165581F
 
 #include "enemy.h"
+#include "Player.h"
+#include "stone.h"
 #include "enemyState.h"
 #include "alertState.h"
 #include "standState.h"
 #include "patrolState.h"
 #include "returnState.h"
+#include "distractedState.h"
 
 void EnemyState::update(Enemy *enemy, Entity *target)
 {
+	enemy->getRay()->setColor(graphicsNS::WHITE);
 	enemy->getMove()->setVelocity(enemy->getMove()->getCurrentVelocity());
 }
 
@@ -22,16 +26,14 @@ PatrollingState::PatrollingState() : EnemyState()
 
 EnemyState* PatrollingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
-	if (enemy->getRay()->inSight(*target->getCenter(),p))
-	{
-		enemy->getRay()->setColor(graphicsNS::YELLOW);
+	if (enemy->getRay()->inSight(*target->getCenter(), p))
 		return new AlertedState();
-	}
 	return NULL;
 }
 
 void PatrollingState::update(Enemy *enemy, Entity *target)
 {
+	enemy->getRay()->setColor(graphicsNS::WHITE);
 	if (GetTickCount() - timer > maxTime)
 	{
 		enemy->getMove()->setVelocity(-enemy->getMove()->getCurrentVelocity());
@@ -61,6 +63,7 @@ bool sameSign(int x, int y)
 
 void AlertedState::update(Enemy *enemy, Entity *target)
 {
+	enemy->getRay()->setColor(graphicsNS::YELLOW);
 	VECTOR2 direction = VECTOR2(target->getX() - enemy->getX(), target->getY() - enemy->getY());
 	direction = *D3DXVec2Normalize(&direction, &direction);
 	enemy->getMove()->setVelocity(direction.x * enemy->getMove()->getInitialVelocity());
@@ -83,7 +86,6 @@ EnemyState* StandingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 	enemy->getMove()->setVelocity(0);
 	if (GetTickCount() - timer > maxTime)
 	{
-		enemy->getRay()->setColor(graphicsNS::WHITE);
 		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
 		return new ReturningState();
 	}
@@ -92,8 +94,6 @@ EnemyState* StandingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 
 ReturningState::ReturningState()
 {
-	timer = 0;
-	maxTime = 1000;
 }
 
 EnemyState* ReturningState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
@@ -116,4 +116,30 @@ EnemyState* ReturningState::handleInput(Enemy *enemy, Entity *target, PLATFORM p
 			return new PatrollingState();
 		}
 	return NULL;
+}
+
+DistractedState::DistractedState(VECTOR2 pos) : EnemyState()
+{
+	distractionPos = pos;
+	maxTime = 8000;
+}
+
+EnemyState* DistractedState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
+{
+	if (enemy->getRay()->inSight(*target->getCenter(), p))
+		return new AlertedState();
+	if (GetTickCount() - timer > maxTime)
+		return new ReturningState();
+	return NULL;
+}
+
+void DistractedState::update(Enemy *enemy, Entity *target)
+{
+	enemy->getRay()->setColor(graphicsNS::TEAL);
+	if (enemy->getCenterX() < distractionPos.x - 5)
+		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
+	else if (enemy->getCenterX() > distractionPos.x + 5)
+		enemy->getMove()->setVelocity(-enemy->getMove()->getInitialVelocity());
+	else
+		enemy->getMove()->setVelocity(0);
 }

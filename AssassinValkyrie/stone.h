@@ -17,6 +17,7 @@ namespace stoneNS
 	const float   STONE_END_FRAME = 13;        // ship1 end at frame 0
 	const float STONE_ANIMATION_DELAY = 0.2f;    // time between frames
 
+	const int RANGE = 400;	// // Range of stone distraction affected
 }
 
 // inherits from Entity class

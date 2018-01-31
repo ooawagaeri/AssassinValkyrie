@@ -21,7 +21,7 @@ EnemyBulletManager::~EnemyBulletManager()
 void EnemyBulletManager::initialize(EnemyManager *enemyList)
 {
 	gunnerList = enemyList->getGunners();
-	serpantList = enemyList->getSerpant();
+	serpantList = enemyList->getSerpants();
 }
 
 bool EnemyBulletManager::initializeBullet(Game *gamePtr, TextureManager *textureM, Gunner *gunner)
@@ -53,11 +53,11 @@ bool EnemyBulletManager::initializeBullet(Game *gamePtr, TextureManager *texture
 	return isInitialised;
 }
 
-bool EnemyBulletManager::initializeFire(Game *gamePtr, TextureManager *textureM, Serpant *serpant)
+bool EnemyBulletManager::initializeFire(Game *gamePtr, TextureManager *textureM, Serpant *serpant, Entity *play)
 {
 	bool isInitialised = true;
 
-	Fireball *it = new Fireball();
+	Fireball *it = new Fireball(play);
 	isInitialised = it->initialize(gamePtr, fireNS::WIDTH, fireNS::HEIGHT, fireNS::TEXTURE_COLS, textureM);
 	it->setFrames(fireNS::START_FRAME, fireNS::END_FRAME);
 	it->setCurrentFrame(fireNS::START_FRAME);
@@ -82,7 +82,7 @@ bool EnemyBulletManager::initializeFire(Game *gamePtr, TextureManager *textureM,
 	return isInitialised;
 }
 
-void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *textureM)
+void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *textureM, Entity *play)
 {
 	for (Gunner *g : *gunnerList)
 		if (g->getActive())
@@ -102,7 +102,7 @@ void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *
 			if (shot->isFire() && (GetTickCount() - shot->fireTimer > shot->maxTimeFire))
 			{
 				shot->fireTimer = GetTickCount();
-				initializeFire(gamePtr, textureM, g);
+				initializeFire(gamePtr, textureM, g, play);
 			}
 		}
 
