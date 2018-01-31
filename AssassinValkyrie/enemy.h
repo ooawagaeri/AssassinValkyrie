@@ -106,7 +106,7 @@ namespace serpantNS
 	const int	VISION_RANGE = 200;
 	const float	VISION_HEIGHT = HEIGHT*SCALE / 3.5f;
 
-	const int FIRE_RANGE = 200;
+	const int FIRE_RANGE = 400;
 	const int FIRE_WIDTH = 90;
 	const int FIRE_HEIGHT = 99;
 	const int FIRE_TEXTURE_COLS = 10;

@@ -21,7 +21,7 @@ EnemyBulletManager::~EnemyBulletManager()
 void EnemyBulletManager::initialize(EnemyManager *enemyList)
 {
 	gunnerList = enemyList->getGunners();
-	serpantList = enemyList->getSerpant();
+	serpantList = enemyList->getSerpants();
 }
 
 bool EnemyBulletManager::initializeBullet(Game *gamePtr, TextureManager *textureM, Gunner *gunner)

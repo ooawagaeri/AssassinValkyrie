@@ -59,7 +59,7 @@ ProjectileMovement::ProjectileMovement(Entity* ent, Entity *play) : MovementComp
 
 	VECTOR2 unit = *player->getCenter() - *object->getCenter();
 	D3DXVec2Normalize(&velocity, &unit);
-	velocity *= 50;
+	velocity *= 500;
 	timeInterval = (D3DXVec2Length(&unit) / velocity.x) / 50;
 }
 void ProjectileMovement::update(float frameTime)

@@ -248,4 +248,7 @@ void EnemyManager::camera(float frameTime, int direction) {
 
 	for (Gunner *t : gunnerCollection)
 		t->getMove()->movementWithDirection(frameTime, direction);
+
+	for (Serpant *t : serpantCollection)
+		t->getMove()->movementWithDirection(frameTime, direction);
 }

@@ -22,6 +22,7 @@
 #include "enemyManager.h"
 #include "stageGenerator.h"
 #include "background.h"
+#include "levelLoader.h"
 
 class AssassinValkyrie : public Game
 {

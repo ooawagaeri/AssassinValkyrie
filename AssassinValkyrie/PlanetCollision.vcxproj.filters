@@ -58,6 +58,9 @@
     <ClCompile Include="verticalLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="assassinValkyrie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,8 +115,41 @@
     <ClCompile Include="HealthComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
-    <ClCompile Include="bullet.cpp">
+    <ClCompile Include="enemy.cpp">
       <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyBulletManager.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyManager.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="fireBall.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="gunner.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="healthbar.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="rayCasting.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="serpant.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="trooper.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leftFill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rightFill.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Component Files</Filter>
@@ -187,6 +223,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="verticalLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -273,12 +312,19 @@
     <ClInclude Include="trooper.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="bullet.h">
-      <Filter>Header Files\Enemy</Filter>
+    <ClInclude Include="FallingState.h">
+      <Filter>State Files\Player State</Filter>
     </ClInclude>
-    <ClInclude Include="distractedState.h">
-      <Filter>State Files\Enemy State</Filter>
+    <ClInclude Include="ThrowingState.h">
+      <Filter>State Files\Player State</Filter>
     </ClInclude>
+    <ClInclude Include="leftFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rightFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="distractedState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
