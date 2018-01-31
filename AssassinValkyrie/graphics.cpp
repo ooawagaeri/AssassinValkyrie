@@ -127,7 +127,7 @@ void Graphics::initTriangle(std::queue<CUSTOMVERTEX> *verticesClient)
 	// Renders Buffer
 	device3d->SetFVF(CUSTOMFVF);
 	device3d->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
-	device3d->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+	device3d->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, size/3);
 
 	device3d->Present(NULL, NULL, NULL, NULL);
 }

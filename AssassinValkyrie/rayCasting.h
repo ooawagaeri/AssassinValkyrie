@@ -24,8 +24,12 @@ private:
 	float visibilityAngle;
 	int viewDistance;
 	int viewHeight;		// from center
+	int rayMultiplier;
+	double distMultipler;
 	VECTOR2 pos;
 	COLOR_ARGB color;
+	VECTOR2 range1;
+	VECTOR2 range2;
 	std::queue<CUSTOMVERTEX> vision;
 
 public:

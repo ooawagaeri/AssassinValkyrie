@@ -174,7 +174,7 @@ void AssassinValkyrie::releaseAll()
 	serpantTexture.onLostDevice();
 	healthTexture.onLostDevice();
 	bulletTextures.onLostDevice();
-  playerTextures.onLostDevice();
+	playerTextures.onLostDevice();
 	backgroundTexture.onLostDevice();
 	floorTexture.onLostDevice();
     Game::releaseAll();

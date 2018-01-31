@@ -37,7 +37,7 @@ const UINT GAME_HEIGHT = 720;               // height of game in pixels
 
 // game
 const double PI = 3.14159265;
-const float FRAME_RATE = 120.0f;                // the target frame rate (frames/sec)
+const float FRAME_RATE = 80.0f;                // the target frame rate (frames/sec)
 const float MIN_FRAME_RATE = 60.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations

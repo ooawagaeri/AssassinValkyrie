@@ -30,7 +30,10 @@ void HealthComponent::draw(Entity *ent)
 	if (damageColor != NULL && (GetTickCount() - damageTimer > 800))
 		damageColor = NULL;
 	if (animationOn)
+	{
+		ent->setVisible(false);
 		animation->draw(ent->getSpriteInfo());
+	}
 }
 void HealthComponent::damage(int hitPoint)
 {
