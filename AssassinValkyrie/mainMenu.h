@@ -14,6 +14,7 @@
 #include "button.h"
 #include "cursor.h"
 #include "dashboard.h"
+#include "rayCasting.h"
 
 class MainMenu : public Game
 {

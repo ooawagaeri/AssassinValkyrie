@@ -59,10 +59,10 @@ void Entity::activate()
 //=============================================================================
 void Entity::update(float frameTime)
 {
-    velocity += deltaV;
-    deltaV.x = 0;
-    deltaV.y = 0;
-    Image::update(frameTime);
+	velocity += deltaV;
+	deltaV.x = 0;
+	deltaV.y = 0;
+	Image::update(frameTime);
 	rotatedBoxReady = false;    // for rotatedBox collision detection
 }
 
@@ -184,12 +184,12 @@ bool Entity::collideRotatedBox(Entity &ent, VECTOR2 &collisionVector)
     {
         // set collision vector
         collisionVector = *ent.getCenter() - *getCenter();
-        return true;
+        return DetectPixelPerfect(ent);
     }
     return false;
 }
 
-// Pixel Perfect collision, IN PROGRESS
+// Pixel Perfect collision
 bool Entity::DetectPixelPerfect(Entity &ent)
 {
 	RECT rect1;
@@ -211,7 +211,7 @@ bool Entity::DetectPixelPerfect(Entity &ent)
 		D3DLOCKED_RECT rectS1;
 		HRESULT hResult = getSpriteInfo().texture->LockRect(0, &rectS1, NULL, 0);
 		if (FAILED(hResult))
-		{
+		{	
 			MessageBox(0, "Failed", "Info", 0);
 			return 0;
 		}
@@ -227,27 +227,56 @@ bool Entity::DetectPixelPerfect(Entity &ent)
 		BYTE *bytePointer1 = (BYTE*)rectS1.pBits;
 		BYTE *bytePointer2 = (BYTE*)rectS2.pBits;
 
-		// A pixel from each texture collide
-		for (int rx = dest.left; rx < dest.right; rx++)
+		if (spriteData.flipHorizontal || ent.spriteData.flipHorizontal)
 		{
-			for (int ry = dest.top; ry < dest.bottom; ry++)
+			for (int rx = dest.right; rx > dest.left; rx--)
 			{
-				int s1x = rx - spriteData.x;
-				int s1y = ry - spriteData.y;
-
-				int s2x = rx - ent.spriteData.x;
-				int s2y = ry - ent.spriteData.y;
-
-				// Check the alpha value of each texture pixel
-				BYTE a = bytePointer1[(s1x * 4 + (s1y*rectS1.Pitch)) + 3];
-				BYTE b = bytePointer2[(s2x * 4 + (s2y*rectS2.Pitch)) + 3];
-
-				// If both pixels are opaque, we found a collision
-				if (a == 255 && b == 255)
+				for (int ry = dest.top; ry < dest.bottom; ry++)
 				{
-					getSpriteInfo().texture->UnlockRect(0);
-					ent.getSpriteInfo().texture->UnlockRect(0);
-					return 1;
+					int s1x = rx - spriteData.x;
+					int s1y = ry - spriteData.y;
+
+					int s2x = rx - ent.spriteData.x;
+					int s2y = ry - ent.spriteData.y;
+
+					// Check the alpha value of each texture pixel
+					BYTE a = bytePointer1[(s1x * 4 + (s1y*rectS1.Pitch)) + 3];
+					BYTE b = bytePointer2[(s2x * 4 + (s2y*rectS2.Pitch)) + 3];
+
+					// If both pixels are opaque, we found a collision
+					if (a == 255 && b == 255)
+					{
+						getSpriteInfo().texture->UnlockRect(0);
+						ent.getSpriteInfo().texture->UnlockRect(0);
+						return 1;
+					}
+				}
+			}
+		}
+		else 
+		{
+			// A pixel from each texture collide
+			for (int rx = dest.left; rx < dest.right; rx++)
+			{
+				for (int ry = dest.top; ry < dest.bottom; ry++)
+				{
+					int s1x = rx - spriteData.x;
+					int s1y = ry - spriteData.y;
+
+					int s2x = rx - ent.spriteData.x;
+					int s2y = ry - ent.spriteData.y;
+
+					// Check the alpha value of each texture pixel
+					BYTE a = bytePointer1[(s1x * 4 + (s1y*rectS1.Pitch)) + 3];
+					BYTE b = bytePointer2[(s2x * 4 + (s2y*rectS2.Pitch)) + 3];
+
+					// If both pixels are opaque, we found a collision
+					if (a == 255 && b == 255)
+					{
+						getSpriteInfo().texture->UnlockRect(0);
+						ent.getSpriteInfo().texture->UnlockRect(0);
+						return 1;
+					}
 				}
 			}
 		}

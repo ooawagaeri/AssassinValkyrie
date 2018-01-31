@@ -59,7 +59,7 @@ class Image
     // Return width.
     virtual int   getWidth()    {return spriteData.width;}
 
-    // Return height.
+    // Return height->
     virtual int   getHeight()   {return spriteData.height;}
 
     // Return center X.
@@ -165,6 +165,8 @@ class Image
 
     // Flip image vertically
     virtual void flipVertical(bool flip)    {spriteData.flipVertical = flip;}
+
+	virtual bool isFlipHorizontal() { return spriteData.flipHorizontal; }
 
     // Draw Image using color as filter. Default color is WHITE.
     virtual void draw(COLOR_ARGB color = graphicsNS::WHITE);

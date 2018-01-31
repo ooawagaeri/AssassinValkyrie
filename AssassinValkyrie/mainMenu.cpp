@@ -21,7 +21,6 @@ MainMenu::~MainMenu()
 void MainMenu::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd);
-
 	// Mouse
 	if (!mouseTextures.initialize(graphics, MOUSE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
@@ -119,7 +118,7 @@ void MainMenu::update()
 
 }
 
-void MainMenu::ai() 
+void MainMenu::ai()
 {
 	if (gameStart)
 		assValk->ai();
@@ -161,7 +160,7 @@ void MainMenu::collisions()
 void MainMenu::render()
 {
 	graphics->spriteBegin();
-	
+
 
 	if (gameStart)
 	{

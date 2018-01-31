@@ -1,9 +1,9 @@
 // Programming 2D Games
-// Copyright (c) 2011 by: 
+// Copyright (c) 2011 by:
 // Charles Kelly
 // Chapter 6 constants.h v1.0
 
-#ifndef _CONSTANTS_H            // Prevent multiple definitions if this 
+#ifndef _CONSTANTS_H            // Prevent multiple definitions if this
 #define _CONSTANTS_H            // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
@@ -37,8 +37,8 @@ const UINT GAME_HEIGHT = 720;               // height of game in pixels
 
 // game
 const double PI = 3.14159265;
-const float FRAME_RATE = 200.0f;                // the target frame rate (frames/sec)
-const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
+const float FRAME_RATE = 80.0f;                // the target frame rate (frames/sec)
+const float MIN_FRAME_RATE = 60.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const float GRAVITY = 9.81f;
@@ -51,6 +51,17 @@ const char BUTTON_IMAGE[] = "pictures\\Buttons.png";
 const char SKILL_IMAGE[] = "pictures\\skillIcon.png";
 const char DASHBOARD_IMAGE[] = "pictures\\dashboard.png";
 const char PAUSE_IMAGE[] = "pictures\\pause.png";
+
+const char PLAYER_IMAGE[] = "pictures\\Player.png";
+const char FLOOR_IMAGE[] = "pictures\\newElements.png";
+const char BACKGROUND_IMAGE[] = "pictures\\backgroundBIG.png";
+const char LADDER_IMAGE[] = "pictures\\ladderbigger.png";
+
+const char ENEMY_TROOPER_IMAGE[] = "pictures\\enemyTexture.png";
+const char ENEMY_GUNNER_IMAGE[] = "pictures\\enemyTexture_gunner.png";
+const char ENEMY_SERPANT_IMAGE[] = "pictures\\enemyTexture_serpant.png";
+const char BULLET_IMAGE[] = "pictures\\bullets.png";
+const char HEALTH_IMAGE[] = "pictures\\healthTexture.png";
 
 // WAVE_BANK must be location of .xwb file.
 const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
@@ -67,13 +78,15 @@ const UCHAR ESC_KEY      = VK_ESCAPE;       // escape key
 const UCHAR ALT_KEY      = VK_MENU;         // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key
 
-const UCHAR SHIP_RIGHT_KEY = 0x44;
-const UCHAR SHIP_LEFT_KEY = 0x41;
-const UCHAR SHIP_UP_KEY = 0x57;
-const UCHAR SHIP_DOWN_KEY = 0x53;
 
 //control key for player ship
-const UCHAR BULLETSHIP_LEFT_KEY = 'A';
+const UCHAR RUNNING_RIGHT_KEY = 'D';
+const UCHAR RUNNING_LEFT_KEY = 'A';
+const UCHAR CROUCHING_KEY = 'S';
+const UCHAR MELEE_ATTACK_KEY = 'G';
+const UCHAR RANGE_ATTACK_KEY = 'F';
+const UCHAR DISTRACT_KEY = 'H';
+const UCHAR JUMPING_KEY = VK_SPACE;
 
 // weapon types
 enum WEAPON { BULLET, MISSILE, LASER, SHIP };

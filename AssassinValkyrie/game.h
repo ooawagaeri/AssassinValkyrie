@@ -62,8 +62,8 @@ public:
     // Call run repeatedly by the main message loop in WinMain
     virtual void run(HWND);
 
-    // Call when the graphics device was lost.
-    // Release all reserved video memory so graphics device may be reset.
+    // Call when the graphics device was lost->
+    // Release all reserved video memory so graphics device may be reset->
     virtual void releaseAll();
 
     // Recreate all surfaces and reset all entities.
@@ -84,7 +84,7 @@ public:
     // Return pointer to Graphics.
     Graphics* getGraphics() {return graphics;}
 
-    // Return pointer to Input.
+    // Return pointer to Input->
     Input* getInput()       {return input;}
 
 	// Return pointer to Audio.

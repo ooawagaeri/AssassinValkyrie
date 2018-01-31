@@ -11,6 +11,7 @@
 #include "input.h"
 #include "game.h"
 
+//Testing
 namespace entityNS
 {
     enum COLLISION_TYPE {NONE, CIRCLE, BOX, ROTATED_BOX};
@@ -21,6 +22,8 @@ class Entity : public Image
 {
     // Entity properties
   protected:
+
+	
     entityNS::COLLISION_TYPE collisionType;
     VECTOR2 center;         // center of entity
     float   radius;         // radius of collision circle
@@ -66,8 +69,6 @@ class Entity : public Image
     // Pre: &ent = Other entity
     // Post: &collisionVector contains collision vector
     virtual bool collideRotatedBoxCircle(Entity &ent, VECTOR2 &collisionVector);
-    // Separating axis collision detection helper functions
-    void computeRotatedBox();
     bool projectionsOverlap(Entity &ent);
     bool collideCornerCircle(VECTOR2 corner, Entity &ent, VECTOR2 &collisionVector);
 
@@ -80,6 +81,8 @@ class Entity : public Image
     ////////////////////////////////////////
     //           Get functions            //
     ////////////////////////////////////////
+    // Separating axis collision detection helper functions
+    void computeRotatedBox();
 
     // Return center of scaled Entity as screen x,y.
     virtual const VECTOR2* getCenter()   
@@ -111,7 +114,7 @@ class Entity : public Image
     // Return mass.
     virtual float getMass()           const {return mass;}
 
-    // Return gravitational constant.
+    // Return gravitational constant->
     virtual float getGravity()        const {return gravity;}
 
     // Return health;
@@ -139,15 +142,27 @@ class Entity : public Image
     // Set mass.
     virtual void  setMass(float m)          {mass = m;}
 
-    // Set gravitational constant. Default is 6.67428e-11
+    // Set gravitational constant-> Default is 6.67428e-11
     virtual void  setGravity(float g)       {gravity = g;}
 
     // Set radius of collision circle.
     virtual void setCollisionRadius(float r)    {radius = r;}
 
+	// Set rect of collision rectangle.
+	virtual void setEdge(RECT r)			{ edge = r; }
+
+	// Set collision type.
+	virtual void setCollisionType(entityNS::COLLISION_TYPE r) { collisionType = r; }
+
     ////////////////////////////////////////
     //         Other functions            //
     ////////////////////////////////////////
+
+	// 10165581F
+	bool outOfBounds()
+	{
+		return (spriteData.x + spriteData.width < 0 || (spriteData.x > GAME_WIDTH) || (spriteData.y > GAME_HEIGHT) || (spriteData.y + spriteData.height < 0));
+	}
 
     // Update Entity.
     // typically called once per frame
@@ -182,6 +197,16 @@ class Entity : public Image
 
     // Adds the gravitational force to the velocity vector of this entity
     void gravityForce(Entity *other, float frameTime);
+
+
+
+
+
+
+	float getVelocityX() { return velocity.x; }
+	float getVelocityY() { return velocity.y; }
+	void setVelocityY(float v) { velocity.y = v; }
+
 };
 
 #endif

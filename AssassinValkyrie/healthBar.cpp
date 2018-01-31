@@ -1,20 +1,17 @@
-//  Module:             Gameplay Programming
-//  Assignment2:        LET IT RAIN
-//  Student Name:       Timothy Chua
-//  Student Number:     10165581F
+// Module			: Gameplay Programming
+// Assignment2		: Assassin Valkyrie
+// Student Number	: Chua Wei Jie Timothy
+// Student Number	: S10165581F
 
 #include "healthBar.h"
 
-bool Bar::initialize(Graphics *graphics, TextureManager *textureM, int left, int top, float scale, int total_health)
+bool Bar::initialize(Graphics *graphics, TextureManager *textureM, int total_health)
 {
     try {
         Image::initialize(graphics, healthBarNS::WIDTH, healthBarNS::HEIGHT,
                           healthBarNS::TEXTURE_COLS, textureM);
         setCurrentFrame(healthBarNS::BAR_FRAME);
-        spriteData.x = (float)left - healthBarNS::WIDTH / 2;
-        spriteData.y = (float)top;
-        spriteData.scale = scale;
-
+        spriteData.scale = healthBarNS::SCALE;
         originalHealth = total_health;
     }
     catch(...)
@@ -22,6 +19,12 @@ bool Bar::initialize(Graphics *graphics, TextureManager *textureM, int left, int
         return false;
     }
     return true;
+}
+
+void Bar::update(float frameTime, VECTOR2 pos)
+{
+	spriteData.x = pos.x - healthBarNS::WIDTH / 2;
+	spriteData.y = pos.y - healthBarNS::HEIGHT * 2;
 }
 
 void Bar::setSize(int health)
@@ -32,4 +35,3 @@ void Bar::setSize(int health)
 		health = originalHealth;
 	spriteData.rect.right = spriteData.rect.left + (LONG)(spriteData.width * health / originalHealth);
 }
-
