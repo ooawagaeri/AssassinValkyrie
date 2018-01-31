@@ -91,7 +91,9 @@
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="button.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="dashboard.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyBulletManager.cpp" />
     <ClCompile Include="enemyManager.cpp" />
@@ -135,8 +137,9 @@
     <ClInclude Include="audio.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="bullet.h" />
+    <ClInclude Include="button.h" />
     <ClInclude Include="cursor.h" />
-    <ClInclude Include="distractedState.h" />
+    <ClInclude Include="dashboard.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />

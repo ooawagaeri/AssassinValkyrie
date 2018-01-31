@@ -4,6 +4,7 @@
 // Student Number	: S10165581F
 
 #include "assassinValkyrie.h"
+#include "levelLoader.h"
 
 // Constructor
 AssassinValkyrie::AssassinValkyrie()
@@ -11,9 +12,15 @@ AssassinValkyrie::AssassinValkyrie()
 	ShowCursor(false);
 	player = new Player();
 	//mouse = new Cursor();
+	dashboard = new Dashboard();
 	background = new Background();
 	stageGenerator = new StageGenerator();
 	currentStage = 1;
+	displayTimer = new TextDX();
+	mins = 0;
+	secs = 0;
+	milliSec = 0;
+	text = new TextDX();
 }
 
 // Destructor
@@ -24,7 +31,7 @@ AssassinValkyrie::~AssassinValkyrie()
 
 // Initializes the game
 void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
-	LARGE_INTEGER *timerFreqM, float *frameTimeM)
+	LARGE_INTEGER *timerFreqM, float *frameTimeM, bool *pausedM, Cursor *cursor)
 {
 	graphics = gamePtr.getGraphics();
 	input = gamePtr.getInput();
@@ -35,6 +42,8 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	timeEnd = *timeEndM;
 	timerFreq = *timerFreqM;
 	frameTime = *frameTimeM;
+	paused = *pausedM;
+	mouse = cursor;
 
 	mouse = new Cursor();
 
@@ -63,6 +72,14 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
+	/*
+	if (!tempChar->initialize(this, hideoutNS::WIDTH, hideoutNS::HEIGHT, 5, &floorTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing temp player placeholder"));
+
+
+	tempChar->setCurrentFrame(4);
+	tempChar->setY(576);
+	*/
 
 	/////////////////////////////////////////
 	//				Enemy
@@ -71,6 +88,12 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!trooperTexture.initialize(graphics, ENEMY_TROOPER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
 
+	// Player
+	if (!playerTextures.initialize(graphics, PLAYER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player Textures"));
+
+	if (!player->initialize(this, playerNS::WIDTH, playerNS::HEIGHT, playerNS::TEXTURE_COLS, &playerTextures))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	// Gunner
 	if (!gunnerTexture.initialize(graphics, ENEMY_GUNNER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
@@ -93,22 +116,31 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	emBulletList.initialize(&emList);
 
+	//UI
+	dashboard->initialize(graphics, mouse);
 
-	/////////////////////////////////////////
-	//				Player
-	/////////////////////////////////////////
-	// Player
-	if (!playerTextures.initialize(graphics, PLAYER_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player Textures"));
+	if (!displayTimer->initialize(graphics, 30, false, false, "Spectre 007"))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Dashboard Text"));
 
-	if (!player->initialize(this, playerNS::WIDTH, playerNS::HEIGHT, playerNS::TEXTURE_COLS, &playerTextures))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
+	if (!text->initialize(graphics, 30, false, false, "Spectre 007"))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing text"));
 	return;
 }
 
 // Update all game items
 void AssassinValkyrie::update()
 {
+	milliSec++;
+	if (milliSec >= FRAME_RATE)
+	{
+		secs++;
+		milliSec = 0;
+		if (secs >= 60)
+		{
+			mins++;
+			secs = 0;
+		}
+	}
 	pCollection = stageGenerator->getFillPlatforms();
 	background->update(frameTime, player, stageGenerator, &emList);
 	//stageGenerator->update(frameTime);
@@ -138,20 +170,31 @@ void AssassinValkyrie::collisions()
 // Render game items
 void AssassinValkyrie::render()
 {
+	
 	background->draw();
 	stageGenerator->render();
 	mouse->draw();
     player->draw();
     weaponManager.render();
 	player->draw();
-	
+
 	emList.render();
 	emBulletList.render();
 
 	graphics->spriteEnd();
-	//graphics->initRectangle();
+	graphics->initRectangle();
 	emList.renderRay(graphics);
 	graphics->spriteBegin();
+
+	dashboard->draw();
+
+	const int bufferSize = 20;
+	static char buffer[bufferSize];
+
+	// Timer text
+	_snprintf(buffer, bufferSize, "Time \n %d : %02d", (int)mins, (int)secs);
+	displayTimer->setFontColor(graphicsNS::WHITE);
+	displayTimer->print(buffer, (GAME_WIDTH / 2) - 30, 0);
 
 	mouse->draw();
 }
@@ -160,6 +203,9 @@ void AssassinValkyrie::render()
 void AssassinValkyrie::releaseAll()
 {
 	SAFE_DELETE(mouse);
+	SAFE_DELETE(dashboard);
+	SAFE_DELETE(text);
+	SAFE_DELETE(displayTimer);
 	SAFE_DELETE(background);
 	emBulletList.~EnemyBulletManager();
 	emList.~EnemyManager();

@@ -22,7 +22,10 @@
 #include "enemyManager.h"
 #include "stageGenerator.h"
 #include "background.h"
-#include "levelLoader.h"
+#include "dashboard.h"
+#include "textDX.h"
+#include <vector>
+#include <thread>
 
 class AssassinValkyrie : public Game
 {
@@ -50,18 +53,31 @@ private:
 	TextureManager	ladderTexture;
 	TextureManager	bulletTextures;
 
+	Dashboard *dashboard;
+	TextDX *text;
+	TextDX *displayTimer;
+
 public:
     AssassinValkyrie();
     virtual ~AssassinValkyrie();
 
 	void initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
-		LARGE_INTEGER *timerFreqM, float *frameTimeM);
-    void update();
-    void ai();
-    void collisions();
-    void render();
+		LARGE_INTEGER *timerFreqM, float *frameTimeM, bool *paused, Cursor *cursor);
+    // Initialize the game
+    void update();      // must override pure virtual from Game
+    void ai();          // "
+    void collisions();  // "
+    void render();      // "
     void releaseAll();
     void resetAll();
+
+	void setPause(bool value) { paused = value; }
+	bool getPaused() { return paused; }
+
+	int mins;
+	int secs;
+	int milliSec;
+
 };
 
 #endif

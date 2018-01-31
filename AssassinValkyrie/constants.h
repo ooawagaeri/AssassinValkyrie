@@ -1,9 +1,9 @@
 // Programming 2D Games
-// Copyright (c) 2011 by: 
+// Copyright (c) 2011 by:
 // Charles Kelly
 // Chapter 6 constants.h v1.0
 
-#ifndef _CONSTANTS_H            // Prevent multiple definitions if this 
+#ifndef _CONSTANTS_H            // Prevent multiple definitions if this
 #define _CONSTANTS_H            // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
@@ -47,6 +47,11 @@ const float GRAVITY = 9.81f;
 const char MMBACKGROUND_IMAGE[] = "pictures\\mainMenuBackground.png";
 const char MOUSE_IMAGE[] = "pictures\\mouse.png";
 const char ENEMY_IMAGE[] = "pictures\\enemyTexture.png";
+const char BUTTON_IMAGE[] = "pictures\\Buttons.png";
+const char SKILL_IMAGE[] = "pictures\\skillIcon.png";
+const char DASHBOARD_IMAGE[] = "pictures\\dashboard.png";
+const char PAUSE_IMAGE[] = "pictures\\pause.png";
+
 const char PLAYER_IMAGE[] = "pictures\\Player.png";
 const char FLOOR_IMAGE[] = "pictures\\newElements.png";
 const char BACKGROUND_IMAGE[] = "pictures\\backgroundBIG.png";

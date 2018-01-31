@@ -151,6 +151,12 @@
     <ClCompile Include="rightFill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dashboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
@@ -324,7 +330,12 @@
     <ClInclude Include="rightFill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="distractedState.h" />
+    <ClInclude Include="button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dashboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
