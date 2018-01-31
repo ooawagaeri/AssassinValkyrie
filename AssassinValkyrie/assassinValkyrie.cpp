@@ -10,7 +10,7 @@
 AssassinValkyrie::AssassinValkyrie()
 {
 	ShowCursor(false);
-  player = new Player();
+	player = new Player();
 	//mouse = new Cursor();
 	background = new Background();
 	stageGenerator = new StageGenerator();
@@ -118,7 +118,7 @@ void AssassinValkyrie::update()
 	background->update(frameTime, player, stageGenerator, &emList);
 	//stageGenerator->update(frameTime);
 	mouse->update();
-  emBulletList.update(frameTime, this, &bulletTextures);
+	emBulletList.update(frameTime, this, &bulletTextures);
 	player->update(frameTime,this,&playerTextures,stageGenerator);
 	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
 	emList.update(frameTime, pCollection);
@@ -134,7 +134,7 @@ void AssassinValkyrie::ai()
 void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
-	weaponManager.collisions(&emList);
+	weaponManager.collisions(&emList, player);
 	player->collisions(&emList);
 	emList.collisions(mouse, stageGenerator->getFloorPlatforms(), pCollection);
 	emBulletList.collisions(mouse);
@@ -168,7 +168,7 @@ void AssassinValkyrie::releaseAll()
 	serpantTexture.onLostDevice();
 	healthTexture.onLostDevice();
 	bulletTextures.onLostDevice();
-  playerTextures.onLostDevice();
+	playerTextures.onLostDevice();
 	backgroundTexture.onLostDevice();
 	floorTexture.onLostDevice();
     Game::releaseAll();
@@ -178,7 +178,7 @@ void AssassinValkyrie::releaseAll()
 // Recreate all surfaces.
 void AssassinValkyrie::resetAll()
 {
-  playerTextures.onResetDevice();
+	playerTextures.onResetDevice();
 	mouseTextures.onResetDevice();
 	trooperTexture.onResetDevice();
 	gunnerTexture.onResetDevice();

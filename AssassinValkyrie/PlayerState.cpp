@@ -277,33 +277,33 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 	{
 		if (player.collidesWith(**floor, collisionVector))
 		{
-
 			if (player.getJumpRight())
 			{
-
 				player.setJumpRight(false);
 				player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
+				if ((*floor)->getY() == ((*floor)->getStartY()))
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT );
+				else
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY()));
 				player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 				player.setCurrentFrame(STANDING_STATE::START_FRAME);
 				player.setLoop(true);
 				return new StandState();
-
 			}
 
 			else if (player.getJumpLeft())
 			{
-
-
-				
 				player.setJumpLeft(false);
 				player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
+				if ((*floor)->getY() == ((*floor)->getStartY()))
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT);
+				else
+					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY()));
 				player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 				player.setCurrentFrame(STANDING_STATE::START_FRAME);
 				player.setLoop(true);
 				return new StandState();
-
 			}
-
 		}
 	}
 
