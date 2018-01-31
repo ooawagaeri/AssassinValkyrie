@@ -31,15 +31,15 @@ public:
 			}
 		}
 	};
-	void draw(Entity *sd)
+	void draw(Entity *ent, COLOR_ARGB c)
 	{ 
 		if (animationOn)
 		{
-			sd->setVisible(false);
-			animation->draw(sd->getSpriteInfo());
+			ent->setVisible(false);
+			animation->draw(ent->getSpriteInfo(), c);
 		}
 		else
-			sd->setVisible(true);
+			ent->setVisible(true);
 	};
 	virtual void setAnimation(bool toggle) { animationOn = toggle; };
 	bool getAnimation() { return animationOn; };

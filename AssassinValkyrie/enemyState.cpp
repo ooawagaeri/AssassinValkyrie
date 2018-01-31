@@ -103,6 +103,11 @@ EnemyState* ReturningState::handleInput(Enemy *enemy, Entity *target, PLATFORM p
 		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
 		return new PatrollingState();
 	}
+	if (enemy->getRay()->inSight(*target->getCenter(), p))
+	{
+		enemy->getRay()->setColor(graphicsNS::YELLOW);
+		return new AlertedState();
+	}
 	for (Entity *e : p)
 		if (enemy->collidesWith(*e, VECTOR2{}))
 		{
@@ -110,6 +115,5 @@ EnemyState* ReturningState::handleInput(Enemy *enemy, Entity *target, PLATFORM p
 			enemy->setOriginalPos({ enemy->getX(), enemy->getY() });
 			return new PatrollingState();
 		}
-
 	return NULL;
 }

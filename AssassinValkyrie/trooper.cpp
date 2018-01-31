@@ -34,8 +34,15 @@ bool Trooper::initialize(Game *gamePtr, int width, int height, int ncols,
 	attackAnimation.setFrameDelay(trooperNS::ANIMATION_DELAY);
 	attackAnimation.setLoop(false);
 
+	dieAnimation.initialize(gamePtr->getGraphics(), trooperNS::DIE_WIDTH, trooperNS::DIE_HEIGHT, trooperNS::DIE_TEXTURE_COLS, textureM);
+	dieAnimation.setFrames(trooperNS::DIE_START_FRAME, trooperNS::DIE_END_FRAME);
+	dieAnimation.setCurrentFrame(trooperNS::DIE_START_FRAME);
+	dieAnimation.setFrameDelay(trooperNS::DIE_ANIMATION_DELAY);
+	dieAnimation.setLoop(false);
+
 	move->setVelocity(trooperNS::SPEED);
 	attack = new MeleeComponent(&attackAnimation);
+	health = new HealthComponent(&dieAnimation);
 	health->initialize(gamePtr->getGraphics(), textureHealth, trooperNS::HEALTH);
 	vision->init(this, trooperNS::VISION_ANGLE, trooperNS::VISION_RANGE, trooperNS::VISION_HEIGHT);
 

@@ -33,8 +33,15 @@ bool Gunner::initialize(Game *gamePtr, int width, int height, int ncols,
 	attackAnimation.setFrameDelay(gunnerNS::ANIMATION_DELAY);
 	attackAnimation.setLoop(false);
 
+	dieAnimation.initialize(gamePtr->getGraphics(), gunnerNS::DIE_WIDTH, gunnerNS::DIE_HEIGHT, gunnerNS::DIE_TEXTURE_COLS, textureM);
+	dieAnimation.setFrames(gunnerNS::DIE_START_FRAME, gunnerNS::DIE_END_FRAME);
+	dieAnimation.setCurrentFrame(gunnerNS::DIE_START_FRAME);
+	dieAnimation.setFrameDelay(gunnerNS::DIE_ANIMATION_DELAY);
+	dieAnimation.setLoop(false);
+
 	move->setVelocity(gunnerNS::SPEED);
 	attack = new ShootComponent(&attackAnimation);
+	health = new HealthComponent(&dieAnimation);
 	health->initialize(gamePtr->getGraphics(), textureHealth, gunnerNS::HEALTH);
 	vision->init(this, gunnerNS::VISION_ANGLE, gunnerNS::VISION_RANGE, gunnerNS::VISION_HEIGHT);
 

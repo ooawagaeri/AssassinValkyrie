@@ -41,7 +41,8 @@ public:
 	void update(float frameTime, PLATFORM p);
 	void ai();
 	void collisions(Entity *play, PLATFORM floor, PLATFORM fill);
-	void render(Graphics *g);
+	void render();
+	void renderRay(Graphics *g);
 
 	GUNNERLIST *getGunners() { return &gunnerCollection; }
 	SERPANTLIST *getSerpant() { return &serpantCollection; }

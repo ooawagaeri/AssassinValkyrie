@@ -87,10 +87,12 @@ VECTOR2 Ray::castRayVector(VECTOR2 target, const PLATFORM &walls) {
 	VECTOR2 intersect{ -(float)out,-(float)out };
 	VECTOR2 prev{ -1,-1 };
 	for (const auto &wall : walls) {
+		if (wall->outOfBounds())
+			continue;
 		for (size_t i = 0; i < 4; ++i) {
 			VECTOR2 t = *wall->getCorner(i);
 			VECTOR2 unit = t - pos;
-			if ((D3DXVec2Length(&unit) > viewDistance * 1.2))
+			if ((D3DXVec2Length(&unit) > viewDistance * 1.1))
 				continue;
 			VECTOR2 B1 = { *wall->getCorner(i) };
 			VECTOR2 B2 = { *wall->getCorner((i + 1) % 4) };
@@ -132,12 +134,15 @@ void Ray::updateVision(const PLATFORM &walls)
 		wall->computeRotatedBox();
 		for (size_t i = 0; i < 4; ++i)
 		{
+			if (wall->outOfBounds())
+				continue;
 			VECTOR2 t = *wall->getCorner(i);
+
 			VECTOR2 unit = t - pos;
 			bool c1 = isLeft(pos, range1, t);
 			bool c2 = isLeft(pos, range2, t);
 
-			if (!(!c1 && c2) || (D3DXVec2Length(&unit) > viewDistance * 1.2))
+			if (!(!c1 && c2) || (D3DXVec2Length(&unit) > viewDistance * 1.1))
 				continue;
 			points.push_back(*wall->getCorner(i));
 		}
@@ -198,7 +203,7 @@ void Ray::render(Graphics *g)
 	if (vision.size() >= 3)
 	{
 		for (int i = 0; i < vision.size()/3; i++)
-			g->initGraphics(&vision);
+			g->initTriangle(&vision);
 	}
 }
 

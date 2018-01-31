@@ -33,8 +33,15 @@ bool Serpant::initialize(Game *gamePtr, int width, int height, int ncols,
 	attackAnimation.setFrameDelay(serpantNS::ANIMATION_DELAY);
 	attackAnimation.setLoop(false);
 
+	dieAnimation.initialize(gamePtr->getGraphics(), serpantNS::DIE_WIDTH, serpantNS::DIE_HEIGHT, serpantNS::DIE_TEXTURE_COLS, textureM);
+	dieAnimation.setFrames(serpantNS::DIE_START_FRAME, serpantNS::DIE_END_FRAME);
+	dieAnimation.setCurrentFrame(serpantNS::DIE_START_FRAME);
+	dieAnimation.setFrameDelay(serpantNS::DIE_ANIMATION_DELAY);
+	dieAnimation.setLoop(false);
+
 	move->setVelocity(serpantNS::SPEED);
 	attack = new FireComponent(&attackAnimation);
+	health = new HealthComponent(&dieAnimation);
 	health->initialize(gamePtr->getGraphics(), textureHealth, serpantNS::HEALTH);
 	vision->init(this, serpantNS::VISION_ANGLE, serpantNS::VISION_RANGE, serpantNS::VISION_HEIGHT);
 

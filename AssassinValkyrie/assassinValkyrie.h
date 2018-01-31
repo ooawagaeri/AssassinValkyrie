@@ -27,19 +27,20 @@ class AssassinValkyrie : public Game
 {
 private:
 	TextureManager	mouseTextures;
-	TextureManager trooperTexture;
-	TextureManager gunnerTexture;
+	TextureManager	trooperTexture;
+	TextureManager	gunnerTexture;
 	TextureManager	serpantTexture;
 	TextureManager	healthTexture;
-	TextureManager playerTextures;
-	Player *player;
-	WeaponManager weaponManager;
-	TextureManager backgroundTexture;
-	//Enemy *trooper1;
 	Cursor			*mouse;
 	EnemyManager	emList;
 	EnemyBulletManager	emBulletList;
 	PLATFORM		pCollection;
+
+	TextureManager	playerTextures;
+	Player *player;
+	WeaponManager weaponManager;
+	TextureManager backgroundTexture;
+
 	int	currentStage;
 	Background		*background;
 	StageGenerator	*stageGenerator;

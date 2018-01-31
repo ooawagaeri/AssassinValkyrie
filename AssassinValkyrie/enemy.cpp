@@ -8,7 +8,7 @@
 Enemy::Enemy(Entity *play) : Entity()
 {
 	collisionType = entityNS::BOX;
-	health = new HealthComponent();
+	health = new HealthComponent(&dieAnimation);
 	move = new PatrolMovement(this);
 	state_ = new PatrollingState();
 	
@@ -43,15 +43,16 @@ void Enemy::handleInput(PLATFORM p)
 
 void Enemy::update(float frameTime, PLATFORM p)
 {
-	handleInput(p);
-	state_->update(this, player);
+	if (!health->getDieAnimation()) {
+		handleInput(p);
+		state_->update(this, player);
 
-	move->update(frameTime);
-	attack->update(frameTime);
-	health->update(frameTime, { spriteData.x + spriteData.width/2, spriteData.y });
-
-	vision->setDirection(move->getCurrentVelocity());
-	vision->updateVision(p);
+		move->update(frameTime);
+		attack->update(frameTime);
+		vision->setDirection(move->getCurrentVelocity());
+		vision->updateVision(p);
+	}
+	health->update(frameTime, { spriteData.x + spriteData.width / 2, spriteData.y });
 
 	Entity::update(frameTime);
 }
@@ -60,19 +61,22 @@ void Enemy::ai()
 {
 }
 
-void Enemy::draw(Graphics *g)
+void Enemy::draw()
 {
 	if (move->getCurrentVelocity() > 0)
 		flipHorizontal(false);
 	else
 		flipHorizontal(true);
+	
+	COLOR_ARGB c = health->getDamageAnimation();
+	if (!health->getDieAnimation()) {
+		attack->draw(this,c);
+	}
+	Image::draw(c);
+	health->draw(this);		//	image::draw inside health
+}
 
-	// Stops Sprite rendering so that primatives can render
-	g->spriteEnd();
+void Enemy::drawRay(Graphics *g)
+{
 	vision->render(g);
-	g->spriteBegin();
-
-	Image::draw();
-	attack->draw(this);
-	health->draw();
 }

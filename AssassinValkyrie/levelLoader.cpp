@@ -5,8 +5,11 @@
 
 #include "levelLoader.h"
 
-LevelLoader::LevelLoader()
+LevelLoader::~LevelLoader()
 {
+	memset(layout, 0, sizeof(layout));
+	std::queue<horizontalElement2> empty;
+	std::swap(elementSpawn, empty);
 }
 
 bool LevelLoader::initializeStage(int i)
@@ -19,15 +22,11 @@ bool LevelLoader::initializeStage(int i)
 	int countY = 0;
 	if (stageFile.is_open()) 
 	{
-		while (getline(stageFile, line)) 
-		{
+		while (getline(stageFile, line)) {
 			string next;
-			for (string::const_iterator it = line.begin(); it != line.end(); it++) 
-			{
-				if (*it == ' ') 
-				{
-					if (!next.empty()) 
-					{
+			for (string::const_iterator it = line.begin(); it != line.end(); it++) {
+				if (*it == ' ') {
+					if (!next.empty()) {
 						layout[countY][countX] = next;
 						countX++;
 						next.clear();
@@ -36,8 +35,7 @@ bool LevelLoader::initializeStage(int i)
 				else
 					next += *it;
 			}
-			if (!next.empty())
-			{
+			if (!next.empty()) {
 				layout[countY][countX] = next;
 				countX++;
 			}
@@ -74,8 +72,7 @@ string getType(string v)
 void LevelLoader::loadElements()
 {
 	for (int y = 0; y < height; y++) 
-		for (int x = 0; x < width; x++) 
-		{
+		for (int x = 0; x < width; x++) {
 			string type = getType(layout[y][x]);
 			if (type == "")
 				continue;
@@ -90,9 +87,4 @@ horizontalElement2 LevelLoader::getElement()
 	horizontalElement2 pos = elementSpawn.front();
 	elementSpawn.pop();
 	return pos;
-}
-
-void LevelLoader::clear() 
-{
-	elementSpawn = std::queue<horizontalElement2>();
 }
