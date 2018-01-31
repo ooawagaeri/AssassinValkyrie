@@ -8,6 +8,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include "bullet.h"
+#include "entity.h"
 
 namespace fireNS
 {
@@ -27,7 +28,7 @@ namespace fireNS
 class Fireball : public Bullet
 {
 public:
-	Fireball();
+	Fireball(Entity *play);
 
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);

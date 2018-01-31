@@ -30,7 +30,7 @@ namespace trooperNS
 	const int   TEXTURE_COLS = 10;
 	const int   START_FRAME = 0;
 	const int   END_FRAME = 9;
-	const float ANIMATION_DELAY = 0.5f;
+	const float ANIMATION_DELAY = 0.3f;
 
 	const double VISION_ANGLE = PI / 6;
 	const int	VISION_RANGE = 200;
@@ -48,7 +48,7 @@ namespace trooperNS
 	const int DIE_TEXTURE_COLS = 5;
 	const int DIE_START_FRAME = 15;
 	const int DIE_END_FRAME = 24;
-	const float DIE_ANIMATION_DELAY = 0.2f;
+	const float DIE_ANIMATION_DELAY = 0.15f;
 }
 
 namespace gunnerNS
@@ -67,8 +67,8 @@ namespace gunnerNS
 	const int   END_FRAME = 11;
 	const float ANIMATION_DELAY = 0.25f;
 
-	const double VISION_ANGLE = PI / 8;
-	const int	VISION_RANGE = 250;
+	const double VISION_ANGLE = PI / 7;
+	const int	VISION_RANGE = 200;
 	const float	VISION_HEIGHT = HEIGHT*SCALE / 3.5f;
 
 	const int SHOOT_RANGE = 200;
@@ -83,7 +83,7 @@ namespace gunnerNS
 	const int DIE_TEXTURE_COLS = 4;
 	const int DIE_START_FRAME = 32;
 	const int DIE_END_FRAME = 39;
-	const float DIE_ANIMATION_DELAY = 0.2f;
+	const float DIE_ANIMATION_DELAY = 0.15f;
 }
 
 namespace serpantNS
@@ -106,7 +106,7 @@ namespace serpantNS
 	const int	VISION_RANGE = 200;
 	const float	VISION_HEIGHT = HEIGHT*SCALE / 3.5f;
 
-	const int FIRE_RANGE = 200;
+	const int FIRE_RANGE = 400;
 	const int FIRE_WIDTH = 90;
 	const int FIRE_HEIGHT = 99;
 	const int FIRE_TEXTURE_COLS = 10;
@@ -118,7 +118,7 @@ namespace serpantNS
 	const int DIE_TEXTURE_COLS = 9;
 	const int DIE_START_FRAME = 9;
 	const int DIE_END_FRAME = 17;
-	const float DIE_ANIMATION_DELAY = 0.2f;
+	const float DIE_ANIMATION_DELAY = 0.15f;
 }
 
 class Enemy : public Entity
@@ -133,9 +133,10 @@ protected:
 	Ray		*vision;
 	Image	attackAnimation;
 	Image	dieAnimation;
+	Image	cautionAnimation;
 	int		range;
 	int		attackFrame;
-
+	bool	triggerAlert;
 
 public:
 	// constructor
@@ -152,8 +153,8 @@ public:
 	void draw();
 	void drawRay(Graphics *g);
 
-	void setOriginalPos(VECTOR2 pos) 
-	{ 
+	void setOriginalPos(VECTOR2 pos)
+	{
 		spriteData.x = pos.x; spriteData.y = pos.y;
 		move->setOrigin(pos);
 	}
@@ -165,6 +166,7 @@ public:
 	Image *getAnimation() { return &attackAnimation; }
 	int getAttackFrame() { return attackFrame; }
 	bool isAlive() { return health->getAlive(); }
+	void setState(EnemyState *value) { state_ = value; }
 };
 
 #endif
