@@ -48,7 +48,7 @@ const char MMBACKGROUND_IMAGE[] = "pictures\\mainMenuBackground.png";
 const char MOUSE_IMAGE[] = "pictures\\mouse.png";
 const char ENEMY_IMAGE[] = "pictures\\enemyTexture.png";
 const char PLAYER_IMAGE[] = "pictures\\Player.png";
-const char FLOOR_IMAGE[] = "pictures\\newElements.png";
+const char FLOOR_IMAGE[] = "pictures\\testElement.png";
 const char BACKGROUND_IMAGE[] = "pictures\\backgroundBIG.png";
 const char LADDER_IMAGE[] = "pictures\\ladderbigger.png";
 
