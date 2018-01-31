@@ -100,5 +100,7 @@ public:
 
 	int getTotalLevels() { return totalLevels; }
 	int getCurrentTotalLevel() { return currentTotalLevel; }
+
+	float calcMultipler(int level) { return 1 + (level *0.33); }
 };
 #endif

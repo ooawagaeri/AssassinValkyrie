@@ -86,7 +86,7 @@ bool WeaponManager::initializeStone(Game *gamePtr, int width, int height, int nc
 
 
 void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int width, int height, int arrowcols, int stonecols,
-	TextureManager *textureM, float X, float Y, Entity &player)
+	TextureManager *textureM, float X, float Y, Player &player)
 {
 
 	if (input->isKeyDown(RANGE_ATTACK_KEY))
