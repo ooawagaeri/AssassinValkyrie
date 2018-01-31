@@ -8,13 +8,14 @@
 using std::vector;
 
 typedef std::vector<Arrow *> ARROWLIST;
+typedef std::vector<Stone *> STONELIST;
 
 class WeaponManager
 {
 
 private:
 	std::vector<Arrow *> arrow_collection;
-	std::vector<Stone *> stone_collection;
+	STONELIST stone_collection;
 	DWORD Tick;
 	DWORD Tick2;
 
@@ -28,7 +29,7 @@ public:
 		TextureManager *textureM, float X, float Y, Entity &player);
 	void update(float frameTime, Input *input, Game *gamePtr, int width, int height, int arrowcols, int stonecols,
 		TextureManager *textureM, float X, float Y, Entity &player);
-	void collisions(EnemyManager *enemyList);
+	void collisions(EnemyManager *enemyList, PLATFORM floor);
 	void ai();
 	void render();
 

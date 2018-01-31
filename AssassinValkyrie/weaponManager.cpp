@@ -1,5 +1,6 @@
 
 #include "weaponManager.h"
+#include "distractedState.h"
 
 WeaponManager::WeaponManager()
 {
@@ -127,11 +128,10 @@ void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int wid
 void WeaponManager::ai() {}
 
 
-void WeaponManager::collisions(EnemyManager *enemyList)
+void WeaponManager::collisions(EnemyManager *enemyList, PLATFORM floor)
 {
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
-
 
 	ARROWLIST::iterator it = arrow_collection.begin();
 	while (it != arrow_collection.end())
@@ -152,6 +152,38 @@ void WeaponManager::collisions(EnemyManager *enemyList)
 			it = arrow_collection.erase(it);
 		else
 			it++;
+	}
+
+	STONELIST::iterator stone = stone_collection.begin();
+	while (stone != stone_collection.end())
+	{
+		bool floorCollision = false;
+		for (Entity *f : floor)
+			if ((*stone)->collidesWith(*f, collisionVector))
+			{
+				floorCollision = true;
+				break;
+			}
+		if (floorCollision)
+		{
+			vector<Enemy *> tempList;
+			for (Enemy *e : *enemyList->getTroopers())
+				tempList.emplace_back(e);
+			for (Enemy *e : *enemyList->getGunners())
+				tempList.emplace_back(e);
+			for (Enemy *e : *enemyList->getSerpants())
+				tempList.emplace_back(e);
+
+			for (Enemy *e : tempList)
+			{
+				VECTOR2 unit = *e->getCenter() - *(*stone)->getCenter();
+				if (D3DXVec2Length(&unit) < 400)	// Range of stone distraction
+					e->setState(new DistractedState(*(*stone)->getCenter()));
+			}
+			stone = stone_collection.erase(stone);
+		}
+		else
+			stone++;
 	}
 }
 

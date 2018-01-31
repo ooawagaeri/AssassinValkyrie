@@ -26,7 +26,7 @@ void HealthComponent::update(float frameTime, VECTOR2 pos)
 }
 void HealthComponent::draw(Entity *ent)
 {
-	healthbar.draw(graphicsNS::MAROON);
+	healthbar.draw(graphicsNS::RED);
 	if (damageColor != NULL && (GetTickCount() - damageTimer > 800))
 		damageColor = NULL;
 	if (animationOn)

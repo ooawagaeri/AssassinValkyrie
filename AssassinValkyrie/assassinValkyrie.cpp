@@ -118,7 +118,7 @@ void AssassinValkyrie::update()
 	background->update(frameTime, player, stageGenerator, &emList);
 	//stageGenerator->update(frameTime);
 	mouse->update();
-  emBulletList.update(frameTime, this, &bulletTextures);
+	emBulletList.update(frameTime, this, &bulletTextures, player);
 	player->update(frameTime,this,&playerTextures,stageGenerator);
 	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
 	emList.update(frameTime, pCollection);
@@ -134,7 +134,7 @@ void AssassinValkyrie::ai()
 void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
-	weaponManager.collisions(&emList);
+	weaponManager.collisions(&emList,stageGenerator->getFloorPlatforms());
 	player->collisions(&emList,stageGenerator);
 	emList.collisions(mouse, stageGenerator->getFloorPlatforms(), pCollection);
 	emBulletList.collisions(mouse);

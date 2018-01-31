@@ -4,11 +4,14 @@
 // Student Number	: S10165581F
 
 #include "enemy.h"
+#include "Player.h"
+#include "stone.h"
 #include "enemyState.h"
 #include "alertState.h"
 #include "standState.h"
 #include "patrolState.h"
 #include "returnState.h"
+#include "distractedState.h"
 
 void EnemyState::update(Enemy *enemy, Entity *target)
 {
@@ -22,7 +25,7 @@ PatrollingState::PatrollingState() : EnemyState()
 
 EnemyState* PatrollingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
-	if (enemy->getRay()->inSight(*target->getCenter(),p))
+	if (enemy->getRay()->inSight(*target->getCenter(), p))
 	{
 		enemy->getRay()->setColor(graphicsNS::YELLOW);
 		return new AlertedState();
@@ -92,8 +95,6 @@ EnemyState* StandingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 
 ReturningState::ReturningState()
 {
-	timer = 0;
-	maxTime = 1000;
 }
 
 EnemyState* ReturningState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
@@ -116,4 +117,30 @@ EnemyState* ReturningState::handleInput(Enemy *enemy, Entity *target, PLATFORM p
 			return new PatrollingState();
 		}
 	return NULL;
+}
+
+DistractedState::DistractedState(VECTOR2 pos) : EnemyState()
+{
+	distractionPos = pos;
+	maxTime = 8000;
+}
+
+EnemyState* DistractedState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
+{
+	if (enemy->getRay()->inSight(*target->getCenter(), p) || (GetTickCount() - timer > maxTime))
+	{
+		enemy->getRay()->setColor(graphicsNS::YELLOW);
+		return new AlertedState();
+	}
+	return NULL;
+}
+
+void DistractedState::update(Enemy *enemy, Entity *target)
+{
+	if (*enemy->getCenter() > distractionPos)
+		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
+	else if (*enemy->getCenter() < distractionPos)
+		enemy->getMove()->setVelocity(-enemy->getMove()->getInitialVelocity());
+	else
+		enemy->getMove()->setVelocity(0);
 }

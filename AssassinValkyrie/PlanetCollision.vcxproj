@@ -112,6 +112,7 @@
     <ClCompile Include="levelLoader.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="rayCasting.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="background.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="cursor.h" />
+    <ClInclude Include="distractedState.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />

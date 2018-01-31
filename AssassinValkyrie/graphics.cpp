@@ -134,7 +134,7 @@ void Graphics::initTriangle(std::queue<CUSTOMVERTEX> *verticesClient)
 
 void Graphics::initRectangle()
 {
-	COLOR_ARGB filter = D3DCOLOR_ARGB(124, 32, 41, 48);
+	COLOR_ARGB filter = D3DCOLOR_ARGB(124, 18, 24, 29);
 	CUSTOMVERTEX vertices[] =
 	{
 		{ 0, 0,0.5f,1.0f, filter },

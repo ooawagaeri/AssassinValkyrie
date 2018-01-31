@@ -44,8 +44,9 @@ public:
 	void render();
 	void renderRay(Graphics *g);
 
+	TROOPERLIST *getTroopers() { return &trooperCollection; }
 	GUNNERLIST *getGunners() { return &gunnerCollection; }
-	SERPANTLIST *getSerpant() { return &serpantCollection; }
+	SERPANTLIST *getSerpants() { return &serpantCollection; }
 
 	void loadTrooper(POSITION p) { trooperPos = p; }
 	void loadGunner(POSITION p) { gunnerPos = p; }

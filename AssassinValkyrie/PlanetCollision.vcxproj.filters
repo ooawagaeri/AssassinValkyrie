@@ -58,9 +58,6 @@
     <ClCompile Include="verticalLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="assassinValkyrie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -113,6 +110,12 @@
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="HealthComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -184,9 +187,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="verticalLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -272,6 +272,12 @@
     </ClInclude>
     <ClInclude Include="trooper.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="distractedState.h">
+      <Filter>State Files\Enemy State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
