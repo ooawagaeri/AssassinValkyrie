@@ -7,37 +7,115 @@
 
 MainMenu::MainMenu()
 {
+	cursor = new Cursor();
 	assValk = new AssassinValkyrie();
 	gameStart = false;
 }
 
 MainMenu::~MainMenu()
 {
-	ShowCursor(FALSE);
+	ShowCursor(false);
 	releaseAll();
 }
 
 void MainMenu::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd);
+	// Mouse
+	if (!mouseTextures.initialize(graphics, MOUSE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Enemy Textures"));
+
+	if (!cursor->initialize(this, cursorNS::WIDTH, cursorNS::HEIGHT, cursorNS::TEXTURE_COLS, &mouseTextures))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy trooper"));
+
 	if (!mmBackgroundTexture.initialize(graphics, MMBACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Main Menu Background"));
 
 	if (!mmBackground.initialize(graphics, 1280, 720, 1, &mmBackgroundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Main Menu Background"));
 
+	// Buttons Texture
+	if (!buttonsTexture.initialize(graphics, BUTTON_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Buttons Texture"));
+
+	// Start Button
+	if (!startButton.initialize(graphics, buttonNS::BUTTON_WIDTH, buttonNS::BUTTON_HEIGHT, buttonNS::BUTTON_NCOLS, &buttonsTexture, cursor))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Start button"));
+	startButton.setCurrentFrame(buttonNS::START_BUTTON_FRAME);
+	startButton.setX(GAME_WIDTH/4 - ((startButton.getWidth()/2)*startButton.getScale()));
+	startButton.setY(GAME_HEIGHT / 4);
+
+	// Settings Button
+	if (!settingsButton.initialize(graphics, buttonNS::BUTTON_WIDTH, buttonNS::BUTTON_HEIGHT, buttonNS::BUTTON_NCOLS, &buttonsTexture, cursor))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Settings button"));
+	settingsButton.setCurrentFrame(buttonNS::SETTINGS_BUTTON_FRAME);
+	settingsButton.setX(startButton.getX());
+	settingsButton.setY(startButton.getY() + startButton.getHeight() + (5*startButton.getScale()));
+
+	// Credits Button
+	if (!creditsButton.initialize(graphics, buttonNS::BUTTON_WIDTH, buttonNS::BUTTON_HEIGHT, buttonNS::BUTTON_NCOLS, &buttonsTexture, cursor))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Credits button"));
+	creditsButton.setCurrentFrame(buttonNS::CREDITS_BUTTON_FRAME);
+	creditsButton.setX(settingsButton.getX());
+	creditsButton.setY(settingsButton.getY() + settingsButton.getHeight() + (5 * settingsButton.getScale()));
+
+	// Exit Button
+	if (!exitButton.initialize(graphics, buttonNS::BUTTON_WIDTH, buttonNS::BUTTON_HEIGHT, buttonNS::BUTTON_NCOLS, &buttonsTexture, cursor))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Exit button"));
+	exitButton.setCurrentFrame(buttonNS::EXIT_BUTTON_FRAME);
+	exitButton.setX(creditsButton.getX());
+	exitButton.setY(creditsButton.getY() + creditsButton.getHeight() + (5 * creditsButton.getScale()));
+
+	if (!pauseTexture.initialize(graphics, PAUSE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Pause"));
+
+	if (!pauseButton.initialize(graphics, dashboardNS::PAUSE_WIDTH, dashboardNS::PAUSE_HEIGHT, dashboardNS::PAUSE_NCOLS, &pauseTexture, cursor))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pause"));
+	pauseButton.setCurrentFrame(dashboardNS::PAUSE_FRAME);
+	pauseButton.setX(GAME_WIDTH - pauseButton.getWidth());
+	pauseButton.setY(0);
+
 	return;
 }
 
 void MainMenu::update()
 {
-	if (input->isKeyDown(ENTER_KEY) && gameStart != true)
+	cursor->update();
+
+	VECTOR2 collisionVector;
+
+	if (!gameStart)
 	{
-		gameStart = true;
-		assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime);
+
+
+		// Start Button
+		if (startButton.collidesWith(*cursor, collisionVector) && input->getMouseLButton())
+		{
+			gameStart = true;
+			assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime, &paused, cursor);
+		}
+
+		// Exit Button
+		if (input->isKeyDown(ESC_KEY) || ((exitButton.collidesWith(*cursor, collisionVector) && input->getMouseLButton())))
+		{
+			Game::exitGame();
+			return;
+		}
+
+
 	}
+
+
+
 	if (gameStart)
+	{
 		assValk->update();
+
+		if (pauseButton.collidesWith(*cursor, collisionVector) && input->getMouseLButton())
+			assValk->setPause(true);
+	}
+
+
 }
 
 void MainMenu::ai()
@@ -48,20 +126,59 @@ void MainMenu::ai()
 
 void MainMenu::collisions()
 {
+	VECTOR2 collisionVector;
+	if (!gameStart)
+	{
+		if (startButton.collidesWith(*cursor,collisionVector))
+			startButton.collisions(buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
+		if (!startButton.collidesWith(*cursor, collisionVector))
+			startButton.setCurrentFrame(buttonNS::START_BUTTON_FRAME);
+		if (settingsButton.collidesWith(*cursor, collisionVector))
+			settingsButton.collisions(buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME);
+		if (!settingsButton.collidesWith(*cursor, collisionVector))
+			settingsButton.setCurrentFrame(buttonNS::SETTINGS_BUTTON_FRAME);
+		if (creditsButton.collidesWith(*cursor, collisionVector))
+			creditsButton.collisions(buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME);
+		if (!creditsButton.collidesWith(*cursor, collisionVector))
+			creditsButton.setCurrentFrame(buttonNS::CREDITS_BUTTON_FRAME);
+		if (exitButton.collidesWith(*cursor, collisionVector))
+			exitButton.collisions(buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME);
+		if (!exitButton.collidesWith(*cursor, collisionVector))
+			exitButton.setCurrentFrame(buttonNS::EXIT_BUTTON_FRAME);
+
+	}
 	if (gameStart)
+	{
 		assValk->collisions();
+		if (pauseButton.collidesWith(*cursor, collisionVector))
+			pauseButton.collisions(dashboardNS::PAUSE_FRAME, dashboardNS::PAUSE_HOVER_FRAME);
+		if (!pauseButton.collidesWith(*cursor, collisionVector))
+			pauseButton.setCurrentFrame(dashboardNS::PAUSE_FRAME);
+	}
 }
 
 void MainMenu::render()
 {
 	graphics->spriteBegin();
 
+
 	if (gameStart)
 	{
 		assValk->render();
+		pauseButton.draw();
 	}
+
 	else
+	{
 		mmBackground.draw();
+		startButton.draw();
+		settingsButton.draw();
+		creditsButton.draw();
+		exitButton.draw();
+	}
+
+	cursor->draw();
+
 
 	graphics->spriteEnd();
 }
@@ -71,7 +188,13 @@ void MainMenu::releaseAll()
 	if (gameStart)
 		assValk->releaseAll();
 	else
+	{
 		mmBackgroundTexture.onLostDevice();
+		buttonsTexture.onLostDevice();
+
+	}
+	mouseTextures.onLostDevice();
+
 }
 
 void MainMenu::resetAll()
@@ -79,6 +202,11 @@ void MainMenu::resetAll()
 	if (gameStart)
 		assValk->resetAll();
 	else
+	{
 		mmBackgroundTexture.onResetDevice();
-	return;
+		buttonsTexture.onResetDevice();
+
+	}
+	mouseTextures.onResetDevice();
+
 }

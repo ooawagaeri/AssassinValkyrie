@@ -151,6 +151,12 @@
     <ClCompile Include="rightFill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dashboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -319,6 +325,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rightFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
