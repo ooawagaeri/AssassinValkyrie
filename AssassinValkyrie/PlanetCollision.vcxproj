@@ -113,6 +113,7 @@
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="rayCasting.cpp" />
+    <ClCompile Include="rightFill.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="trooper.cpp" />

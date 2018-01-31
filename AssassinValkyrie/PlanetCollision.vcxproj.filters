@@ -112,7 +112,12 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>State Files\Player State</Filter>
     </ClCompile>
-    <ClCompile Include="leftFill.cpp" />
+    <ClCompile Include="leftFill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rightFill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -271,8 +276,12 @@
     <ClInclude Include="healthBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="leftFill.h" />
-    <ClInclude Include="rightFill.h" />
+    <ClInclude Include="leftFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rightFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
