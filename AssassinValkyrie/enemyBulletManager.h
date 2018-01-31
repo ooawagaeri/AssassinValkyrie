@@ -31,8 +31,8 @@ public:
 
 	void initialize(EnemyManager *enemyList);
 	bool initializeBullet(Game *gamePtr, TextureManager *textureM, Gunner *gunner);
-	bool initializeFire(Game *gamePtr, TextureManager *textureM, Serpant *serpant);
-	void update(float frameTime, Game *gamePtr, TextureManager *textureM);
+	bool initializeFire(Game *gamePtr, TextureManager *textureM, Serpant *serpant, Entity *play);
+	void update(float frameTime, Game *gamePtr, TextureManager *textureM, Entity *play);
 	void collisions(Entity *play);
 	void render();
 };
