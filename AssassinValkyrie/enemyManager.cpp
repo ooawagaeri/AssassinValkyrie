@@ -97,7 +97,7 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	trooper = trooperCollection.begin();
 	while (trooper != trooperCollection.end())
 	{
-		if ((*trooper)->isAlive()) {
+		if ((*trooper)->isAlive() || (*trooper)->isDeathAnimation() != 3) {
 			if ((*trooper)->collidesWith(*play, collisionVector))
 			{
 				(*trooper)->getHealth()->damage(10);
@@ -106,14 +106,14 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 		}
 		else if ((*trooper)->outOfBounds())
 			trooper++;
-		else
+		else 	
 			trooper = trooperCollection.erase(trooper);
 	}
 
 	gunner = gunnerCollection.begin();
 	while (gunner != gunnerCollection.end())
 	{
-		if ((*gunner)->isAlive()) {
+		if ((*gunner)->isAlive() || (*gunner)->isDeathAnimation() != 3) {
 			if ((*gunner)->collidesWith(*play, collisionVector))
 			{
 				(*gunner)->getHealth()->damage(10);
@@ -129,7 +129,7 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	serpant = serpantCollection.begin();
 	while (serpant != serpantCollection.end())
 	{
-		if ((*serpant)->isAlive()) {
+		if ((*serpant)->isAlive() || (*serpant)->isDeathAnimation() != 3) {
 			if ((*serpant)->collidesWith(*play, collisionVector))
 			{
 				(*serpant)->getHealth()->damage(10);

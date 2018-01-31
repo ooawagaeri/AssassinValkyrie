@@ -193,6 +193,7 @@ PlayerState* MeleeAttackState::handleInput(Player& player, Input* input, Game *g
 			player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 			player.setCurrentFrame(STANDING_STATE::START_FRAME);
+			player.IsMeleeAttacking(false);
 			player.setLoop(true);
 			return new StandState();
 		

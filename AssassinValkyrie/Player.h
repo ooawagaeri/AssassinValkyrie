@@ -31,7 +31,7 @@ namespace playerNS
 	const int   END_FRAME = 0;
 	const float ANIMATION_DELAY = 0.5f;
 	const int	START_LEVEL = 1;
-	const int	TOTAL_LEVELS = 9;
+	const int	TOTAL_LEVELS = 12;
 }
 
 
@@ -45,6 +45,7 @@ protected:
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
+	int stealthLevel;
 	int speedLevel;
 	int rangeLevel;
 	int armorLevel;
