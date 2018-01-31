@@ -4,6 +4,7 @@
 #include "arrow.h"
 #include "stone.h"
 #include "enemyManager.h"
+#include "Player.h"
 
 using std::vector;
 
@@ -28,7 +29,7 @@ public:
 		TextureManager *textureM, float X, float Y, Entity &player);
 	void update(float frameTime, Input *input, Game *gamePtr, int width, int height, int arrowcols, int stonecols,
 		TextureManager *textureM, float X, float Y, Entity &player);
-	void collisions(EnemyManager *enemyList);
+	void collisions(EnemyManager *enemyList, Player *player);
 	void ai();
 	void render();
 

@@ -23,6 +23,13 @@ Player::Player() : Entity()
 	currentFrame = startFrame;
 	edge = RECT{ (long)(-playerNS::WIDTH*playerNS::SCALE / 2), (long)(-playerNS::HEIGHT*playerNS::SCALE / 2), (long)(playerNS::WIDTH*playerNS::SCALE / 2), (long)(playerNS::HEIGHT*playerNS::SCALE / 2) };
 	collisionType = entityNS::BOX;
+	totalXP = 0;
+	totalLevels = playerNS::TOTAL_LEVELS;
+	speedLevel = playerNS::START_LEVEL;
+	rangeLevel = playerNS::START_LEVEL;
+	armorLevel = playerNS::START_LEVEL;
+	currentTotalLevel = speedLevel + rangeLevel + armorLevel - 2;
+	skillPointAvailable = 0;
 }
 
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
@@ -33,7 +40,10 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 
 void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList)
 {
-	
+	if (totalXP > ((currentTotalLevel - 2) * 50)) {
+		currentTotalLevel++;
+		skillPointAvailable++;
+	}
 	
 	handleInput(input,gamePtr,textureM,floorList);
 	state_->update(*this, frameTime);
@@ -58,7 +68,8 @@ void Player::collisions(EnemyManager *enemyList)
 {
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
-
+	TROOPERLIST *trooperCollection = enemyList->getTroopers();
+	SERPANTLIST *serpantCollection = enemyList->getSerpant();
 
 	
 	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
@@ -68,20 +79,42 @@ void Player::collisions(EnemyManager *enemyList)
 			
 			if (isMeleeAttacking == true)
 			{
-				(*gunner)->setVisible(false);
-				(*gunner)->setActive(false);
+				(*gunner)->getHealth()->damage(gunnerNS::HEALTH);
 				isMeleeAttacking = false;
+				if (!(*gunner)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
 				break;
 			}
-
-			
 		}
 	}
-
-	
-
-
-	
+	for (TROOPERLIST::iterator trooper = (trooperCollection->begin()); trooper != trooperCollection->end(); trooper++)
+	{
+		if (collidesWith(**trooper, collisionVector))
+		{
+			if (isMeleeAttacking == true)
+			{
+				(*trooper)->getHealth()->damage(trooperNS::HEALTH);
+				isMeleeAttacking = false;
+				if (!(*trooper)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
+				break;
+			}
+		}
+	}
+	for (SERPANTLIST::iterator serpant = (serpantCollection->begin()); serpant != serpantCollection->end(); serpant++)
+	{
+		if (collidesWith(**serpant, collisionVector))
+		{
+			if (isMeleeAttacking == true)
+			{
+				(*serpant)->getHealth()->damage(serpantNS::HEALTH/2);
+				isMeleeAttacking = false;
+				if (!(*serpant)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 100;
+				break;
+			}
+		}
+	}
 	
 }
 

@@ -43,6 +43,7 @@ public:
 	void collisions(Entity *play, PLATFORM floor, PLATFORM fill);
 	void render(Graphics *g);
 
+	TROOPERLIST *getTroopers() { return &trooperCollection; }
 	GUNNERLIST *getGunners() { return &gunnerCollection; }
 	SERPANTLIST *getSerpant() { return &serpantCollection; }
 
