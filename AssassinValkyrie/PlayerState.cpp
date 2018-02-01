@@ -59,7 +59,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 			player.initialize(gamePtr, ASSASSINATE_STATE::WIDTH, ASSASSINATE_STATE::HEIGHT, ASSASSINATE_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(ASSASSINATE_STATE::START_FRAME, ASSASSINATE_STATE::END_FRAME);
 			player.setCurrentFrame(ASSASSINATE_STATE::START_FRAME);
-			player.setFrameDelay(0.1);
+			player.setFrameDelay(0.3);
 			player.setLoop(false);
 			player.IsAssassinating(true);
 			return new AssassinateState();
@@ -137,11 +137,48 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 
 PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM,  StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
-
+	player.setOnGround(false);
+	player.setCollideWithVision(false);
 	VECTOR2 collisionVector;
+
 	FILLS *fillCollection = stagegenerator->getFills();
 	FLOORS *floorCollection = stagegenerator->getFloors();
-	player.setOnGround(false);
+	GUNNERLIST *gunnerCollection = enemyList->getGunners();
+	TROOPERLIST *trooperCollection = enemyList->getTroopers();
+	SERPANTLIST *serpantCollection = enemyList->getSerpants();
+
+	Player *playerpointer;
+	playerpointer = &player;
+
+	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
+	{
+		if ((*gunner)->getRay()->inSight(*playerpointer->getCenter(), p))
+		{
+
+			player.setCollideWithVision(true);
+
+		}
+	}
+	for (TROOPERLIST::iterator trooper = (trooperCollection->begin()); trooper != trooperCollection->end(); trooper++)
+	{
+		if ((*trooper)->getRay()->inSight(*playerpointer->getCenter(), p))
+		{
+
+			player.setCollideWithVision(true);
+
+		}
+	}
+	for (SERPANTLIST::iterator serpant = (serpantCollection->begin()); serpant != serpantCollection->end(); serpant++)
+	{
+		if ((*serpant)->getRay()->inSight(*playerpointer->getCenter(), p))
+		{
+
+			player.setCollideWithVision(true);
+
+		}
+	}
+
+	
 	for (FLOORS::iterator floor = (floorCollection->begin()); floor != floorCollection->end(); floor++)
 	{
 		if (player.collidesWith(**floor, collisionVector))
@@ -168,6 +205,19 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 
 		}
 	} 
+	if (!player.isCollidingWithVision())
+	{
+		if (input->isKeyDown(ASSASSINATE_KEY))
+		{
+			player.initialize(gamePtr, ASSASSINATE_STATE::WIDTH, ASSASSINATE_STATE::HEIGHT, ASSASSINATE_STATE::TEXTURE_COLS, textureM);
+			player.setFrames(ASSASSINATE_STATE::START_FRAME, ASSASSINATE_STATE::END_FRAME);
+			player.setCurrentFrame(ASSASSINATE_STATE::START_FRAME);
+			player.setFrameDelay(0.3);
+			player.setLoop(false);
+			player.IsAssassinating(true);
+			return new AssassinateState();
+		}
+	}
 
 	if(!player.isOnGround())
 	{
@@ -209,6 +259,17 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 		return new JumpingState();
 	}
 
+	else if (input->isKeyDown(MELEE_ATTACK_KEY))
+	{
+		player.initialize(gamePtr, MELEE_ATTACK_STATE::WIDTH, MELEE_ATTACK_STATE::HEIGHT, MELEE_ATTACK_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(MELEE_ATTACK_STATE::START_FRAME, MELEE_ATTACK_STATE::END_FRAME);
+		player.setCurrentFrame(MELEE_ATTACK_STATE::START_FRAME);
+		player.setFrameDelay(0.1);
+		player.setLoop(false);
+		player.IsMeleeAttacking(true);
+		return new MeleeAttackState();
+
+	}
 
 
 
