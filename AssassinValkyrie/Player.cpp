@@ -30,9 +30,9 @@ Player::Player() : Entity()
 	rangeLevel = playerNS::START_LEVEL;
 	armorLevel = playerNS::START_LEVEL;
 	currentTotalLevel = stealthLevel + speedLevel + rangeLevel + armorLevel - 3;
-	skillPointAvailable = 5;
+	skillPointAvailable = 0;
 
-	//Needs to confirm with yuteng
+	// yuteng didn;t add this in 
 	health = playerNS::HEALTH;
 
 }
