@@ -87,6 +87,7 @@ const UCHAR CROUCHING_KEY = 'S';
 const UCHAR MELEE_ATTACK_KEY = 'G';
 const UCHAR RANGE_ATTACK_KEY = 'F';
 const UCHAR DISTRACT_KEY = 'H';
+const UCHAR ASSASSINATE_KEY = 'R';
 const UCHAR JUMPING_KEY = VK_SPACE;
 
 // weapon types

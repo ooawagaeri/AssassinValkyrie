@@ -31,7 +31,7 @@ public:
 	CrouchWalkingState() :PlayerState() {}
 	~CrouchWalkingState() {}
 
-	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM ,StageGenerator *floorList);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM ,StageGenerator *floorList, EnemyManager *enemyList, PLATFORM p);
 
 	void update(Player &player, float frameTime)
 	{
