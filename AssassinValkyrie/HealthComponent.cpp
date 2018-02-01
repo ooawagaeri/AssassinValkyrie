@@ -10,6 +10,8 @@ bool HealthComponent::initialize(Graphics *graphics, TextureManager *textureM, i
 {
 	curr_health = max;
 	isAlive = true;
+	animationOn = false;
+	isAnimating = 1;
 	healthbar.initialize(graphics, textureM, max);
 	return true;
 }
@@ -19,9 +21,11 @@ void HealthComponent::update(float frameTime, VECTOR2 pos)
 
 	if (animationOn)
 	{
+		isAnimating = 2;
 		animation->update(frameTime);
-		if (animation->getAnimationComplete())
-			isAlive = false;
+		if (animation->getAnimationComplete()) {
+			isAnimating = 3;
+		}
 	}
 }
 void HealthComponent::draw(Entity *ent)
@@ -40,7 +44,10 @@ void HealthComponent::damage(int hitPoint)
 	curr_health -= hitPoint;
 	healthbar.setSize(curr_health);
 	if (curr_health <= 0)
+	{
 		animationOn = true;
+		isAlive = false;
+	}
 	else
 	{
 		damageColor = graphicsNS::ORANGE;

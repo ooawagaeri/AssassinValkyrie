@@ -3,7 +3,7 @@
 // Student Number	: Zhuang yuteng
 // Student Number	: S10163964C
 
-#ifndef _PLAYER_H 
+#ifndef _PLAYER_H
 #define _PLAYER_H
 #define WIN32_LEAN_AND_MEAN
 
@@ -23,7 +23,7 @@ namespace playerNS
 	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 4 ;
 	//const int	Y = GAME_HEIGHT/2-100 ;
-	const int	Y = 500;
+	const int	Y = 100;
 	const float SPEED = 100;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 1;
@@ -31,7 +31,7 @@ namespace playerNS
 	const int   END_FRAME = 0;
 	const float ANIMATION_DELAY = 0.5f;
 	const int	START_LEVEL = 1;
-	const int	TOTAL_LEVELS = 9;
+	const int	TOTAL_LEVELS = 12;
 }
 
 
@@ -41,10 +41,14 @@ class Player : public Entity
 protected:
 	bool jumpRight = false;
 	bool jumpLeft = false;
+	bool collidingWithVision = false;
 	bool isMeleeAttacking = false;
+	bool isAssassinating = false;
+	bool onGround = false;
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
+	int stealthLevel;
 	int speedLevel;
 	int rangeLevel;
 	int armorLevel;
@@ -57,10 +61,11 @@ public:
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
-	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
+	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p);
+	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p);
 	void ai(Entity &ship1, Entity &ship2);
-	void collisions(EnemyManager *enemyList);
+	//void collisions(EnemyManager *enemyList);
+	void collisions(EnemyManager *enemyList, StageGenerator *stageGen);
 	void draw();
 	bool getJumpRight()
 	{
@@ -85,13 +90,37 @@ public:
 	{
 		isMeleeAttacking = condition;
 	}
+	void IsAssassinating(bool condition)
+	{
+		isAssassinating = condition;
+	}
+	void setCollideWithVision(bool condition)
+	{
+		collidingWithVision = condition;
+	}
+	bool isCollidingWithVision()
+	{
+		return collidingWithVision;
+	}
+	void setOnGround(bool condition)
+	{
+		onGround = condition;
+	}
+	bool isOnGround()
+	{
+		return onGround;
+	}
 	void setSpeedLevel(int i) { speedLevel = i; }
+	void setStealthLevel() { stealthLevel++; }
+	int getStealthLevel() { return stealthLevel; }
+
+	void setSpeedLevel() { speedLevel++; }
 	int getSpeedLevel() { return speedLevel; }
 
-	void setArmorLevel(int i) { armorLevel = i; }
+	void setArmorLevel() { armorLevel++; }
 	int getArmorLevel() { return armorLevel; }
 
-	void setRangeLevel(int i) { rangeLevel = i; }
+	void setRangeLevel() { rangeLevel++; }
 	int getRangeLevel() { return rangeLevel; }
 
 	void setTotalXP(int i) { totalXP = i; }
@@ -99,5 +128,9 @@ public:
 
 	int getTotalLevels() { return totalLevels; }
 	int getCurrentTotalLevel() { return currentTotalLevel; }
+
+	int getSkillPoints() { return skillPointAvailable; }
+	void useSkillPoints() { skillPointAvailable--; }
+	float calcMultipler(int level) { return 1 + (level *0.33); }
 };
 #endif

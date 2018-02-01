@@ -14,7 +14,7 @@ namespace FALLING_STATE
 	const int TEXTURE_COLS = 11;
 	const int   START_FRAME = 43;
 	const int   END_FRAME = 43;
-	const int FALLING_SPEED = 150;
+	
 }
 
 #include "PlayerState.h"
@@ -24,18 +24,19 @@ class FallingState : public PlayerState
 
 private:
 
-
+	float fallingVelocity = 300;
+	float gravity = 9.81;
 public:
 
 	FallingState() :PlayerState() {}
 	~FallingState() {}
 
-	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList, EnemyManager *enemyList, PLATFORM p);
 
 	void update(Player &player, float frameTime)
 	{
-		VECTOR2 velocity = player.getVelocity();
-		player.setY(player.getY() + (velocity.y) *frameTime);
+		fallingVelocity += gravity*frameTime;
+		player.setY(player.getY() + fallingVelocity *frameTime);
 	}
 };
 #endif

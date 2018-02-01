@@ -70,7 +70,10 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!ladderTexture.initialize(graphics, LADDER_IMAGE))
 		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing ladder texture"));
 
-	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList))
+	if (!pickupTextures.initialize(graphics, PICKUP_IMAGE))
+		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing pickup texture"));
+
+	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList, &pickupTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
 
 	visionPlatforms = stageGenerator->getVisionPlatforms();
@@ -106,20 +109,17 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	emBulletList.initialize(&emList);
 
-	/////////////////////////////////////////
-	//				Player
-	/////////////////////////////////////////
-	// Player
+/////////////////////////////////////////
+//				Player
+/////////////////////////////////////////
+// Player
 	if (!playerTextures.initialize(graphics, PLAYER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player Textures"));
 
 	if (!player->initialize(this, playerNS::WIDTH, playerNS::HEIGHT, playerNS::TEXTURE_COLS, &playerTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
-
-	/////////////////////////////////////////
-	//				UI
-	/////////////////////////////////////////
-	dashboard->initialize(graphics, mouse);
+	//UI
+	dashboard->initialize(graphics, mouse, player);
 
 	if (!displayTimer->initialize(graphics, 30, false, false, "Spectre 007"))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Dashboard Text"));
@@ -147,8 +147,8 @@ void AssassinValkyrie::update()
 	//stageGenerator->update(frameTime);
 	mouse->update();
 	emBulletList.update(frameTime, this, &bulletTextures, player);
-	player->update(frameTime,this,&playerTextures,stageGenerator);
-	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player);
+	player->update(frameTime,this,&playerTextures,stageGenerator,&emList,visionPlatforms);
+	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player);
 	emList.update(frameTime, visionPlatforms);
 }
 
@@ -163,15 +163,16 @@ void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
 	weaponManager.collisions(&emList, player, floorPlatforms);
-	player->collisions(&emList);
+	player->collisions(&emList, stageGenerator);
 	emList.collisions(mouse, floorPlatforms, sidePlatforms);
 	emBulletList.collisions(mouse);
+	background->collisions(player, stageGenerator);
 }
 
 // Render game items
 void AssassinValkyrie::render()
 {
-	
+
 	background->draw();
 	stageGenerator->render();
 	mouse->draw();

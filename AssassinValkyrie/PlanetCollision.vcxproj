@@ -116,6 +116,10 @@
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="pickup.cpp" />
+    <ClCompile Include="pickupArrow.cpp" />
+    <ClCompile Include="pickupHP.cpp" />
+    <ClCompile Include="pickupStone.cpp" />
     <ClCompile Include="rayCasting.cpp" />
     <ClCompile Include="rightFill.cpp" />
     <ClCompile Include="textDX.cpp" />
@@ -129,17 +133,20 @@
     <ClCompile Include="verticalLoader.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="playerBar.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alertState.h" />
     <ClInclude Include="AttackComponent.h" />
+    <ClInclude Include="AssassinateState.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="dashboard.h" />
+    <ClInclude Include="distractedState.h"/>
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />
@@ -165,6 +172,10 @@
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="patrolState.h" />
+    <ClInclude Include="pickup.h" />
+    <ClInclude Include="pickupArrow.h" />
+    <ClInclude Include="pickupHP.h" />
+    <ClInclude Include="pickupStone.h" />
     <ClInclude Include="rayCasting.h" />
     <ClInclude Include="rightFill.h" />
     <ClInclude Include="standState.h" />
@@ -190,6 +201,7 @@
     <ClInclude Include="stone.h" />
     <ClInclude Include="weaponManager.h" />
     <ClInclude Include="returnState.h" />
+    <ClInclude Include="playerBar.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="1-horizontal.txt" />

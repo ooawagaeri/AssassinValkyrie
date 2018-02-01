@@ -20,6 +20,7 @@ Background::Background() : Entity()
 	collisionType = entityNS::BOX;
 	centreX = 640;
 	centreY = 360;
+	moveOn = true;
 }
 
 bool Background::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
@@ -46,14 +47,14 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 		stageGen->update(frameTime, 0, 1, false);
 	}
 	if ((player->getX() < centreX) && !left) {
-		if (input->isKeyDown(RUNNING_LEFT_KEY)) {
+		if (input->isKeyDown(RUNNING_LEFT_KEY) && moveOn) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (velocity.x);         // move ship along X
 			stageGen->update(frameTime, 1, 0, true);
 			emList->camera(frameTime, 1);
 			emBulletList->camera(frameTime, 1);
 		}
-		if (input->isKeyDown(RUNNING_RIGHT_KEY)) {
+		if (input->isKeyDown(RUNNING_RIGHT_KEY) && moveOn) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (-velocity.x);         // move ship along X
 			stageGen->update(frameTime, 2, 0, true);
@@ -64,14 +65,14 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 	}
 
 	if ((player->getX() >= centreX) && !right) {
-		if (input->isKeyDown(RUNNING_LEFT_KEY)) {
+		if (input->isKeyDown(RUNNING_LEFT_KEY) && moveOn) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (velocity.x);         // move ship along X
 			stageGen->update(frameTime, 1, 0, true);
 			emList->camera(frameTime, 1);
 			emBulletList->camera(frameTime, 2);
 		}
-		if (input->isKeyDown(RUNNING_RIGHT_KEY)) {
+		if (input->isKeyDown(RUNNING_RIGHT_KEY) && moveOn) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (-velocity.x);         // move ship along X
 			stageGen->update(frameTime, 2, 0, true);
@@ -228,4 +229,30 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 void Background::draw()
 {
 	Image::draw();              // draw ship
+}
+
+void Background::collisions(Player *player, StageGenerator *stageGen)
+{
+	VECTOR2 collisionVector;
+	FILLS *fillCollection = stageGen->getFills();
+
+	for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
+	{
+		if (player->collidesWith(**fill, collisionVector))
+		{
+			if (!player->isFlipHorizontal())
+			{
+				player->setX((*fill)->getX() - 80);
+			}
+
+			else
+			{
+				player->setX((*fill)->getX() + 80);
+			}
+			moveOn = false;
+			break;
+		}
+		else
+			moveOn = true;
+	}
 }

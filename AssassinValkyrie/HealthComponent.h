@@ -19,6 +19,7 @@ private:
 	COLOR_ARGB damageColor = NULL;
 	int damageTimer;
 	Image *animation;
+	int isAnimating;
 
 public:
 	HealthComponent(Image *image);
@@ -30,6 +31,7 @@ public:
 	bool getAlive() { return isAlive; }
 	bool getDieAnimation() { return animationOn; }
 	COLOR_ARGB getDamageAnimation() { return damageColor; }
+	int getAnimationStatus() { return isAnimating; }
 };
 
 #endif
