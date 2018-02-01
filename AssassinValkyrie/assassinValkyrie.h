@@ -38,7 +38,9 @@ private:
 	Cursor			*mouse;
 	EnemyManager	emList;
 	EnemyBulletManager	emBulletList;
-	PLATFORM		pCollection;
+	PLATFORM		visionPlatforms;
+	PLATFORM		sidePlatforms;
+	PLATFORM		floorPlatforms;
 
 	TextureManager	playerTextures;
 	Player *player;

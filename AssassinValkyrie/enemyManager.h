@@ -12,6 +12,7 @@
 #include "serpant.h"
 #include <vector>
 
+typedef std::vector<Enemy*> WORLDENEMYLIST;
 typedef std::vector<Trooper*> TROOPERLIST;
 typedef std::vector<Gunner*> GUNNERLIST;
 typedef std::vector<Serpant*> SERPANTLIST;
@@ -21,10 +22,12 @@ typedef std::vector<VECTOR2> POSITION;
 class EnemyManager
 {
 private:
+	WORLDENEMYLIST worldCollection;
 	TROOPERLIST trooperCollection;
 	GUNNERLIST gunnerCollection;
 	SERPANTLIST serpantCollection;
 
+	WORLDENEMYLIST::iterator world;
 	TROOPERLIST::iterator trooper;
 	GUNNERLIST::iterator gunner;
 	SERPANTLIST::iterator serpant;
@@ -32,6 +35,7 @@ private:
 	POSITION	trooperPos;
 	POSITION	gunnerPos;
 	POSITION	serpantPos;
+	int			alertRange;
 
 public:
 	EnemyManager();
@@ -43,10 +47,12 @@ public:
 	void collisions(Entity *play, PLATFORM floor, PLATFORM fill);
 	void render();
 	void renderRay(Graphics *g);
+	void unCollide(Enemy *t, PLATFORM floor, PLATFORM fill);
 
 	TROOPERLIST *getTroopers() { return &trooperCollection; }
 	GUNNERLIST *getGunners() { return &gunnerCollection; }
 	SERPANTLIST *getSerpants() { return &serpantCollection; }
+	WORLDENEMYLIST *getWorlds() { return &worldCollection; }
 
 	void loadTrooper(POSITION p) { trooperPos = p; }
 	void loadGunner(POSITION p) { gunnerPos = p; }

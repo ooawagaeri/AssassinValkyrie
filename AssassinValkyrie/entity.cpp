@@ -229,6 +229,7 @@ bool Entity::DetectPixelPerfect(Entity &ent)
 
 		if (spriteData.flipHorizontal || ent.spriteData.flipHorizontal)
 		{
+			// Gets a pixel from each texture collide in the flipped order
 			for (int rx = dest.right; rx > dest.left; rx--)
 			{
 				for (int ry = dest.top; ry < dest.bottom; ry++)
@@ -248,14 +249,14 @@ bool Entity::DetectPixelPerfect(Entity &ent)
 					{
 						getSpriteInfo().texture->UnlockRect(0);
 						ent.getSpriteInfo().texture->UnlockRect(0);
-						return 1;
+						return true;
 					}
 				}
 			}
 		}
 		else 
 		{
-			// A pixel from each texture collide
+			// Gets a pixel from each texture collide
 			for (int rx = dest.left; rx < dest.right; rx++)
 			{
 				for (int ry = dest.top; ry < dest.bottom; ry++)
@@ -270,22 +271,21 @@ bool Entity::DetectPixelPerfect(Entity &ent)
 					BYTE a = bytePointer1[(s1x * 4 + (s1y*rectS1.Pitch)) + 3];
 					BYTE b = bytePointer2[(s2x * 4 + (s2y*rectS2.Pitch)) + 3];
 
-					// If both pixels are opaque, we found a collision
+					// If both pixels are opaque,collision
 					if (a == 255 && b == 255)
 					{
 						getSpriteInfo().texture->UnlockRect(0);
 						ent.getSpriteInfo().texture->UnlockRect(0);
-						return 1;
+						return true;
 					}
 				}
 			}
 		}
-		// If we reached here, it means that we did not find a collision
 		getSpriteInfo().texture->UnlockRect(0);
 		ent.getSpriteInfo().texture->UnlockRect(0);
-		return 0;
+		return false;
 	}
-	return 0;
+	return false;
 }
 
 
@@ -388,7 +388,7 @@ bool Entity::collideRotatedBoxCircle(Entity &ent, VECTOR2 &collisionVector)
     // circle not in voronoi region so it is colliding with edge of box
     // set collision vector, uses simple center of circle to center of box
     collisionVector = *ent.getCenter() - *getCenter();
-	return DetectPixelPerfect(ent);
+	return true;
 }
 
 //=============================================================================

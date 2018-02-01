@@ -11,7 +11,7 @@
 
 namespace buttonNS
 {
-	const int BUTTON_WIDTH = 249;
+	const int BUTTON_WIDTH = 248;
 	const int BUTTON_HEIGHT = 70;
 	const int START_BUTTON_FRAME = 0;
 	const int START_HOVER_BUTTON_FRAME = 1;
@@ -43,7 +43,7 @@ public:
 	void update(int endFrame);
 	void draw();
 	bool click();
-
+	bool collideButton(Entity &ent);
 	void collisions(int startFrame, int endFrame);
 	void releaseAll();
 	void resetAll();

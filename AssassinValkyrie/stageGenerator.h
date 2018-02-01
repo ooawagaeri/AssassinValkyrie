@@ -7,11 +7,11 @@
 #define WIN32_LEAN_AND_MEAN
 
 #pragma once
-#include "horizontalLoader.h"
-#include "verticalLoader.h"
 #include "levelLoader.h"
 #include "floor.h"
 #include "fill.h"
+#include "leftFill.h"
+#include "rightFill.h"
 #include "hideout.h"
 #include "ladder.h"
 #include "enemyManager.h"
@@ -24,12 +24,13 @@
 
 typedef std::vector<Floor *> FLOORS;
 typedef std::vector<Fill *> FILLS;
+typedef std::vector<Fill *> SIDES;
 typedef std::vector<Hideout *> HIDEOUTS;
 typedef std::vector<Ladder *> LADDERS;
 typedef std::vector<PickupHP *> HPS;
 typedef std::vector<PickupArrow *> PICKUPARROWS;
 typedef std::vector<PickupStone *> PICKUPSTONES;
-//enum STAGEELEMENTS {FLOOR};
+
 
 class StageGenerator
 {
@@ -38,6 +39,9 @@ private:
 	FLOORS floorCollection;
 
 	FILLS fillCollection;
+
+	SIDES sideCollection;
+	SIDES::iterator side;
 
 	HIDEOUTS hideoutCollection;
 
@@ -49,8 +53,6 @@ private:
 
 	PICKUPSTONES pickupStoneCollection;
 
-	HorizontalLoader *stageHorizontalLoad;
-	VerticalLoader *stageVerticalLoad;
 	LevelLoader level;
 
 	POSITION	trooperPos;
@@ -70,7 +72,8 @@ public:
 	void render();
 	void update(float frametime, int direction, int leftrightupdown, bool moveOn);
 
-	PLATFORM getFillPlatforms();
+	PLATFORM getVisionPlatforms();
+	PLATFORM getSidePlatforms();
 	PLATFORM getFloorPlatforms();
 	POSITION getTrooper() { return trooperPos; }
 	FLOORS *getFloors() { return &floorCollection; }

@@ -16,9 +16,7 @@ Stone::Stone() : Entity()
 	startFrame = stoneNS::STONE_START_FRAME;     // first frame of ship animation
 	endFrame = stoneNS::STONE_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
-	spriteData.scale = stoneNS::SCALE;
 	edge = RECT{ (long)(-stoneNS::WIDTH*stoneNS::SCALE / 2), (long)(-stoneNS::HEIGHT*stoneNS::SCALE / 2), (long)(stoneNS::WIDTH*stoneNS::SCALE / 2), (long)(stoneNS::HEIGHT*stoneNS::SCALE / 2) };
-
 	collisionType = entityNS::BOX;
 }
 
@@ -29,7 +27,6 @@ Stone::Stone() : Entity()
 bool Stone::initialize(Game *gamePtr, int width, int height, int ncols,
 	TextureManager *textureM)
 {
-
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
@@ -39,7 +36,6 @@ bool Stone::initialize(Game *gamePtr, int width, int height, int ncols,
 void Stone::draw()
 {
 	Image::draw();
-
 }
 
 //=============================================================================
@@ -66,7 +62,6 @@ void Stone::update(float frameTime)
 		spriteData.y += velocityY*frameTime;
 		t += TimeInterval;
 	}
-
 }
 
 
