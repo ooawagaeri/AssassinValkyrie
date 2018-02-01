@@ -89,6 +89,8 @@ EnemyState* StandingState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
 		return new ReturningState();
 	}
+	if (enemy->getRay()->inSight(*target->getCenter(), p))
+		return new AlertedState();
 	return NULL;
 }
 
@@ -127,15 +129,21 @@ DistractedState::DistractedState(VECTOR2 pos) : EnemyState()
 EnemyState* DistractedState::handleInput(Enemy *enemy, Entity *target, PLATFORM p)
 {
 	if (enemy->getRay()->inSight(*target->getCenter(), p))
+	{
+		enemy->drawCaution(true);
 		return new AlertedState();
+	}
 	if (GetTickCount() - timer > maxTime)
+	{
+		enemy->drawCaution(false);
 		return new ReturningState();
+	}
 	return NULL;
 }
 
 void DistractedState::update(Enemy *enemy, Entity *target)
 {
-	enemy->drawCaution();
+	enemy->drawCaution(true);
 	if (enemy->getCenterX() < distractionPos.x - 5)
 		enemy->getMove()->setVelocity(enemy->getMove()->getInitialVelocity());
 	else if (enemy->getCenterX() > distractionPos.x + 5)

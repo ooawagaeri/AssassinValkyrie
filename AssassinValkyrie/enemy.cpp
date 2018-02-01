@@ -29,7 +29,7 @@ bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
 {
 	cautionAnimation.initialize(gamePtr->getGraphics(), cautionNS::WIDTH, cautionNS::HEIGHT, cautionNS::TEXTURE_COLS, textureHealth);
 	cautionAnimation.setCurrentFrame(cautionNS::FRAME);
-	cautionAnimation.setVisible(true);
+	cautionAnimation.setVisible(false);
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
@@ -55,8 +55,8 @@ void Enemy::update(float frameTime, PLATFORM p)
 		vision->updateVision(p);
 	}
 	health->update(frameTime, { spriteData.x + spriteData.width / 2, spriteData.y });
-	cautionAnimation.setX(spriteData.x + spriteData.width / 2);
-	cautionAnimation.setY(spriteData.y - cautionNS::WIDTH * 3 );
+	cautionAnimation.setX(spriteData.x + spriteData.width / 2 - cautionNS::WIDTH / 2);
+	cautionAnimation.setY(spriteData.y - cautionNS::HEIGHT * 2);
 	Entity::update(frameTime);
 }
 
@@ -72,19 +72,20 @@ void Enemy::draw()
 		flipHorizontal(true);
 	
 	COLOR_ARGB c = health->getDamageAnimation();
-	if (!health->getDieAnimation()) {
+	if (!health->getDieAnimation())
 		attack->draw(this,c);
-		cautionAnimation.draw(graphicsNS::YELLOW);
-	}
+
 	Image::draw(c);
-	health->draw(this);		//	image::draw inside health
+	health->draw(this);
+	cautionAnimation.draw();
 }
 
 void Enemy::drawRay(Graphics *g)
 {
 	vision->render(g);
 }
-void Enemy::drawCaution()
+
+void Enemy::drawCaution(bool value)
 {
-	cautionAnimation.setVisible(true);
+	cautionAnimation.setVisible(value);
 }

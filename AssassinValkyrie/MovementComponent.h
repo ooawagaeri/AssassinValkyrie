@@ -19,6 +19,7 @@ protected:
 	VECTOR2 origin;
 	int initialVelocity = 0;
 	int currentVelocity;
+	bool enable;
 
 public:
 	MovementComponent(Entity* ent);
@@ -28,6 +29,7 @@ public:
 	int getCurrentVelocity() { return currentVelocity; }
 	virtual void update(float frameTime);
 	void movementWithDirection(float frameTime, int direction);
+	void setEnable(bool value) { enable = value; }
 };
 
 class PatrolMovement : public MovementComponent
@@ -50,14 +52,16 @@ class ProjectileMovement : public MovementComponent
 {
 private:
 	VECTOR2 velocity;
-	int t;
-	float timeInterval;
-	bool initialized;
-	Entity *player;
+	double t;
+	double timeInterval;
 	double angle;
+	double distance;
+	float  f;
+	bool initialized;
+	double speed;
 
 public:
-	ProjectileMovement(Entity *ent, Entity *play);
+	ProjectileMovement(Entity *ent, float dist);
 	void update(float frameTime);
 };
 

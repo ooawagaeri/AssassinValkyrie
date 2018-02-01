@@ -4,20 +4,25 @@
 //  Student Number:     10165581F
 
 #include "enemyManager.h"
+#include "leftFill.h"
+#include "rightFill.h"
+#include "alertState.h"
+#include "returnState.h"
 
 EnemyManager::EnemyManager()
 {
+	alertRange = 300;
 }
 
 EnemyManager::~EnemyManager()
 {
-	for (trooper = trooperCollection.begin(); trooper != trooperCollection.end(); ++trooper)
-		SAFE_DELETE(*trooper);
-	trooperCollection.clear();
+	for (world = worldCollection.begin(); world != worldCollection.end(); ++world)
+		SAFE_DELETE(*world);
 
-	for (gunner = gunnerCollection.begin(); gunner != gunnerCollection.end(); ++gunner)
-		SAFE_DELETE(*gunner);
+	worldCollection.clear();
+	trooperCollection.clear();
 	gunnerCollection.clear();
+	serpantCollection.clear();
 }
 
 bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, TextureManager *textureGunner, TextureManager *textureSerpant, TextureManager *textureHealth, Entity *play)
@@ -32,6 +37,7 @@ bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, Tex
 		t_temp->setY(loc.y - trooperNS::HEIGHT * trooperNS::SCALE);
 		t_temp->setOriginalPos({ t_temp->getX(), t_temp->getY() });
 		trooperCollection.emplace_back(t_temp);
+		worldCollection.emplace_back(t_temp);
 		if (!isInitialised)
 			return isInitialised;
 	}
@@ -43,6 +49,7 @@ bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, Tex
 		t_temp->setY(loc.y - gunnerNS::HEIGHT * gunnerNS::SCALE);
 		t_temp->setOriginalPos({ t_temp->getX(), t_temp->getY() });
 		gunnerCollection.emplace_back(t_temp);
+		worldCollection.emplace_back(t_temp);
 		if (!isInitialised)
 			return isInitialised;
 	}
@@ -54,6 +61,7 @@ bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, Tex
 		t_temp->setY(loc.y - serpantNS::HEIGHT * serpantNS::SCALE);
 		t_temp->setOriginalPos({ t_temp->getX(), t_temp->getY() });
 		serpantCollection.emplace_back(t_temp);
+		worldCollection.emplace_back(t_temp);
 		if (!isInitialised)
 			return isInitialised;
 	}
@@ -62,193 +70,110 @@ bool EnemyManager::initialize(Game *gamePtr, TextureManager *textureTrooper, Tex
 
 void EnemyManager::update(float frameTime, PLATFORM p)
 {
-	for ( Trooper *t : trooperCollection)
-		if (!t->outOfBounds())
-			t->update(frameTime, p);
-
-	for (Gunner *t : gunnerCollection)
-		if (!t->outOfBounds())
-			t->update(frameTime, p);
-
-	for (Serpant *t : serpantCollection)
+	for ( Enemy *t : worldCollection)
 		if (!t->outOfBounds())
 			t->update(frameTime, p);
 }
 
 void EnemyManager::ai()
 {
-	for (Trooper *t : trooperCollection)
+	std::vector<VECTOR2*> posAlertList;
+	std::vector<Enemy*> posNotList;
+	for (Enemy *t : worldCollection)
 		if (!t->outOfBounds())
-			t->ai();
+			if (AlertedState *a = dynamic_cast<AlertedState*>(t->getState()))
+				posAlertList.emplace_back(&VECTOR2{ t->getCenterX(), t->getCenterY() });
+			else
+				posNotList.emplace_back(t);
 
-	for (Gunner *t : gunnerCollection)
-		if (!t->outOfBounds())
-			t->ai();
-
-	for (Serpant *t : serpantCollection)
-		if (!t->outOfBounds())
-			t->ai();
+	if (!posAlertList.empty())
+		for (VECTOR2 *v1 : posAlertList)
+			for (Enemy *v2 : posNotList)
+			{
+				VECTOR2 unit = *v1 - *v2->getCenter();
+				if (D3DXVec2Length(&unit) < alertRange)
+					v2->setState(new AlertedState());
+			}
 }
 
 void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 {
 	VECTOR2 collisionVector;
 
-	trooper = trooperCollection.begin();
-	while (trooper != trooperCollection.end())
+	world = worldCollection.begin();
+	while (world != worldCollection.end())
 	{
-		if ((*trooper)->isAlive()) {
-			if ((*trooper)->collidesWith(*play, collisionVector))
+		if ((*world)->isAlive()) {
+			if ((*world)->collidesWith(*play, collisionVector))
 			{
-				(*trooper)->getHealth()->damage(10);
+				(*world)->getHealth()->damage(10);
 			}
-			trooper++;
+			world++;
 		}
-		else if ((*trooper)->outOfBounds())
-			trooper++;
+		else if ((*world)->outOfBounds())
+			world++;
 		else
-			trooper = trooperCollection.erase(trooper);
+			world = worldCollection.erase(world);
 	}
 
-	gunner = gunnerCollection.begin();
-	while (gunner != gunnerCollection.end())
-	{
-		if ((*gunner)->isAlive()) {
-			if ((*gunner)->collidesWith(*play, collisionVector))
-			{
-				(*gunner)->getHealth()->damage(10);
-			}
-			gunner++;
-		}
-		else if ((*gunner)->outOfBounds())
-			gunner++;
-		else
-			gunner = gunnerCollection.erase(gunner);
-	}
+	for (Enemy *t : worldCollection)
+		if (!t->outOfBounds())
+			unCollide(t, floor, fill);
+}
 
-	serpant = serpantCollection.begin();
-	while (serpant != serpantCollection.end())
+void EnemyManager::unCollide(Enemy *t, PLATFORM floor, PLATFORM fill)
+{
+	VECTOR2 collisionVector;
+	// Check floor collisions
+	for (Entity *e : floor)
 	{
-		if ((*serpant)->isAlive()) {
-			if ((*serpant)->collidesWith(*play, collisionVector))
-			{
-				(*serpant)->getHealth()->damage(10);
-			}
-			serpant++;
+		if (t->collidesWith(*e, collisionVector))
+		{
+			t->getMove()->setFloor(true);
+			break;
 		}
-		else if ((*serpant)->outOfBounds())
-			serpant++;
 		else
-			serpant = serpantCollection.erase(serpant);
+			t->getMove()->setFloor(false);
 	}
-
-	for (Trooper *t : trooperCollection)
+	// Check wall collisions
+	bool collided = true;
+	for (Entity *e : fill)
 	{
-		if (!t->outOfBounds())
-		{
-			for (Entity *e : floor)
+		if (t->collidesWith(*e, VECTOR2{})) {
+			if (AlertedState *a = dynamic_cast<AlertedState*>(t->getState()))
 			{
-				if (t->collidesWith(*e, collisionVector))
-				{
-					t->getMove()->setFloor(true);
-					break;
-				}
-				else
-					t->getMove()->setFloor(false);
-			} // end of check floor collisions
-			for (Entity *e : fill)
-				if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
-				{
-					t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
-					t->collideTime = GetTickCount();
-					break;
-				}// end of check fill (wall) collisions
-		}
-	}
-	for (Gunner *t : gunnerCollection)
-	{
-		if (!t->outOfBounds())
-		{
-			for (Entity *e : floor) {
-				if (t->collidesWith(*e, collisionVector))
-				{
-					t->getMove()->setFloor(true);
-					break;
-				}
-				else
-					t->getMove()->setFloor(false);
+				collided = false;
+				break;
 			}
-			for (Entity *e : fill)
-				if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
-				{
-					t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
-					t->collideTime = GetTickCount();
-					break;
-				}
-		}
-	}
-	for (Serpant *t : serpantCollection)
-	{
-		if (!t->outOfBounds())
-		{
-			for (Entity *e : floor)
+			else
 			{
-				if (t->collidesWith(*e, collisionVector))
-				{
-					t->getMove()->setFloor(true);
-					break;
-				}
-				else
-					t->getMove()->setFloor(false);
+				if (LeftFill *left = dynamic_cast<LeftFill*>(e))
+					t->getMove()->setVelocity(-t->getMove()->getInitialVelocity());
+				else if (RightFill *right = dynamic_cast<RightFill*>(e))
+					t->getMove()->setVelocity(t->getMove()->getInitialVelocity());
+				break;
 			}
-			for (Entity *e : fill)
-				if (t->collidesWith(*e, VECTOR2{}) && (GetTickCount() - t->collideTime > 150))
-				{
-					t->getMove()->setVelocity(-t->getMove()->getCurrentVelocity());
-					t->collideTime = GetTickCount();
-					break;
-				}
 		}
 	}
+	t->getMove()->setEnable(collided);
 }
 
 void EnemyManager::render()
 {
-	for (Trooper *t : trooperCollection)
-		if (!t->outOfBounds())
-			t->draw();
-
-	for (Gunner *t : gunnerCollection)
-		if (!t->outOfBounds())
-			t->draw();
-
-	for (Serpant *t : serpantCollection)
+	for (Enemy *t : worldCollection)
 		if (!t->outOfBounds())
 			t->draw();
 }
 
 void EnemyManager::renderRay(Graphics *g)
 {
-	for (Trooper *t : trooperCollection)
-		if (!t->outOfBounds())
-			t->drawRay(g);
-
-	for (Gunner *t : gunnerCollection)
-		if (!t->outOfBounds())
-			t->drawRay(g);
-
-	for (Serpant *t : serpantCollection)
+	for (Enemy *t : worldCollection)
 		if (!t->outOfBounds())
 			t->drawRay(g);
 }
 
-void EnemyManager::camera(float frameTime, int direction) {
-	for (Trooper *t : trooperCollection)
-		t->getMove()->movementWithDirection(frameTime, direction);
-
-	for (Gunner *t : gunnerCollection)
-		t->getMove()->movementWithDirection(frameTime, direction);
-
-	for (Serpant *t : serpantCollection)
+void EnemyManager::camera(float frameTime, int direction) 
+{
+	for (Enemy *t : worldCollection)
 		t->getMove()->movementWithDirection(frameTime, direction);
 }

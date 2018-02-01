@@ -29,7 +29,7 @@ bool Background::initialize(Game *gamePtr, int width, int height, int ncols, Tex
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Background::update(float frameTime, Player *player, StageGenerator *stageGen, EnemyManager *emList)
+void Background::update(float frameTime, Player *player, StageGenerator *stageGen, EnemyManager *emList, EnemyBulletManager *emBulletList)
 {
 
 	bool left =false;
@@ -51,12 +51,14 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.x += frameTime * (velocity.x);         // move ship along X
 			stageGen->update(frameTime, 1, 0, true);
 			emList->camera(frameTime, 1);
+			emBulletList->camera(frameTime, 1);
 		}
 		if (input->isKeyDown(RUNNING_RIGHT_KEY)) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (-velocity.x);         // move ship along X
 			stageGen->update(frameTime, 2, 0, true);
 			emList->camera(frameTime, 2);
+			emBulletList->camera(frameTime, 2);
 		}
 		player->setX(centreX);
 	}
@@ -67,12 +69,14 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.x += frameTime * (velocity.x);         // move ship along X
 			stageGen->update(frameTime, 1, 0, true);
 			emList->camera(frameTime, 1);
+			emBulletList->camera(frameTime, 2);
 		}
 		if (input->isKeyDown(RUNNING_RIGHT_KEY)) {
 			velocity.x = 100;
 			spriteData.x += frameTime * (-velocity.x);         // move ship along X
 			stageGen->update(frameTime, 2, 0, true);
 			emList->camera(frameTime, 2);
+			emBulletList->camera(frameTime, 2);
 		}
 		player->setX(centreX);
 	}
@@ -95,6 +99,7 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.y += frameTime * (-velocity.y);         // move ship along X
 			stageGen->update(frameTime, 4, 0, true);
 			emList->camera(frameTime, 4);
+			emBulletList->camera(frameTime, 4);
 			if (player->getY() < centreY)
 				player->setY(centre);
 		}
@@ -103,6 +108,7 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.y += frameTime * (velocity.y);         // move ship along X
 			stageGen->update(frameTime, 3, 0, true);
 			emList->camera(frameTime, 3);
+			emBulletList->camera(frameTime, 3);
 			//if (player->getY() < centreY)
 				//player->setY(centre);
 		}
@@ -115,6 +121,7 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.y += frameTime * (-velocity.y);         // move ship along X
 			stageGen->update(frameTime, 4, 0, true);
 			emList->camera(frameTime, 4);
+			emBulletList->camera(frameTime, 4);
 			if (player->getY() > centreY)
 				player->setY(centre);
 		}
@@ -123,6 +130,7 @@ void Background::update(float frameTime, Player *player, StageGenerator *stageGe
 			spriteData.y += frameTime * (velocity.y);         // move ship along X
 			stageGen->update(frameTime, 3 , 0, true);
 			emList->camera(frameTime, 3);
+			emBulletList->camera(frameTime, 3);
 			//if (player->getY() > centreY)
 				//player->setY(centre);
 		}

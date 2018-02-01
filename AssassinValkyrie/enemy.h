@@ -160,7 +160,6 @@ public:
 	// constructor
 	Enemy(Entity *play);
 	~Enemy();
-	int	collideTime = 0;
 
 	// inherited member functions
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
@@ -180,12 +179,15 @@ public:
 	AttackComponent *getAttack() { return attack; }
 	PatrolMovement *getMove() { return move; }
 	HealthComponent *getHealth() { return health; }
+
 	int getRange() { return range; }
 	Image *getAnimation() { return &attackAnimation; }
 	int getAttackFrame() { return attackFrame; }
 	bool isAlive() { return health->getAlive(); }
+
+	EnemyState *getState() {return state_; }
 	void setState(EnemyState *value) { state_ = value; }
-	void drawCaution();
+	void drawCaution(bool value);
 };
 
 #endif

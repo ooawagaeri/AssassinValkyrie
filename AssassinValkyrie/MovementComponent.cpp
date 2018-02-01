@@ -1,18 +1,22 @@
 
 #include "MovementComponent.h"
+#include "fireBall.h"
 
 MovementComponent::MovementComponent(Entity* ent)
 {
 	object = ent;
+	enable = true;
 };
 void MovementComponent::setVelocity(int speed) {
 	if (initialVelocity == 0)
 		initialVelocity = speed;
 	currentVelocity = speed;
 };
+
 void MovementComponent::update(float frameTime)
 {
-	object->setX(object->getX() + currentVelocity *frameTime);
+	if (enable)
+		object->setX(object->getX() + currentVelocity *frameTime);
 };
 void MovementComponent::movementWithDirection(float frameTime, int direction)
 {
@@ -52,30 +56,38 @@ void PatrolMovement::update(float frameTime)
 		object->setY(object->getY() + GRAVITY / 2);
 }
 
-ProjectileMovement::ProjectileMovement(Entity *ent, Entity *play) : MovementComponent(ent)
+ProjectileMovement::ProjectileMovement(Entity *ent, float dist) : MovementComponent(ent)
 {
-	player = play;
-	t = 0;
+	distance = dist;
+	//speed = fireNS::SPEED;
+	speed = 2*fireNS::SPEED;
+	if (distance < 0) distance = -distance;
+
+	angle = (asin((distance * GRAVITY * 6) / pow(speed, 2)) / 2);
+	timeInterval = distance / (speed * cos(angle));
 	initialized = false;
-	angle = 50 * PI / 180;
+	t = 0;
+	f = 0;
 }
 void ProjectileMovement::update(float frameTime)
 {
-	if (velocity.x != (float)(currentVelocity * cos(angle)))
+	if (!initialized)
 	{
-		VECTOR2 unit = *player->getCenter() - *object->getCenter();
-		velocity = { (float)(currentVelocity * cos(angle)), -(float)(currentVelocity * sin(angle)) };
+		if (currentVelocity < 0)
+			speed = -speed;
+		
+		velocity = { (float)(speed * cos(angle)), -(float)(speed * sin(angle)) };
 		if (velocity.y > 0) velocity.y = -velocity.y;
-		timeInterval = (unit.x / velocity.x) / 2;
-		if (timeInterval < 0) 
-			timeInterval = -timeInterval;
+		timeInterval = timeInterval / distance;
+		initialized = true;
 	}
 	else
 	{
-		velocity.y += GRAVITY*t*frameTime;
-		t = t + timeInterval;
+		velocity.y += GRAVITY*6*f*frameTime;
 		object->setX(object->getX() + velocity.x *frameTime);
 		object->setY(object->getY() + velocity.y *frameTime);
+		t++;
+		f = timeInterval * t;
 		double rotate = atan2(velocity.y, velocity.x);
 		object->setRadians(rotate);
 		if (currentVelocity < 0)

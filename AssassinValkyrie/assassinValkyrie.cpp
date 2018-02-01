@@ -73,6 +73,10 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
 
+	visionPlatforms = stageGenerator->getVisionPlatforms();
+	sidePlatforms = stageGenerator->getSidePlatforms();
+	floorPlatforms = stageGenerator->getFloorPlatforms();
+
 	/////////////////////////////////////////
 	//				Enemy
 	/////////////////////////////////////////
@@ -97,7 +101,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing health texture"));
 
 	// Collection of enemies
-	if (!emList.initialize(this, &trooperTexture, &gunnerTexture, &serpantTexture, &healthTexture, mouse))
+	if (!emList.initialize(this, &trooperTexture, &gunnerTexture, &serpantTexture, &healthTexture, player))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies texture"));
 
 	emBulletList.initialize(&emList);
@@ -139,14 +143,13 @@ void AssassinValkyrie::update()
 			secs = 0;
 		}
 	}
-	pCollection = stageGenerator->getFillPlatforms();
-	background->update(frameTime, player, stageGenerator, &emList);
+	background->update(frameTime, player, stageGenerator, &emList, &emBulletList);
 	//stageGenerator->update(frameTime);
 	mouse->update();
 	emBulletList.update(frameTime, this, &bulletTextures, player);
 	player->update(frameTime,this,&playerTextures,stageGenerator);
-	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
-	emList.update(frameTime, pCollection);
+	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player);
+	emList.update(frameTime, visionPlatforms);
 }
 
 // Artificial Intelligence
@@ -159,9 +162,9 @@ void AssassinValkyrie::ai()
 void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
-	weaponManager.collisions(&emList, player, stageGenerator->getFloorPlatforms());
+	weaponManager.collisions(&emList, player, floorPlatforms);
 	player->collisions(&emList);
-	emList.collisions(mouse, stageGenerator->getFloorPlatforms(), pCollection);
+	emList.collisions(mouse, floorPlatforms, sidePlatforms);
 	emBulletList.collisions(mouse);
 }
 
@@ -207,6 +210,7 @@ void AssassinValkyrie::releaseAll()
 	SAFE_DELETE(background);
 	emBulletList.~EnemyBulletManager();
 	emList.~EnemyManager();
+	stageGenerator->~StageGenerator();
 	mouseTextures.onLostDevice();
 	trooperTexture.onLostDevice();
 	gunnerTexture.onLostDevice();
