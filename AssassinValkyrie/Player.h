@@ -3,7 +3,7 @@
 // Student Number	: Zhuang yuteng
 // Student Number	: S10163964C
 
-#ifndef _PLAYER_H 
+#ifndef _PLAYER_H
 #define _PLAYER_H
 #define WIN32_LEAN_AND_MEAN
 
@@ -111,12 +111,10 @@ public:
 		return onGround;
 	}
 	void setSpeedLevel(int i) { speedLevel = i; }
-
 	void setStealthLevel() { stealthLevel++; }
 	int getStealthLevel() { return stealthLevel; }
 
 	void setSpeedLevel() { speedLevel++; }
-
 	int getSpeedLevel() { return speedLevel; }
 
 	void setArmorLevel() { armorLevel++; }

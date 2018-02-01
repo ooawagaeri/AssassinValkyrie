@@ -99,7 +99,6 @@ void MainMenu::update()
 		//if (input->isKeyDown(ENTER_KEY))
 		//if(startButton.click() && input->getMouseLButton() )
 		if(startButton.collideButton(*cursor) && input->getMouseLButton())
-
 		{
 			gameStart = true;
 			assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime, &paused, cursor);
@@ -120,6 +119,7 @@ void MainMenu::update()
 			assValk->setPause(true);
 
 		assValk->update();
+
 	}
 }
 

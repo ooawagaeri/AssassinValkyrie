@@ -73,6 +73,7 @@ bool Button::collideButton(Entity &ent)
 	return true;
 }
 
+
 bool Button::collideWithin()
 {
 	RECT rect;
@@ -94,18 +95,6 @@ void Button::releaseAll()
 {
 }
 
-void Button::resetAll() 
+void Button::resetAll()
 {
-}
-
-bool Button::collideButton(Entity &ent)
-{
-	if ((getCenterX() + edge.right*getScale() < ent.getCenterX() + ent.getEdge().left*ent.getScale()) ||
-		(getCenterX() + edge.left*getScale() > ent.getCenterX() + ent.getEdge().right*ent.getScale()) ||
-		(getCenterY() + edge.bottom*getScale() < ent.getCenterY() + ent.getEdge().top*ent.getScale()) ||
-		(getCenterY() + edge.top*getScale() > ent.getCenterY() + ent.getEdge().bottom*ent.getScale()))
-	{
-		return false;
-	}
-	return true;
 }

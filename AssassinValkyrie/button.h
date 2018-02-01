@@ -2,7 +2,7 @@
 #define _BUTTON_H
 #define WIN32_LEAN_AND_MEAN
 
-#include "Image.h"	
+#include "Image.h"
 #include "constants.h"
 #include "game.h"
 #include "input.h"
@@ -45,9 +45,10 @@ public:
 	void update(int frame);
 	void updateFrame();
 	void draw();
-
 	bool click(Entity &ent);
+
 	bool collideButton(Entity &ent);
+
 	void collisions(int startFrame, int endFrame);
 	void collisions(Entity &ent, int startFrame, int endFrame);
 	bool collideWithin();
