@@ -72,7 +72,7 @@ bool WeaponManager::initializeStone(Game *gamePtr, int width, int height, int nc
 
 
 void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int width, int height, int arrowcols, int stonecols,
-	TextureManager *textureM, Entity &player)
+	TextureManager *textureM, Player &player)
 {
 	int X = player.getCenterX();
 	int Y = player.getY();

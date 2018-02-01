@@ -70,7 +70,10 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!ladderTexture.initialize(graphics, LADDER_IMAGE))
 		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing ladder texture"));
 
-	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList))
+	if (!pickupTextures.initialize(graphics, PICKUP_IMAGE))
+		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing pickup texture"));
+
+	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList, &pickupTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
 
 	visionPlatforms = stageGenerator->getVisionPlatforms();
@@ -163,9 +166,10 @@ void AssassinValkyrie::collisions()
 {
     VECTOR2 collisionVector;
 	weaponManager.collisions(&emList, player, floorPlatforms);
-	player->collisions(&emList);
+	player->collisions(&emList, stageGenerator);
 	emList.collisions(mouse, floorPlatforms, sidePlatforms);
 	emBulletList.collisions(mouse);
+	background->collisions(player, stageGenerator);
 }
 
 // Render game items

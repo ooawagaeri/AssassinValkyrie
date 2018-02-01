@@ -31,7 +31,7 @@ namespace playerNS
 	const int   END_FRAME = 0;
 	const float ANIMATION_DELAY = 0.5f;
 	const int	START_LEVEL = 1;
-	const int	TOTAL_LEVELS = 9;
+	const int	TOTAL_LEVELS = 12;
 }
 
 
@@ -45,6 +45,7 @@ protected:
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
+	int stealthLevel;
 	int speedLevel;
 	int rangeLevel;
 	int armorLevel;
@@ -60,7 +61,8 @@ public:
 	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
 	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
 	void ai(Entity &ship1, Entity &ship2);
-	void collisions(EnemyManager *enemyList);
+	//void collisions(EnemyManager *enemyList);
+	void collisions(EnemyManager *enemyList, StageGenerator *stageGen);
 	void draw();
 	bool getJumpRight()
 	{
@@ -99,5 +101,7 @@ public:
 
 	int getTotalLevels() { return totalLevels; }
 	int getCurrentTotalLevel() { return currentTotalLevel; }
+
+	float calcMultipler(int level) { return 1 + (level *0.33); }
 };
 #endif

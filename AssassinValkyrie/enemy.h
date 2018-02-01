@@ -184,7 +184,7 @@ public:
 	Image *getAnimation() { return &attackAnimation; }
 	int getAttackFrame() { return attackFrame; }
 	bool isAlive() { return health->getAlive(); }
-
+	int isDeathAnimation() { return health->getAnimationStatus(); }
 	EnemyState *getState() {return state_; }
 	void setState(EnemyState *value) { state_ = value; }
 	void drawCaution(bool value);

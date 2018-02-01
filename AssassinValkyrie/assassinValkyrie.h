@@ -55,6 +55,8 @@ private:
 	TextureManager	ladderTexture;
 	TextureManager	bulletTextures;
 
+	TextureManager	pickupTextures;
+
 	Dashboard *dashboard;
 	TextDX *text;
 	TextDX *displayTimer;

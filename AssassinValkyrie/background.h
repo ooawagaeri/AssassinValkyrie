@@ -37,6 +37,7 @@ private:
 	bool centre;
 	int centreX;
 	int centreY;
+	bool moveOn;
 public:
 	// constructor
 	Background();
@@ -45,5 +46,6 @@ public:
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
 	void update(float frameTime, Player *player, StageGenerator *stageGen, EnemyManager *emList, EnemyBulletManager *emBulletList);
 	void draw();
+	void collisions(Player *player, StageGenerator *stageGen);
 };
 #endif

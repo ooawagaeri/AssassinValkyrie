@@ -160,6 +160,18 @@
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
+    <ClCompile Include="pickup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pickupArrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pickupHP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pickupStone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -334,6 +346,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dashboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pickup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pickupArrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pickupHP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pickupStone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

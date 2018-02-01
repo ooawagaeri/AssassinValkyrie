@@ -23,7 +23,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 		player.setFrameDelay(0.2);
 		player.flipHorizontal(false);
 		player.setLoop(true);
-		player.setVelocity(VECTOR2(RUNNING_STATE::RUNNING_SPEED, RUNNING_STATE::RUNNING_SPEED));
+		player.setVelocity(VECTOR2(RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel()), RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel())));
 		return new RunningState();
 	}
 
@@ -35,7 +35,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 		player.setCurrentFrame(RUNNING_STATE::START_FRAME);
 		player.setFrameDelay(0.2);
 		player.setLoop(true);
-		player.setVelocity(VECTOR2(-RUNNING_STATE::RUNNING_SPEED, -RUNNING_STATE::RUNNING_SPEED));
+		player.setVelocity(VECTOR2(-RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel()), -RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel())));
 		return new RunningState();
 	}
 
@@ -88,26 +88,26 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM,  StageGenerator *stagegenerator)
 {
 
-	VECTOR2 collisionVector;
-	FILLS *fillCollection = stagegenerator->getFills();
+	//VECTOR2 collisionVector;
+	//FILLS *fillCollection = stagegenerator->getFills();
 
-	for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
-	{
-		if (player.collidesWith(**fill, collisionVector))
-		{
-			if (!player.isFlipHorizontal())
-			{
-				player.setX((*fill)->getX() - RUNNING_STATE::WIDTH);
-			}
+	//for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
+	//{
+	//	if (player.collidesWith(**fill, collisionVector))
+	//	{
+	//		if (!player.isFlipHorizontal())
+	//		{
+	//			player.setX((*fill)->getX() - RUNNING_STATE::WIDTH);
+	//		}
 
-			else
-			{
-				player.setX((*fill)->getX() + RUNNING_STATE::WIDTH);
-			}
-			
+	//		else
+	//		{
+	//			player.setX((*fill)->getX() + RUNNING_STATE::WIDTH);
+	//		}
+	//		
 
-		}
-	}   
+	//	}
+	//}   
 
 	if (!input->isKeyDown(RUNNING_RIGHT_KEY)&& !input->isKeyDown(RUNNING_LEFT_KEY))
 	{
@@ -165,7 +165,7 @@ PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gam
 		player.setFrameDelay(0.2);
 		player.flipHorizontal(false);
 		player.setLoop(true);
-		player.setVelocity(VECTOR2(CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED, CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED));
+		player.setVelocity(VECTOR2(CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED*player.calcMultipler(player.getSpeedLevel()), CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED*player.calcMultipler(player.getSpeedLevel())));
 		return new CrouchWalkingState();
 	}
 
@@ -177,7 +177,7 @@ PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gam
 		player.setFrameDelay(0.2);
 		player.flipHorizontal(true);
 		player.setLoop(true);
-		player.setVelocity(VECTOR2(-CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED, -CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED));
+		player.setVelocity(VECTOR2(-CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED*player.calcMultipler(player.getSpeedLevel()), -CROUCH_WALKING_STATE::CROUCH_WALKING_SPEED*player.calcMultipler(player.getSpeedLevel())));
 		return new CrouchWalkingState();
 	}
 
@@ -193,6 +193,7 @@ PlayerState* MeleeAttackState::handleInput(Player& player, Input* input, Game *g
 			player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 			player.setCurrentFrame(STANDING_STATE::START_FRAME);
+			player.IsMeleeAttacking(false);
 			player.setLoop(true);
 			return new StandState();
 		
@@ -232,26 +233,26 @@ PlayerState* ThrowingState::handleInput(Player& player, Input* input, Game *game
 
 PlayerState* CrouchWalkingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
 {
-	VECTOR2 collisionVector;
-	FILLS *fillCollection = stagegenerator->getFills();
+	//VECTOR2 collisionVector;
+	//FILLS *fillCollection = stagegenerator->getFills();
 
-	for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
-	{
-		if (player.collidesWith(**fill, collisionVector))
-		{
-			if (!player.isFlipHorizontal())
-			{
-				player.setX((*fill)->getX() - CROUCH_WALKING_STATE::WIDTH-30);
-			}
+	//for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
+	//{
+	//	if (player.collidesWith(**fill, collisionVector))
+	//	{
+	//		if (!player.isFlipHorizontal())
+	//		{
+	//			player.setX((*fill)->getX() - CROUCH_WALKING_STATE::WIDTH-30);
+	//		}
 
-			else
-			{
-				player.setX((*fill)->getX() + CROUCH_WALKING_STATE::WIDTH+30);
-			}
-			
+	//		else
+	//		{
+	//			player.setX((*fill)->getX() + CROUCH_WALKING_STATE::WIDTH+30);
+	//		}
+	//		
 
-		}
-	}
+	//	}
+	//}
 
 	if (!input->isKeyDown(RUNNING_RIGHT_KEY) && !input->isKeyDown(RUNNING_LEFT_KEY) || !input->isKeyDown(CROUCHING_KEY))
 	{
@@ -324,7 +325,7 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 			player.initialize(gamePtr, FALLING_STATE::WIDTH, FALLING_STATE::HEIGHT, FALLING_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(FALLING_STATE::START_FRAME, FALLING_STATE::END_FRAME);
 			player.setCurrentFrame(FALLING_STATE::START_FRAME);
-			player.setVelocity(VECTOR2(FALLING_STATE::FALLING_SPEED, FALLING_STATE::FALLING_SPEED));
+			player.setVelocity(VECTOR2(FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel()), FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel())));
 			return new FallingState();
 
 		}
