@@ -4,6 +4,7 @@
 // Student Number	: S10165581F
 
 #include "healthBar.h"
+#include "enemy.h"
 
 bool Bar::initialize(Graphics *graphics, TextureManager *textureM, int total_health)
 {

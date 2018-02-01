@@ -83,7 +83,7 @@ namespace gunnerNS
 	const int DIE_TEXTURE_COLS = 4;
 	const int DIE_START_FRAME = 32;
 	const int DIE_END_FRAME = 39;
-	const float DIE_ANIMATION_DELAY = 0.15f;
+	const float DIE_ANIMATION_DELAY = 0.1f;
 }
 
 namespace serpantNS
@@ -121,6 +121,24 @@ namespace serpantNS
 	const float DIE_ANIMATION_DELAY = 0.15f;
 }
 
+namespace healthBarNS
+{
+	const int   WIDTH = 65;
+	const int   HEIGHT = 10;
+	const float	SCALE = 1.0f;
+	const int   TEXTURE_COLS = 1;
+	const int   BAR_FRAME = 0;
+}
+
+namespace cautionNS
+{
+	const int   WIDTH = 15;
+	const int   HEIGHT = 50;
+	const float	SCALE = 1.0f;
+	const int   TEXTURE_COLS = 1;
+	const int   FRAME = 1;
+}
+
 class Enemy : public Entity
 {
 protected:
@@ -142,11 +160,10 @@ public:
 	// constructor
 	Enemy(Entity *play);
 	~Enemy();
-	int	collideTime = 0;
 
 	// inherited member functions
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
-		TextureManager *textureM);
+		TextureManager *textureM, TextureManager *textureHealth);
 	virtual void handleInput(PLATFORM p);
 	void update(float frameTime, PLATFORM p);
 	virtual void ai();
@@ -162,11 +179,15 @@ public:
 	AttackComponent *getAttack() { return attack; }
 	PatrolMovement *getMove() { return move; }
 	HealthComponent *getHealth() { return health; }
+
 	int getRange() { return range; }
 	Image *getAnimation() { return &attackAnimation; }
 	int getAttackFrame() { return attackFrame; }
 	bool isAlive() { return health->getAlive(); }
+
+	EnemyState *getState() {return state_; }
 	void setState(EnemyState *value) { state_ = value; }
+	void drawCaution(bool value);
 };
 
 #endif

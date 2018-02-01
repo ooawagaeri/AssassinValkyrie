@@ -8,16 +8,16 @@
 
 namespace stoneNS
 {
-	const float WIDTH = 79;                   // image width
-	const float HEIGHT = 96;                  // image height
-	const float SCALE = 1.0f;
+	const float WIDTH = 78;                   // image width
+	const float HEIGHT = 95;                  // image height
+	const float SCALE = 0.2f;
 	const float SPEED = 300;                // 200 pixels per second
 	const int   STONE_TEXTURE_COLS = 2;           // texture has 8 columns
 	const float   STONE_START_FRAME = 13;      // ship1 starts at frame 0
 	const float   STONE_END_FRAME = 13;        // ship1 end at frame 0
 	const float STONE_ANIMATION_DELAY = 0.2f;    // time between frames
 
-	const int RANGE = 400;	// // Range of stone distraction affected
+	const int RANGE = 300;	// // Range of stone distraction affected
 }
 
 // inherits from Entity class

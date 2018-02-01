@@ -45,5 +45,5 @@ bool Serpant::initialize(Game *gamePtr, int width, int height, int ncols,
 	health->initialize(gamePtr->getGraphics(), textureHealth, serpantNS::HEALTH);
 	vision->init(this, serpantNS::VISION_ANGLE, serpantNS::VISION_RANGE, serpantNS::VISION_HEIGHT);
 
-	return(Enemy::initialize(gamePtr, width, height, ncols, textureM));
+	return(Enemy::initialize(gamePtr, width, height, ncols, textureM, textureHealth));
 }

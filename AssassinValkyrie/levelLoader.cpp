@@ -16,7 +16,6 @@ bool LevelLoader::initializeStage(int i)
 {
 	string fileName = to_string(i);
 	string line = "";
-	//ifstream stageFile(fileName + "-map.txt")
 	ifstream stageFile("map.txt");
 	int countX = 0;
 	int countY = 0;
@@ -47,22 +46,26 @@ bool LevelLoader::initializeStage(int i)
 
 string getType(string v)
 {
-	int i = stoi(v);
-	switch (i)
+	char input = v[0];
+	switch (input)
 	{
-	case 1:
+	case '1':
 		return "FILL";
-	case 2:
+	case '2':
 		return "FLOOR";
-	case 3:
+	case '3':
+		return "LEFT";
+	case '4':
+		return "RIGHT";
+	case 'L':
 		return "LADDER";
-	case 4:
+	case 'H':
 		return "HIDEOUT";
-	case 5:
+	case 'T':
 		return "TROOPER";
-	case 6:
+	case 'G':
 		return "GUNNER";
-	case 7:
+	case 'S':
 		return "SERPANT";
 	default:
 		return "";

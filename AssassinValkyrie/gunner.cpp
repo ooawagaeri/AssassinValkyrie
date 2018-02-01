@@ -45,5 +45,5 @@ bool Gunner::initialize(Game *gamePtr, int width, int height, int ncols,
 	health->initialize(gamePtr->getGraphics(), textureHealth, gunnerNS::HEALTH);
 	vision->init(this, gunnerNS::VISION_ANGLE, gunnerNS::VISION_RANGE, gunnerNS::VISION_HEIGHT);
 
-	return(Enemy::initialize(gamePtr, width, height, ncols, textureM));
+	return(Enemy::initialize(gamePtr, width, height, ncols, textureM, textureHealth));
 }

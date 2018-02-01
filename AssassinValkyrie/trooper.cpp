@@ -46,5 +46,5 @@ bool Trooper::initialize(Game *gamePtr, int width, int height, int ncols,
 	health->initialize(gamePtr->getGraphics(), textureHealth, trooperNS::HEALTH);
 	vision->init(this, trooperNS::VISION_ANGLE, trooperNS::VISION_RANGE, trooperNS::VISION_HEIGHT);
 
-	return(Enemy::initialize(gamePtr, width, height, ncols, textureM));
+	return(Enemy::initialize(gamePtr, width, height, ncols, textureM, textureHealth));
 }

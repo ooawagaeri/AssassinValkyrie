@@ -56,8 +56,9 @@ bool EnemyBulletManager::initializeBullet(Game *gamePtr, TextureManager *texture
 bool EnemyBulletManager::initializeFire(Game *gamePtr, TextureManager *textureM, Serpant *serpant, Entity *play)
 {
 	bool isInitialised = true;
+	float dist = play->getCenterX() - serpant->getCenterX();
 
-	Fireball *it = new Fireball(play);
+	Fireball *it = new Fireball(dist);
 	isInitialised = it->initialize(gamePtr, fireNS::WIDTH, fireNS::HEIGHT, fireNS::TEXTURE_COLS, textureM);
 	it->setFrames(fireNS::START_FRAME, fireNS::END_FRAME);
 	it->setCurrentFrame(fireNS::START_FRAME);
@@ -85,7 +86,7 @@ bool EnemyBulletManager::initializeFire(Game *gamePtr, TextureManager *textureM,
 void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *textureM, Entity *play)
 {
 	for (Gunner *g : *gunnerList)
-		if (g->getActive())
+		if (g->isAlive())
 		{
 			ShootComponent *shot = g->getShoot();
 			if (shot->getAnimation() && (GetTickCount() - shot->shootTimer > shot->maxTimeShoot))
@@ -96,7 +97,7 @@ void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *
 		}
 
 	for (Serpant *g : *serpantList)
-		if (g->getActive())
+		if (g->isAlive())
 		{
 			FireComponent *shot = g->getShoot();
 			if (shot->isFire() && (GetTickCount() - shot->fireTimer > shot->maxTimeFire))
@@ -156,4 +157,13 @@ void EnemyBulletManager::render()
 	for (Fireball *t : fireList)
 		if (t->getActive())
 			t->draw();
+}
+
+void EnemyBulletManager::camera(float frameTime, int direction)
+{
+	for (Bullet *t : bulletList)
+		t->getMove()->movementWithDirection(frameTime, direction);
+
+	for (Fireball *t : fireList)
+		t->getMove()->movementWithDirection(frameTime, direction);
 }
