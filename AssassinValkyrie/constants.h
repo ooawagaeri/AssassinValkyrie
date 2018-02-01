@@ -69,7 +69,8 @@ const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
 const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 
 // audio cues
-const char TITLE[] = "Title";
+const char STEALTH[] = "stealth";
+const char RUSH[] = "rush";
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

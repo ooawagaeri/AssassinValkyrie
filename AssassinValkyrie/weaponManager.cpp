@@ -32,7 +32,7 @@ bool WeaponManager::initializeArrow(Game *gamePtr, int width, int height, int nc
 	}
 
 	(arrow)->setX(X - arrowNS::WIDTH / 2);
-	(arrow)->setY(Y - arrowNS::HEIGHT /2);
+	(arrow)->setY(Y);
 
 	if (!is_initialised_arrow)
 		return is_initialised_arrow;

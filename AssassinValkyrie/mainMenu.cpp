@@ -75,6 +75,7 @@ void MainMenu::initialize(HWND hwnd)
 	pauseButton.setX(GAME_WIDTH - pauseButton.getWidth());
 	pauseButton.setY(0);
 
+	audio->playCue(RUSH);
 	return;
 }
 
@@ -90,7 +91,9 @@ void MainMenu::update()
 		if (startButton.collideButton(*cursor) && input->getMouseLButton())
 		{
 			gameStart = true;
+			audio->stopCue(RUSH);
 			assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime, &paused, cursor);
+			audio->playCue(STEALTH);
 		}
 
 		// Exit Button
