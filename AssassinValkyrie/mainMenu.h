@@ -34,6 +34,7 @@ private:
 	Button creditsButton;
 	Button settingsButton;
 	Button pauseButton;
+	Button resumeButton;
 	Cursor *cursor;
 
 public:

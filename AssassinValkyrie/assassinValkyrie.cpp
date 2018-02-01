@@ -117,7 +117,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	emBulletList.initialize(&emList);
 
 	//UI
-	dashboard->initialize(graphics, mouse);
+	dashboard->initialize(graphics, mouse, player);
 
 	if (!displayTimer->initialize(graphics, 30, false, false, "Spectre 007"))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Dashboard Text"));

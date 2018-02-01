@@ -116,6 +116,7 @@
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="ladder.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="playerBar.cpp" />
     <ClCompile Include="rayCasting.cpp" />
     <ClCompile Include="rightFill.cpp" />
     <ClCompile Include="textDX.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="patrolState.h" />
+    <ClInclude Include="playerBar.h" />
     <ClInclude Include="rayCasting.h" />
     <ClInclude Include="rightFill.h" />
     <ClInclude Include="standState.h" />

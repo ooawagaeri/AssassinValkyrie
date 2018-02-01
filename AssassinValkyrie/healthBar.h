@@ -20,6 +20,7 @@ namespace healthBarNS
 	const int   BAR_FRAME = 0;
 }
 
+
 class Bar : public Image
 {
 private:

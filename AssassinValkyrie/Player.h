@@ -45,6 +45,7 @@ protected:
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
+	int stealthLevel;
 	int speedLevel;
 	int rangeLevel;
 	int armorLevel;
@@ -85,13 +86,16 @@ public:
 	{
 		isMeleeAttacking = condition;
 	}
-	void setSpeedLevel(int i) { speedLevel = i; }
+	void setStealthLevel() { stealthLevel++; }
+	int getStealthLevel() { return stealthLevel; }
+
+	void setSpeedLevel() { speedLevel++; }
 	int getSpeedLevel() { return speedLevel; }
 
-	void setArmorLevel(int i) { armorLevel = i; }
+	void setArmorLevel() { armorLevel++; }
 	int getArmorLevel() { return armorLevel; }
 
-	void setRangeLevel(int i) { rangeLevel = i; }
+	void setRangeLevel() { rangeLevel++; }
 	int getRangeLevel() { return rangeLevel; }
 
 	void setTotalXP(int i) { totalXP = i; }
@@ -99,5 +103,8 @@ public:
 
 	int getTotalLevels() { return totalLevels; }
 	int getCurrentTotalLevel() { return currentTotalLevel; }
+
+	int getSkillPoints() { return skillPointAvailable; }
+	void useSkillPoints() { skillPointAvailable--; }
 };
 #endif

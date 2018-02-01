@@ -25,11 +25,16 @@ Player::Player() : Entity()
 	collisionType = entityNS::BOX;
 	totalXP = 0;
 	totalLevels = playerNS::TOTAL_LEVELS;
+	stealthLevel = playerNS::START_LEVEL;
 	speedLevel = playerNS::START_LEVEL;
 	rangeLevel = playerNS::START_LEVEL;
 	armorLevel = playerNS::START_LEVEL;
-	currentTotalLevel = speedLevel + rangeLevel + armorLevel - 2;
-	skillPointAvailable = 0;
+	currentTotalLevel = stealthLevel + speedLevel + rangeLevel + armorLevel - 3;
+	skillPointAvailable = 5;
+
+	//Needs to confirm with yuteng
+	health = playerNS::HEALTH;
+
 }
 
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
