@@ -22,8 +22,6 @@ namespace arrowNS
 // inherits from Entity class
 class Arrow : public Entity
 {
-
-
 public:
 	// constructor
 	Arrow();
@@ -34,7 +32,6 @@ public:
 		TextureManager *textureM);
 	void update(float frameTime);
 	void damage(WEAPON);
-
 };
 #endif
 
