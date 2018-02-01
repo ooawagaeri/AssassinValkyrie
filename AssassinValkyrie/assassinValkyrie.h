@@ -38,7 +38,9 @@ private:
 	Cursor			*mouse;
 	EnemyManager	emList;
 	EnemyBulletManager	emBulletList;
-	PLATFORM		pCollection;
+	PLATFORM		visionPlatforms;
+	PLATFORM		sidePlatforms;
+	PLATFORM		floorPlatforms;
 
 	TextureManager	playerTextures;
 	Player *player;
@@ -52,6 +54,8 @@ private:
 	Hideout			*tempChar;
 	TextureManager	ladderTexture;
 	TextureManager	bulletTextures;
+
+	TextureManager	pickupTextures;
 
 	Dashboard *dashboard;
 	TextDX *text;

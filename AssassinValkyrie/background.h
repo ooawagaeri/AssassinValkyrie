@@ -11,7 +11,9 @@
 #include "constants.h"
 #include"stageGenerator.h"
 #include "enemyManager.h"
+#include "enemyBulletManager.h"
 #include "Player.h"
+
 namespace backgroundNS
 {
 	const int	WIDTH = 3840;
@@ -35,13 +37,15 @@ private:
 	bool centre;
 	int centreX;
 	int centreY;
+	bool moveOn;
 public:
 	// constructor
 	Background();
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime, Player *player, StageGenerator *stageGen, EnemyManager *emList);
+	void update(float frameTime, Player *player, StageGenerator *stageGen, EnemyManager *emList, EnemyBulletManager *emBulletList);
 	void draw();
+	void collisions(Player *player, StageGenerator *stageGen);
 };
 #endif

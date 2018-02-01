@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="audio.cpp">
@@ -159,6 +159,18 @@
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pickup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pickupArrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pickupHP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pickupStone.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +348,19 @@
     <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	<ClInclude Include="AssassinateState.h">
+    <ClInclude Include="pickup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pickupArrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pickupHP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pickupStone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AssassinateState.h">
       <Filter>State Files\Player State</Filter>
     </ClInclude>
   </ItemGroup>
