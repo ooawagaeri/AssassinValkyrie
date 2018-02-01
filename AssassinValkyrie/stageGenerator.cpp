@@ -11,7 +11,7 @@ StageGenerator::StageGenerator()
 	edge = true;
 }
 
-bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent)
+bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent, TextureManager *pickupTextures)
 {
 	bool success = true;
 	
@@ -86,6 +86,39 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				ladderCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
 				ladderCollection.back()->setX(horizontalElement2.x + (ladderNS::WIDTH));
 				ladderCollection.back()->setStartX(horizontalElement2.x + ladderNS::WIDTH);
+			}
+			else if (horizontalElement2.element == "PICKUPHP")
+			{
+				hpCollection.emplace_back(new PickupHP());
+				success = hpCollection.back()->initialize(gamePtr, pickupHPNS::WIDTH, pickupHPNS::HEIGHT, pickupHPNS::TEXTURE_COLS, pickupTextures);
+				hpCollection.back()->setCurrentFrame(pickupHPNS::START_FRAME);
+				hpCollection.back()->setY(GAME_HEIGHT - (pickupHPNS::HEIGHT) - horizontalElement2.y);
+				hpCollection.back()->setStartY(GAME_HEIGHT - (pickupHPNS::HEIGHT) - horizontalElement2.y);
+				hpCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
+				hpCollection.back()->setX(horizontalElement2.x + (pickupHPNS::WIDTH));
+				hpCollection.back()->setStartX(horizontalElement2.x + pickupHPNS::WIDTH);
+			}
+			else if (horizontalElement2.element == "PICKUPARROW")
+			{
+				pickupArrowCollection.emplace_back(new PickupArrow());
+				success = pickupArrowCollection.back()->initialize(gamePtr, pickupArrowNS::WIDTH, pickupArrowNS::HEIGHT, pickupArrowNS::TEXTURE_COLS, pickupTextures);
+				pickupArrowCollection.back()->setCurrentFrame(pickupArrowNS::START_FRAME);
+				pickupArrowCollection.back()->setY(GAME_HEIGHT - (pickupArrowNS::HEIGHT) - horizontalElement2.y);
+				pickupArrowCollection.back()->setStartY(GAME_HEIGHT - (pickupArrowNS::HEIGHT) - horizontalElement2.y);
+				pickupArrowCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
+				pickupArrowCollection.back()->setX(horizontalElement2.x + (pickupArrowNS::WIDTH));
+				pickupArrowCollection.back()->setStartX(horizontalElement2.x + pickupArrowNS::WIDTH);
+			}
+			else if (horizontalElement2.element == "PICKUPSTONE")
+			{
+				pickupStoneCollection.emplace_back(new PickupStone());
+				success = pickupStoneCollection.back()->initialize(gamePtr, pickupStoneNS::WIDTH, pickupStoneNS::HEIGHT, pickupStoneNS::TEXTURE_COLS, pickupTextures);
+				pickupStoneCollection.back()->setCurrentFrame(pickupStoneNS::START_FRAME);
+				pickupStoneCollection.back()->setY(GAME_HEIGHT - (pickupStoneNS::HEIGHT) - horizontalElement2.y);
+				pickupStoneCollection.back()->setStartY(GAME_HEIGHT - (pickupStoneNS::HEIGHT) - horizontalElement2.y);
+				pickupStoneCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
+				pickupStoneCollection.back()->setX(horizontalElement2.x + (pickupStoneNS::WIDTH));
+				pickupStoneCollection.back()->setStartX(horizontalElement2.x + pickupStoneNS::WIDTH);
 			}
 
 		}
@@ -253,46 +286,54 @@ void StageGenerator::render()
 	for (Ladder *t : ladderCollection)
 		if (!t->outOfBounds())
 			t->draw();
+	for (PickupHP *t : hpCollection)
+		if (!t->outOfBounds())
+			t->draw();
+	for (PickupArrow *t : pickupArrowCollection)
+		if (!t->outOfBounds())
+			t->draw();
+	for (PickupStone *t : pickupStoneCollection)
+		if (!t->outOfBounds())
+			t->draw();
 }
 
 void StageGenerator::update(float frametime, int direction, int leftrightupdown, bool moveOn)
 {
-	for (floor = floorCollection.begin(); floor != floorCollection.end(); floor++)
-	{
+	for(Floor *floor : floorCollection){
 		switch (leftrightupdown) {
 		case 1:
-			(*floor)->setX((*floor)->getStartX() - 2560);
+			(floor)->setX((floor)->getStartX() - 2560);
 			break;
 		case 2:
-			(*floor)->setX((*floor)->getStartX());
+			(floor)->setX((floor)->getStartX());
 			break;
 		case 3:
-			(*floor)->setY((*floor)->getStartY() + 1264);
+			(floor)->setY((floor)->getStartY() + 1264);
 			break;
 		case 4:
-			(*floor)->setY((*floor)->getStartY());
+			(floor)->setY((floor)->getStartY());
 			break;
 		}
 		if (moveOn)
-			(*floor)->update(frametime, direction);
+			(floor)->update(frametime, direction);
 	}
-	for (fill = fillCollection.begin(); fill != fillCollection.end(); fill++) {
+	for (Fill *fill : fillCollection) {
 		switch (leftrightupdown) {
 		case 1:
-			(*fill)->setX((*fill)->getStartX() - 2560);
+			(fill)->setX((fill)->getStartX() - 2560);
 			break;
 		case 2:
-			(*fill)->setX((*fill)->getStartX());
+			(fill)->setX((fill)->getStartX());
 			break;
 		case 3:
-			(*fill)->setY((*fill)->getStartY() + 1264);
+			(fill)->setY((fill)->getStartY() + 1264);
 			break;
 		case 4:
-			(*fill)->setY((*fill)->getStartY());
+			(fill)->setY((fill)->getStartY());
 			break;
 		}
 		if (moveOn)
-			(*fill)->update(frametime, direction);
+			(fill)->update(frametime, direction);
 	}
 	/* to be uncommented and fixed on hideout.cpp AFTER player is merged in
 	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); hideout++) {
@@ -315,25 +356,85 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 	}
 	*/
 	
-	for (ladder = ladderCollection.begin(); ladder != ladderCollection.end(); ladder++) {
+	for (Ladder *ladder : ladderCollection) {
 		switch (leftrightupdown) {
 		case 1:
-			(*ladder)->setX((*ladder)->getStartX() - 2560);
+			(ladder)->setX((ladder)->getStartX() - 2560);
 			break;
 		case 2:
-			(*ladder)->setX((*ladder)->getStartX());
+			(ladder)->setX((ladder)->getStartX());
 			break;
 		case 3:
-			(*ladder)->setY((*ladder)->getStartY() + 1264);
+			(ladder)->setY((ladder)->getStartY() + 1264);
 			break;
 		case 4:
-			(*ladder)->setY((*ladder)->getStartY());
+			(ladder)->setY((ladder)->getStartY());
 			break;
 		}
 		if (moveOn)
-			(*ladder)->update(frametime, direction);
+			(ladder)->update(frametime, direction);
 	}
+
+	for (PickupHP *hp : hpCollection) {
+		switch (leftrightupdown) {
+		case 1:
+			(hp)->setX((hp)->getStartX() - 2560);
+			break;
+		case 2:
+			(hp)->setX((hp)->getStartX());
+			break;
+		case 3:
+			(hp)->setY((hp)->getStartY() + 1264);
+			break;
+		case 4:
+			(hp)->setY((hp)->getStartY());
+			break;
+		}
+		if (moveOn)
+			(hp)->update(frametime, direction);
+	}
+
+	for (PickupArrow *arrow : pickupArrowCollection) {
+		switch (leftrightupdown) {
+		case 1:
+			(arrow)->setX((arrow)->getStartX() - 2560);
+			break;
+		case 2:
+			(arrow)->setX((arrow)->getStartX());
+			break;
+		case 3:
+			(arrow)->setY((arrow)->getStartY() + 1264);
+			break;
+		case 4:
+			(arrow)->setY((arrow)->getStartY());
+			break;
+		}
+		if (moveOn)
+			(arrow)->update(frametime, direction);
+	}
+
+	for (PickupStone *stone : pickupStoneCollection) {
+		switch (leftrightupdown) {
+		case 1:
+			(stone)->setX((stone)->getStartX() - 2560);
+			break;
+		case 2:
+			(stone)->setX((stone)->getStartX());
+			break;
+		case 3:
+			(stone)->setY((stone)->getStartY() + 1264);
+			break;
+		case 4:
+			(stone)->setY((stone)->getStartY());
+			break;
+		}
+		if (moveOn)
+			(stone)->update(frametime, direction);
+	}
+
 }
+
+
 
 PLATFORM StageGenerator::getFillPlatforms()
 {

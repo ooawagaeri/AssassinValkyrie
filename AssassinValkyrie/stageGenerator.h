@@ -15,6 +15,9 @@
 #include "hideout.h"
 #include "ladder.h"
 #include "enemyManager.h"
+#include "pickupHP.h"
+#include "pickupArrow.h"
+#include "pickupStone.h"
 #include <queue>
 #include <string>
 #include <vector>
@@ -23,6 +26,9 @@ typedef std::vector<Floor *> FLOORS;
 typedef std::vector<Fill *> FILLS;
 typedef std::vector<Hideout *> HIDEOUTS;
 typedef std::vector<Ladder *> LADDERS;
+typedef std::vector<PickupHP *> HPS;
+typedef std::vector<PickupArrow *> PICKUPARROWS;
+typedef std::vector<PickupStone *> PICKUPSTONES;
 //enum STAGEELEMENTS {FLOOR};
 
 class StageGenerator
@@ -30,16 +36,18 @@ class StageGenerator
 private:
 	int currentStage;
 	FLOORS floorCollection;
-	FLOORS::iterator floor;
 
 	FILLS fillCollection;
-	FILLS::iterator fill;
 
 	HIDEOUTS hideoutCollection;
-	HIDEOUTS::iterator hideout;
 
 	LADDERS ladderCollection;
-	LADDERS::iterator ladder;
+
+	HPS hpCollection;
+
+	PICKUPARROWS pickupArrowCollection;
+
+	PICKUPSTONES pickupStoneCollection;
 
 	HorizontalLoader *stageHorizontalLoad;
 	VerticalLoader *stageVerticalLoad;
@@ -56,7 +64,7 @@ public:
 	StageGenerator();
 	~StageGenerator();
 
-	bool initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent);
+	bool initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent, TextureManager *pickupTextures);
 	//void loadStage(int i);
 	//void clearField();
 	void render();
@@ -68,6 +76,8 @@ public:
 	FLOORS *getFloors() { return &floorCollection; }
 	FILLS *getFills() { return &fillCollection; }
 
-
+	HPS *getHP() { return &hpCollection; }
+	PICKUPARROWS *getPickupArrows() { return &pickupArrowCollection; }
+	PICKUPSTONES *getPickupStones() { return &pickupStoneCollection; }
 };
 #endif

@@ -61,7 +61,8 @@ public:
 	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
 	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
 	void ai(Entity &ship1, Entity &ship2);
-	void collisions(EnemyManager *enemyList);
+	//void collisions(EnemyManager *enemyList);
+	void collisions(EnemyManager *enemyList, StageGenerator *stageGen);
 	void draw();
 	bool getJumpRight()
 	{

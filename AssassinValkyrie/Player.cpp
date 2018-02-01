@@ -69,7 +69,7 @@ void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, 
 	}
 }
 
-void Player::collisions(EnemyManager *enemyList)
+void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 {
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
@@ -118,6 +118,40 @@ void Player::collisions(EnemyManager *enemyList)
 					totalXP += 100;
 				break;
 			}
+		}
+	}
+	
+	HPS *hpCollection = stageGen->getHP();
+	for (HPS::iterator hp = (hpCollection->begin()); hp != hpCollection->end(); hp++)
+	{
+		if ((collidesWith(**hp, collisionVector)))
+		{
+			//set health increase;
+			(*hp)->setActive(false);
+			(*hp)->setVisible(false);
+			break;
+		}
+	}
+	PICKUPARROWS *pickupArrowCollection = stageGen->getPickupArrows();
+	for (PICKUPARROWS::iterator pickupArrow = (pickupArrowCollection->begin()); pickupArrow != pickupArrowCollection->end(); pickupArrow++)
+	{
+		if ((collidesWith(**pickupArrow, collisionVector)))
+		{
+			//add number of arrows
+			(*pickupArrow)->setActive(false);
+			(*pickupArrow)->setVisible(false);
+			break;
+		}
+	}
+	PICKUPSTONES *pickupStoneCollection = stageGen->getPickupStones();
+	for (PICKUPSTONES::iterator pickupStone = (pickupStoneCollection->begin()); pickupStone != pickupStoneCollection->end(); pickupStone++)
+	{
+		if ((collidesWith(**pickupStone, collisionVector)))
+		{
+			//add number of arrows
+			(*pickupStone)->setActive(false);
+			(*pickupStone)->setVisible(false);
+			break;
 		}
 	}
 	
