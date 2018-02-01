@@ -132,8 +132,8 @@
     <ClCompile Include="horizontalLoader.cpp" />
     <ClCompile Include="verticalLoader.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="playerBar.cpp" />
     <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="playerBar.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>

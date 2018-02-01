@@ -109,9 +109,16 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 
 	emBulletList.initialize(&emList);
 
-	/////////////////////////////////////////
-	//				UI
-	/////////////////////////////////////////
+/////////////////////////////////////////
+//				Player
+/////////////////////////////////////////
+// Player
+	if (!playerTextures.initialize(graphics, PLAYER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player Textures"));
+
+	if (!player->initialize(this, playerNS::WIDTH, playerNS::HEIGHT, playerNS::TEXTURE_COLS, &playerTextures))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
+	//UI
 	dashboard->initialize(graphics, mouse, player);
 
 	if (!displayTimer->initialize(graphics, 30, false, false, "Spectre 007"))
@@ -140,8 +147,8 @@ void AssassinValkyrie::update()
 	//stageGenerator->update(frameTime);
 	mouse->update();
 	emBulletList.update(frameTime, this, &bulletTextures, player);
-	player->update(frameTime,this,&playerTextures,stageGenerator,&emList,pCollection);
-	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS,stoneNS::STONE_TEXTURE_COLS, &playerTextures, player->getX() + 20, player->getY(),*player);
+	player->update(frameTime,this,&playerTextures,stageGenerator,&emList,visionPlatforms);
+	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player);
 	emList.update(frameTime, visionPlatforms);
 }
 
@@ -165,7 +172,7 @@ void AssassinValkyrie::collisions()
 // Render game items
 void AssassinValkyrie::render()
 {
-	
+
 	background->draw();
 	stageGenerator->render();
 	mouse->draw();
