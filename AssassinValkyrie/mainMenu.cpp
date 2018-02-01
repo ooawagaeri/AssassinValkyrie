@@ -99,6 +99,7 @@ void MainMenu::update()
 		//if (input->isKeyDown(ENTER_KEY))
 		//if(startButton.click() && input->getMouseLButton() )
 		if(startButton.collideButton(*cursor) && input->getMouseLButton())
+
 		{
 			gameStart = true;
 			assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime, &paused, cursor);
@@ -109,8 +110,6 @@ void MainMenu::update()
 		{
 			Game::exitGame();
 		}
-
-
 	}
 
 
@@ -121,10 +120,7 @@ void MainMenu::update()
 			assValk->setPause(true);
 
 		assValk->update();
-
 	}
-
-
 }
 
 void MainMenu::ai()
@@ -145,17 +141,17 @@ void MainMenu::collisions()
 
 		if (startButton.collidesWith(*cursor,collisionVector))
 			startButton.collisions(buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
-		if (!startButton.collidesWith(*cursor, collisionVector))
+		if (!startButton.collideButton(*cursor))
 			startButton.setCurrentFrame(buttonNS::START_BUTTON_FRAME);
-		if (settingsButton.collidesWith(*cursor, collisionVector))
+		if (settingsButton.collideButton(*cursor))
 			settingsButton.collisions(buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME);
-		if (!settingsButton.collidesWith(*cursor, collisionVector))
+		if (!settingsButton.collideButton(*cursor))
 			settingsButton.setCurrentFrame(buttonNS::SETTINGS_BUTTON_FRAME);
-		if (creditsButton.collidesWith(*cursor, collisionVector))
+		if (creditsButton.collideButton(*cursor))
 			creditsButton.collisions(buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME);
-		if (!creditsButton.collidesWith(*cursor, collisionVector))
+		if (!creditsButton.collideButton(*cursor))
 			creditsButton.setCurrentFrame(buttonNS::CREDITS_BUTTON_FRAME);
-		if (exitButton.collidesWith(*cursor, collisionVector))
+		if (exitButton.collideButton(*cursor))
 			exitButton.collisions(buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME);
 		if (!exitButton.collidesWith(*cursor, collisionVector))
 			exitButton.setCurrentFrame(buttonNS::EXIT_BUTTON_FRAME);*/

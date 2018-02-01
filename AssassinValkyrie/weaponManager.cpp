@@ -17,32 +17,27 @@ bool WeaponManager::initializeArrow(Game *gamePtr, int width, int height, int nc
 	is_initialised_arrow = (arrow)->initialize(gamePtr, width, height, ncols, textureM);	
 	(arrow)->setFrames(arrowNS::ARROW_START_FRAME, arrowNS::ARROW_END_FRAME);
 	(arrow)->setCurrentFrame(arrowNS::ARROW_START_FRAME);
-	
 
 	if (player.isFlipHorizontal())
 	{
 		(arrow)->flipHorizontal(true);
 		(arrow)->setVelocity(VECTOR2(-arrowNS::SPEED, arrowNS::SPEED));
-		
-
 	}
+
 
 	else
 	{
 		(arrow)->flipHorizontal(false);
 		(arrow)->setVelocity(VECTOR2(arrowNS::SPEED, arrowNS::SPEED));
-		
 	}
 
-	(arrow)->setX(X);
-	(arrow)->setY(Y);
+	(arrow)->setX(X - arrowNS::WIDTH / 2);
+	(arrow)->setY(Y - arrowNS::HEIGHT /2);
 
 	if (!is_initialised_arrow)
 		return is_initialised_arrow;
 
 	return is_initialised_arrow;
-
-	
 }
 
 bool WeaponManager::initializeStone(Game *gamePtr, int width, int height, int ncols,
@@ -51,7 +46,6 @@ bool WeaponManager::initializeStone(Game *gamePtr, int width, int height, int nc
 	
 	bool is_initialised_stone = true;
 	Stone *stone = stone_collection.back();
-
 	
 	is_initialised_stone = (stone)->initialize(gamePtr, width, height, ncols, textureM);
 	
@@ -60,34 +54,28 @@ bool WeaponManager::initializeStone(Game *gamePtr, int width, int height, int nc
 
 	if (player.isFlipHorizontal())
 	{
-		
 		(stone)->setThrowingRight(false);
-
 	}
 	else
 	{
-	
 		(stone)->setThrowingRight(true);
-
 	}
 
-	
-	(stone)->setX(X);
+	(stone)->setX(X - stoneNS::WIDTH / 2);
 	(stone)->setY(Y);
-
 
 	if (!is_initialised_stone)
 		return is_initialised_stone;
 
 	return is_initialised_stone;
-
-
 }
 
 
 void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int width, int height, int arrowcols, int stonecols,
-	TextureManager *textureM, float X, float Y, Entity &player)
+	TextureManager *textureM, Player &player)
 {
+	int X = player.getCenterX();
+	int Y = player.getY();
 
 	if (input->isKeyDown(RANGE_ATTACK_KEY))
 	{
@@ -96,10 +84,7 @@ void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int wid
 			Tick = GetTickCount();
 			arrow_collection.push_back(new Arrow());
 			initializeArrow(gamePtr, width, height, arrowcols, textureM, X, Y, player);
-
 		}
-
-
 	}
 
 	else if (input->isKeyDown(DISTRACT_KEY) )
@@ -109,7 +94,6 @@ void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int wid
 			Tick2 = GetTickCount();
 			stone_collection.push_back(new Stone());
 			initializeStone(gamePtr, width, height,stonecols, textureM, X, Y, player);
-
 		}
 	}
 	for (std::vector<Arrow *>::iterator arrow = arrow_collection.begin(); arrow < arrow_collection.end(); ++arrow)
@@ -121,12 +105,9 @@ void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int wid
 	{
 		(*stone)->update(frameTime);
 	}
-
-
 }
 
 void WeaponManager::ai() {}
-
 
 void WeaponManager::collisions(EnemyManager *enemyList, Player *player, PLATFORM floor)
 {
@@ -194,15 +175,7 @@ void WeaponManager::collisions(EnemyManager *enemyList, Player *player, PLATFORM
 			}
 		if (floorCollision)
 		{
-			vector<Enemy *> tempList;
-			for (Enemy *e : *enemyList->getTroopers())
-				tempList.emplace_back(e);
-			for (Enemy *e : *enemyList->getGunners())
-				tempList.emplace_back(e);
-			for (Enemy *e : *enemyList->getSerpants())
-				tempList.emplace_back(e);
-
-			for (Enemy *e : tempList)
+			for (Enemy *e : *enemyList->getWorlds())
 			{
 				VECTOR2 unit = *e->getCenter() - *(*stone)->getCenter();
 				if (D3DXVec2Length(&unit) < stoneNS::RANGE)
@@ -210,6 +183,8 @@ void WeaponManager::collisions(EnemyManager *enemyList, Player *player, PLATFORM
 			}
 			stone = stone_collection.erase(stone);
 		}
+		else if ((*stone)->outOfBounds())
+			stone = stone_collection.erase(stone);
 		else
 			stone++;
 	}
@@ -217,18 +192,13 @@ void WeaponManager::collisions(EnemyManager *enemyList, Player *player, PLATFORM
 
 void WeaponManager::render()
 {
-
 	for (std::vector<Arrow *>::iterator it = arrow_collection.begin(); it < arrow_collection.end(); ++it)
 	{
-
 		(*it)->draw();
-
 	}
 
 	for (std::vector<Stone *>::iterator stone = stone_collection.begin(); stone <stone_collection.end(); ++stone)
 	{
-
 		(*stone)->draw();
-
 	}
 }

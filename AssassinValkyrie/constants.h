@@ -57,6 +57,7 @@ const char PLAYER_IMAGE[] = "pictures\\Player.png";
 const char FLOOR_IMAGE[] = "pictures\\newElements.png";
 const char BACKGROUND_IMAGE[] = "pictures\\backgroundBIG.png";
 const char LADDER_IMAGE[] = "pictures\\ladderbigger.png";
+const char PICKUP_IMAGE[] = "pictures\\pickupTextures.png";
 
 const char ENEMY_TROOPER_IMAGE[] = "pictures\\enemyTexture.png";
 const char ENEMY_GUNNER_IMAGE[] = "pictures\\enemyTexture_gunner.png";
@@ -87,6 +88,7 @@ const UCHAR CROUCHING_KEY = 'S';
 const UCHAR MELEE_ATTACK_KEY = 'G';
 const UCHAR RANGE_ATTACK_KEY = 'F';
 const UCHAR DISTRACT_KEY = 'H';
+const UCHAR ASSASSINATE_KEY = 'R';
 const UCHAR JUMPING_KEY = VK_SPACE;
 
 // weapon types

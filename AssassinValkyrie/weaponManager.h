@@ -29,7 +29,7 @@ public:
 	bool initializeStone(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM, float X, float Y, Entity &player);
 	void update(float frameTime, Input *input, Game *gamePtr, int width, int height, int arrowcols, int stonecols,
-		TextureManager *textureM, float X, float Y, Entity &player);
+		TextureManager *textureM, Player &player);
 	void collisions(EnemyManager *enemyList, Player *player, PLATFORM floor);
 	void ai();
 	void render();

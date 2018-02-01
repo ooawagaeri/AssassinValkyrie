@@ -35,4 +35,5 @@ public:
 	void update(float frameTime, Game *gamePtr, TextureManager *textureM, Entity *play);
 	void collisions(Entity *play);
 	void render();
+	void camera(float frameTime, int direction);
 };

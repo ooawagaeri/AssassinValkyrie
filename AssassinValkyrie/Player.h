@@ -23,7 +23,7 @@ namespace playerNS
 	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 4 ;
 	//const int	Y = GAME_HEIGHT/2-100 ;
-	const int	Y = 500;
+	const int	Y = 100;
 	const float SPEED = 100;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 1;
@@ -31,7 +31,7 @@ namespace playerNS
 	const int   END_FRAME = 0;
 	const float ANIMATION_DELAY = 0.5f;
 	const int	START_LEVEL = 1;
-	const int	TOTAL_LEVELS = 9;
+	const int	TOTAL_LEVELS = 12;
 }
 
 
@@ -41,7 +41,10 @@ class Player : public Entity
 protected:
 	bool jumpRight = false;
 	bool jumpLeft = false;
+	bool collidingWithVision = false;
 	bool isMeleeAttacking = false;
+	bool isAssassinating = false;
+	bool onGround = false;
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
@@ -58,10 +61,11 @@ public:
 
 	// inherited member functions
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
-	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
-	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator);
+	void update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p);
+	void handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p);
 	void ai(Entity &ship1, Entity &ship2);
-	void collisions(EnemyManager *enemyList);
+	//void collisions(EnemyManager *enemyList);
+	void collisions(EnemyManager *enemyList, StageGenerator *stageGen);
 	void draw();
 	bool getJumpRight()
 	{
@@ -86,10 +90,33 @@ public:
 	{
 		isMeleeAttacking = condition;
 	}
+	void IsAssassinating(bool condition)
+	{
+		isAssassinating = condition;
+	}
+	void setCollideWithVision(bool condition)
+	{
+		collidingWithVision = condition;
+	}
+	bool isCollidingWithVision()
+	{
+		return collidingWithVision;
+	}
+	void setOnGround(bool condition)
+	{
+		onGround = condition;
+	}
+	bool isOnGround()
+	{
+		return onGround;
+	}
+	void setSpeedLevel(int i) { speedLevel = i; }
+
 	void setStealthLevel() { stealthLevel++; }
 	int getStealthLevel() { return stealthLevel; }
 
 	void setSpeedLevel() { speedLevel++; }
+
 	int getSpeedLevel() { return speedLevel; }
 
 	void setArmorLevel() { armorLevel++; }
@@ -106,5 +133,6 @@ public:
 
 	int getSkillPoints() { return skillPointAvailable; }
 	void useSkillPoints() { skillPointAvailable--; }
+	float calcMultipler(int level) { return 1 + (level *0.33); }
 };
 #endif

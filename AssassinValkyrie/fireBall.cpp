@@ -5,7 +5,7 @@
 
 #include "fireBall.h"
 
-Fireball::Fireball(Entity *play)
+Fireball::Fireball(float dist)
 {
 	spriteData.width = fireNS::WIDTH;
 	spriteData.height = fireNS::HEIGHT;
@@ -19,7 +19,7 @@ Fireball::Fireball(Entity *play)
 	currentFrame = startFrame;
 	edge = RECT{ (long)(-fireNS::WIDTH*fireNS::SCALE / 2), (long)(-fireNS::HEIGHT*fireNS::SCALE / 2), (long)(fireNS::WIDTH*fireNS::SCALE / 2), (long)(fireNS::HEIGHT*fireNS::SCALE / 2) };
 	collisionType = entityNS::BOX;
-	move = new ProjectileMovement(this, play);
+	move = new ProjectileMovement(this, dist);
 }
 
 bool Fireball::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)

@@ -4,6 +4,8 @@ Button::Button() : Entity()
 {
 	spriteData.width = buttonNS::BUTTON_WIDTH;
 	spriteData.height = buttonNS::BUTTON_HEIGHT;
+	spriteData.rect.bottom = buttonNS::BUTTON_HEIGHT;
+	spriteData.rect.right = buttonNS::BUTTON_WIDTH;
 	spriteData.x = getX();
 	spriteData.y = getY();
 	spriteData.rect.bottom = buttonNS::BUTTON_HEIGHT;
@@ -33,15 +35,6 @@ void Button::updateFrame()
 {
 	setCurrentFrame(1);
 }
-
-/*void Button::update()
-{
-	VECTOR2 collisionVector;
-	if (collidesWith(mouse, collisionVector))
-	{
-		setCurrentFrame()
-	}
-}*/
 
 void Button::draw()
 {
@@ -99,10 +92,20 @@ bool Button::collideWithin()
 
 void Button::releaseAll()
 {
-	
 }
 
 void Button::resetAll() 
 {
+}
 
+bool Button::collideButton(Entity &ent)
+{
+	if ((getCenterX() + edge.right*getScale() < ent.getCenterX() + ent.getEdge().left*ent.getScale()) ||
+		(getCenterX() + edge.left*getScale() > ent.getCenterX() + ent.getEdge().right*ent.getScale()) ||
+		(getCenterY() + edge.bottom*getScale() < ent.getCenterY() + ent.getEdge().top*ent.getScale()) ||
+		(getCenterY() + edge.top*getScale() > ent.getCenterY() + ent.getEdge().bottom*ent.getScale()))
+	{
+		return false;
+	}
+	return true;
 }
