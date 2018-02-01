@@ -31,6 +31,10 @@ Player::Player() : Entity()
 	armorLevel = playerNS::START_LEVEL;
 	currentTotalLevel = 4;
 	skillPointAvailable = 0;
+
+	// yuteng didn;t add this in 
+	health = playerNS::HEALTH;
+
 }
 
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)

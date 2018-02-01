@@ -172,6 +172,9 @@
     <ClCompile Include="pickupStone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="playerBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -362,6 +365,9 @@
     </ClInclude>
     <ClInclude Include="AssassinateState.h">
       <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="playerBar.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
