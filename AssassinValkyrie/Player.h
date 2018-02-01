@@ -23,7 +23,7 @@ namespace playerNS
 	const float SCALE = 1.0f;
 	const int	X = GAME_WIDTH / 4 ;
 	//const int	Y = GAME_HEIGHT/2-100 ;
-	const int	Y = 500;
+	const int	Y = 100;
 	const float SPEED = 100;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 1;
@@ -44,6 +44,7 @@ protected:
 	bool collidingWithVision = false;
 	bool isMeleeAttacking = false;
 	bool isAssassinating = false;
+	bool onGround = false;
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
@@ -98,6 +99,14 @@ public:
 	bool isCollidingWithVision()
 	{
 		return collidingWithVision;
+	}
+	void setOnGround(bool condition)
+	{
+		onGround = condition;
+	}
+	bool isOnGround()
+	{
+		return onGround;
 	}
 	void setSpeedLevel(int i) { speedLevel = i; }
 	int getSpeedLevel() { return speedLevel; }

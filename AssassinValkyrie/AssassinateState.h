@@ -11,9 +11,9 @@ namespace ASSASSINATE_STATE
 {
 	const int	WIDTH = 129;
 	const int	HEIGHT = 96;
-	const int TEXTURE_COLS = 1;
-	const int   START_FRAME = 6;
-	const int   END_FRAME = 8;
+	const int TEXTURE_COLS = 2;
+	const int   START_FRAME = 16;
+	const int   END_FRAME = 17;
 
 }
 

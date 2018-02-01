@@ -140,6 +140,16 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 
 	VECTOR2 collisionVector;
 	FILLS *fillCollection = stagegenerator->getFills();
+	FLOORS *floorCollection = stagegenerator->getFloors();
+	player.setOnGround(false);
+	for (FLOORS::iterator floor = (floorCollection->begin()); floor != floorCollection->end(); floor++)
+	{
+		if (player.collidesWith(**floor, collisionVector))
+		{
+			player.setOnGround(true);
+		
+		}
+	}
 
 	for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
 	{
@@ -157,7 +167,15 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 			
 
 		}
-	}   
+	} 
+
+	if(!player.isOnGround())
+	{
+		player.initialize(gamePtr, FALLING_STATE::WIDTH, FALLING_STATE::HEIGHT, FALLING_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(FALLING_STATE::START_FRAME, FALLING_STATE::END_FRAME);
+		player.setCurrentFrame(FALLING_STATE::START_FRAME);
+		return new FallingState();
+	}
 
 	if (!input->isKeyDown(RUNNING_RIGHT_KEY)&& !input->isKeyDown(RUNNING_LEFT_KEY))
 	{
@@ -245,6 +263,7 @@ PlayerState* AssassinateState::handleInput(Player& player, Input* input, Game *g
 		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 		player.setCurrentFrame(STANDING_STATE::START_FRAME);
 		player.setLoop(true);
+		player.IsAssassinating(false);
 	
 		return new StandState();
 
@@ -261,6 +280,7 @@ PlayerState* MeleeAttackState::handleInput(Player& player, Input* input, Game *g
 			player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 			player.setCurrentFrame(STANDING_STATE::START_FRAME);
 			player.setLoop(true);
+			player.IsMeleeAttacking(false);
 			return new StandState();
 		
 	}
@@ -348,10 +368,7 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 			{
 				player.setJumpRight(false);
 				player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
-				if ((*floor)->getY() == ((*floor)->getStartY()))
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT + 3);
-				else
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY() +3));
+				
 				player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 				player.setCurrentFrame(STANDING_STATE::START_FRAME);
 				player.setLoop(true);
@@ -362,10 +379,7 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 			{
 				player.setJumpLeft(false);
 				player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
-				if ((*floor)->getY() == ((*floor)->getStartY()))
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT+3);
-				else
-					player.setY((*floor)->getY() - STANDING_STATE::HEIGHT - ((*floor)->getY() - (*floor)->getStartY()+3));
+				
 				player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 				player.setCurrentFrame(STANDING_STATE::START_FRAME);
 				player.setLoop(true);
@@ -391,7 +405,6 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 			player.initialize(gamePtr, FALLING_STATE::WIDTH, FALLING_STATE::HEIGHT, FALLING_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(FALLING_STATE::START_FRAME, FALLING_STATE::END_FRAME);
 			player.setCurrentFrame(FALLING_STATE::START_FRAME);
-			player.setVelocity(VECTOR2(FALLING_STATE::FALLING_SPEED, FALLING_STATE::FALLING_SPEED));
 			return new FallingState();
 
 		}
@@ -409,7 +422,7 @@ PlayerState* FallingState::handleInput(Player& player, Input* input, Game *gameP
 	{
 		if (player.collidesWith(**floor, collisionVector))
 		{
-
+			
 			player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
 			player.setCurrentFrame(STANDING_STATE::START_FRAME);
