@@ -469,7 +469,7 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 			player.initialize(gamePtr, FALLING_STATE::WIDTH, FALLING_STATE::HEIGHT, FALLING_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(FALLING_STATE::START_FRAME, FALLING_STATE::END_FRAME);
 			player.setCurrentFrame(FALLING_STATE::START_FRAME);
-			player.setVelocity(VECTOR2(FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel()), FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel())));
+			//player.setVelocity(VECTOR2(FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel()), FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel())));
 			return new FallingState();
 
 		}

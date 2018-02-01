@@ -76,7 +76,7 @@ public:
     void resetAll();
 
 	void setPause(bool value) { paused = value; }
-	bool getPaused() { return paused; }
+	bool getPause() { return paused; }
 
 	int mins;
 	int secs;

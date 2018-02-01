@@ -3,7 +3,7 @@
 // Student Number	: Zhuang yuteng
 // Student Number	: S10163964C
 
-#ifndef _PLAYER_H 
+#ifndef _PLAYER_H
 #define _PLAYER_H
 #define WIN32_LEAN_AND_MEAN
 
@@ -111,12 +111,16 @@ public:
 		return onGround;
 	}
 	void setSpeedLevel(int i) { speedLevel = i; }
+	void setStealthLevel() { stealthLevel++; }
+	int getStealthLevel() { return stealthLevel; }
+
+	void setSpeedLevel() { speedLevel++; }
 	int getSpeedLevel() { return speedLevel; }
 
-	void setArmorLevel(int i) { armorLevel = i; }
+	void setArmorLevel() { armorLevel++; }
 	int getArmorLevel() { return armorLevel; }
 
-	void setRangeLevel(int i) { rangeLevel = i; }
+	void setRangeLevel() { rangeLevel++; }
 	int getRangeLevel() { return rangeLevel; }
 
 	void setTotalXP(int i) { totalXP = i; }
@@ -125,6 +129,8 @@ public:
 	int getTotalLevels() { return totalLevels; }
 	int getCurrentTotalLevel() { return currentTotalLevel; }
 
+	int getSkillPoints() { return skillPointAvailable; }
+	void useSkillPoints() { skillPointAvailable--; }
 	float calcMultipler(int level) { return 1 + (level *0.33); }
 };
 #endif

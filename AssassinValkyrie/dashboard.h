@@ -8,6 +8,8 @@
 #include "constants.h"
 #include "graphics.h"
 #include "button.h"
+#include "Player.h"
+#include "playerBar.h"
 
 namespace dashboardNS
 {
@@ -17,6 +19,7 @@ namespace dashboardNS
 	const int PAUSE_NCOLS = 0;
 	const int PAUSE_FRAME = 0;
 	const int PAUSE_HOVER_FRAME = 1;
+	const int SKILL_TEXT_HEIGHT = 30;
 }
 
 class Dashboard
@@ -24,22 +27,39 @@ class Dashboard
 private:
 	TextureManager skillTexture;
 	TextureManager dashboardTexture;
-	//TextDX *timer;
+	TextureManager barTexture;
 	Button stealthIcon;
 	Button speedIcon;
 	Button rangeIcon;
 	Button armorIcon;
 	Cursor *mouse;
 	Image dashboard;
+	PlayerBar playerHealth;
+	PlayerBar underHealth;
+	PlayerBar playerExp;
+	TextDX *healthRemaining;
+	TextDX *stealthLevel;
+	TextDX *speedLevel;
+	TextDX *rangeLevel;
+	TextDX *armorLevel;
+
+	int playerMaxHealth;
+	int playerCurrentHealth;
+	int stealthPoints;
+	int speedPoints;
+	int rangePoints;
+	int armorPoints;
 
 
 public:
 	Dashboard();
 	virtual ~Dashboard();
-	bool initialize(Graphics *g, Cursor *cursor);
+	bool initialize(Graphics *g, Cursor *cursor, Player *playerM);
 	void draw();
-	void update();
+	void update(float frameTime, Player *playerM, Input *input);
 	void collisions();
+	void releaseAll();
+	void resetAll();
 
 	int mins;
 	int secs;
