@@ -133,17 +133,20 @@
     <ClCompile Include="verticalLoader.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="playerBar.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alertState.h" />
     <ClInclude Include="AttackComponent.h" />
+    <ClInclude Include="AssassinateState.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="dashboard.h" />
+    <ClInclude Include="distractedState.h"/>
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="stone.h" />
     <ClInclude Include="weaponManager.h" />
     <ClInclude Include="returnState.h" />
+    <ClInclude Include="playerBar.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="1-horizontal.txt" />

@@ -51,6 +51,7 @@ const char BUTTON_IMAGE[] = "pictures\\Buttons.png";
 const char SKILL_IMAGE[] = "pictures\\skillIcon.png";
 const char DASHBOARD_IMAGE[] = "pictures\\dashboard.png";
 const char PAUSE_IMAGE[] = "pictures\\pause.png";
+const char BAR_IMAGE[] = "pictures\\bar.png";
 
 const char PLAYER_IMAGE[] = "pictures\\Player.png";
 const char FLOOR_IMAGE[] = "pictures\\newElements.png";
@@ -70,7 +71,8 @@ const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
 const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 
 // audio cues
-const char TITLE[] = "Title";
+const char STEALTH[] = "stealth";
+const char RUSH[] = "rush";
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
@@ -87,6 +89,7 @@ const UCHAR CROUCHING_KEY = 'S';
 const UCHAR MELEE_ATTACK_KEY = 'G';
 const UCHAR RANGE_ATTACK_KEY = 'F';
 const UCHAR DISTRACT_KEY = 'H';
+const UCHAR ASSASSINATE_KEY = 'R';
 const UCHAR JUMPING_KEY = VK_SPACE;
 
 // weapon types

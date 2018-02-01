@@ -11,24 +11,24 @@ StageGenerator::StageGenerator()
 
 StageGenerator::~StageGenerator() 
 {
-	for (floor = floorCollection.begin(); floor != floorCollection.end(); ++floor)
-		SAFE_DELETE(*floor);
+	for (Floor *t : floorCollection)
+		SAFE_DELETE(t);
 	floorCollection.clear();
 
-	for (fill = fillCollection.begin(); fill != fillCollection.end(); ++fill)
-		SAFE_DELETE(*fill);
+	for (Fill *t : fillCollection)
+		SAFE_DELETE(t);
 	fillCollection.clear();
 
-	for (side = sideCollection.begin(); side != sideCollection.end(); ++side)
-		SAFE_DELETE(*side);
+	for (Fill *t : sideCollection)
+		SAFE_DELETE(t);
 	sideCollection.clear();
 
-	for (hideout = hideoutCollection.begin(); hideout != hideoutCollection.end(); ++hideout)
-		SAFE_DELETE(*hideout);
+	for (Hideout *t : hideoutCollection)
+		SAFE_DELETE(t);
 	hideoutCollection.clear();
 
-	for (ladder = ladderCollection.begin(); ladder != ladderCollection.end(); ++ladder)
-		SAFE_DELETE(*ladder);
+	for (Ladder *t : ladderCollection)
+		SAFE_DELETE(t);
 	ladderCollection.clear();
 }
 

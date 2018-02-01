@@ -66,6 +66,13 @@ void MainMenu::initialize(HWND hwnd)
 	exitButton.setX(creditsButton.getX());
 	exitButton.setY(creditsButton.getY() + creditsButton.getHeight() + (5 * creditsButton.getScale()));
 
+	// Resume Button
+	if (!resumeButton.initialize(graphics, buttonNS::BUTTON_WIDTH, buttonNS::BUTTON_HEIGHT, buttonNS::BUTTON_NCOLS, &buttonsTexture, cursor))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Resume button"));
+	resumeButton.setCurrentFrame(buttonNS::RESUME_BUTTON_FRAME);
+	resumeButton.setX(GAME_WIDTH / 2 - buttonNS::BUTTON_WIDTH / 2);
+	resumeButton.setY(GAME_HEIGHT / 3);
+
 	if (!pauseTexture.initialize(graphics, PAUSE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Pause"));
 
@@ -75,6 +82,7 @@ void MainMenu::initialize(HWND hwnd)
 	pauseButton.setX(GAME_WIDTH - pauseButton.getWidth());
 	pauseButton.setY(0);
 
+	audio->playCue(RUSH);
 	return;
 }
 
@@ -86,26 +94,35 @@ void MainMenu::update()
 
 	if (!gameStart)
 	{
+
 		// Start Button
-		if (startButton.collideButton(*cursor) && input->getMouseLButton())
+		//if (startButton.collidesWith(*cursor, collisionVector) && input->getMouseLButton())
+		//if (input->isKeyDown(ENTER_KEY))
+		//if(startButton.click() && input->getMouseLButton() )
+		if(startButton.collideButton(*cursor) && input->getMouseLButton())
 		{
 			gameStart = true;
+			audio->stopCue(RUSH);
 			assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime, &paused, cursor);
+			audio->playCue(STEALTH);
 		}
 
 		// Exit Button
-		if (input->isKeyDown(ESC_KEY) || ((exitButton.collideButton(*cursor) && input->getMouseLButton())))
+		if (input->isKeyDown(ESC_KEY) || (exitButton.collideButton(*cursor) && input->getMouseLButton()))
 		{
 			Game::exitGame();
-			return;
 		}
 	}
 
-	if (gameStart)
+
+
+	if (gameStart && !assValk->getPause())
 	{
-		assValk->update();
 		if (pauseButton.collideButton(*cursor) && input->getMouseLButton())
 			assValk->setPause(true);
+
+		assValk->update();
+
 	}
 }
 
@@ -120,7 +137,12 @@ void MainMenu::collisions()
 	VECTOR2 collisionVector;
 	if (!gameStart)
 	{
+		/*if (!startButton.collideButton(*cursor))
+			startButton.collisions(buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
 		if (startButton.collideButton(*cursor))
+			startButton.setCurrentFrame(buttonNS::START_BUTTON_FRAME);
+
+		if (startButton.collidesWith(*cursor,collisionVector))
 			startButton.collisions(buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
 		if (!startButton.collideButton(*cursor))
 			startButton.setCurrentFrame(buttonNS::START_BUTTON_FRAME);
@@ -134,17 +156,21 @@ void MainMenu::collisions()
 			creditsButton.setCurrentFrame(buttonNS::CREDITS_BUTTON_FRAME);
 		if (exitButton.collideButton(*cursor))
 			exitButton.collisions(buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME);
-		if (!exitButton.collideButton(*cursor))
-			exitButton.setCurrentFrame(buttonNS::EXIT_BUTTON_FRAME);
+		if (!exitButton.collidesWith(*cursor, collisionVector))
+			exitButton.setCurrentFrame(buttonNS::EXIT_BUTTON_FRAME);*/
+
+		startButton.collisions(*cursor, buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
+		settingsButton.collisions(*cursor, buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME);
+		creditsButton.collisions(*cursor, buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME);
+		exitButton.collisions(*cursor, buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME);
+
 
 	}
 	if (gameStart)
 	{
 		assValk->collisions();
-		if (pauseButton.collideButton(*cursor))
-			pauseButton.collisions(dashboardNS::PAUSE_FRAME, dashboardNS::PAUSE_HOVER_FRAME);
-		if (!pauseButton.collideButton(*cursor))
-			pauseButton.setCurrentFrame(dashboardNS::PAUSE_FRAME);
+		pauseButton.collisions(*cursor, dashboardNS::PAUSE_FRAME, dashboardNS::PAUSE_HOVER_FRAME);
+
 	}
 }
 

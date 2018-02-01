@@ -2,7 +2,7 @@
 #define _BUTTON_H
 #define WIN32_LEAN_AND_MEAN
 
-#include "Image.h"	
+#include "Image.h"
 #include "constants.h"
 #include "game.h"
 #include "input.h"
@@ -35,16 +35,23 @@ namespace buttonNS
 
 class Button : public Entity
 {
+private:
+
 public:
 	Button();
 	virtual ~Button();
 
 	bool initialize(Graphics *g, int width, int height, int ncols, TextureManager *textureM, Cursor *cursor);
-	void update(int endFrame);
+	void update(int frame);
+	void updateFrame();
 	void draw();
-	bool click();
+	bool click(Entity &ent);
+
 	bool collideButton(Entity &ent);
+
 	void collisions(int startFrame, int endFrame);
+	void collisions(Entity &ent, int startFrame, int endFrame);
+	bool collideWithin();
 	void releaseAll();
 	void resetAll();
 

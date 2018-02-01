@@ -16,7 +16,7 @@ Arrow::Arrow() : Entity()
 	startFrame = arrowNS::ARROW_START_FRAME;     // first frame of ship animation
 	endFrame = arrowNS::ARROW_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
-	edge = RECT{ (long)(-arrowNS::WIDTH / 2), (long)(-arrowNS::HEIGHT*arrowNS::SCALE / 2), (long)(arrowNS::WIDTH / 2), (long)(arrowNS::HEIGHT*arrowNS::SCALE / 2) };
+	edge = RECT{ (long)(-arrowNS::WIDTH*arrowNS::SCALE / 2), (long)(-arrowNS::HEIGHT*arrowNS::SCALE / 2), (long)(arrowNS::WIDTH*arrowNS::SCALE / 2), (long)(arrowNS::HEIGHT*arrowNS::SCALE / 2) };
 
 	collisionType = entityNS::BOX;
 }

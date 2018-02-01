@@ -31,37 +31,41 @@ Player::Player() : Entity()
 	armorLevel = playerNS::START_LEVEL;
 	currentTotalLevel = 4;
 	skillPointAvailable = 0;
+
+	// yuteng didn;t add this in
+	health = playerNS::HEALTH;
+
 }
 
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
 {
-	
+
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 int returnXPToNextLevel(int i) {
 	return ((i - 3) * 50);
 }
-void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+void Player::update(float frameTime, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p)
 {
 	if (totalXP >= returnXPToNextLevel(currentTotalLevel)) {
 		currentTotalLevel++;
 		skillPointAvailable++;
 		totalXP = 0;
 	}
-	
-	handleInput(input,gamePtr,textureM,stagegenerator);
+
+	handleInput(input,gamePtr,textureM,stagegenerator,enemyList,p);
 	state_->update(*this, frameTime);
 
 
-	
+
 	Entity::update(frameTime);
 
 	//move->update(frameTime);
 }
 
-void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator)
+void Player::handleInput(Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
-    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,stagegenerator);
+    PlayerState* state = state_->handleInput(*this, input,gamePtr,textureM,stagegenerator,enemyList,p);
 	if (state != NULL)
 	{
 		delete state_;
@@ -76,16 +80,25 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 	TROOPERLIST *trooperCollection = enemyList->getTroopers();
 	SERPANTLIST *serpantCollection = enemyList->getSerpants();
 
-	
+
 	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
 	{
 		if (collidesWith(**gunner,collisionVector))
 		{
-			
+
 			if (isMeleeAttacking == true)
 			{
 				(*gunner)->getHealth()->damage(gunnerNS::HEALTH);
 				isMeleeAttacking = false;
+				if (!(*gunner)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
+				break;
+			}
+
+			if (isAssassinating == true)
+			{
+				(*gunner)->getHealth()->damage(trooperNS::HEALTH);
+				isAssassinating = false;
 				if (!(*gunner)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 50;
 				break;
@@ -104,6 +117,15 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 					totalXP += 50;
 				break;
 			}
+
+			if (isAssassinating == true)
+			{
+				(*trooper)->getHealth()->damage(trooperNS::HEALTH);
+				isAssassinating = false;
+				if (!(*trooper)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
+				break;
+			}
 		}
 	}
 	for (SERPANTLIST::iterator serpant = (serpantCollection->begin()); serpant != serpantCollection->end(); serpant++)
@@ -118,9 +140,17 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 					totalXP += 100;
 				break;
 			}
+			if (isAssassinating == true)
+			{
+				(*serpant)->getHealth()->damage(trooperNS::HEALTH);
+				isAssassinating = false;
+				if (!(*serpant)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+					totalXP += 50;
+				break;
+			}
 		}
 	}
-	
+
 	HPS *hpCollection = stageGen->getHP();
 	for (HPS::iterator hp = (hpCollection->begin()); hp != hpCollection->end(); hp++)
 	{
@@ -154,7 +184,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 			break;
 		}
 	}
-	
+
 }
 
 // To find closest ship vector position
@@ -164,6 +194,6 @@ void Player::ai(Entity &ship1, Entity &ship2)
 
 void Player::draw()
 {
-	
+
 	Image::draw();              // draw ship
 }

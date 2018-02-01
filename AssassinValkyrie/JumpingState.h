@@ -28,7 +28,7 @@ private:
 	float velocityX = 150 * cos(45 * PI / 180);
 	float velocityY = -(150 * sin(45 * PI / 180));
 	float gravity = 9.81;
-	float DestinationTime = 500 / velocityX;
+	float DestinationTime =500 / velocityX;
 	float TimeInterval = DestinationTime / 50;
 	float t = 0;
 public:
@@ -36,11 +36,11 @@ public:
 	JumpingState() :PlayerState() {}
 	~JumpingState() {}
 
-	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList);
+	virtual PlayerState* handleInput(Player &player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *floorList, EnemyManager *enemyList, PLATFORM p);
 
 	void update(Player &player, float frameTime)
 	{
-
+		
 		velocityY += gravity*t*frameTime;
 
 		if (player.getJumpRight())
