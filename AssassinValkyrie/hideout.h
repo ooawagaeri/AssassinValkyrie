@@ -13,7 +13,7 @@
 
 namespace hideoutNS
 {
-	const int	WIDTH = 32;
+	const int	WIDTH = 64;
 	const int	HEIGHT = 64;
 	const double ROTATION = 0;
 	const float SCALE = 1.0f;
