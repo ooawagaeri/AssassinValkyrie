@@ -372,6 +372,12 @@
     <ClInclude Include="distractedState.h">
       <Filter>State Files\Enemy State</Filter>
     </ClInclude>
+    <ClInclude Include="ClimbReadyState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="ClimbingState.h">
+      <Filter>State Files\Player State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

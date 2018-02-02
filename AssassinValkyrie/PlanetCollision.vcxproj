@@ -144,9 +144,11 @@
     <ClInclude Include="background.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="button.h" />
+    <ClInclude Include="ClimbingState.h" />
+    <ClInclude Include="ClimbReadyState.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="dashboard.h" />
-    <ClInclude Include="distractedState.h"/>
+    <ClInclude Include="distractedState.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyBulletManager.h" />
     <ClInclude Include="enemyManager.h" />
