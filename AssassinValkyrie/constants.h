@@ -56,7 +56,6 @@ const char BAR_IMAGE[] = "pictures\\bar.png";
 const char PLAYER_IMAGE[] = "pictures\\Player.png";
 const char FLOOR_IMAGE[] = "pictures\\newElements.png";
 const char BACKGROUND_IMAGE[] = "pictures\\backgroundBIG.png";
-const char LADDER_IMAGE[] = "pictures\\ladderbigger.png";
 const char PICKUP_IMAGE[] = "pictures\\pickupTextures.png";
 
 const char ENEMY_TROOPER_IMAGE[] = "pictures\\enemyTexture.png";

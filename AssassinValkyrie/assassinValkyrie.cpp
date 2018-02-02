@@ -67,13 +67,10 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	if (!floorTexture.initialize(graphics, FLOOR_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initalizing floor texture"));
 
-	if (!ladderTexture.initialize(graphics, LADDER_IMAGE))
-		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing ladder texture"));
-
 	if (!pickupTextures.initialize(graphics, PICKUP_IMAGE))
 		throw (GameError(gameErrorNS::FATAL_ERROR, "Error initializing pickup texture"));
 
-	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &ladderTexture, &emList, &pickupTextures))
+	if (!stageGenerator->initialize(this, &floorTexture, &currentStage, &emList, &pickupTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing stage generation"));
 
 	visionPlatforms = stageGenerator->getVisionPlatforms();
@@ -143,11 +140,12 @@ void AssassinValkyrie::update()
 			secs = 0;
 		}
 	}
-	background->update(frameTime, player, stageGenerator, &emList, &emBulletList);
+	dashboard->update(frameTime, player, input);
 	//stageGenerator->update(frameTime);
 	mouse->update();
 	emBulletList.update(frameTime, this, &bulletTextures, player);
 	player->update(frameTime,this,&playerTextures,stageGenerator,&emList,visionPlatforms);
+	background->update(frameTime, player, stageGenerator, &emList, &emBulletList);
 	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player);
 	emList.update(frameTime, visionPlatforms);
 }
@@ -164,8 +162,8 @@ void AssassinValkyrie::collisions()
     VECTOR2 collisionVector;
 	weaponManager.collisions(&emList, player, floorPlatforms);
 	player->collisions(&emList, stageGenerator);
-	emList.collisions(mouse, floorPlatforms, sidePlatforms);
-	emBulletList.collisions(mouse);
+	emList.collisions(player, floorPlatforms, sidePlatforms);
+	emBulletList.collisions(player);
 	background->collisions(player, stageGenerator);
 }
 

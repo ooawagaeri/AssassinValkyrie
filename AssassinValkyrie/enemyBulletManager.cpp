@@ -13,9 +13,10 @@ EnemyBulletManager::~EnemyBulletManager()
 {
 	for (bullet = bulletList.begin(); bullet != bulletList.end(); bullet++)
 		SAFE_DELETE(*bullet);
-
+	bulletList.clear();
 	for (fireball = fireList.begin(); fireball != fireList.end(); fireball++)
 		SAFE_DELETE(*bullet);
+	fireList.clear();
 }
 
 void EnemyBulletManager::initialize(EnemyManager *enemyList)
@@ -86,7 +87,7 @@ bool EnemyBulletManager::initializeFire(Game *gamePtr, TextureManager *textureM,
 void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *textureM, Entity *play)
 {
 	for (Gunner *g : *gunnerList)
-		if (g->isAlive())
+		if (g->isAlive() && !g->outOfBounds())
 		{
 			ShootComponent *shot = g->getShoot();
 			if (shot->getAnimation() && (GetTickCount() - shot->shootTimer > shot->maxTimeShoot))
@@ -97,7 +98,7 @@ void EnemyBulletManager::update(float frameTime, Game *gamePtr, TextureManager *
 		}
 
 	for (Serpant *g : *serpantList)
-		if (g->isAlive())
+		if (g->isAlive() && !g->outOfBounds())
 		{
 			FireComponent *shot = g->getShoot();
 			if (shot->isFire() && (GetTickCount() - shot->fireTimer > shot->maxTimeFire))
@@ -126,6 +127,7 @@ void EnemyBulletManager::collisions(Entity *play)
 			if ((*bullet)->collidesWith(*play, collisionVector))
 			{
 				(*bullet)->setActive(false);
+				play->setHealth(play->getHealth() - 4);
 			}
 			bullet++;
 		}
@@ -140,6 +142,7 @@ void EnemyBulletManager::collisions(Entity *play)
 			if ((*fireball)->collidesWith(*play, collisionVector))
 			{
 				(*fireball)->setActive(false);
+				play->setHealth(play->getHealth() - 6);
 			}
 			fireball++;
 		}
