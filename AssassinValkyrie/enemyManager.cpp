@@ -92,7 +92,7 @@ void EnemyManager::ai()
 			{
 				VECTOR2 unit = *v1 - *v2->getCenter();
 				if (D3DXVec2Length(&unit) < alertRange)
-					v2->setState(new AlertedState());
+					v2->handleInput(new AlertedState());
 			}
 }
 
@@ -103,19 +103,24 @@ void EnemyManager::collisions(Entity *play, PLATFORM floor, PLATFORM fill)
 	world = worldCollection.begin();
 	while (world != worldCollection.end())
 	{
-		if ((*world)->isAlive()) {
-			if ((*world)->collidesWith(*play, collisionVector))
-			{
-				(*world)->getHealth()->damage(10);
-			}
-			world++;
+		if (!(*world)->outOfBounds())
+		{
+			if (!(*world)->isAlive() && ((*world)->isDeathAnimation() == 3))
+				world = worldCollection.erase(world);
+			else
+				world++;
 		}
-		else if ((*world)->outOfBounds())
-			world++;
 		else
-			world = worldCollection.erase(world);
+			world++;
 	}
 
+	for (Trooper *t : trooperCollection)
+		if (!t->outOfBounds())
+			if (t->getAttack()->getAnimation() && t->collidesWith(*play, collisionVector) && t->getAttack()->getAttack())
+			{
+				play->setHealth(play->getHealth() - 5);
+				t->getAttack()->offAttack();
+			}
 	for (Enemy *t : worldCollection)
 		if (!t->outOfBounds())
 			unCollide(t, floor, fill);

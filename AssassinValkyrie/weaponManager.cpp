@@ -1,6 +1,7 @@
 
 #include "weaponManager.h"
 #include "distractedState.h"
+#include "alertState.h"
 
 WeaponManager::WeaponManager()
 {
@@ -121,37 +122,39 @@ void WeaponManager::collisions(EnemyManager *enemyList, Player *player, PLATFORM
 	{
 		for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
 		{
-			if ((*gunner)->collidesWith(**it, collisionVector))
+			if ((*gunner)->collidesWith(**it, collisionVector) && (*gunner)->isAlive() && !(*gunner)->outOfBounds())
 			{
 				(*gunner)->getHealth()->damage(gunnerNS::HEALTH / 2);
+				(*gunner)->handleInput(new AlertedState());
 				(*it)->setVisible(false);
 				(*it)->setActive(false);
-				if (!(*gunner)->getHealth()->getAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
+				if (!(*gunner)->isAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
 					player->setTotalXP(player->getTotalXP() + 50);
 				break;
 			}
 		}
 		for (TROOPERLIST::iterator trooper = (trooperCollection->begin()); trooper != trooperCollection->end(); trooper++)
 		{
-			if ((*trooper)->collidesWith(**it, collisionVector))
+			if ((*trooper)->collidesWith(**it, collisionVector) && (*trooper)->isAlive() && !(*trooper)->outOfBounds())
 			{
 				(*trooper)->getHealth()->damage(trooperNS::HEALTH/2);
+				(*trooper)->handleInput(new AlertedState());
 				(*it)->setVisible(false);
 				(*it)->setActive(false);
-				if (!(*trooper)->getHealth()->getAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
+				if (!(*trooper)->isAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
 					player->setTotalXP(player->getTotalXP() + 50);
 				break;
 			}
 		}
-
 		for (SERPANTLIST::iterator serpant = (serpantCollection->begin()); serpant != serpantCollection->end(); serpant++)
 		{
-			if ((*serpant)->collidesWith(**it, collisionVector))
+			if ((*serpant)->collidesWith(**it, collisionVector) && (*serpant)->isAlive() && !(*serpant)->outOfBounds())
 			{
 				(*serpant)->getHealth()->damage(serpantNS::HEALTH / 3);
+				(*serpant)->handleInput(new AlertedState());
 				(*it)->setVisible(false);
 				(*it)->setActive(false);
-				if (!(*serpant)->getHealth()->getAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
+				if (!(*serpant)->isAlive() && (player->getCurrentTotalLevel() < player->getTotalLevels()))
 					player->setTotalXP(player->getTotalXP() + 100);
 				break;
 			}
@@ -179,7 +182,7 @@ void WeaponManager::collisions(EnemyManager *enemyList, Player *player, PLATFORM
 			{
 				VECTOR2 unit = *e->getCenter() - *(*stone)->getCenter();
 				if (D3DXVec2Length(&unit) < stoneNS::RANGE)
-					e->setState(new DistractedState(*(*stone)->getCenter()));
+					e->handleInput(new DistractedState(*(*stone)->getCenter()));
 			}
 			stone = stone_collection.erase(stone);
 		}

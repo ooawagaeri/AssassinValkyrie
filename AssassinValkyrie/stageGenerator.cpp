@@ -32,7 +32,7 @@ StageGenerator::~StageGenerator()
 	ladderCollection.clear();
 }
 
-bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent, TextureManager *pickupTextures)
+bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, EnemyManager *ent, TextureManager *pickupTextures)
 {
 	bool success = true;
 	
@@ -108,8 +108,8 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 			else if (horizontalElement2.element == "HIDEOUT")
 			{
 				hideoutCollection.emplace_back(new Hideout());
-				success = hideoutCollection.back()->initialize(gamePtr, hideoutNS::WIDTH, hideoutNS::HEIGHT, 2, textureM);
-				hideoutCollection.back()->setCurrentFrame(4);
+				success = hideoutCollection.back()->initialize(gamePtr, hideoutNS::WIDTH, hideoutNS::HEIGHT, 6, textureM);
+				hideoutCollection.back()->setCurrentFrame(5);
 				hideoutCollection.back()->setX(horizontalElement2.x);
 				hideoutCollection.back()->setStartX(horizontalElement2.x);
 				hideoutCollection.back()->setY(GAME_HEIGHT - horizontalElement2.y);
@@ -130,14 +130,16 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 			else if (horizontalElement2.element == "LADDER")
 			{
 				ladderCollection.emplace_back(new Ladder());
-				success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT_BTM, 3, ladderTextures);
-				ladderCollection.back()->setCurrentFrame(ladderNS::FRAME_BTM);
-				ladderCollection.back()->setY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - horizontalElement2.y);
-				ladderCollection.back()->setStartY(GAME_HEIGHT - (ladderNS::HEIGHT_BTM) - horizontalElement2.y);
+				success = ladderCollection.back()->initialize(gamePtr, ladderNS::WIDTH, ladderNS::HEIGHT, 5, textureM);
+				ladderCollection.back()->setCurrentFrame(4);
+				ladderCollection.back()->setX(horizontalElement2.x);
+				ladderCollection.back()->setStartX(horizontalElement2.x);
+				ladderCollection.back()->setY(GAME_HEIGHT - horizontalElement2.y);
+				ladderCollection.back()->setStartY(GAME_HEIGHT - horizontalElement2.y);
+				ladderCollection.back()->setEdge(RECT{ (long)(-ladderNS::WIDTH / 2), (long)(-ladderNS::HEIGHT / 2), (long)(ladderNS::WIDTH / 2), (long)(ladderNS::HEIGHT / 2) });
 				ladderCollection.back()->setCollisionType(entityNS::ROTATED_BOX);
-				ladderCollection.back()->setX(horizontalElement2.x + (ladderNS::WIDTH));
-				ladderCollection.back()->setStartX(horizontalElement2.x + ladderNS::WIDTH);
 			}
+
 			else if (horizontalElement2.element == "PICKUPHP")
 			{
 				hpCollection.emplace_back(new PickupHP());
@@ -149,6 +151,7 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				hpCollection.back()->setX(horizontalElement2.x + (pickupHPNS::WIDTH));
 				hpCollection.back()->setStartX(horizontalElement2.x + pickupHPNS::WIDTH);
 			}
+
 			else if (horizontalElement2.element == "PICKUPARROW")
 			{
 				pickupArrowCollection.emplace_back(new PickupArrow());
@@ -160,6 +163,7 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				pickupArrowCollection.back()->setX(horizontalElement2.x + (pickupArrowNS::WIDTH));
 				pickupArrowCollection.back()->setStartX(horizontalElement2.x + pickupArrowNS::WIDTH);
 			}
+
 			else if (horizontalElement2.element == "PICKUPSTONE")
 			{
 				pickupStoneCollection.emplace_back(new PickupStone());
@@ -171,29 +175,11 @@ bool StageGenerator::initialize(Game *gamePtr, TextureManager *textureM, int *st
 				pickupStoneCollection.back()->setX(horizontalElement2.x + (pickupStoneNS::WIDTH));
 				pickupStoneCollection.back()->setStartX(horizontalElement2.x + pickupStoneNS::WIDTH);
 			}
-
 		}
 
 		ent->loadTrooper(trooperPos);
 		ent->loadGunner(gunnerPos);
 		ent->loadSerpant(serpantPos);
-	}
-	int firstX = 0;
-	for (Ladder *t : ladderCollection)
-	{
-		if (firstX == 0)
-		{
-			t->setCurrentFrame(ladderNS::FRAME_TOP);
-			firstX = t->getX();
-			continue;
-		}
-		if (firstX == t->getX())
-		{
-			t->setCurrentFrame(ladderNS::FRAME_MID);
-		} else
-		{
-			firstX = 0;
-		}
 	}
 }
 
@@ -218,12 +204,15 @@ void StageGenerator::render()
 	for (Ladder *t : ladderCollection)
 		if (!t->outOfBounds())
 			t->draw();
+
 	for (PickupHP *t : hpCollection)
 		if (!t->outOfBounds())
 			t->draw();
+
 	for (PickupArrow *t : pickupArrowCollection)
 		if (!t->outOfBounds())
 			t->draw();
+
 	for (PickupStone *t : pickupStoneCollection)
 		if (!t->outOfBounds())
 			t->draw();
@@ -381,7 +370,6 @@ void StageGenerator::update(float frametime, int direction, int leftrightupdown,
 		if (moveOn)
 			(stone)->update(frametime, direction);
 	}
-
 }
 
 PLATFORM StageGenerator::getVisionPlatforms()

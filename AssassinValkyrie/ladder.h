@@ -14,16 +14,15 @@
 namespace ladderNS
 {
 	const int	WIDTH = 64;
-	const int	HEIGHT_MID = 26;
-	const int	HEIGHT_TOP = 20;
-	const int	HEIGHT_BTM = 28;
+	const int	HEIGHT = 64;
+	//const int	HEIGHT_MID = 26;
+	//const int	HEIGHT_TOP = 20;
+	//const int	HEIGHT_BTM = 28;
 	const int	FRAME_MID = 0;
 	const int	FRAME_TOP = 1;
 	const int	FRAME_BTM = 2;
 	const double ROTATION = 0;
 	const float SCALE = 1.0f;
-	//const int	X = GAME_WIDTH / 2 - WIDTH*SCALE;
-	//const int	Y = GAME_HEIGHT / 2 - HEIGHT*SCALE;
 	const float SPEED = 100;
 	const float MASS = 300.0f;
 	const int   TEXTURE_COLS = 1;

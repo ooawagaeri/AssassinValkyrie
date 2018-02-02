@@ -164,7 +164,7 @@ public:
 	// inherited member functions
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM, TextureManager *textureHealth);
-	virtual void handleInput(PLATFORM p);
+	virtual void handleInput(EnemyState* newState, PLATFORM *p = NULL);
 	void update(float frameTime, PLATFORM p);
 	virtual void ai();
 	void draw();
@@ -186,7 +186,6 @@ public:
 	bool isAlive() { return health->getAlive(); }
 	int isDeathAnimation() { return health->getAnimationStatus(); }
 	EnemyState *getState() {return state_; }
-	void setState(EnemyState *value) { state_ = value; }
 	void drawCaution(bool value);
 };
 

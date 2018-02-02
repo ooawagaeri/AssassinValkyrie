@@ -429,7 +429,7 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 	
 	VECTOR2 collisionVector;
 	FLOORS *floorCollection = stagegenerator->getFloors();
-	FILLS *fillCollection = stagegenerator->getFills();
+	FILLS *fillCollection = stagegenerator->getSides();
 
 	for (FLOORS::iterator floor = (floorCollection->begin()); floor != floorCollection->end(); floor++)
 	{
