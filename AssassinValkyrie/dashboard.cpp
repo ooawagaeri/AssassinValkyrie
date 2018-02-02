@@ -76,8 +76,8 @@ bool Dashboard::initialize(Graphics *g, Cursor *cursor, Player *playerM)
 	playerHealth.setX(10);
 	playerHealth.setY(10);
 
-	playerMaxHealth = playerM->getHealth();
-	playerCurrentHealth = playerM->getHealth();
+	playerMaxHealth = playerM->getCurrentHealth();
+	playerCurrentHealth = playerM->getMaxHealth();
 
 	// Stealth points
 	if (!stealthLevel->initialize(g, dashboardNS::SKILL_TEXT_HEIGHT, false, false, "Spectre 007"))

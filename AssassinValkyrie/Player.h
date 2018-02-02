@@ -54,6 +54,8 @@ protected:
 	int armorLevel;
 	PlayerState* state_;
 	int skillPointAvailable;
+	int maxHealth;
+	int currentHealth;
 public:
 	// constructor
 	Player();
@@ -110,7 +112,6 @@ public:
 	{
 		return onGround;
 	}
-	void setSpeedLevel(int i) { speedLevel = i; }
 	void setStealthLevel() { stealthLevel++; }
 	int getStealthLevel() { return stealthLevel; }
 
@@ -132,5 +133,14 @@ public:
 	int getSkillPoints() { return skillPointAvailable; }
 	void useSkillPoints() { skillPointAvailable--; }
 	float calcMultipler(int level) { return 1 + (level *0.33); }
+
+	void setHealth(int i) { armorLevel++; }
+	int getArmorLevel() { return armorLevel; }
+
+	void setCurrentHealth(int i) { currentHealth = i; }
+	int getCurrentHealth() { return currentHealth; }
+
+	void setMaxHealth(int i) { maxHealth = i; }
+	int getMaxHealth() { return maxHealth; }
 };
 #endif

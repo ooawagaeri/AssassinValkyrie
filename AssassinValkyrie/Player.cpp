@@ -33,8 +33,8 @@ Player::Player() : Entity()
 	skillPointAvailable = 0;
 
 	// yuteng didn;t add this in
-	health = playerNS::HEALTH;
-
+	maxHealth = playerNS::HEALTH;
+	currentHealth = playerNS::HEALTH;
 }
 
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
@@ -156,7 +156,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 	{
 		if ((collidesWith(**hp, collisionVector)))
 		{
-			//set health increase;
+			health
 			(*hp)->setActive(false);
 			(*hp)->setVisible(false);
 			break;
