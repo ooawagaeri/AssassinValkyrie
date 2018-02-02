@@ -78,6 +78,7 @@ public:
 	POSITION getTrooper() { return trooperPos; }
 	FLOORS *getFloors() { return &floorCollection; }
 	FILLS *getFills() { return &fillCollection; }
+	FILLS *getSides() { return &sideCollection; }
 
 	HPS *getHP() { return &hpCollection; }
 	PICKUPARROWS *getPickupArrows() { return &pickupArrowCollection; }
