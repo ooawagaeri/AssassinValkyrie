@@ -140,12 +140,12 @@ void AssassinValkyrie::update()
 			secs = 0;
 		}
 	}
-	background->update(frameTime, player, stageGenerator, &emList, &emBulletList);
 	dashboard->update(frameTime, player, input);
 	//stageGenerator->update(frameTime);
 	mouse->update();
 	emBulletList.update(frameTime, this, &bulletTextures, player);
 	player->update(frameTime,this,&playerTextures,stageGenerator,&emList,visionPlatforms);
+	background->update(frameTime, player, stageGenerator, &emList, &emBulletList);
 	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player);
 	emList.update(frameTime, visionPlatforms);
 }

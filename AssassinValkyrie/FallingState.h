@@ -37,6 +37,7 @@ public:
 	{
 		fallingVelocity += gravity*frameTime;
 		player.setY(player.getY() + fallingVelocity *frameTime);
+		player.setVelocityY(fallingVelocity);
 	}
 };
 #endif
