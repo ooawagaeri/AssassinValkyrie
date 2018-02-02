@@ -90,7 +90,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 			{
 				(*gunner)->getHealth()->damage(gunnerNS::HEALTH);
 				isMeleeAttacking = false;
-				if (!(*gunner)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+				if (!(*gunner)->isAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 50;
 				break;
 			}
@@ -99,7 +99,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 			{
 				(*gunner)->getHealth()->damage(trooperNS::HEALTH);
 				isAssassinating = false;
-				if (!(*gunner)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+				if (!(*gunner)->isAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 50;
 				break;
 			}
@@ -113,7 +113,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 			{
 				(*trooper)->getHealth()->damage(trooperNS::HEALTH);
 				isMeleeAttacking = false;
-				if (!(*trooper)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+				if (!(*trooper)->isAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 50;
 				break;
 			}
@@ -122,7 +122,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 			{
 				(*trooper)->getHealth()->damage(trooperNS::HEALTH);
 				isAssassinating = false;
-				if (!(*trooper)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+				if (!(*trooper)->isAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 50;
 				break;
 			}
@@ -136,7 +136,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 			{
 				(*serpant)->getHealth()->damage(serpantNS::HEALTH/2);
 				isMeleeAttacking = false;
-				if (!(*serpant)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+				if (!(*serpant)->isAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 100;
 				break;
 			}
@@ -144,7 +144,7 @@ void Player::collisions(EnemyManager *enemyList, StageGenerator *stageGen)
 			{
 				(*serpant)->getHealth()->damage(trooperNS::HEALTH);
 				isAssassinating = false;
-				if (!(*serpant)->getHealth()->getAlive() && (currentTotalLevel < totalLevels))
+				if (!(*serpant)->isAlive() && (currentTotalLevel < totalLevels))
 					totalXP += 50;
 				break;
 			}

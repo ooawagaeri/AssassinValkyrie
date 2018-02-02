@@ -369,6 +369,9 @@
     <ClInclude Include="playerBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="distractedState.h">
+      <Filter>State Files\Enemy State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

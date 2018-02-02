@@ -13,6 +13,7 @@ class AttackComponent
 {
 protected:
 	int hitPoint;
+	bool attackOn = false;
 	bool animationOn = false;
 	Image *animation;
 
@@ -41,7 +42,9 @@ public:
 		else
 			ent->setVisible(true);
 	};
-	virtual void setAnimation(bool toggle) { animationOn = toggle; };
+	virtual void setAnimation(bool toggle) { animationOn = toggle; attackOn = toggle; };
+	void offAttack() { attackOn = false; }
+	bool getAttack() { return attackOn; }
 	bool getAnimation() { return animationOn; };
 };
 
