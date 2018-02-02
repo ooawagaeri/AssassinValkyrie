@@ -33,9 +33,14 @@ bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Enemy::handleInput(PLATFORM p)
-{
-	EnemyState* state = state_->handleInput(this, player,p);
+void Enemy::handleInput(EnemyState* newState, PLATFORM *p)
+{	
+	EnemyState* state;
+	if (newState == NULL)
+		state = state_->handleInput(this, player, *p);
+	else
+		state = newState;
+
 	if (state != NULL)
 	{
 		SAFE_DELETE(state_);
@@ -46,7 +51,7 @@ void Enemy::handleInput(PLATFORM p)
 void Enemy::update(float frameTime, PLATFORM p)
 {
 	if (!health->getDieAnimation()) {
-		handleInput(p);
+		handleInput(NULL, &p);
 		state_->update(this, player);
 
 		move->update(frameTime);

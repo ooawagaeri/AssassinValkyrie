@@ -31,7 +31,6 @@ typedef std::vector<PickupHP *> HPS;
 typedef std::vector<PickupArrow *> PICKUPARROWS;
 typedef std::vector<PickupStone *> PICKUPSTONES;
 
-
 class StageGenerator
 {
 private:
@@ -66,9 +65,7 @@ public:
 	StageGenerator();
 	~StageGenerator();
 
-	bool initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, TextureManager *ladderTextures, EnemyManager *ent, TextureManager *pickupTextures);
-	//void loadStage(int i);
-	//void clearField();
+	bool initialize(Game *gamePtr, TextureManager *textureM, int *stageNo, EnemyManager *ent, TextureManager *pickupTextures);
 	void render();
 	void update(float frametime, int direction, int leftrightupdown, bool moveOn);
 
