@@ -31,7 +31,7 @@ AssassinValkyrie::~AssassinValkyrie()
 
 // Initializes the game
 void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARGE_INTEGER *timeStartM, LARGE_INTEGER *timeEndM,
-	LARGE_INTEGER *timerFreqM, float *frameTimeM, bool *pausedM, Cursor *cursor)
+	LARGE_INTEGER *timerFreqM, float *frameTimeM, bool *pausedM, Cursor *cursor, KeyBinding *keyM)
 {
 	graphics = gamePtr.getGraphics();
 	input = gamePtr.getInput();
@@ -44,6 +44,7 @@ void AssassinValkyrie::initialize(Game &gamePtr, HWND *hwndM, HRESULT *hrM, LARG
 	frameTime = *frameTimeM;
 	paused = *pausedM;
 	mouse = cursor;
+	key = keyM;
 
 	mouse = new Cursor();
 
@@ -143,12 +144,12 @@ void AssassinValkyrie::update()
 			secs = 0;
 		}
 	}
-	background->update(frameTime, player, stageGenerator, &emList, &emBulletList);
+	background->update(frameTime, player, stageGenerator, &emList, &emBulletList, key);
 	//stageGenerator->update(frameTime);
 	mouse->update();
 	emBulletList.update(frameTime, this, &bulletTextures, player);
 	player->update(frameTime,this,&playerTextures,stageGenerator,&emList,visionPlatforms);
-	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player);
+	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player, key);
 	emList.update(frameTime, visionPlatforms);
 }
 

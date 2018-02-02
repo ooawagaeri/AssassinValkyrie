@@ -12,10 +12,14 @@
 #include "ThrowingState.h"
 #include "AssassinateState.h"
 
+#include "keyBinding.h"
+
+
 
 
 PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p)
 {
+	KeyBinding key;
 	player.setCollideWithVision(false);
 	VECTOR2 collisionVector;
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
@@ -54,7 +58,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 
 	if (!player.isCollidingWithVision())
 	{
-		if (input->isKeyDown(ASSASSINATE_KEY))
+		if (input->isKeyDown(key.getAssassinateKey()))
 		{
 			player.initialize(gamePtr, ASSASSINATE_STATE::WIDTH, ASSASSINATE_STATE::HEIGHT, ASSASSINATE_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(ASSASSINATE_STATE::START_FRAME, ASSASSINATE_STATE::END_FRAME);
@@ -65,7 +69,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 			return new AssassinateState();
 		}
 	}
-	if (input->isKeyDown(RUNNING_RIGHT_KEY))
+	if (input->isKeyDown(key.getRightKey()))
 	{
 		player.initialize(gamePtr, RUNNING_STATE::WIDTH, RUNNING_STATE::HEIGHT, RUNNING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(RUNNING_STATE::START_FRAME, RUNNING_STATE::END_FRAME);
@@ -77,7 +81,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 		return new RunningState();
 	}
 
-	else if (input->isKeyDown(RUNNING_LEFT_KEY))
+	else if (input->isKeyDown(key.getLeftKey()))
 	{
 		player.initialize(gamePtr, RUNNING_STATE::WIDTH, RUNNING_STATE::HEIGHT, RUNNING_STATE::TEXTURE_COLS, textureM);
 		player.flipHorizontal(true);
@@ -89,7 +93,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 		return new RunningState();
 	}
 
-	else if (input->isKeyDown(CROUCHING_KEY))
+	else if (input->isKeyDown(key.getDownKey()))
 	{
 		player.initialize(gamePtr, CROUCHING_STATE::WIDTH, CROUCHING_STATE::HEIGHT, CROUCHING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(CROUCHING_STATE::START_FRAME, CROUCHING_STATE::END_FRAME);
@@ -98,7 +102,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 		
 	}
 
-	else if (input->isKeyDown(MELEE_ATTACK_KEY))
+	else if (input->isKeyDown(key.getMeleeKey()))
 	{
 		player.initialize(gamePtr, MELEE_ATTACK_STATE::WIDTH, MELEE_ATTACK_STATE::HEIGHT, MELEE_ATTACK_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(MELEE_ATTACK_STATE::START_FRAME, MELEE_ATTACK_STATE::END_FRAME);
@@ -110,7 +114,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 
 	}
 
-	else if (input->isKeyDown(RANGE_ATTACK_KEY))
+	else if (input->isKeyDown(key.getRangeKey()))
 	{
 		player.initialize(gamePtr, RANGE_ATTACK_STATE::WIDTH, RANGE_ATTACK_STATE::HEIGHT, RANGE_ATTACK_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(RANGE_ATTACK_STATE::START_FRAME, RANGE_ATTACK_STATE::END_FRAME);
@@ -121,7 +125,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 
 	}
 
-	else if (input->isKeyDown(DISTRACT_KEY))
+	else if (input->isKeyDown(key.getDistractKey()))
 	{
 		player.initialize(gamePtr, THROWING_STATE::WIDTH, THROWING_STATE::HEIGHT, THROWING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(THROWING_STATE::START_FRAME, THROWING_STATE::END_FRAME);
@@ -137,6 +141,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 
 PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM,  StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
+	KeyBinding key;
 	player.setOnGround(false);
 	player.setCollideWithVision(false);
 	VECTOR2 collisionVector;
@@ -209,7 +214,7 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 	//} 
 	if (!player.isCollidingWithVision())
 	{
-		if (input->isKeyDown(ASSASSINATE_KEY))
+		if (input->isKeyDown(key.getAssassinateKey()))
 		{
 			player.initialize(gamePtr, ASSASSINATE_STATE::WIDTH, ASSASSINATE_STATE::HEIGHT, ASSASSINATE_STATE::TEXTURE_COLS, textureM);
 			player.setFrames(ASSASSINATE_STATE::START_FRAME, ASSASSINATE_STATE::END_FRAME);
@@ -229,7 +234,7 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 		return new FallingState();
 	}
 
-	if (!input->isKeyDown(RUNNING_RIGHT_KEY)&& !input->isKeyDown(RUNNING_LEFT_KEY))
+	if (!input->isKeyDown(key.getRightKey())&& !input->isKeyDown(key.getLeftKey()))
 	{
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(0, 0);
@@ -237,7 +242,7 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 		return new StandState();
 	}
 
-	else if (input->isKeyDown(JUMPING_KEY) && input->isKeyDown(RUNNING_RIGHT_KEY))
+	else if (input->isKeyDown(key.getJumpKey()) && input->isKeyDown(key.getRightKey()))
 	{
 		player.initialize(gamePtr, JUMPING_STATE::WIDTH, JUMPING_STATE::HEIGHT, JUMPING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(JUMPING_STATE::START_FRAME, JUMPING_STATE::END_FRAME);
@@ -249,7 +254,7 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 		return new JumpingState();
 	}
 
-	else if (input->isKeyDown(JUMPING_KEY) && input->isKeyDown(RUNNING_LEFT_KEY))
+	else if (input->isKeyDown(key.getJumpKey()) && input->isKeyDown(key.getLeftKey()))
 	{
 		player.initialize(gamePtr, JUMPING_STATE::WIDTH, JUMPING_STATE::HEIGHT, JUMPING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(JUMPING_STATE::START_FRAME, JUMPING_STATE::END_FRAME);
@@ -261,7 +266,7 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 		return new JumpingState();
 	}
 
-	else if (input->isKeyDown(MELEE_ATTACK_KEY))
+	else if (input->isKeyDown(key.getMeleeKey()))
 	{
 		player.initialize(gamePtr, MELEE_ATTACK_STATE::WIDTH, MELEE_ATTACK_STATE::HEIGHT, MELEE_ATTACK_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(MELEE_ATTACK_STATE::START_FRAME, MELEE_ATTACK_STATE::END_FRAME);
@@ -280,7 +285,8 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 
 PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
-	if (!input->isKeyDown(CROUCHING_KEY))
+	KeyBinding key;
+	if (!input->isKeyDown(key.getDownKey()))
 	{
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
@@ -288,7 +294,7 @@ PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gam
 		return new StandState();
 	}
 
-	else if (input->isKeyDown(RUNNING_RIGHT_KEY))
+	else if (input->isKeyDown(key.getRightKey()))
 	{
 		player.initialize(gamePtr, CROUCH_WALKING_STATE::WIDTH, CROUCH_WALKING_STATE::HEIGHT, CROUCH_WALKING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(CROUCH_WALKING_STATE::START_FRAME, CROUCH_WALKING_STATE::END_FRAME);
@@ -300,7 +306,7 @@ PlayerState* CrouchingState::handleInput(Player& player, Input* input, Game *gam
 		return new CrouchWalkingState();
 	}
 
-	else if (input->isKeyDown(RUNNING_LEFT_KEY))
+	else if (input->isKeyDown(key.getLeftKey()))
 	{
 		player.initialize(gamePtr, CROUCH_WALKING_STATE::WIDTH, CROUCH_WALKING_STATE::HEIGHT, CROUCH_WALKING_STATE::TEXTURE_COLS, textureM);
 		player.setFrames(CROUCH_WALKING_STATE::START_FRAME, CROUCH_WALKING_STATE::END_FRAME);
@@ -383,6 +389,7 @@ PlayerState* ThrowingState::handleInput(Player& player, Input* input, Game *game
 
 PlayerState* CrouchWalkingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
 {
+	KeyBinding key;
 	//VECTOR2 collisionVector;
 	//FILLS *fillCollection = stagegenerator->getFills();
 
@@ -404,7 +411,7 @@ PlayerState* CrouchWalkingState::handleInput(Player& player, Input* input, Game 
 	//	}
 	//}
 
-	if (!input->isKeyDown(RUNNING_RIGHT_KEY) && !input->isKeyDown(RUNNING_LEFT_KEY) || !input->isKeyDown(CROUCHING_KEY))
+	if (!input->isKeyDown(key.getRightKey()) && !input->isKeyDown(key.getLeftKey()) || !input->isKeyDown(key.getDownKey()))
 	{
 
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
