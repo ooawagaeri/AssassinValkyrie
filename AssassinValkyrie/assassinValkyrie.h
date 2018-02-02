@@ -52,7 +52,6 @@ private:
 	StageGenerator	*stageGenerator;
 	TextureManager	floorTexture;
 	Hideout			*tempChar;
-	TextureManager	ladderTexture;
 	TextureManager	bulletTextures;
 
 	TextureManager	pickupTextures;

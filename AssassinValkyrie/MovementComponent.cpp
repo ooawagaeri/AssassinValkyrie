@@ -59,7 +59,6 @@ void PatrolMovement::update(float frameTime)
 ProjectileMovement::ProjectileMovement(Entity *ent, float dist) : MovementComponent(ent)
 {
 	distance = dist;
-	//speed = fireNS::SPEED;
 	speed = 2*fireNS::SPEED;
 	if (distance < 0) distance = -distance;
 
