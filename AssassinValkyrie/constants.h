@@ -72,6 +72,12 @@ const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 // audio cues
 const char STEALTH[] = "stealth";
 const char RUSH[] = "rush";
+const char BUTTON_ENTER[] = "menu1";
+const char BUTTON_HOVER[] = "menu2";
+const char ALERT[] = "alert";
+const char FIREBALL[] = "fireball";
+const char BULLET[] = "laser";
+const char SWORD[] = "sword";
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
@@ -91,8 +97,10 @@ const UCHAR DEFAULT_RANGE_KEY = 'F';
 const UCHAR DEFAULT_DISTRACT_KEY = 'H';
 const UCHAR DEFAULT_ASSASSINATE_KEY = 'R';
 const UCHAR DEFAULT_JUMPING_KEY = VK_SPACE;
-
+const UCHAR CLIMBING_KEY = 'W';
+const UCHAR CLIMBING_UP_KEY = 'W';
+const UCHAR CLIMBING_DOWN_KEY = 'S';
 // weapon types
-enum WEAPON { BULLET, MISSILE, LASER, SHIP };
+enum WEAPON { };
 
 #endif

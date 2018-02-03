@@ -146,10 +146,11 @@ void AssassinValkyrie::update()
 	dashboard->update(frameTime, player, input);
 	//stageGenerator->update(frameTime);
 	mouse->update();
-	emBulletList.update(frameTime, this, &bulletTextures, player);
+	emBulletList.update(frameTime, this, &bulletTextures, player, audio);
 	player->update(frameTime,this,&playerTextures,stageGenerator,&emList,visionPlatforms);
+	background->update(frameTime, player, stageGenerator, &emList, &emBulletList);
 	weaponManager.update(frameTime, input, this, arrowNS::WIDTH, arrowNS::HEIGHT, arrowNS::ARROW_TEXTURE_COLS, stoneNS::STONE_TEXTURE_COLS, &playerTextures, *player, key);
-	emList.update(frameTime, visionPlatforms);
+	emList.update(frameTime, visionPlatforms, audio);
 }
 
 // Artificial Intelligence
@@ -164,15 +165,14 @@ void AssassinValkyrie::collisions()
     VECTOR2 collisionVector;
 	weaponManager.collisions(&emList, player, floorPlatforms);
 	player->collisions(&emList, stageGenerator);
-	emList.collisions(player, floorPlatforms, sidePlatforms);
-	emBulletList.collisions(player);
+	emList.collisions(player, floorPlatforms, sidePlatforms, audio);
+	emBulletList.collisions(player, visionPlatforms);
 	background->collisions(player, stageGenerator);
 }
 
 // Render game items
 void AssassinValkyrie::render()
 {
-
 	background->draw();
 	stageGenerator->render();
 	mouse->draw();

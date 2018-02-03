@@ -213,13 +213,13 @@ void MainMenu::update()
 		// Start Button
 		if(startButton.collideButton(*cursor) && input->getMouseLButton())
 		{
+			audio->playCue(BUTTON_ENTER);
 			gameStart = true;
 			audio->stopCue(RUSH);
 			assValk = new AssassinValkyrie();
 			assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime, &paused, cursor, key);
 			audio->playCue(STEALTH);
 		}
-
 		if (settingsButton.collideButton(*cursor) && input->getMouseLButton())
 		{
 			settings = true;
@@ -348,6 +348,7 @@ void MainMenu::update()
 			assValk->resetAll();
 			gameStart = false;
 		}
+
 	}
 }
 
@@ -383,10 +384,10 @@ void MainMenu::collisions()
 		//if (!exitButton.collidesWith(*cursor, collisionVector))
 		//	exitButton.setCurrentFrame(buttonNS::EXIT_BUTTON_FRAME);
 
-		startButton.collisions(*cursor, buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
-		settingsButton.collisions(*cursor, buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME);
-		creditsButton.collisions(*cursor, buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME);
-		exitButton.collisions(*cursor, buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME);
+		startButton.collisions(*cursor, buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME, audio);
+		settingsButton.collisions(*cursor, buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME, audio);
+		creditsButton.collisions(*cursor, buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME, audio);
+		exitButton.collisions(*cursor, buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME, audio);
 	}
 
 	if (!gameStart && settings && !enterKey)
@@ -401,13 +402,12 @@ void MainMenu::collisions()
 		assassinateButton.collisions(*cursor, settingsNS::ASSASSINATE_FRAME, settingsNS::ASSASSINATE_HOVER);
 		backButton.collisions(*cursor, settingsNS::BACK_FRAME, settingsNS::BACK_HOVER);
 		defaultButton.collisions(*cursor, settingsNS::DEFAULT_FRAME, settingsNS::DEFAULT_HOVER);
-
 	}
 
 	if (gameStart && !assValk->getPause())
 	{
 		assValk->collisions();
-		pauseButton.collisions(*cursor, dashboardNS::PAUSE_FRAME, dashboardNS::PAUSE_HOVER_FRAME);
+		pauseButton.collisions(*cursor, dashboardNS::PAUSE_FRAME, dashboardNS::PAUSE_HOVER_FRAME, audio);
 	}
 
 	if (gameStart && assValk->getPause())
@@ -421,7 +421,6 @@ void MainMenu::collisions()
 void MainMenu::render()
 {
 	graphics->spriteBegin();
-
 
 	if (gameStart)
 	{
@@ -537,7 +536,6 @@ void MainMenu::releaseAll()
 	{
 		mmBackgroundTexture.onLostDevice();
 		buttonsTexture.onLostDevice();
-
 	}
 	mouseTextures.onLostDevice();
 	SAFE_DELETE(cursor);
@@ -551,6 +549,7 @@ void MainMenu::releaseAll()
 	SAFE_DELETE(distractKey);
 	SAFE_DELETE(assassinateKey);
 	SAFE_DELETE(pausedText);
+
 }
 
 void MainMenu::resetAll()
@@ -561,8 +560,6 @@ void MainMenu::resetAll()
 	{
 		mmBackgroundTexture.onResetDevice();
 		buttonsTexture.onResetDevice();
-
 	}
 	mouseTextures.onResetDevice();
-
 }

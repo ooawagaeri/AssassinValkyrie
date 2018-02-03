@@ -11,10 +11,9 @@
 #include "FallingState.h"
 #include "ThrowingState.h"
 #include "AssassinateState.h"
-
 #include "keyBinding.h"
-
-
+#include "ClimbReadyState.h"
+#include "ClimbingState.h"
 
 
 PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator,EnemyManager *enemyList, PLATFORM p)
@@ -25,9 +24,11 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 	GUNNERLIST *gunnerCollection = enemyList->getGunners();
 	TROOPERLIST *trooperCollection = enemyList->getTroopers();
 	SERPANTLIST *serpantCollection = enemyList->getSerpants();
+	LADDERS *ladderCollection = stagegenerator->getLadders();
 
 	Player *playerpointer;
 	playerpointer = &player;
+
 	for (GUNNERLIST::iterator gunner = (gunnerCollection->begin()); gunner != gunnerCollection->end(); gunner++)
 	{
 		if ((*gunner)->getRay()->inSight(*playerpointer->getCenter(),p))
@@ -53,6 +54,20 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 
 			player.setCollideWithVision(true);
 
+		}
+	}
+
+	for (LADDERS::iterator ladder = (ladderCollection->begin()); ladder != ladderCollection->end(); ladder++)
+	{
+		if (player.collidesWith(**ladder, collisionVector))
+		{
+			if (input->isKeyDown(CLIMBING_UP_KEY) || input->isKeyDown(CLIMBING_DOWN_KEY))
+			{
+				player.initialize(gamePtr,CLIMB_READY_STATE::WIDTH, CLIMB_READY_STATE::HEIGHT, CLIMB_READY_STATE::TEXTURE_COLS, textureM);
+				player.setFrames(CLIMB_READY_STATE::START_FRAME, CLIMB_READY_STATE::END_FRAME);
+				player.setCurrentFrame(CLIMB_READY_STATE::START_FRAME);
+				return new ClimbReadyState();
+			}
 		}
 	}
 
@@ -89,7 +104,7 @@ PlayerState* StandState::handleInput(Player& player, Input* input, Game *gamePtr
 		player.setCurrentFrame(RUNNING_STATE::START_FRAME);
 		player.setFrameDelay(0.2);
 		player.setLoop(true);
-		player.setVelocity(VECTOR2(-RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel()), -RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel())));
+		player.setVelocity(VECTOR2(-RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel()), RUNNING_STATE::RUNNING_SPEED*player.calcMultipler(player.getSpeedLevel())));
 		return new RunningState();
 	}
 
@@ -237,21 +252,24 @@ PlayerState* RunningState::handleInput(Player& player, Input* input, Game *gameP
 	if (!input->isKeyDown(key.getRightKey())&& !input->isKeyDown(key.getLeftKey()))
 	{
 		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
-		player.setFrames(0, 0);
-		player.setCurrentFrame(0);
+		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
+		player.setCurrentFrame(STANDING_STATE::START_FRAME);
 		return new StandState();
 	}
 
 	else if (input->isKeyDown(key.getJumpKey()) && input->isKeyDown(key.getRightKey()))
 	{
-		player.initialize(gamePtr, JUMPING_STATE::WIDTH, JUMPING_STATE::HEIGHT, JUMPING_STATE::TEXTURE_COLS, textureM);
-		player.setFrames(JUMPING_STATE::START_FRAME, JUMPING_STATE::END_FRAME);
-		player.setCurrentFrame(JUMPING_STATE::START_FRAME);
-		player.setFrameDelay(0.2);
-		player.flipHorizontal(false);
-		player.setLoop(false);
-		player.setJumpRight(true);
-		return new JumpingState();
+		
+				player.initialize(gamePtr, JUMPING_STATE::WIDTH, JUMPING_STATE::HEIGHT, JUMPING_STATE::TEXTURE_COLS, textureM);
+				player.setFrames(JUMPING_STATE::START_FRAME, JUMPING_STATE::END_FRAME);
+				player.setCurrentFrame(JUMPING_STATE::START_FRAME);
+				player.setFrameDelay(0.2);
+				player.flipHorizontal(false);
+				player.setLoop(false);
+				player.setJumpRight(true);
+				return new JumpingState();
+
+		
 	}
 
 	else if (input->isKeyDown(key.getJumpKey()) && input->isKeyDown(key.getLeftKey()))
@@ -459,28 +477,28 @@ PlayerState* JumpingState::handleInput(Player& player, Input* input, Game *gameP
 		}
 	}
 
-	for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
-	{
-		if (player.collidesWith(**fill, collisionVector))
-		{
-			if (!player.isFlipHorizontal())
-			{
-				player.setX((*fill)->getX() - FALLING_STATE::WIDTH-10);
-			}
+	//for (FILLS::iterator fill = (fillCollection->begin()); fill != fillCollection->end(); fill++)
+	//{
+		//if (player.collidesWith(**fill, collisionVector))
+		//{
+			//if (!player.isFlipHorizontal())
+			//{
+				//player.setX((*fill)->getX() - FALLING_STATE::WIDTH-10);
+			//}
 
-			else
-			{
-				player.setX((*fill)->getX() + FALLING_STATE::WIDTH+10);
-			}
+			//else
+			//{
+				//player.setX((*fill)->getX() + FALLING_STATE::WIDTH+10);
+			//}
 			
-			player.initialize(gamePtr, FALLING_STATE::WIDTH, FALLING_STATE::HEIGHT, FALLING_STATE::TEXTURE_COLS, textureM);
-			player.setFrames(FALLING_STATE::START_FRAME, FALLING_STATE::END_FRAME);
-			player.setCurrentFrame(FALLING_STATE::START_FRAME);
+			//player.initialize(gamePtr, FALLING_STATE::WIDTH, FALLING_STATE::HEIGHT, FALLING_STATE::TEXTURE_COLS, textureM);
+			//player.setFrames(FALLING_STATE::START_FRAME, FALLING_STATE::END_FRAME);
+			//player.setCurrentFrame(FALLING_STATE::START_FRAME);
 			//player.setVelocity(VECTOR2(FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel()), FALLING_STATE::FALLING_SPEED*player.calcMultipler(player.getSpeedLevel())));
-			return new FallingState();
+			//return new FallingState();
 
-		}
-	}
+		//}
+	//}
 
 	return NULL;
 }
@@ -503,5 +521,63 @@ PlayerState* FallingState::handleInput(Player& player, Input* input, Game *gameP
 		}
 	}
 
+	return NULL;
+}
+
+PlayerState* ClimbReadyState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
+{
+	if (input->isKeyDown(CLIMBING_UP_KEY))
+	{
+		player.initialize(gamePtr, CLIMBING_STATE::WIDTH, CLIMBING_STATE::HEIGHT, CLIMBING_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(CLIMBING_STATE::START_FRAME, CLIMBING_STATE::END_FRAME);
+		player.setCurrentFrame(CLIMBING_STATE::START_FRAME);
+		player.setFrameDelay(0.2);
+		player.setLoop(true);
+		player.setVelocity(VECTOR2(CLIMBING_STATE::CLIMBING_SPEED*player.calcMultipler(player.getSpeedLevel()), -CLIMBING_STATE::CLIMBING_SPEED*player.calcMultipler(player.getSpeedLevel())));
+		return new ClimbingState();
+	}
+
+	if (input->isKeyDown(CLIMBING_DOWN_KEY))
+	{
+		player.initialize(gamePtr, CLIMBING_STATE::WIDTH, CLIMBING_STATE::HEIGHT, CLIMBING_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(CLIMBING_STATE::START_FRAME, CLIMBING_STATE::END_FRAME);
+		player.setCurrentFrame(CLIMBING_STATE::START_FRAME);
+		player.setFrameDelay(0.2);
+		player.setLoop(true);
+		player.setVelocity(VECTOR2(CLIMBING_STATE::CLIMBING_SPEED*player.calcMultipler(player.getSpeedLevel()), CLIMBING_STATE::CLIMBING_SPEED*player.calcMultipler(player.getSpeedLevel())));
+		return new ClimbingState();
+	}
+	return NULL;
+}
+
+PlayerState* ClimbingState::handleInput(Player& player, Input* input, Game *gamePtr, TextureManager *textureM, StageGenerator *stagegenerator, EnemyManager *enemyList, PLATFORM p)
+{
+	player.setCollideWithLadder(false);
+	LADDERS *ladderCollection = stagegenerator->getLadders();
+	VECTOR2 collisionVector;
+
+	for (LADDERS::iterator ladder = (ladderCollection->begin()); ladder != ladderCollection->end(); ladder++)
+	{
+		if (player.collidesWith(**ladder, collisionVector))
+		{
+			player.setCollideWithLadder(true);
+		}
+	}
+
+	if (!player.isCollidingWithLadder())
+	{
+		player.initialize(gamePtr, STANDING_STATE::WIDTH, STANDING_STATE::HEIGHT, STANDING_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(STANDING_STATE::START_FRAME, STANDING_STATE::END_FRAME);
+		player.setCurrentFrame(STANDING_STATE::START_FRAME);
+		return new StandState();
+	}
+	if (!input->isKeyDown(CLIMBING_UP_KEY) && !input->isKeyDown(CLIMBING_DOWN_KEY))
+	{
+		player.initialize(gamePtr, CLIMB_READY_STATE::WIDTH, CLIMB_READY_STATE::HEIGHT, CLIMB_READY_STATE::TEXTURE_COLS, textureM);
+		player.setFrames(CLIMB_READY_STATE::START_FRAME, CLIMB_READY_STATE::END_FRAME);
+		player.setCurrentFrame(CLIMB_READY_STATE::START_FRAME);
+		return new ClimbReadyState();
+	}
+	
 	return NULL;
 }

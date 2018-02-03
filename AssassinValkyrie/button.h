@@ -65,7 +65,7 @@ namespace settingsNS
 class Button : public Entity
 {
 private:
-
+	bool mouseOn;
 public:
 	Button();
 	virtual ~Button();
@@ -79,7 +79,7 @@ public:
 	bool collideButton(Entity &ent);
 
 	void collisions(int startFrame, int endFrame);
-	void collisions(Entity &ent, int startFrame, int endFrame);
+	void collisions(Entity &ent, int startFrame, int endFrame, Audio *a);
 	bool collideWithin();
 	void releaseAll();
 	void resetAll();
