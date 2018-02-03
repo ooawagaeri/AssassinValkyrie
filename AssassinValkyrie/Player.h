@@ -13,6 +13,7 @@
 #include "StandingState.h"
 #include "enemyManager.h"
 #include "stageGenerator.h"
+#include "keyBinding.h"
 
 namespace playerNS
 {
@@ -42,9 +43,12 @@ protected:
 	bool jumpRight = false;
 	bool jumpLeft = false;
 	bool collidingWithVision = false;
+	bool collidingWithLadder = false;
 	bool isMeleeAttacking = false;
 	bool isAssassinating = false;
 	bool onGround = false;
+	int total_arrow = 0;
+	int total_stone = 0;
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
@@ -103,6 +107,15 @@ public:
 	{
 		return collidingWithVision;
 	}
+	void setCollideWithLadder(bool condition)
+	{
+		collidingWithLadder = condition;
+	}
+	bool isCollidingWithLadder()
+	{
+		return collidingWithLadder;
+	}
+
 	void setOnGround(bool condition)
 	{
 		onGround = condition;
@@ -111,6 +124,24 @@ public:
 	{
 		return onGround;
 	}
+
+	void setTotalArrow(int number)
+	{
+		total_arrow = number;
+	}
+	bool getTotalArrow()
+	{
+		return total_arrow;
+	}
+	void setTotalStone(int number)
+	{
+		total_stone = number;
+	}
+	bool getTotalStone()
+	{
+		return total_stone;
+	}
+  
 	void setStealthLevel() { stealthLevel++; }
 	int getStealthLevel() { return stealthLevel; }
 

@@ -28,8 +28,8 @@ private:
 	float velocityX = 150 * cos(45 * PI / 180);
 	float velocityY = -(150 * sin(45 * PI / 180));
 	float gravity = 9.81;
-	float DestinationTime =500 / velocityX;
-	float TimeInterval = DestinationTime / 50;
+	float DestinationTime =2293 / velocityX;
+	float TimeInterval = DestinationTime /150;
 	float t = 0;
 public:
 
@@ -42,14 +42,14 @@ public:
 	{
 		
 		velocityY += gravity*t*frameTime;
-
+		player.setVelocityY(velocityY);
 		if (player.getJumpRight())
 		{
 
 			player.setX(player.getX() + velocityX*frameTime);
 			player.setY(player.getY() + velocityY*frameTime);
 			t += TimeInterval;
-			player.setVelocityY(velocityY);
+			
 
 		}
 
@@ -58,7 +58,6 @@ public:
 			player.setX(player.getX() - velocityX*frameTime);
 			player.setY(player.getY() + velocityY*frameTime);
 			t += TimeInterval;
-			player.setVelocityY(velocityY);
 
 		}
 

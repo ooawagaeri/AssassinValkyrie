@@ -76,6 +76,7 @@ public:
 	FLOORS *getFloors() { return &floorCollection; }
 	FILLS *getFills() { return &fillCollection; }
 	FILLS *getSides() { return &sideCollection; }
+	LADDERS *getLadders() { return &ladderCollection; }
 
 	HPS *getHP() { return &hpCollection; }
 	PICKUPARROWS *getPickupArrows() { return &pickupArrowCollection; }
