@@ -24,7 +24,7 @@ class FallingState : public PlayerState
 
 private:
 
-	float fallingVelocity = 300;
+	float fallingVelocity =150;
 	float gravity = 9.81;
 public:
 

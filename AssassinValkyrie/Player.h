@@ -13,6 +13,7 @@
 #include "StandingState.h"
 #include "enemyManager.h"
 #include "stageGenerator.h"
+#include "keyBinding.h"
 
 namespace playerNS
 {
@@ -42,9 +43,12 @@ protected:
 	bool jumpRight = false;
 	bool jumpLeft = false;
 	bool collidingWithVision = false;
+	bool collidingWithLadder = false;
 	bool isMeleeAttacking = false;
 	bool isAssassinating = false;
 	bool onGround = false;
+	int total_arrow = 0;
+	int total_stone = 0;
 	int totalXP;
 	int totalLevels;
 	int currentTotalLevel;
@@ -54,6 +58,7 @@ protected:
 	int armorLevel;
 	PlayerState* state_;
 	int skillPointAvailable;
+	int maxHealth;
 public:
 	// constructor
 	Player();
@@ -102,6 +107,15 @@ public:
 	{
 		return collidingWithVision;
 	}
+	void setCollideWithLadder(bool condition)
+	{
+		collidingWithLadder = condition;
+	}
+	bool isCollidingWithLadder()
+	{
+		return collidingWithLadder;
+	}
+
 	void setOnGround(bool condition)
 	{
 		onGround = condition;
@@ -110,7 +124,24 @@ public:
 	{
 		return onGround;
 	}
-	void setSpeedLevel(int i) { speedLevel = i; }
+
+	void setTotalArrow(int number)
+	{
+		total_arrow = number;
+	}
+	int getTotalArrow()
+	{
+		return total_arrow;
+	}
+	void setTotalStone(int number)
+	{
+		total_stone = number;
+	}
+	int getTotalStone()
+	{
+		return total_stone;
+	}
+  
 	void setStealthLevel() { stealthLevel++; }
 	int getStealthLevel() { return stealthLevel; }
 
@@ -132,5 +163,8 @@ public:
 	int getSkillPoints() { return skillPointAvailable; }
 	void useSkillPoints() { skillPointAvailable--; }
 	float calcMultipler(int level) { return 1 + (level *0.33); }
+
+	void setMaxHealth(int i) { maxHealth = i; }
+	int getMaxHealth() { return maxHealth; }
 };
 #endif
