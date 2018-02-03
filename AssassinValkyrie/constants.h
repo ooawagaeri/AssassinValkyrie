@@ -82,6 +82,7 @@ const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key
 
 
 //control key for player ship
+const UCHAR ENTER_HIDEOUT = 'W';
 const UCHAR RUNNING_RIGHT_KEY = 'D';
 const UCHAR RUNNING_LEFT_KEY = 'A';
 const UCHAR CROUCHING_KEY = 'S';
