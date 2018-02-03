@@ -26,11 +26,11 @@ class Stone : public Entity
 
 private:
 
-	float velocityX = 200 * cos(45 * PI / 180);
-	float velocityY = -(200 * sin(45 * PI / 180));
+	float velocityX = 150 * cos(45 * PI / 180);
+	float velocityY = -(150 * sin(45 * PI / 180));
 	float gravity = 9.81;
-	float DestinationTime = 500 / velocityX;
-	float TimeInterval = DestinationTime / 50;
+	float DestinationTime = 2293 / velocityX;
+	float TimeInterval = DestinationTime / 200;
 	float t = 0;
 	bool throwingRight = true;
 

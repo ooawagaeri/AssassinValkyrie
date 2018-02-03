@@ -80,20 +80,22 @@ void WeaponManager::update(float frameTime, Input *input, Game *gamePtr, int wid
 
 	if (input->isKeyDown(RANGE_ATTACK_KEY))
 	{
-		if (GetTickCount() - Tick > 500)
+		if (GetTickCount() - Tick > 500 && player.getTotalArrow()>0)
 		{
 			Tick = GetTickCount();
 			arrow_collection.push_back(new Arrow());
+			player.setTotalArrow(player.getTotalArrow() - 1);
 			initializeArrow(gamePtr, width, height, arrowcols, textureM, X, Y, player);
 		}
 	}
 
-	else if (input->isKeyDown(DISTRACT_KEY) )
+	else if (input->isKeyDown(DISTRACT_KEY))
 	{
-		if (GetTickCount() - Tick2 > 500)
+		if (GetTickCount() - Tick2 > 500 && player.getTotalStone()>0)
 		{
 			Tick2 = GetTickCount();
 			stone_collection.push_back(new Stone());
+			player.setTotalStone(player.getTotalStone() - 1);
 			initializeStone(gamePtr, width, height,stonecols, textureM, X, Y, player);
 		}
 	}

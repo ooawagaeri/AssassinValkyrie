@@ -96,7 +96,9 @@ const UCHAR RANGE_ATTACK_KEY = 'F';
 const UCHAR DISTRACT_KEY = 'H';
 const UCHAR ASSASSINATE_KEY = 'R';
 const UCHAR JUMPING_KEY = VK_SPACE;
-
+const UCHAR CLIMBING_KEY = 'W';
+const UCHAR CLIMBING_UP_KEY = 'W';
+const UCHAR CLIMBING_DOWN_KEY = 'S';
 // weapon types
 enum WEAPON { };
 
