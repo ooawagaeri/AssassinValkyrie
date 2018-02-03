@@ -94,35 +94,26 @@ void MainMenu::update()
 
 	if (!gameStart)
 	{
-
-		// Start Button
-		//if (startButton.collidesWith(*cursor, collisionVector) && input->getMouseLButton())
-		//if (input->isKeyDown(ENTER_KEY))
-		//if(startButton.click() && input->getMouseLButton() )
 		if(startButton.collideButton(*cursor) && input->getMouseLButton())
 		{
+			audio->playCue(BUTTON_ENTER);
 			gameStart = true;
 			audio->stopCue(RUSH);
 			assValk->initialize(*this, &hwnd, &hr, &timeStart, &timeEnd, &timerFreq, &frameTime, &paused, cursor);
 			audio->playCue(STEALTH);
 		}
-
 		// Exit Button
 		if (input->isKeyDown(ESC_KEY) || (exitButton.collideButton(*cursor) && input->getMouseLButton()))
 		{
 			Game::exitGame();
 		}
 	}
-
-
-
 	if (gameStart && !assValk->getPause())
 	{
 		if (pauseButton.collideButton(*cursor) && input->getMouseLButton())
 			assValk->setPause(true);
 
 		assValk->update();
-
 	}
 }
 
@@ -137,47 +128,21 @@ void MainMenu::collisions()
 	VECTOR2 collisionVector;
 	if (!gameStart)
 	{
-		/*if (!startButton.collideButton(*cursor))
-			startButton.collisions(buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
-		if (startButton.collideButton(*cursor))
-			startButton.setCurrentFrame(buttonNS::START_BUTTON_FRAME);
-
-		if (startButton.collidesWith(*cursor,collisionVector))
-			startButton.collisions(buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
-		if (!startButton.collideButton(*cursor))
-			startButton.setCurrentFrame(buttonNS::START_BUTTON_FRAME);
-		if (settingsButton.collideButton(*cursor))
-			settingsButton.collisions(buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME);
-		if (!settingsButton.collideButton(*cursor))
-			settingsButton.setCurrentFrame(buttonNS::SETTINGS_BUTTON_FRAME);
-		if (creditsButton.collideButton(*cursor))
-			creditsButton.collisions(buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME);
-		if (!creditsButton.collideButton(*cursor))
-			creditsButton.setCurrentFrame(buttonNS::CREDITS_BUTTON_FRAME);
-		if (exitButton.collideButton(*cursor))
-			exitButton.collisions(buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME);
-		if (!exitButton.collidesWith(*cursor, collisionVector))
-			exitButton.setCurrentFrame(buttonNS::EXIT_BUTTON_FRAME);*/
-
-		startButton.collisions(*cursor, buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME);
-		settingsButton.collisions(*cursor, buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME);
-		creditsButton.collisions(*cursor, buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME);
-		exitButton.collisions(*cursor, buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME);
-
-
+		startButton.collisions(*cursor, buttonNS::START_BUTTON_FRAME, buttonNS::START_HOVER_BUTTON_FRAME, audio);
+		settingsButton.collisions(*cursor, buttonNS::SETTINGS_BUTTON_FRAME, buttonNS::SETTINGS_HOVER_BUTTON_FRAME, audio);
+		creditsButton.collisions(*cursor, buttonNS::CREDITS_BUTTON_FRAME, buttonNS::CREDITS_HOVER_BUTTON_FRAME, audio);
+		exitButton.collisions(*cursor, buttonNS::EXIT_BUTTON_FRAME, buttonNS::EXIT_HOVER_BUTTON_FRAME, audio);
 	}
 	if (gameStart)
 	{
 		assValk->collisions();
-		pauseButton.collisions(*cursor, dashboardNS::PAUSE_FRAME, dashboardNS::PAUSE_HOVER_FRAME);
-
+		pauseButton.collisions(*cursor, dashboardNS::PAUSE_FRAME, dashboardNS::PAUSE_HOVER_FRAME, audio);
 	}
 }
 
 void MainMenu::render()
 {
 	graphics->spriteBegin();
-
 
 	if (gameStart)
 	{
@@ -208,10 +173,8 @@ void MainMenu::releaseAll()
 	{
 		mmBackgroundTexture.onLostDevice();
 		buttonsTexture.onLostDevice();
-
 	}
 	mouseTextures.onLostDevice();
-
 }
 
 void MainMenu::resetAll()
@@ -222,8 +185,6 @@ void MainMenu::resetAll()
 	{
 		mmBackgroundTexture.onResetDevice();
 		buttonsTexture.onResetDevice();
-
 	}
 	mouseTextures.onResetDevice();
-
 }
