@@ -13,6 +13,7 @@
 #include "StandingState.h"
 #include "enemyManager.h"
 #include "stageGenerator.h"
+#include "keyBinding.h"
 
 namespace playerNS
 {
