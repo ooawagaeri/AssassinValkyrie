@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>AssassinValkyrie</ProjectName>
+    <ProjectGuid>{0259B800-2046-467E-94A2-D13B6F5210BC}</ProjectGuid>
+    <RootNamespace>Destroyer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="arrow.cpp" />
+    <ClCompile Include="audio.cpp" />
+    <ClCompile Include="background.cpp" />
+    <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="button.cpp" />
+    <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="dashboard.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyBulletManager.cpp" />
+    <ClCompile Include="enemyManager.cpp" />
+    <ClCompile Include="enemyState.cpp" />
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="fill.cpp" />
+    <ClCompile Include="fireBall.cpp" />
+    <ClCompile Include="floor.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="gunner.cpp" />
+    <ClCompile Include="healthbar.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="hideout.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="assassinValkyrie.cpp" />
+    <ClCompile Include="keyBinding.cpp" />
+    <ClCompile Include="leftFill.cpp" />
+    <ClCompile Include="levelLoader.cpp" />
+    <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="ladder.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="pickup.cpp" />
+    <ClCompile Include="pickupArrow.cpp" />
+    <ClCompile Include="pickupHP.cpp" />
+    <ClCompile Include="pickupStone.cpp" />
+    <ClCompile Include="rayCasting.cpp" />
+    <ClCompile Include="rightFill.cpp" />
+    <ClCompile Include="textDX.cpp" />
+    <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="trooper.cpp" />
+    <ClCompile Include="serpant.cpp" />
+    <ClCompile Include="stageGenerator.cpp" />
+    <ClCompile Include="stone.cpp" />
+    <ClCompile Include="weaponManager.cpp" />
+    <ClCompile Include="horizontalLoader.cpp" />
+    <ClCompile Include="verticalLoader.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="playerBar.cpp" />
+    <ClCompile Include="winmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="alertState.h" />
+    <ClInclude Include="AttackComponent.h" />
+    <ClInclude Include="AssassinateState.h" />
+    <ClInclude Include="audio.h" />
+    <ClInclude Include="background.h" />
+    <ClInclude Include="bullet.h" />
+    <ClInclude Include="button.h" />
+    <ClInclude Include="ClimbingState.h" />
+    <ClInclude Include="ClimbReadyState.h" />
+    <ClInclude Include="cursor.h" />
+    <ClInclude Include="dashboard.h" />
+    <ClInclude Include="distractedState.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyBulletManager.h" />
+    <ClInclude Include="enemyManager.h" />
+    <ClInclude Include="enemyState.h" />
+    <ClInclude Include="FallingState.h" />
+    <ClInclude Include="gunner.h" />
+    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="fill.h" />
+    <ClInclude Include="floor.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="entity.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gameError.h" />
+    <ClInclude Include="graphics.h" />
+    <ClInclude Include="arrow.h" />
+    <ClInclude Include="hideout.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="assassinValkyrie.h" />
+    <ClInclude Include="keyBinding.h" />
+    <ClInclude Include="ladder.h" />
+    <ClInclude Include="leftFill.h" />
+    <ClInclude Include="levelLoader.h" />
+    <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="patrolState.h" />
+    <ClInclude Include="pickup.h" />
+    <ClInclude Include="pickupArrow.h" />
+    <ClInclude Include="pickupHP.h" />
+    <ClInclude Include="pickupStone.h" />
+    <ClInclude Include="rayCasting.h" />
+    <ClInclude Include="rightFill.h" />
+    <ClInclude Include="standState.h" />
+    <ClInclude Include="stageGenerator.h" />
+    <ClInclude Include="horizontalLoader.h" />
+    <ClInclude Include="textDX.h" />
+    <ClInclude Include="textureManager.h" />
+    <ClInclude Include="ThrowingState.h" />
+    <ClInclude Include="trooper.h" />
+    <ClInclude Include="verticalLoader.h" />
+    <ClInclude Include="CrouchingState.h" />
+    <ClInclude Include="CrouchWalkingState.h" />
+    <ClInclude Include="JumpingState.h" />
+    <ClInclude Include="MeleeAttackState.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="RangeAttackState.h" />
+    <ClInclude Include="RunningState.h" />
+    <ClInclude Include="StandingState.h" />
+    <ClInclude Include="fireBall.h" />
+    <ClInclude Include="healthBar.h" />
+    <ClInclude Include="serpant.h" />
+    <ClInclude Include="stone.h" />
+    <ClInclude Include="weaponManager.h" />
+    <ClInclude Include="returnState.h" />
+    <ClInclude Include="playerBar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="1-horizontal.txt" />
+    <Text Include="1-vertical.txt" />
+    <Text Include="map.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
