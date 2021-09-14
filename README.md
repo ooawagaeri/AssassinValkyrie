@@ -4,7 +4,6 @@
   </a>
 </p>
 <h1 align="center">Assassin Valkyrie</h1>
-<h3 align="center"><i>A stealth-based platformer on C++ DirectX Game</i></h3>
+<h3 align="center"><i>A Stealth Platformer Game on C++ DirectX</i></h3>
 <p align="center">
 A Ngee Ann Polytechnic Gameplay Programing Project involving C++,pixel art, mathematics and  computer graphics to deploy an assassin inspired game.
-
